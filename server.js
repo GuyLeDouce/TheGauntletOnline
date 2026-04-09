@@ -84,6 +84,14 @@ function isXAuthEnabled() {
   return Boolean(pool && X_CLIENT_ID && X_REDIRECT_URI);
 }
 
+function getXAuthIssues() {
+  const issues = [];
+  if (!DATABASE_URL) issues.push("DATABASE_URL_LEADERBOARD is missing");
+  if (!X_CLIENT_ID) issues.push("X_CLIENT_ID is missing");
+  if (!X_REDIRECT_URI) issues.push("X_REDIRECT_URI is missing");
+  return issues;
+}
+
 function base64Url(input) {
   return Buffer.from(input)
     .toString("base64")
@@ -595,7 +603,8 @@ async function handleApi(req, res, requestUrl) {
 
   if (requestUrl.pathname === "/api/auth/x/status" && req.method === "GET") {
     sendJson(res, 200, {
-      enabled: isXAuthEnabled()
+      enabled: isXAuthEnabled(),
+      issues: getXAuthIssues()
     });
     return true;
   }

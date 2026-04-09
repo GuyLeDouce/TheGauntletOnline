@@ -27,6 +27,7 @@ const els = {
   loginStatus: document.getElementById("loginStatus"),
   xAuthStatus: document.getElementById("xAuthStatus"),
   loginHandle: document.getElementById("loginHandle"),
+  xIssueText: document.getElementById("xIssueText"),
   profileForm: document.getElementById("profileForm"),
   walletAddress: document.getElementById("walletAddress"),
   discordHandle: document.getElementById("discordHandle"),
@@ -66,6 +67,7 @@ const state = {
   leaderboard: [],
   currentPlacement: null,
   xAuthEnabled: false,
+  xAuthIssues: [],
   roundIndex: 1,
   livesRemaining: 2,
   stack: 0,
@@ -172,8 +174,14 @@ function syncLobbySummary() {
 
 function syncLoginScreen() {
   els.xAuthStatus.textContent = state.xAuthEnabled ? "Ready" : "Not Configured";
+  els.connectXButton.disabled = !state.xAuthEnabled;
   els.enterLobbyButton.classList.toggle("hidden", !state.profile.twitterHandle);
   els.connectXButton.textContent = state.profile.twitterHandle ? "Reconnect X Account" : "Connect X Account";
+  const issueText = state.xAuthIssues.length
+    ? `X login is not configured: ${state.xAuthIssues.join("; ")}`
+    : "";
+  els.xIssueText.textContent = issueText;
+  els.xIssueText.classList.toggle("hidden", !issueText);
 }
 
 function disableButtons() {
@@ -388,15 +396,20 @@ async function loadXAuthStatus() {
   try {
     const response = await apiFetch("/api/auth/x/status");
     state.xAuthEnabled = Boolean(response.enabled);
+    state.xAuthIssues = Array.isArray(response.issues) ? response.issues : [];
   } catch {
     state.xAuthEnabled = false;
+    state.xAuthIssues = ["Could not reach /api/auth/x/status"];
   }
   syncLoginScreen();
 }
 
 function startXLogin() {
   if (!state.xAuthEnabled) {
-    showToast("X login is not configured on the server.");
+    const issueText = state.xAuthIssues.length
+      ? `X login is not configured: ${state.xAuthIssues.join("; ")}`
+      : "X login is not configured on the server.";
+    showToast(issueText);
     return;
   }
   window.location.href = `/auth/x/start?clientId=${encodeURIComponent(state.clientId)}`;

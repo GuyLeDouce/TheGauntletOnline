@@ -261,6 +261,14 @@ button {
   background: linear-gradient(135deg, #c44430, #df9455);
 }
 
+.primary-action:disabled,
+.secondary-action:disabled,
+.danger-action:disabled {
+  cursor: not-allowed;
+  opacity: 0.52;
+  filter: grayscale(0.2);
+}
+
 .secondary-action {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.14);
