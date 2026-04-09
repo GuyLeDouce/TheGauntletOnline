@@ -92,7 +92,36 @@
       </aside>
 
       <main class="stage">
-        <section class="screen lobby-screen visible" id="lobbyScreen">
+        <section class="screen login-screen visible" id="loginScreen">
+          <div class="overlay-card lobby-card">
+            <h1 class="hero-title">DECISION GAUNTLET</h1>
+            <p class="lead">
+              Connect your X account to enter.
+            </p>
+
+            <div class="lobby-actions centered-buttons">
+              <button type="button" class="primary-action" id="connectXButton">Connect X Account</button>
+              <button type="button" class="secondary-action hidden" id="enterLobbyButton">Enter Lobby</button>
+            </div>
+
+            <div class="status-grid">
+              <div class="status-pill">
+                <span class="status-label">Login Status</span>
+                <strong id="loginStatus">Not Connected</strong>
+              </div>
+              <div class="status-pill">
+                <span class="status-label">X Auth</span>
+                <strong id="xAuthStatus">Checking</strong>
+              </div>
+              <div class="status-pill">
+                <span class="status-label">Current X</span>
+                <strong id="loginHandle">None</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen lobby-screen" id="lobbyScreen">
           <div class="overlay-card lobby-card">
             <h1 class="hero-title">DECISION GAUNTLET</h1>
             <p class="lead">

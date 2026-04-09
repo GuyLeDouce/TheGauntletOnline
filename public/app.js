@@ -21,6 +21,12 @@ const els = {
   connectToggle: document.getElementById("connectToggle"),
   connectPanel: document.getElementById("connectPanel"),
   closeConnectPanel: document.getElementById("closeConnectPanel"),
+  loginScreen: document.getElementById("loginScreen"),
+  connectXButton: document.getElementById("connectXButton"),
+  enterLobbyButton: document.getElementById("enterLobbyButton"),
+  loginStatus: document.getElementById("loginStatus"),
+  xAuthStatus: document.getElementById("xAuthStatus"),
+  loginHandle: document.getElementById("loginHandle"),
   profileForm: document.getElementById("profileForm"),
   walletAddress: document.getElementById("walletAddress"),
   discordHandle: document.getElementById("discordHandle"),
@@ -59,6 +65,7 @@ const state = {
   },
   leaderboard: [],
   currentPlacement: null,
+  xAuthEnabled: false,
   roundIndex: 1,
   livesRemaining: 2,
   stack: 0,
@@ -132,6 +139,7 @@ function toggleConnectPanel(forceOpen) {
 }
 
 function setVisibleScreen(screenName) {
+  els.loginScreen.classList.toggle("visible", screenName === "login");
   els.lobbyScreen.classList.toggle("visible", screenName === "lobby");
   els.gameScreen.classList.toggle("visible", screenName === "game");
 }
@@ -152,12 +160,20 @@ function syncProfileForm() {
   els.twitterHandle.value = state.profile.twitterHandle || "";
   els.lobbyLives.textContent = String(lifeTierFromProfile(state.profile));
   els.identityStatus.textContent = leaderboardName() || "None Set";
+  els.loginHandle.textContent = state.profile.twitterHandle || "None";
+  els.loginStatus.textContent = state.profile.twitterHandle ? "Connected" : "Not Connected";
 }
 
 function syncLobbySummary() {
   const best = Number(state.currentPlacement?.best_points_ever || 0);
   els.lobbyBest.textContent = `${best} Pts`;
   els.rulesCopy.textContent = APP_COPY.info.join("\n");
+}
+
+function syncLoginScreen() {
+  els.xAuthStatus.textContent = state.xAuthEnabled ? "Ready" : "Not Configured";
+  els.enterLobbyButton.classList.toggle("hidden", !state.profile.twitterHandle);
+  els.connectXButton.textContent = state.profile.twitterHandle ? "Reconnect X Account" : "Connect X Account";
 }
 
 function disableButtons() {
@@ -271,6 +287,7 @@ async function loadProfile() {
   }
 
   syncProfileForm();
+  syncLoginScreen();
 }
 
 async function saveProfile() {
@@ -289,6 +306,7 @@ async function saveProfile() {
   }
   await refreshLeaderboard();
   showToast("Profile details saved.");
+  syncLoginScreen();
 }
 
 async function saveRunToLeaderboard(points, resultType, finalRound) {
@@ -364,6 +382,43 @@ function handleStartAttempt() {
       { label: "Continue Anyways", variant: "secondary-action", onClick: beginRun }
     ]
   );
+}
+
+async function loadXAuthStatus() {
+  try {
+    const response = await apiFetch("/api/auth/x/status");
+    state.xAuthEnabled = Boolean(response.enabled);
+  } catch {
+    state.xAuthEnabled = false;
+  }
+  syncLoginScreen();
+}
+
+function startXLogin() {
+  if (!state.xAuthEnabled) {
+    showToast("X login is not configured on the server.");
+    return;
+  }
+  window.location.href = `/auth/x/start?clientId=${encodeURIComponent(state.clientId)}`;
+}
+
+function enterLobby() {
+  if (!state.profile.twitterHandle) {
+    showToast("Connect your X account first.");
+    return;
+  }
+  setVisibleScreen("lobby");
+}
+
+function handleAuthQueryFeedback() {
+  const params = new URLSearchParams(window.location.search);
+  const authState = params.get("x_auth");
+  if (authState === "success") showToast("X account connected.");
+  if (authState === "error") showToast("X login failed.");
+  if (authState === "disabled") showToast("X login is not configured.");
+  if (authState) {
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
 }
 
 async function finishRun({ resultType, finalText, bonus = 0, finalImage, pointsOverride = null }) {
@@ -583,6 +638,8 @@ async function showRound() {
 
 els.connectToggle.addEventListener("click", () => toggleConnectPanel());
 els.closeConnectPanel.addEventListener("click", () => toggleConnectPanel(false));
+els.connectXButton.addEventListener("click", startXLogin);
+els.enterLobbyButton.addEventListener("click", enterLobby);
 els.rulesButton.addEventListener("click", () => els.rulesDialog.showModal());
 els.leaderboardButton.addEventListener("click", async () => {
   await refreshLeaderboard();
@@ -623,7 +680,11 @@ window.addEventListener("click", (event) => {
 });
 
 state.clientId = getOrCreateClientId();
+handleAuthQueryFeedback();
 await loadProfile();
+await loadXAuthStatus();
 await refreshLeaderboard();
 syncProfileForm();
 syncLobbySummary();
+syncLoginScreen();
+setVisibleScreen(state.profile.twitterHandle ? "lobby" : "login");
