@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Gauntlet Online</title>
+    <meta
+      name="description"
+      content="Standalone web app adaptation of The Gauntlet solo mode."
+    >
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <div class="app-shell" id="app">
+      <div class="backdrop"></div>
+      <div class="backdrop-vignette"></div>
+
+      <header class="topbar">
+        <a
+          class="brand"
+          href="https://i.imgur.com/7BhOkhC.png"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Squigs logo"
+        >
+          <img src="https://i.imgur.com/7BhOkhC.png" alt="Squigs">
+        </a>
+
+        <div class="topbar-actions">
+          <a
+            class="icon-button discord-link"
+            href="https://squigs.io/discord"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Join Discord"
+            title="Join Discord"
+          >
+            <span class="discord-mark" aria-hidden="true"></span>
+          </a>
+
+          <button
+            class="icon-button connect-toggle"
+            type="button"
+            id="connectToggle"
+            aria-expanded="false"
+            aria-controls="connectPanel"
+          >
+            <span class="ugly-badge">I'm Ugly</span>
+          </button>
+        </div>
+      </header>
+
+      <aside class="connect-panel hidden" id="connectPanel">
+        <div class="panel-card">
+          <div class="panel-heading">
+            <h2>Identity Links</h2>
+            <button class="close-panel" id="closeConnectPanel" type="button" aria-label="Close">
+              ×
+            </button>
+          </div>
+
+          <p class="panel-copy">
+            Save the profile details you want attached to this browser session.
+          </p>
+
+          <form class="connect-form" id="profileForm">
+            <label>
+              <span>Wallet Address</span>
+              <input id="walletAddress" name="walletAddress" type="text" placeholder="0x..." autocomplete="off">
+            </label>
+
+            <label>
+              <span>Discord Handle / ID</span>
+              <input id="discordHandle" name="discordHandle" type="text" placeholder="@username or user id" autocomplete="off">
+            </label>
+
+            <label>
+              <span>DRIP User ID</span>
+              <input id="dripUserId" name="dripUserId" type="text" placeholder="DRIP user id" autocomplete="off">
+            </label>
+
+            <div class="profile-actions">
+              <button type="submit" class="primary-action">Save Details</button>
+              <button type="button" class="secondary-action" id="clearProfile">Clear</button>
+            </div>
+          </form>
+        </div>
+      </aside>
+
+      <main class="stage">
+        <section class="screen lobby-screen visible" id="lobbyScreen">
+          <div class="overlay-card lobby-card">
+            <p class="eyebrow">Decision Gauntlet</p>
+            <h1>The Gauntlet Online</h1>
+            <p class="lead">
+              Click Start to enter alone. Every room is private. Every mistake resets the climb.
+            </p>
+            <p class="sublead">
+              The lobby image remains behind the entire run. Room images appear centered while the story types out over them, then your decision buttons appear.
+            </p>
+
+            <div class="lobby-actions">
+              <button type="button" class="primary-action" id="startGameButton">Start Lobby</button>
+              <button type="button" class="secondary-action" id="rulesButton">How It Works</button>
+            </div>
+
+            <div class="status-grid">
+              <div class="status-pill">
+                <span class="status-label">Lives</span>
+                <strong id="lobbyLives">1</strong>
+              </div>
+              <div class="status-pill">
+                <span class="status-label">Best This Month</span>
+                <strong id="lobbyBest">0 $CHARM</strong>
+              </div>
+              <div class="status-pill">
+                <span class="status-label">Runs</span>
+                <strong id="lobbyRuns">0</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen game-screen" id="gameScreen">
+          <div class="hud-row">
+            <div class="hud-pill" id="roundHud">Round 1/10</div>
+            <div class="hud-pill" id="livesHud">Lives: 1</div>
+            <div class="hud-pill" id="rewardHud">Stack: 0 $CHARM</div>
+          </div>
+
+          <div class="scene-card">
+            <div class="scene-image-wrap">
+              <img id="sceneImage" alt="Gauntlet round scene">
+            </div>
+
+            <div class="scene-overlay">
+              <h2 id="sceneTitle">Decision Gauntlet</h2>
+              <pre id="sceneText" class="scene-text"></pre>
+              <div class="button-row" id="choiceButtons"></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog class="modal-card" id="rulesDialog">
+      <form method="dialog" class="modal-body">
+        <div class="panel-heading">
+          <h2>How It Works</h2>
+          <button class="close-panel" type="submit" aria-label="Close">×</button>
+        </div>
+        <div class="rules-copy" id="rulesCopy"></div>
+        <div class="profile-actions">
+          <button class="primary-action" type="submit">Close</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

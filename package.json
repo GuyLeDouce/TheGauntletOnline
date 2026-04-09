@@ -1,0 +1,13 @@
+{
+  "name": "the-gauntlet-online",
+  "version": "1.0.0",
+  "description": "Standalone web app version of The Gauntlet solo mode for Railway Public Networking.",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
