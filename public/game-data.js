@@ -11,7 +11,7 @@ export const APP_COPY = {
 };
 
 export const TIMINGS = {
-  typewriterMsPerCharacter: 28,
+  typewriterMsPerCharacter: 56,
   preRevealDelayMs: 1400,
   revealHoldMs: 2200,
   restartDelayMs: 3600
@@ -26,7 +26,7 @@ export const DECISION_GAUNTLET_RESTART_TEXT = [
   "",
   "DEAD.",
   "",
-  "But not finished.",
+  "But he's not finished.",
   "",
   "InSquignito gets another chance...",
   "Returning to Room 1."
