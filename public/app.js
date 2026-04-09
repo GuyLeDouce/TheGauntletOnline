@@ -1,6 +1,7 @@
 import {
   APP_COPY,
   COMPLETION_BONUS,
+  DEAD_IMAGE,
   DECISION_GAUNTLET_FAIL_END_TEXT,
   DECISION_GAUNTLET_RESTART_TEXT,
   DECISION_GAUNTLET_ROUNDS,
@@ -9,8 +10,8 @@ import {
 } from "/game-data.js";
 
 const STORAGE_KEYS = {
-  profile: "gauntlet-online-profile",
-  stats: "gauntlet-online-stats"
+  clientId: "gauntlet-online-client-id",
+  profile: "gauntlet-online-profile"
 };
 
 const els = {
@@ -20,10 +21,11 @@ const els = {
   profileForm: document.getElementById("profileForm"),
   walletAddress: document.getElementById("walletAddress"),
   discordHandle: document.getElementById("discordHandle"),
-  dripUserId: document.getElementById("dripUserId"),
+  twitterHandle: document.getElementById("twitterHandle"),
   clearProfile: document.getElementById("clearProfile"),
   startGameButton: document.getElementById("startGameButton"),
   rulesButton: document.getElementById("rulesButton"),
+  leaderboardButton: document.getElementById("leaderboardButton"),
   lobbyScreen: document.getElementById("lobbyScreen"),
   gameScreen: document.getElementById("gameScreen"),
   sceneImage: document.getElementById("sceneImage"),
@@ -35,13 +37,24 @@ const els = {
   rewardHud: document.getElementById("rewardHud"),
   lobbyLives: document.getElementById("lobbyLives"),
   lobbyBest: document.getElementById("lobbyBest"),
-  lobbyRuns: document.getElementById("lobbyRuns"),
+  identityStatus: document.getElementById("identityStatus"),
   rulesDialog: document.getElementById("rulesDialog"),
-  rulesCopy: document.getElementById("rulesCopy")
+  rulesCopy: document.getElementById("rulesCopy"),
+  leaderboardDialog: document.getElementById("leaderboardDialog"),
+  leaderboardCopy: document.getElementById("leaderboardCopy"),
+  startPromptDialog: document.getElementById("startPromptDialog"),
+  startPromptCopy: document.getElementById("startPromptCopy"),
+  startPromptActions: document.getElementById("startPromptActions")
 };
 
 const state = {
-  runId: null,
+  clientId: null,
+  profile: {
+    walletAddress: "",
+    discordHandle: "",
+    twitterHandle: ""
+  },
+  leaderboard: [],
   roundIndex: 1,
   livesRemaining: 1,
   stack: 0,
@@ -51,74 +64,52 @@ const state = {
 
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-function loadJson(key, fallback) {
+function getOrCreateClientId() {
+  let clientId = window.localStorage.getItem(STORAGE_KEYS.clientId);
+  if (!clientId) {
+    clientId = `client_${Math.random().toString(36).slice(2)}${Date.now().toString(36)}`;
+    window.localStorage.setItem(STORAGE_KEYS.clientId, clientId);
+  }
+  return clientId;
+}
+
+function readLocalProfile() {
   try {
-    const raw = window.localStorage.getItem(key);
-    return raw ? JSON.parse(raw) : fallback;
+    const raw = window.localStorage.getItem(STORAGE_KEYS.profile);
+    if (!raw) return { walletAddress: "", discordHandle: "", twitterHandle: "" };
+    return JSON.parse(raw);
   } catch {
-    return fallback;
+    return { walletAddress: "", discordHandle: "", twitterHandle: "" };
   }
 }
 
-function saveJson(key, value) {
-  window.localStorage.setItem(key, JSON.stringify(value));
+function writeLocalProfile(profile) {
+  window.localStorage.setItem(STORAGE_KEYS.profile, JSON.stringify(profile));
 }
 
-function getProfile() {
-  return loadJson(STORAGE_KEYS.profile, {
-    walletAddress: "",
-    discordHandle: "",
-    dripUserId: ""
+async function apiFetch(url, options = {}) {
+  const response = await fetch(url, {
+    headers: {
+      "Content-Type": "application/json"
+    },
+    ...options
   });
+
+  if (!response.ok) {
+    throw new Error(`Request failed with status ${response.status}`);
+  }
+
+  return response.json();
 }
 
-function getStats() {
-  return loadJson(STORAGE_KEYS.stats, {
-    runs: []
-  });
-}
-
-function saveRunRecord(record) {
-  const stats = getStats();
-  stats.runs.push({
-    ...record,
-    completedAt: new Date().toISOString()
-  });
-  saveJson(STORAGE_KEYS.stats, stats);
-}
-
-function currentMonthKey(date = new Date()) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  return `${year}-${month}`;
-}
-
-function monthStats() {
-  const month = currentMonthKey();
-  const runs = getStats().runs.filter((entry) => entry.month === month);
-  const best = runs.reduce((max, entry) => Math.max(max, Number(entry.payout || 0)), 0);
-  return { month, runs: runs.length, best };
+function leaderboardName(profile = state.profile) {
+  return profile.discordHandle || profile.twitterHandle || "";
 }
 
 function lifeTierFromProfile(profile) {
-  if (profile.walletAddress && profile.discordHandle && profile.dripUserId) return 3;
-  if ((profile.walletAddress && profile.discordHandle) || (profile.walletAddress && profile.dripUserId) || (profile.discordHandle && profile.dripUserId)) return 2;
+  if (profile.walletAddress && profile.discordHandle && profile.twitterHandle) return 3;
+  if ((profile.walletAddress && profile.discordHandle) || (profile.walletAddress && profile.twitterHandle) || (profile.discordHandle && profile.twitterHandle)) return 2;
   return 1;
-}
-
-function syncProfileForm() {
-  const profile = getProfile();
-  els.walletAddress.value = profile.walletAddress || "";
-  els.discordHandle.value = profile.discordHandle || "";
-  els.dripUserId.value = profile.dripUserId || "";
-  els.lobbyLives.textContent = String(lifeTierFromProfile(profile));
-}
-
-function syncLobbyStats() {
-  const summary = monthStats();
-  els.lobbyBest.textContent = `${summary.best} $CHARM`;
-  els.lobbyRuns.textContent = String(summary.runs);
-  els.rulesCopy.textContent = APP_COPY.info.join("\n");
 }
 
 function showToast(message) {
@@ -149,7 +140,26 @@ function getRound(roundIndex) {
 function updateHud() {
   els.roundHud.textContent = `Round ${state.roundIndex}/10`;
   els.livesHud.textContent = `Lives: ${state.livesRemaining}`;
-  els.rewardHud.textContent = `Stack: ${state.stack} $CHARM`;
+  els.rewardHud.textContent = `Stack: ${state.stack} Pts`;
+}
+
+function syncProfileForm() {
+  els.walletAddress.value = state.profile.walletAddress || "";
+  els.discordHandle.value = state.profile.discordHandle || "";
+  els.twitterHandle.value = state.profile.twitterHandle || "";
+  els.lobbyLives.textContent = String(lifeTierFromProfile(state.profile));
+  els.identityStatus.textContent = leaderboardName() || "None Set";
+}
+
+function syncLobbySummary() {
+  const best = state.leaderboard.reduce((max, item) => {
+    if (item.display_name === leaderboardName()) {
+      return Math.max(max, Number(item.best_run || 0));
+    }
+    return max;
+  }, 0);
+  els.lobbyBest.textContent = `${best} Pts`;
+  els.rulesCopy.textContent = APP_COPY.info.join("\n");
 }
 
 function disableButtons() {
@@ -189,11 +199,122 @@ async function presentScene({ title, image, text, buttons = [] }) {
   state.isBusy = false;
 }
 
-function startNewRun() {
-  const profile = getProfile();
-  state.runId = `${Date.now()}-${Math.floor(Math.random() * 100000)}`;
+function renderLeaderboard(entries) {
+  if (!entries.length) {
+    els.leaderboardCopy.textContent = "No leaderboard entries yet.";
+    return;
+  }
+
+  const list = document.createElement("ol");
+  list.className = "leaderboard-list";
+
+  entries.forEach((entry, index) => {
+    const item = document.createElement("li");
+    item.className = "leaderboard-item";
+    item.innerHTML = `
+      <strong>#${index + 1}</strong>
+      <span>${entry.display_name}</span>
+      <span>${entry.total_points} Pts</span>
+    `;
+    list.appendChild(item);
+  });
+
+  els.leaderboardCopy.innerHTML = "";
+  els.leaderboardCopy.appendChild(list);
+}
+
+async function refreshLeaderboard() {
+  try {
+    const response = await apiFetch("/api/leaderboard?limit=25");
+    state.leaderboard = Array.isArray(response.entries) ? response.entries : [];
+    renderLeaderboard(state.leaderboard);
+    syncLobbySummary();
+  } catch {
+    els.leaderboardCopy.textContent = "Leaderboard unavailable right now.";
+  }
+}
+
+async function loadProfile() {
+  state.clientId = getOrCreateClientId();
+  state.profile = readLocalProfile();
+
+  try {
+    const response = await apiFetch(`/api/profile?clientId=${encodeURIComponent(state.clientId)}`);
+    if (response?.profile) {
+      state.profile = {
+        walletAddress: response.profile.walletAddress || "",
+        discordHandle: response.profile.discordHandle || "",
+        twitterHandle: response.profile.twitterHandle || ""
+      };
+      writeLocalProfile(state.profile);
+    }
+  } catch {
+    // Keep local fallback.
+  }
+
+  syncProfileForm();
+}
+
+async function saveProfile() {
+  writeLocalProfile(state.profile);
+  try {
+    await apiFetch("/api/profile", {
+      method: "POST",
+      body: JSON.stringify({
+        clientId: state.clientId,
+        ...state.profile
+      })
+    });
+  } catch {
+    showToast("Saved in this browser. Database sync failed.");
+    return;
+  }
+  await refreshLeaderboard();
+  showToast("Profile details saved.");
+}
+
+async function saveRunToLeaderboard(points, resultType, finalRound) {
+  if (!leaderboardName()) return { saved: false, reason: "missing_identity" };
+
+  try {
+    const result = await apiFetch("/api/run", {
+      method: "POST",
+      body: JSON.stringify({
+        clientId: state.clientId,
+        points,
+        resultType,
+        finalRound
+      })
+    });
+    await refreshLeaderboard();
+    return result;
+  } catch {
+    return { saved: false, reason: "request_failed" };
+  }
+}
+
+function openStartPrompt(copy, actions) {
+  els.startPromptCopy.textContent = copy;
+  els.startPromptActions.innerHTML = "";
+
+  actions.forEach((action) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = action.variant || "secondary-action";
+    button.textContent = action.label;
+    button.addEventListener("click", () => {
+      els.startPromptDialog.close();
+      action.onClick();
+    }, { once: true });
+    els.startPromptActions.appendChild(button);
+  });
+
+  els.startPromptDialog.showModal();
+}
+
+function beginRun() {
   state.roundIndex = 1;
-  state.livesRemaining = lifeTierFromProfile(profile);
+  state.livesRemaining = lifeTierFromProfile(state.profile);
   state.stack = 0;
   state.roundsCleared = 0;
   updateHud();
@@ -201,14 +322,39 @@ function startNewRun() {
   showRound();
 }
 
+function handleStartAttempt() {
+  const name = leaderboardName();
+
+  if (name) {
+    openStartPrompt(
+      `Welcome to the Decision Gauntlet ${name}.\n\nAre you ready?`,
+      [
+        { label: "Yes", variant: "primary-action", onClick: beginRun },
+        { label: "No", variant: "secondary-action", onClick: () => setVisibleScreen("lobby") }
+      ]
+    );
+    return;
+  }
+
+  openStartPrompt(
+    "You need a Discord Handle / ID or X Handle saved if you want to climb the leaderboard.",
+    [
+      { label: "Set", variant: "primary-action", onClick: () => {
+        setVisibleScreen("lobby");
+        toggleConnectPanel(true);
+      } },
+      { label: "Continue Anyways", variant: "secondary-action", onClick: beginRun }
+    ]
+  );
+}
+
 async function finishRun({ resultType, finalText, bonus = 0, finalImage }) {
-  const payout = state.stack + bonus;
-  saveRunRecord({
-    month: currentMonthKey(),
-    payout,
-    finalRound: resultType === "Completion" ? 10 : state.roundsCleared || state.roundIndex,
-    resultType
-  });
+  const points = state.stack + bonus;
+  const finalRound = resultType === "Completion" ? 10 : state.roundsCleared || state.roundIndex;
+  const leaderboardSave = await saveRunToLeaderboard(points, resultType, finalRound);
+  const leaderboardNote = !leaderboardSave.saved && !leaderboardName()
+    ? "\n\nNo leaderboard entry was saved because you do not have a Discord or X identity set."
+    : "";
 
   updateHud();
 
@@ -218,52 +364,53 @@ async function finishRun({ resultType, finalText, bonus = 0, finalImage }) {
     text: [
       finalText,
       "",
-      `Final Round: ${resultType === "Completion" ? 10 : state.roundsCleared || state.roundIndex}`,
-      `Final Award: ${payout} $CHARM`,
-      `Result Type: ${resultType}`
+      `Final Round: ${finalRound}`,
+      `Final Award: ${points} Pts`,
+      `Result Type: ${resultType}`,
+      leaderboardNote
     ].join("\n"),
     buttons: [
       {
         label: "Back To Lobby",
         variant: "primary-action",
         onClick: () => {
-          syncLobbyStats();
           syncProfileForm();
+          syncLobbySummary();
           setVisibleScreen("lobby");
         }
       },
       {
         label: "Run Again",
         variant: "secondary-action",
-        onClick: startNewRun
+        onClick: handleStartAttempt
       }
     ]
   });
-
-  syncLobbyStats();
 }
 
-async function promptCashOutConfirm(round) {
+async function promptGoHomeScared(round) {
   await presentScene({
-    title: "End This Run?",
+    title: "Leave The Arena?",
     image: round.image,
     text: [
-      "You still have lives remaining. Are you sure you want to cash out and end this run?",
+      "You still have lives remaining.",
       "",
-      `Current Stacked Reward: ${state.stack} $CHARM`
+      `Current Stacked Reward: ${state.stack} Pts`,
+      "",
+      "Are you sure you want to go home scared?"
     ].join("\n"),
     buttons: [
       {
-        label: "Confirm Cash Out",
+        label: "Confirm Go Home Scared",
         variant: "danger-action",
         onClick: () => finishRun({
-          resultType: "Cash Out",
-          finalText: "You cashed out and ended the run.",
+          resultType: "Go Home Scared",
+          finalText: "You turned back and left the arena.",
           finalImage: round.image
         })
       },
       {
-        label: "Continue Playing",
+        label: "Continue",
         variant: "secondary-action",
         onClick: () => {
           state.roundIndex += 1;
@@ -280,10 +427,10 @@ async function promptPostRound(round) {
     title: `Round ${round.roundIndex} Cleared`,
     image: round.image,
     text: [
-      `InSquignito survived and stacked ${round.reward} $CHARM.`,
-      `Current stack: ${state.stack} $CHARM`,
+      `InSquignito survived and stacked ${round.reward} Pts.`,
+      `Current stack: ${state.stack} Pts`,
       "",
-      "Choose whether to keep pushing or end the run now."
+      "Choose whether to keep pushing or go home scared."
     ].join("\n"),
     buttons: [
       {
@@ -296,9 +443,9 @@ async function promptPostRound(round) {
         }
       },
       {
-        label: "Cash Out",
+        label: "Go Home Scared",
         variant: "secondary-action",
-        onClick: () => promptCashOutConfirm(round)
+        onClick: () => promptGoHomeScared(round)
       }
     ]
   });
@@ -319,7 +466,7 @@ async function resolveChoice(round) {
   const survived = Math.random() <= round.passChance;
   await presentScene({
     title: `Decision Gauntlet - Round ${round.roundIndex}/10`,
-    image: round.image,
+    image: survived ? round.image : DEAD_IMAGE,
     text: survived ? "ALIVE" : "DEAD"
   });
 
@@ -333,7 +480,7 @@ async function resolveChoice(round) {
       await finishRun({
         resultType: "Out of Lives",
         finalText: DECISION_GAUNTLET_FAIL_END_TEXT(state.stack),
-        finalImage: round.image
+        finalImage: DEAD_IMAGE
       });
       return;
     }
@@ -345,7 +492,7 @@ async function resolveChoice(round) {
 
     await presentScene({
       title: "The Gauntlet Pulls Him Back",
-      image: round.image,
+      image: DEAD_IMAGE,
       text: DECISION_GAUNTLET_RESTART_TEXT
     });
 
@@ -391,29 +538,32 @@ async function showRound() {
 els.connectToggle.addEventListener("click", () => toggleConnectPanel());
 els.closeConnectPanel.addEventListener("click", () => toggleConnectPanel(false));
 els.rulesButton.addEventListener("click", () => els.rulesDialog.showModal());
-els.startGameButton.addEventListener("click", startNewRun);
+els.leaderboardButton.addEventListener("click", async () => {
+  await refreshLeaderboard();
+  els.leaderboardDialog.showModal();
+});
+els.startGameButton.addEventListener("click", handleStartAttempt);
 
-els.profileForm.addEventListener("submit", (event) => {
+els.profileForm.addEventListener("submit", async (event) => {
   event.preventDefault();
-  const nextProfile = {
+  state.profile = {
     walletAddress: els.walletAddress.value.trim(),
     discordHandle: els.discordHandle.value.trim(),
-    dripUserId: els.dripUserId.value.trim()
+    twitterHandle: els.twitterHandle.value.trim()
   };
-  saveJson(STORAGE_KEYS.profile, nextProfile);
   syncProfileForm();
   toggleConnectPanel(false);
-  showToast("Profile details saved in this browser.");
+  await saveProfile();
 });
 
-els.clearProfile.addEventListener("click", () => {
-  saveJson(STORAGE_KEYS.profile, {
+els.clearProfile.addEventListener("click", async () => {
+  state.profile = {
     walletAddress: "",
     discordHandle: "",
-    dripUserId: ""
-  });
+    twitterHandle: ""
+  };
   syncProfileForm();
-  showToast("Profile details cleared.");
+  await saveProfile();
 });
 
 window.addEventListener("click", (event) => {
@@ -426,5 +576,8 @@ window.addEventListener("click", (event) => {
   }
 });
 
+state.clientId = getOrCreateClientId();
+await loadProfile();
+await refreshLeaderboard();
 syncProfileForm();
-syncLobbyStats();
+syncLobbySummary();

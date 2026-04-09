@@ -2,10 +2,10 @@ export const APP_COPY = {
   info: [
     "You start with lives based on your selected life tier in the web app.",
     "Clear 10 path-choice rooms in order.",
-    "After each cleared room, choose Continue or Cash Out.",
+    "After each cleared room, choose Continue or Go Home Scared.",
     "If you die and still have lives left, the run restarts at Room 1 and your current stack resets to 0.",
     "If you run out of lives, the run ends with whatever you had banked before the fatal room.",
-    "Clearing all 10 rooms grants a 500 $CHARM completion bonus."
+    "Clearing all 10 rooms grants a 500 Pts completion bonus."
   ]
 };
 
@@ -17,6 +17,7 @@ export const TIMINGS = {
 };
 
 export const COMPLETION_BONUS = 500;
+export const DEAD_IMAGE = "https://i.imgur.com/dsTrQX1.jpeg";
 
 export const DECISION_GAUNTLET_RESTART_TEXT = [
   "He chose.",
@@ -38,7 +39,7 @@ export const DECISION_GAUNTLET_FAIL_END_TEXT = (amount) =>
     "",
     "InSquignito falls back into the void.",
     "",
-    `You walk away with ${amount} $CHARM.`,
+    `You walk away with ${amount} Pts.`,
     "",
     "Tomorrow, perhaps."
   ].join("\n");
@@ -52,10 +53,10 @@ export const DECISION_GAUNTLET_WIN_END_TEXT = [
   "",
   "You have completed The Gauntlet.",
   "",
-  "550 $CHARM earned",
+  "550 Pts earned",
   "+500 Completion Bonus",
   "",
-  "Total: 1050 $CHARM",
+  "Total: 1050 Pts",
   "",
   "Go brag. You earned it."
 ].join("\n");

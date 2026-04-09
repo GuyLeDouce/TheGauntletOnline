@@ -17,3 +17,4 @@ Then open `http://localhost:3000`.
 - Railway will provide `PORT`; the server already binds `0.0.0.0`.
 - Expose the service using Railway Public Networking.
 - A `railway.json` file is included with an explicit start command and `/health` healthcheck.
+- Add `DATABASE_URL_LEADERBOARD` if you want profile storage and the all-time leaderboard saved in Railway Postgres.
