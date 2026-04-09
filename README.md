@@ -16,3 +16,4 @@ Then open `http://localhost:3000`.
 - Start command: `npm start`
 - Railway will provide `PORT`; the server already binds `0.0.0.0`.
 - Expose the service using Railway Public Networking.
+- A `railway.json` file is included with an explicit start command and `/health` healthcheck.

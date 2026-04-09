@@ -40,12 +40,29 @@ const server = http.createServer((req, res) => {
     return;
   }
 
+  const requestUrl = new URL(req.url, "http://localhost");
+
+  if (requestUrl.pathname === "/health") {
+    res.writeHead(200, {
+      "Content-Type": "application/json; charset=utf-8",
+      "Cache-Control": "no-cache"
+    });
+
+    if (req.method === "HEAD") {
+      res.end();
+      return;
+    }
+
+    res.end(JSON.stringify({ ok: true }));
+    return;
+  }
+
   if (req.method !== "GET" && req.method !== "HEAD") {
     send(res, 405, "Method Not Allowed", "text/plain; charset=utf-8");
     return;
   }
 
-  const relativePath = safePathname(req.url);
+  const relativePath = safePathname(requestUrl.toString());
   let filePath = path.join(PUBLIC_DIR, relativePath);
 
   if (!filePath.startsWith(PUBLIC_DIR)) {
