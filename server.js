@@ -14,10 +14,6 @@ const HOST = "0.0.0.0";
 const PORT = Number(process.env.PORT || 3000);
 const PUBLIC_DIR = path.join(__dirname, "public");
 const DATABASE_URL = process.env.DATABASE_URL_LEADERBOARD || "";
-const X_CLIENT_ID = process.env.X_CLIENT_ID || "";
-const X_CLIENT_SECRET = process.env.X_CLIENT_SECRET || "";
-const X_REDIRECT_URI = process.env.X_REDIRECT_URI || "";
-const X_OAUTH_COOKIE = "gauntlet_x_oauth";
 
 const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -54,18 +50,6 @@ function sendJson(res, statusCode, value) {
   send(res, statusCode, JSON.stringify(value), "application/json; charset=utf-8");
 }
 
-function redirect(res, location, cookies = []) {
-  const headers = {
-    Location: location,
-    "Cache-Control": "no-cache"
-  };
-  if (cookies.length) {
-    headers["Set-Cookie"] = cookies;
-  }
-  res.writeHead(302, headers);
-  res.end();
-}
-
 function safePathname(url) {
   const pathname = new URL(url, "http://localhost").pathname;
   const normalized = path.normalize(decodeURIComponent(pathname)).replace(/^(\.\.[/\\])+/, "");
@@ -78,62 +62,6 @@ function isValidClientId(value) {
 
 function normalizeText(value, maxLength = 200) {
   return String(value || "").trim().slice(0, maxLength);
-}
-
-function isXAuthEnabled() {
-  return Boolean(pool && X_CLIENT_ID && X_REDIRECT_URI);
-}
-
-function getXAuthIssues() {
-  const issues = [];
-  if (!DATABASE_URL) issues.push("DATABASE_URL_LEADERBOARD is missing");
-  if (!X_CLIENT_ID) issues.push("X_CLIENT_ID is missing");
-  if (!X_REDIRECT_URI) issues.push("X_REDIRECT_URI is missing");
-  return issues;
-}
-
-function base64Url(input) {
-  return Buffer.from(input)
-    .toString("base64")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_")
-    .replace(/=+$/g, "");
-}
-
-function sha256Base64Url(input) {
-  return crypto
-    .createHash("sha256")
-    .update(input)
-    .digest("base64")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_")
-    .replace(/=+$/g, "");
-}
-
-function serializeCookie(name, value, options = {}) {
-  const parts = [`${name}=${encodeURIComponent(value)}`];
-  parts.push(`Path=${options.path || "/"}`);
-  if (options.maxAge !== undefined) parts.push(`Max-Age=${options.maxAge}`);
-  if (options.httpOnly) parts.push("HttpOnly");
-  if (options.secure) parts.push("Secure");
-  if (options.sameSite) parts.push(`SameSite=${options.sameSite}`);
-  return parts.join("; ");
-}
-
-function parseCookies(req) {
-  const raw = req.headers.cookie || "";
-  return Object.fromEntries(
-    raw
-      .split(";")
-      .map((part) => part.trim())
-      .filter(Boolean)
-      .map((part) => {
-        const index = part.indexOf("=");
-        const key = index === -1 ? part : part.slice(0, index);
-        const value = index === -1 ? "" : part.slice(index + 1);
-        return [key, decodeURIComponent(value)];
-      })
-  );
 }
 
 function displayNameFromProfile(profile) {
@@ -320,18 +248,6 @@ async function upsertProfile(clientId, payload) {
   );
 
   return result.rows[0] || null;
-}
-
-async function updateTwitterHandle(clientId, twitterHandle) {
-  const current = (await getProfile(clientId)) || {
-    wallet_address: "",
-    discord_handle: ""
-  };
-  return upsertProfile(clientId, {
-    walletAddress: current.wallet_address || "",
-    discordHandle: current.discord_handle || "",
-    twitterHandle
-  });
 }
 
 async function insertRun(clientId, payload) {
@@ -600,15 +516,6 @@ async function handleApi(req, res, requestUrl) {
     });
     return true;
   }
-
-  if (requestUrl.pathname === "/api/auth/x/status" && req.method === "GET") {
-    sendJson(res, 200, {
-      enabled: isXAuthEnabled(),
-      issues: getXAuthIssues()
-    });
-    return true;
-  }
-
   return false;
 }
 
@@ -620,155 +527,6 @@ const server = http.createServer(async (req, res) => {
     }
 
     const requestUrl = new URL(req.url, "http://localhost");
-
-    if (requestUrl.pathname === "/auth/x/start" && req.method === "GET") {
-      if (!isXAuthEnabled()) {
-        redirect(res, "/?x_auth=disabled");
-        return;
-      }
-
-      const clientId = requestUrl.searchParams.get("clientId");
-      if (!isValidClientId(clientId)) {
-        redirect(res, "/?x_auth=error");
-        return;
-      }
-
-      const state = base64Url(crypto.randomBytes(24));
-      const codeVerifier = base64Url(crypto.randomBytes(48));
-      const codeChallenge = sha256Base64Url(codeVerifier);
-      const cookiePayload = JSON.stringify({
-        state,
-        codeVerifier,
-        clientId
-      });
-      const authorizeUrl = new URL("https://x.com/i/oauth2/authorize");
-      authorizeUrl.searchParams.set("response_type", "code");
-      authorizeUrl.searchParams.set("client_id", X_CLIENT_ID);
-      authorizeUrl.searchParams.set("redirect_uri", X_REDIRECT_URI);
-      authorizeUrl.searchParams.set("scope", "users.read");
-      authorizeUrl.searchParams.set("state", state);
-      authorizeUrl.searchParams.set("code_challenge", codeChallenge);
-      authorizeUrl.searchParams.set("code_challenge_method", "S256");
-
-      redirect(res, authorizeUrl.toString(), [
-        serializeCookie(X_OAUTH_COOKIE, cookiePayload, {
-          httpOnly: true,
-          secure: requestUrl.protocol === "https:",
-          sameSite: "Lax",
-          maxAge: 600,
-          path: "/"
-        })
-      ]);
-      return;
-    }
-
-    if (requestUrl.pathname === "/auth/x/callback" && req.method === "GET") {
-      const cookies = parseCookies(req);
-      const rawCookie = cookies[X_OAUTH_COOKIE];
-      const code = requestUrl.searchParams.get("code");
-      const returnedState = requestUrl.searchParams.get("state");
-
-      if (!rawCookie || !code || !returnedState) {
-        redirect(res, "/?x_auth=error", [
-          serializeCookie(X_OAUTH_COOKIE, "", {
-            httpOnly: true,
-            secure: requestUrl.protocol === "https:",
-            sameSite: "Lax",
-            maxAge: 0,
-            path: "/"
-          })
-        ]);
-        return;
-      }
-
-      let oauthState = null;
-      try {
-        oauthState = JSON.parse(rawCookie);
-      } catch {
-        oauthState = null;
-      }
-
-      if (!oauthState || oauthState.state !== returnedState || !isValidClientId(oauthState.clientId)) {
-        redirect(res, "/?x_auth=error", [
-          serializeCookie(X_OAUTH_COOKIE, "", {
-            httpOnly: true,
-            secure: requestUrl.protocol === "https:",
-            sameSite: "Lax",
-            maxAge: 0,
-            path: "/"
-          })
-        ]);
-        return;
-      }
-
-      try {
-        const tokenBody = new URLSearchParams({
-          code,
-          grant_type: "authorization_code",
-          redirect_uri: X_REDIRECT_URI,
-          code_verifier: oauthState.codeVerifier
-        });
-
-        if (!X_CLIENT_SECRET) {
-          tokenBody.set("client_id", X_CLIENT_ID);
-        }
-
-        const tokenHeaders = {
-          "Content-Type": "application/x-www-form-urlencoded"
-        };
-
-        if (X_CLIENT_SECRET) {
-          tokenHeaders.Authorization = `Basic ${Buffer.from(`${X_CLIENT_ID}:${X_CLIENT_SECRET}`).toString("base64")}`;
-        }
-
-        const tokenResponse = await fetch("https://api.x.com/2/oauth2/token", {
-          method: "POST",
-          headers: tokenHeaders,
-          body: tokenBody.toString()
-        });
-        const tokenJson = await tokenResponse.json();
-
-        if (!tokenResponse.ok || !tokenJson.access_token) {
-          throw new Error("X token exchange failed");
-        }
-
-        const meResponse = await fetch("https://api.x.com/2/users/me?user.fields=username,name", {
-          headers: {
-            Authorization: `Bearer ${tokenJson.access_token}`
-          }
-        });
-        const meJson = await meResponse.json();
-        const username = meJson?.data?.username ? `@${meJson.data.username}` : "";
-
-        if (!meResponse.ok || !username) {
-          throw new Error("X user lookup failed");
-        }
-
-        await updateTwitterHandle(oauthState.clientId, username);
-
-        redirect(res, "/?x_auth=success", [
-          serializeCookie(X_OAUTH_COOKIE, "", {
-            httpOnly: true,
-            secure: requestUrl.protocol === "https:",
-            sameSite: "Lax",
-            maxAge: 0,
-            path: "/"
-          })
-        ]);
-        return;
-      } catch {
-        redirect(res, "/?x_auth=error", [
-          serializeCookie(X_OAUTH_COOKIE, "", {
-            httpOnly: true,
-            secure: requestUrl.protocol === "https:",
-            sameSite: "Lax",
-            maxAge: 0,
-            path: "/"
-          })
-        ]);
-        return;
-      }
-    }
 
     if (requestUrl.pathname.startsWith("/api/") || requestUrl.pathname === "/health") {
       const handled = await handleApi(req, res, requestUrl);
