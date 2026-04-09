@@ -423,6 +423,12 @@ button {
   line-height: 1.6;
 }
 
+.leaderboard-wrap {
+  max-height: min(62vh, 720px);
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
 .leaderboard-list {
   margin: 0;
   padding: 0;
@@ -440,6 +446,40 @@ button {
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.04);
+}
+
+.leaderboard-item-current {
+  border-color: rgba(242, 196, 107, 0.68);
+  background: rgba(242, 196, 107, 0.12);
+  box-shadow: inset 0 0 0 1px rgba(242, 196, 107, 0.25);
+}
+
+.leaderboard-main {
+  display: grid;
+  gap: 4px;
+}
+
+.leaderboard-name {
+  font-weight: 700;
+}
+
+.leaderboard-meta {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.leaderboard-points {
+  font-weight: 700;
+  text-align: right;
+}
+
+.leaderboard-summary {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(242, 196, 107, 0.35);
+  background: rgba(242, 196, 107, 0.08);
+  color: var(--text);
 }
 
 .footer-stamp,
@@ -507,5 +547,10 @@ button {
 
   .leaderboard-item {
     grid-template-columns: 44px 1fr;
+  }
+
+  .leaderboard-points {
+    grid-column: 2;
+    text-align: left;
   }
 }

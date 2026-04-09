@@ -55,6 +55,7 @@ const state = {
     twitterHandle: ""
   },
   leaderboard: [],
+  currentPlacement: null,
   roundIndex: 1,
   livesRemaining: 1,
   stack: 0,
@@ -152,12 +153,7 @@ function syncProfileForm() {
 }
 
 function syncLobbySummary() {
-  const best = state.leaderboard.reduce((max, item) => {
-    if (item.display_name === leaderboardName()) {
-      return Math.max(max, Number(item.best_run || 0));
-    }
-    return max;
-  }, 0);
+  const best = Number(state.currentPlacement?.best_points_ever || 0);
   els.lobbyBest.textContent = `${best} Pts`;
   els.rulesCopy.textContent = APP_COPY.info.join("\n");
 }
@@ -205,28 +201,48 @@ function renderLeaderboard(entries) {
     return;
   }
 
+  const currentClientId = state.clientId;
+  const currentPlacement = state.currentPlacement;
+  const wrapper = document.createElement("div");
+  wrapper.className = "leaderboard-wrap";
   const list = document.createElement("ol");
   list.className = "leaderboard-list";
 
-  entries.forEach((entry, index) => {
+  entries.forEach((entry) => {
     const item = document.createElement("li");
-    item.className = "leaderboard-item";
+    item.className = `leaderboard-item${entry.client_id === currentClientId ? " leaderboard-item-current" : ""}`;
     item.innerHTML = `
-      <strong>#${index + 1}</strong>
-      <span>${entry.display_name}</span>
-      <span>${entry.total_points} Pts</span>
+      <strong>#${entry.placement}</strong>
+      <div class="leaderboard-main">
+        <span class="leaderboard-name">${entry.display_name}</span>
+        <span class="leaderboard-meta">Runs ${entry.user_runs_total} · Best ${entry.best_points_ever} · Wins ${entry.wins}</span>
+      </div>
+      <span class="leaderboard-points">${entry.total_points_earned} Pts</span>
     `;
     list.appendChild(item);
   });
 
   els.leaderboardCopy.innerHTML = "";
-  els.leaderboardCopy.appendChild(list);
+  wrapper.appendChild(list);
+  els.leaderboardCopy.appendChild(wrapper);
+
+  if (currentPlacement) {
+    const summary = document.createElement("div");
+    summary.className = "leaderboard-summary";
+    summary.textContent =
+      `Your placement: #${currentPlacement.placement} · ` +
+      `${currentPlacement.total_points_earned} Pts · ` +
+      `Runs ${currentPlacement.user_runs_total} · ` +
+      `Best ${currentPlacement.best_points_ever} · Wins ${currentPlacement.wins}`;
+    els.leaderboardCopy.appendChild(summary);
+  }
 }
 
 async function refreshLeaderboard() {
   try {
-    const response = await apiFetch("/api/leaderboard?limit=25");
+    const response = await apiFetch(`/api/leaderboard?limit=100&clientId=${encodeURIComponent(state.clientId)}`);
     state.leaderboard = Array.isArray(response.entries) ? response.entries : [];
+    state.currentPlacement = response.currentPlayer || null;
     renderLeaderboard(state.leaderboard);
     syncLobbySummary();
   } catch {

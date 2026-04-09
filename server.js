@@ -109,6 +109,18 @@ async function ensureDbReady() {
         );
       `);
       await pool.query(`
+        ALTER TABLE gauntlet_online_profiles
+        ADD COLUMN IF NOT EXISTS wallet_address TEXT;
+      `);
+      await pool.query(`
+        ALTER TABLE gauntlet_online_profiles
+        ADD COLUMN IF NOT EXISTS discord_handle TEXT;
+      `);
+      await pool.query(`
+        ALTER TABLE gauntlet_online_profiles
+        ADD COLUMN IF NOT EXISTS twitter_handle TEXT;
+      `);
+      await pool.query(`
         CREATE TABLE IF NOT EXISTS gauntlet_online_runs (
           id BIGSERIAL PRIMARY KEY,
           client_id TEXT NOT NULL,
@@ -122,6 +134,47 @@ async function ensureDbReady() {
       await pool.query(`
         CREATE INDEX IF NOT EXISTS gauntlet_online_runs_display_name_idx
         ON gauntlet_online_runs (display_name);
+      `);
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS gauntlet_online_leaderboard (
+          client_id TEXT PRIMARY KEY,
+          wallet_address TEXT,
+          discord_handle TEXT,
+          twitter_handle TEXT,
+          user_runs_total INTEGER NOT NULL DEFAULT 0,
+          total_points_earned INTEGER NOT NULL DEFAULT 0,
+          best_points_ever INTEGER NOT NULL DEFAULT 0,
+          wins INTEGER NOT NULL DEFAULT 0,
+          updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+        );
+      `);
+      await pool.query(`
+        ALTER TABLE gauntlet_online_leaderboard
+        ADD COLUMN IF NOT EXISTS wallet_address TEXT;
+      `);
+      await pool.query(`
+        ALTER TABLE gauntlet_online_leaderboard
+        ADD COLUMN IF NOT EXISTS discord_handle TEXT;
+      `);
+      await pool.query(`
+        ALTER TABLE gauntlet_online_leaderboard
+        ADD COLUMN IF NOT EXISTS twitter_handle TEXT;
+      `);
+      await pool.query(`
+        ALTER TABLE gauntlet_online_leaderboard
+        ADD COLUMN IF NOT EXISTS user_runs_total INTEGER NOT NULL DEFAULT 0;
+      `);
+      await pool.query(`
+        ALTER TABLE gauntlet_online_leaderboard
+        ADD COLUMN IF NOT EXISTS total_points_earned INTEGER NOT NULL DEFAULT 0;
+      `);
+      await pool.query(`
+        ALTER TABLE gauntlet_online_leaderboard
+        ADD COLUMN IF NOT EXISTS best_points_ever INTEGER NOT NULL DEFAULT 0;
+      `);
+      await pool.query(`
+        ALTER TABLE gauntlet_online_leaderboard
+        ADD COLUMN IF NOT EXISTS wins INTEGER NOT NULL DEFAULT 0;
       `);
     })().catch((error) => {
       dbReadyPromise = null;
@@ -173,6 +226,27 @@ async function upsertProfile(clientId, payload) {
     `,
     [clientId, walletAddress || null, discordHandle || null, twitterHandle || null]
   );
+
+  await pool.query(
+    `
+    INSERT INTO gauntlet_online_leaderboard (
+      client_id,
+      wallet_address,
+      discord_handle,
+      twitter_handle,
+      updated_at
+    )
+    VALUES ($1, $2, $3, $4, now())
+    ON CONFLICT (client_id)
+    DO UPDATE SET
+      wallet_address = EXCLUDED.wallet_address,
+      discord_handle = EXCLUDED.discord_handle,
+      twitter_handle = EXCLUDED.twitter_handle,
+      updated_at = now()
+    `,
+    [clientId, walletAddress || null, discordHandle || null, twitterHandle || null]
+  );
+
   return result.rows[0] || null;
 }
 
@@ -189,6 +263,7 @@ async function insertRun(clientId, payload) {
   const points = Math.max(0, Number(payload.points || 0) || 0);
   const finalRound = Math.max(0, Number(payload.finalRound || 0) || 0);
   const resultType = normalizeText(payload.resultType, 80) || "Unknown";
+  const didWin = resultType === "Completion" ? 1 : 0;
 
   await pool.query(
     `
@@ -204,27 +279,137 @@ async function insertRun(clientId, payload) {
     [clientId, displayName, points, resultType, finalRound]
   );
 
+  await pool.query(
+    `
+    INSERT INTO gauntlet_online_leaderboard (
+      client_id,
+      wallet_address,
+      discord_handle,
+      twitter_handle,
+      user_runs_total,
+      total_points_earned,
+      best_points_ever,
+      wins,
+      updated_at
+    )
+    VALUES (
+      $1,
+      $2,
+      $3,
+      $4,
+      1,
+      $5,
+      $5,
+      $6,
+      now()
+    )
+    ON CONFLICT (client_id)
+    DO UPDATE SET
+      wallet_address = EXCLUDED.wallet_address,
+      discord_handle = EXCLUDED.discord_handle,
+      twitter_handle = EXCLUDED.twitter_handle,
+      user_runs_total = gauntlet_online_leaderboard.user_runs_total + 1,
+      total_points_earned = gauntlet_online_leaderboard.total_points_earned + EXCLUDED.total_points_earned,
+      best_points_ever = GREATEST(gauntlet_online_leaderboard.best_points_ever, EXCLUDED.best_points_ever),
+      wins = gauntlet_online_leaderboard.wins + EXCLUDED.wins,
+      updated_at = now()
+    `,
+    [
+      clientId,
+      profile?.wallet_address || null,
+      profile?.discord_handle || null,
+      profile?.twitter_handle || null,
+      points,
+      didWin
+    ]
+  );
+
   return { saved: true, displayName };
 }
 
-async function getLeaderboard(limit = 25) {
-  if (!pool) return [];
+async function getLeaderboard(limit = 100, clientId = null) {
+  if (!pool) return { entries: [], currentPlayer: null };
   await ensureDbReady();
+  const cappedLimit = Math.max(1, Math.min(100, Number(limit) || 100));
   const result = await pool.query(
     `
+    WITH ranked AS (
+      SELECT
+        client_id,
+        discord_handle,
+        twitter_handle,
+        wallet_address,
+        user_runs_total,
+        total_points_earned,
+        best_points_ever,
+        wins,
+        COALESCE(NULLIF(discord_handle, ''), NULLIF(twitter_handle, ''), wallet_address, client_id) AS display_name,
+        ROW_NUMBER() OVER (
+          ORDER BY total_points_earned DESC, best_points_ever DESC, wins DESC, updated_at ASC, client_id ASC
+        ) AS placement
+      FROM gauntlet_online_leaderboard
+      WHERE COALESCE(NULLIF(discord_handle, ''), NULLIF(twitter_handle, '')) IS NOT NULL
+    )
     SELECT
+      client_id,
+      discord_handle,
+      twitter_handle,
+      wallet_address,
+      user_runs_total,
+      total_points_earned,
+      best_points_ever,
+      wins,
       display_name,
-      SUM(points)::int AS total_points,
-      MAX(points)::int AS best_run,
-      COUNT(*)::int AS runs
-    FROM gauntlet_online_runs
-    GROUP BY display_name
-    ORDER BY total_points DESC, best_run DESC, display_name ASC
-    LIMIT $1
+      placement
+    FROM ranked
+    WHERE placement <= $1
+    ORDER BY placement ASC
     `,
-    [Math.max(1, Math.min(100, Number(limit) || 25))]
+    [cappedLimit]
   );
-  return result.rows;
+
+  let currentPlayer = null;
+  if (clientId) {
+    const currentResult = await pool.query(
+      `
+      WITH ranked AS (
+        SELECT
+          client_id,
+          discord_handle,
+          twitter_handle,
+          wallet_address,
+          user_runs_total,
+          total_points_earned,
+          best_points_ever,
+          wins,
+          COALESCE(NULLIF(discord_handle, ''), NULLIF(twitter_handle, ''), wallet_address, client_id) AS display_name,
+          ROW_NUMBER() OVER (
+            ORDER BY total_points_earned DESC, best_points_ever DESC, wins DESC, updated_at ASC, client_id ASC
+          ) AS placement
+        FROM gauntlet_online_leaderboard
+        WHERE COALESCE(NULLIF(discord_handle, ''), NULLIF(twitter_handle, '')) IS NOT NULL
+      )
+      SELECT
+        client_id,
+        discord_handle,
+        twitter_handle,
+        wallet_address,
+        user_runs_total,
+        total_points_earned,
+        best_points_ever,
+        wins,
+        display_name,
+        placement
+      FROM ranked
+      WHERE client_id = $1
+      LIMIT 1
+      `,
+      [clientId]
+    );
+    currentPlayer = currentResult.rows[0] || null;
+  }
+
+  return { entries: result.rows, currentPlayer };
 }
 
 async function handleApi(req, res, requestUrl) {
@@ -319,8 +504,16 @@ async function handleApi(req, res, requestUrl) {
   }
 
   if (requestUrl.pathname === "/api/leaderboard" && req.method === "GET") {
-    const entries = await getLeaderboard(Number(requestUrl.searchParams.get("limit") || 25));
-    sendJson(res, 200, { entries, storage: pool ? "database" : "local-only" });
+    const clientId = requestUrl.searchParams.get("clientId");
+    const leaderboard = await getLeaderboard(
+      Number(requestUrl.searchParams.get("limit") || 100),
+      isValidClientId(clientId) ? clientId : null
+    );
+    sendJson(res, 200, {
+      entries: leaderboard.entries,
+      currentPlayer: leaderboard.currentPlayer,
+      storage: pool ? "database" : "local-only"
+    });
     return true;
   }
 
