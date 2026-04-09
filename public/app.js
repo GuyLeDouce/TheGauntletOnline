@@ -2,10 +2,13 @@ import {
   APP_COPY,
   COMPLETION_BONUS,
   DEAD_IMAGE,
+  DECISION_GAUNTLET_CLAIM_TEXT,
   DECISION_GAUNTLET_FAIL_END_TEXT,
+  DECISION_GAUNTLET_HALVED_TEXT,
   DECISION_GAUNTLET_RESTART_TEXT,
   DECISION_GAUNTLET_ROUNDS,
   DECISION_GAUNTLET_WIN_END_TEXT,
+  RETRY_IMAGE,
   TIMINGS
 } from "/game-data.js";
 
@@ -57,7 +60,7 @@ const state = {
   leaderboard: [],
   currentPlacement: null,
   roundIndex: 1,
-  livesRemaining: 1,
+  livesRemaining: 2,
   stack: 0,
   roundsCleared: 0,
   isBusy: false
@@ -108,9 +111,8 @@ function leaderboardName(profile = state.profile) {
 }
 
 function lifeTierFromProfile(profile) {
-  if (profile.walletAddress && profile.discordHandle && profile.twitterHandle) return 3;
-  if ((profile.walletAddress && profile.discordHandle) || (profile.walletAddress && profile.twitterHandle) || (profile.discordHandle && profile.twitterHandle)) return 2;
-  return 1;
+  void profile;
+  return 2;
 }
 
 function showToast(message) {
@@ -364,8 +366,8 @@ function handleStartAttempt() {
   );
 }
 
-async function finishRun({ resultType, finalText, bonus = 0, finalImage }) {
-  const points = state.stack + bonus;
+async function finishRun({ resultType, finalText, bonus = 0, finalImage, pointsOverride = null }) {
+  const points = pointsOverride === null ? state.stack + bonus : Math.max(0, Number(pointsOverride) || 0);
   const finalRound = resultType === "Completion" ? 10 : state.roundsCleared || state.roundIndex;
   const leaderboardSave = await saveRunToLeaderboard(points, resultType, finalRound);
   const leaderboardNote = !leaderboardSave.saved && !leaderboardName()
@@ -493,10 +495,22 @@ async function resolveChoice(round) {
     updateHud();
 
     if (state.livesRemaining <= 0) {
+      const stackedBeforeHalving = state.stack;
+      const halvedPoints = Math.floor(stackedBeforeHalving / 2);
+
+      await presentScene({
+        title: "The Arena Collects",
+        image: DEAD_IMAGE,
+        text: DECISION_GAUNTLET_HALVED_TEXT(stackedBeforeHalving, halvedPoints)
+      });
+
+      await wait(TIMINGS.revealHoldMs);
+
       await finishRun({
         resultType: "Out of Lives",
-        finalText: DECISION_GAUNTLET_FAIL_END_TEXT(state.stack),
-        finalImage: DEAD_IMAGE
+        finalText: DECISION_GAUNTLET_FAIL_END_TEXT(halvedPoints),
+        finalImage: DEAD_IMAGE,
+        pointsOverride: halvedPoints
       });
       return;
     }
@@ -508,7 +522,7 @@ async function resolveChoice(round) {
 
     await presentScene({
       title: "The Gauntlet Pulls Him Back",
-      image: DEAD_IMAGE,
+      image: RETRY_IMAGE,
       text: DECISION_GAUNTLET_RESTART_TEXT
     });
 
@@ -522,11 +536,27 @@ async function resolveChoice(round) {
   updateHud();
 
   if (round.roundIndex === DECISION_GAUNTLET_ROUNDS.length) {
-    await finishRun({
-      resultType: "Completion",
-      finalText: DECISION_GAUNTLET_WIN_END_TEXT,
-      bonus: COMPLETION_BONUS,
-      finalImage: round.image
+    await presentScene({
+      title: "Prize Claim",
+      image: round.image,
+      text: DECISION_GAUNTLET_CLAIM_TEXT,
+      buttons: [
+        {
+          label: "Open Discord",
+          variant: "primary-action",
+          onClick: () => window.open("https://squigs.io/discord", "_blank", "noopener,noreferrer")
+        },
+        {
+          label: "Finish Run",
+          variant: "secondary-action",
+          onClick: () => finishRun({
+            resultType: "Completion",
+            finalText: DECISION_GAUNTLET_WIN_END_TEXT,
+            bonus: COMPLETION_BONUS,
+            finalImage: round.image
+          })
+        }
+      ]
     });
     return;
   }
