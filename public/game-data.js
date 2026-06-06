@@ -1,36 +1,42 @@
 export const APP_COPY = {
   info: [
     "Every player starts with 2 lives.",
-    "Clear 10 path-choice rooms in order.",
-    "After each cleared room, choose Continue or Go Home Scared.",
+    "Each run is seeded by the arena. The server validates every choice and payout.",
+    "Each room has a readable clue. Pick the safer option, but nothing is guaranteed.",
     "If you die and still have lives left, the run restarts at Room 1 and your current stack resets to 0.",
-    "If you run out of lives, the run ends with whatever you had banked before the fatal room.",
-    "Clearing all 10 rooms grants a 500 Pts completion bonus.",
-    "After a full clear, open a ticket in the Ugly Labs Discord to claim your prize."
+    "Death reveals a room hint for the rest of that run, so failure can teach the next attempt.",
+    "After each cleared room, choose Continue or Go Home Scared.",
+    "If you run out of lives, the arena halves your current stack.",
+    "Clearing all 10 rooms grants a 1000 Pts completion bonus.",
+    "A strong player should clear all rooms about 5% of the time.",
+    "Points are leaderboard-only for now.",
+    "The leaderboard defaults to monthly, with weekly and all-time views."
   ]
 };
 
 export const TIMINGS = {
-  typewriterMsPerCharacter: 56,
-  preRevealDelayMs: 1400,
-  revealHoldMs: 2200,
-  restartDelayMs: 3600
+  typewriterMsPerCharacter: 28,
+  preRevealDelayMs: 900,
+  revealHoldMs: 1400,
+  restartDelayMs: 2200
 };
 
-export const COMPLETION_BONUS = 500;
-export const DEAD_IMAGE = "https://i.imgur.com/dsTrQX1.jpeg";
-export const RETRY_IMAGE = "https://i.imgur.com/CYgIz04.jpeg";
+export const COMPLETION_BONUS = 1000;
+export const LOBBY_IMAGE = "/assets/squigs-gauntlet-lobby.png";
+export const DEAD_IMAGE = "/assets/squigs-gauntlet-failure.png";
+export const RETRY_IMAGE = "/assets/squigs-gauntlet-retry.png";
 
-export const DECISION_GAUNTLET_RESTART_TEXT = [
-  "He chose.",
-  "",
-  "DEAD.",
-  "",
-  "But he's not finished.",
-  "",
-  "InSquignito gets another chance...",
-  "Returning to Room 1."
-].join("\n");
+export const DECISION_GAUNTLET_RESTART_TEXT = (deathHint) =>
+  [
+    "He chose wrong.",
+    "",
+    "DEAD.",
+    "",
+    deathHint ? `The arena leaves a mark: ${deathHint}` : "The room remembers what happened.",
+    "",
+    "InSquignito gets another chance.",
+    "Returning to Room 1."
+  ].join("\n");
 
 export const DECISION_GAUNTLET_FAIL_END_TEXT = (amount) =>
   [
@@ -46,30 +52,33 @@ export const DECISION_GAUNTLET_FAIL_END_TEXT = (amount) =>
     "Tomorrow, perhaps."
   ].join("\n");
 
-export const DECISION_GAUNTLET_HALVED_TEXT = (startingAmount, finalAmount) =>
+export const DECISION_GAUNTLET_HALVED_TEXT = (startingAmount, finalAmount, deathHint) =>
   [
     "The arena takes its cut.",
+    "",
+    deathHint ? `Final room note: ${deathHint}` : "No useful mark remains.",
     "",
     `Your stacked ${startingAmount} Pts has been halved.`,
     `Final payout: ${finalAmount} Pts.`
   ].join("\n");
 
-export const DECISION_GAUNTLET_WIN_END_TEXT = [
-  "ALIVE.",
-  "",
-  "The correct platform rises.",
-  "The spotlight intensifies.",
-  "The arena trembles.",
-  "",
-  "You have completed The Gauntlet.",
-  "",
-  "550 Pts earned",
-  "+500 Completion Bonus",
-  "",
-  "Total: 1050 Pts",
-  "",
-  "Go brag. You earned it."
-].join("\n");
+export const DECISION_GAUNTLET_WIN_END_TEXT = (basePoints, bonus, total) =>
+  [
+    "ALIVE.",
+    "",
+    "The correct platform rises.",
+    "The spotlight intensifies.",
+    "The arena trembles.",
+    "",
+    "You have completed The Gauntlet.",
+    "",
+    `${basePoints} Pts earned`,
+    `+${bonus} Completion Bonus`,
+    "",
+    `Total: ${total} Pts`,
+    "",
+    "Go brag. You earned it."
+  ].join("\n");
 
 export const DECISION_GAUNTLET_CLAIM_TEXT = [
   "You cleared every room.",
@@ -81,42 +90,47 @@ export const DECISION_GAUNTLET_CLAIM_TEXT = [
 export const DECISION_GAUNTLET_ROUNDS = [
   {
     roundIndex: 1,
-    passChance: 0.95,
-    reward: 10,
-    image: "https://i.imgur.com/X1ZMmnA.jpeg",
+    difficultyLabel: "Training room",
+    safeSurvivalChance: 0.98,
+    mistakeSurvivalChance: 0.45,
+    reward: 15,
+    image: LOBBY_IMAGE,
     text: [
       "Two identical doors. No markings. No sound behind them.",
-      "One leads forward.",
-      "The other ends everything before it even begins.",
+      "One door has a colder handle.",
+      "The arena likes the obvious mistake.",
       "",
       "Choose a door. InSquignito is waiting."
     ].join("\n"),
-    buttons: ["Left", "Right"]
+    buttons: ["Sweating Glass", "Still Glass"]
   },
   {
     roundIndex: 2,
-    passChance: 0.85,
-    reward: 20,
-    image: "https://i.imgur.com/4VqCQxL.jpeg",
+    difficultyLabel: "Glass read",
+    safeSurvivalChance: 0.94,
+    mistakeSurvivalChance: 0.34,
+    reward: 35,
+    image: LOBBY_IMAGE,
     text: [
       "The glass bridge hums beneath his feet.",
-      "One panel is reinforced.",
-      "The other was never meant to hold weight.",
+      "One panel carries a faint vibration.",
+      "The other is silent in a way glass should not be.",
       "",
-      "He can't stay in the middle forever.",
       "Choose the next step."
     ].join("\n"),
-    buttons: ["Left", "Right"]
+    buttons: ["Singing Rope", "Quiet Rope"]
   },
   {
     roundIndex: 3,
-    passChance: 0.75,
-    reward: 30,
-    image: "https://i.imgur.com/kYV5AF9.jpeg",
+    difficultyLabel: "Symbol memory",
+    safeSurvivalChance: 0.89,
+    mistakeSurvivalChance: 0.25,
+    reward: 65,
+    image: LOBBY_IMAGE,
     text: [
       "Cold stone. Iron bars. Two levers.",
-      "One unlocks the cell.",
-      "The other seals it permanently.",
+      "A scratched arrow points toward the lever the last survivor avoided.",
+      "The arena is honest only when it is cruel.",
       "",
       "Pull one. Quickly."
     ].join("\n"),
@@ -124,58 +138,65 @@ export const DECISION_GAUNTLET_ROUNDS = [
   },
   {
     roundIndex: 4,
-    passChance: 0.65,
-    reward: 40,
-    image: "https://i.imgur.com/Emp2Z0z.jpeg",
+    difficultyLabel: "Timed breath",
+    safeSurvivalChance: 0.83,
+    mistakeSurvivalChance: 0.18,
+    reward: 110,
+    image: LOBBY_IMAGE,
     text: [
       "The air burns. The room is filling fast.",
       "Two masks hang on the wall.",
-      "One filters the poison.",
-      "One feeds it straight in.",
+      "One mask fogs from the inside before anyone touches it.",
+      "One stays clean.",
       "",
       "Choose before he collapses."
     ].join("\n"),
-    buttons: ["Left", "Right"]
+    buttons: ["Breeze", "Stale Air", "Scratch Marks"]
   },
   {
     roundIndex: 5,
-    passChance: 0.55,
-    reward: 50,
-    image: "https://i.imgur.com/lfTtRbB.jpeg",
+    difficultyLabel: "Mirror split",
+    safeSurvivalChance: 0.76,
+    mistakeSurvivalChance: 0.13,
+    reward: 175,
+    image: LOBBY_IMAGE,
     text: [
       "A hallway splits in two - perfectly mirrored.",
-      "One path leads forward.",
-      "The other folds reality inside out.",
+      "In one reflection, InSquignito blinks late.",
+      "In the other, he does not blink at all.",
       "",
       "Choose a reflection."
     ].join("\n"),
-    buttons: ["Left", "Right"]
+    buttons: ["Creaking Door", "Silent Door"]
   },
   {
     roundIndex: 6,
-    passChance: 0.45,
-    reward: 60,
-    image: "https://i.imgur.com/6K0D77j.jpeg",
+    difficultyLabel: "Poison bargain",
+    safeSurvivalChance: 0.69,
+    mistakeSurvivalChance: 0.09,
+    reward: 260,
+    image: LOBBY_IMAGE,
     text: [
       "Two identical glasses. Clear liquid.",
-      "One is water.",
-      "One is not.",
+      "One glass sweats. One glass refuses to.",
+      "The safe drink is never eager.",
       "",
-      "He must drink.",
-      "Choose wisely."
+      "He must drink."
     ].join("\n"),
     buttons: ["Left", "Right"]
   },
   {
     roundIndex: 7,
-    passChance: 0.4,
-    reward: 70,
-    image: "https://i.imgur.com/y9fAmwP.jpeg",
+    difficultyLabel: "Rope tension",
+    safeSurvivalChance: 0.62,
+    mistakeSurvivalChance: 0.07,
+    reward: 380,
+    image: LOBBY_IMAGE,
     text: [
       "A rock island in the center of a massive gorge.",
       "Two ropes stretch across the void.",
-      "One will hold.",
-      "One will snap.",
+      "One rope sings under tension.",
+      "One hangs quiet and loose.",
       "",
       "There is no third option."
     ].join("\n"),
@@ -183,23 +204,28 @@ export const DECISION_GAUNTLET_ROUNDS = [
   },
   {
     roundIndex: 8,
-    passChance: 0.3,
-    reward: 80,
-    image: "https://i.imgur.com/JhDG1UH.jpeg",
+    difficultyLabel: "Ancient tunnel",
+    safeSurvivalChance: 0.55,
+    mistakeSurvivalChance: 0.05,
+    reward: 540,
+    image: LOBBY_IMAGE,
     text: [
       "An ancient tunnel splits into two dark passages.",
       "A faint breeze drifts from one side.",
-      "The other smells... wrong.",
+      "The other smells wrong.",
       "",
+      "The breeze may be an exit. Or bait.",
       "Choose the path."
     ].join("\n"),
     buttons: ["Left", "Right"]
   },
   {
     roundIndex: 9,
-    passChance: 0.15,
-    reward: 90,
-    image: "https://i.imgur.com/ng229d4.jpeg",
+    difficultyLabel: "Elevator tell",
+    safeSurvivalChance: 0.48,
+    mistakeSurvivalChance: 0.04,
+    reward: 760,
+    image: LOBBY_IMAGE,
     text: [
       "Two rusted elevator doors.",
       "One creaks open just slightly.",
@@ -214,18 +240,20 @@ export const DECISION_GAUNTLET_ROUNDS = [
   },
   {
     roundIndex: 10,
-    passChance: 0.09,
-    reward: 100,
-    image: "https://i.imgur.com/5pI2xSt.jpeg",
+    difficultyLabel: "Final platform",
+    safeSurvivalChance: 0.41,
+    mistakeSurvivalChance: 0.02,
+    reward: 1100,
+    image: LOBBY_IMAGE,
     text: [
       "The arena falls silent.",
       "A spotlight locks onto InSquignito.",
       "Two glowing platforms stand before him.",
-      "One is the podium.",
-      "The other is a coffin dressed in light.",
+      "One light warms his shadow.",
+      "The other erases it.",
       "",
       "The countdown begins."
     ].join("\n"),
-    buttons: ["Left", "Right"]
+    buttons: ["Warm Shadow", "Erased Shadow"]
   }
 ];

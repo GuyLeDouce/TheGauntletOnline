@@ -53,7 +53,7 @@ button {
 .backdrop {
   background:
     linear-gradient(rgba(6, 7, 11, 0.32), rgba(6, 7, 11, 0.88)),
-    url("https://i.imgur.com/MKHosuC.png") center center / cover no-repeat;
+    url("/assets/squigs-gauntlet-lobby.png") center center / cover no-repeat;
   transform: scale(1.02);
 }
 
@@ -102,10 +102,16 @@ button {
 }
 
 .icon-button:hover,
-.icon-button:focus-visible {
+.icon-button:focus-visible,
+.icon-button.active {
   transform: translateY(-1px);
   background: rgba(25, 32, 47, 0.88);
   border-color: rgba(255, 255, 255, 0.3);
+}
+
+.audio-toggle {
+  font-size: 1.25rem;
+  font-weight: 800;
 }
 
 .discord-mark {
@@ -220,6 +226,15 @@ button {
   margin-top: 16px;
 }
 
+.discord-auth-action {
+  min-height: 52px;
+  border: 1px solid rgba(88, 101, 242, 0.64);
+  border-radius: 999px;
+  color: white;
+  background: linear-gradient(135deg, #5865f2, #404eed);
+  box-shadow: var(--shadow);
+}
+
 .connect-form label {
   display: grid;
   gap: 6px;
@@ -234,6 +249,11 @@ button {
   border-radius: 14px;
 }
 
+.connect-form input[readonly] {
+  color: #d8e0ff;
+  border-color: rgba(88, 101, 242, 0.4);
+}
+
 .profile-actions,
 .lobby-actions,
 .button-row {
@@ -246,6 +266,12 @@ button {
   justify-content: center;
 }
 
+.button-row .primary-action,
+.button-row .secondary-action,
+.button-row .danger-action {
+  min-width: min(180px, 100%);
+}
+
 .primary-action,
 .secondary-action,
 .danger-action {
@@ -255,6 +281,19 @@ button {
   border: 1px solid transparent;
   color: var(--text);
   box-shadow: var(--shadow);
+  line-height: 1.15;
+  white-space: normal;
+  transition: transform 150ms ease, filter 150ms ease, border-color 150ms ease;
+}
+
+.primary-action:hover,
+.secondary-action:hover,
+.danger-action:hover,
+.primary-action:focus-visible,
+.secondary-action:focus-visible,
+.danger-action:focus-visible {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
 }
 
 .primary-action {
@@ -368,6 +407,34 @@ button {
   box-shadow: var(--shadow);
 }
 
+.scene-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
+}
+
+.scene-card.choice-lock::after {
+  animation: choice-lock 900ms ease both;
+  background: radial-gradient(circle at center, rgba(242, 196, 107, 0.34), transparent 46%);
+}
+
+.scene-card.death-flash::after {
+  animation: death-flash 850ms ease both;
+  background: rgba(196, 30, 28, 0.5);
+}
+
+.scene-card.survive-pulse::after {
+  animation: survive-pulse 850ms ease both;
+  background: rgba(242, 196, 107, 0.38);
+}
+
+.scene-card.death-flash {
+  animation: impact-shake 360ms ease both;
+}
+
 .scene-image-wrap {
   display: grid;
   place-items: center;
@@ -435,6 +502,28 @@ button {
   max-height: min(62vh, 720px);
   overflow-y: auto;
   padding-right: 6px;
+}
+
+.leaderboard-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 18px 0;
+}
+
+.period-tab {
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--text);
+}
+
+.period-tab.active {
+  background: rgba(242, 196, 107, 0.18);
+  border-color: rgba(242, 196, 107, 0.58);
+  color: #ffe1a3;
 }
 
 .leaderboard-list {
@@ -522,6 +611,32 @@ button {
   background: rgba(10, 14, 20, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: var(--shadow);
+}
+
+@keyframes choice-lock {
+  0% { opacity: 0; }
+  35% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes death-flash {
+  0% { opacity: 0; }
+  18% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes survive-pulse {
+  0% { opacity: 0; }
+  25% { opacity: 0.85; }
+  100% { opacity: 0; }
+}
+
+@keyframes impact-shake {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  20% { transform: translate3d(-5px, 2px, 0); }
+  40% { transform: translate3d(5px, -2px, 0); }
+  60% { transform: translate3d(-3px, 1px, 0); }
+  80% { transform: translate3d(3px, -1px, 0); }
 }
 
 @media (max-width: 840px) {

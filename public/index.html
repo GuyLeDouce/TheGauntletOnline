@@ -27,6 +27,16 @@
         </a>
 
         <div class="topbar-actions">
+          <button
+            class="icon-button audio-toggle"
+            type="button"
+            id="audioToggle"
+            aria-pressed="false"
+            title="Toggle music"
+          >
+            <span id="audioIcon" aria-hidden="true">♪</span>
+          </button>
+
           <a
             class="icon-button discord-link"
             href="https://squigs.io/discord"
@@ -60,22 +70,26 @@
           </div>
 
           <div class="menu-thumb-wrap">
-            <img src="https://i.imgur.com/MKHosuC.png" alt="Decision Gauntlet lobby" class="menu-thumb">
+            <img src="/assets/squigs-gauntlet-lobby.png" alt="Decision Gauntlet lobby" class="menu-thumb">
           </div>
 
-          <p class="panel-copy">
-            Save the details tied to your leaderboard identity.
+          <p class="panel-copy" id="discordStatus">
+            Connect Discord to save leaderboard runs.
           </p>
 
           <form class="connect-form" id="profileForm">
+            <button type="button" class="discord-auth-action" id="discordAuthButton">
+              Connect Discord
+            </button>
+
             <label>
               <span>Wallet Address</span>
               <input id="walletAddress" name="walletAddress" type="text" placeholder="0x..." autocomplete="off">
             </label>
 
             <label>
-              <span>Discord Handle / ID</span>
-              <input id="discordHandle" name="discordHandle" type="text" placeholder="@username or user id" autocomplete="off">
+              <span>Discord</span>
+              <input id="discordHandle" name="discordHandle" type="text" placeholder="Connect Discord" autocomplete="off" readonly>
             </label>
 
             <label>
@@ -100,7 +114,7 @@
             </p>
 
             <div class="lobby-actions">
-              <button type="button" class="primary-action" id="startGameButton">Start Lobby</button>
+              <button type="button" class="primary-action" id="startGameButton">Start Run</button>
               <button type="button" class="secondary-action" id="rulesButton">How It Works</button>
               <button type="button" class="secondary-action" id="leaderboardButton">Leaderboard</button>
             </div>
@@ -108,7 +122,7 @@
             <div class="status-grid">
               <div class="status-pill">
                 <span class="status-label">Lives</span>
-                <strong id="lobbyLives">1</strong>
+                <strong id="lobbyLives">2</strong>
               </div>
               <div class="status-pill">
                 <span class="status-label">Best All Time</span>
@@ -166,6 +180,11 @@
           <h2>All-Time Leaderboard</h2>
           <button class="close-panel" type="submit" aria-label="Close">×</button>
         </div>
+        <div class="leaderboard-tabs" role="tablist" aria-label="Leaderboard period">
+          <button type="button" class="period-tab active" data-period="monthly">Monthly</button>
+          <button type="button" class="period-tab" data-period="weekly">Weekly</button>
+          <button type="button" class="period-tab" data-period="all-time">All Time</button>
+        </div>
         <div class="rules-copy" id="leaderboardCopy">Loading...</div>
         <div class="footer-stamp">SQUIGS ARE WATCHING</div>
         <div class="profile-actions">
@@ -187,5 +206,6 @@
     </dialog>
 
     <script type="module" src="/app.js"></script>
+    <audio id="themeAudio" src="/audio/the-ugly-ones-know-remastered.mp3" loop preload="auto"></audio>
   </body>
 </html>
