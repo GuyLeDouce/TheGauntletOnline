@@ -57,6 +57,14 @@ const MIME_TYPES = {
   ".mp3": "audio/mpeg"
 };
 
+const NO_CACHE_EXTENSIONS = new Set([".html", ".js", ".css", ".json"]);
+
+function cacheControlForExtension(ext) {
+  return NO_CACHE_EXTENSIONS.has(ext)
+    ? "no-cache"
+    : "public, max-age=3600";
+}
+
 const pool = DATABASE_URL && Pool
   ? new Pool({
       connectionString: DATABASE_URL,
@@ -650,7 +658,7 @@ async function handleRunChoice(req, res) {
 
   const run = getActiveRun(clientId, runId);
   if (!run) {
-    sendJson(res, 404, { error: "Run not found" });
+    sendJson(res, 404, { error: "Run not found", code: "run_not_found" });
     return true;
   }
 
@@ -661,7 +669,11 @@ async function handleRunChoice(req, res) {
 
   const round = getRoundConfig(run.roundIndex);
   if (!round || !round.choices.includes(choice)) {
-    sendJson(res, 400, { error: "Invalid choice" });
+    sendJson(res, 400, {
+      error: "Invalid choice",
+      code: "invalid_choice",
+      expectedChoices: round?.choices || []
+    });
     return true;
   }
 
@@ -1221,7 +1233,7 @@ const server = http.createServer(async (req, res) => {
 
       res.writeHead(200, {
         "Content-Type": contentType,
-        "Cache-Control": ext === ".html" ? "no-cache" : "public, max-age=3600"
+        "Cache-Control": cacheControlForExtension(ext)
       });
 
       if (req.method === "HEAD") {

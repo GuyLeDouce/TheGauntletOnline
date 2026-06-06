@@ -10,7 +10,7 @@ import {
   DECISION_GAUNTLET_WIN_END_TEXT,
   RETRY_IMAGE,
   TIMINGS
-} from "/game-data.js";
+} from "/game-data.js?v=20260606-3";
 
 const STORAGE_KEYS = {
   clientId: "gauntlet-online-client-id",
@@ -139,7 +139,17 @@ async function apiFetch(url, options = {}) {
   });
 
   if (!response.ok) {
-    throw new Error(`Request failed with status ${response.status}`);
+    let payload = null;
+    try {
+      payload = await response.json();
+    } catch {
+      payload = null;
+    }
+    const error = new Error(payload?.error || `Request failed with status ${response.status}`);
+    error.status = response.status;
+    error.code = payload?.code || "";
+    error.payload = payload;
+    throw error;
   }
 
   return response.json();
@@ -652,8 +662,13 @@ async function resolveChoice(round, choice) {
         choice
       })
     });
-  } catch {
-    showToast("The arena lost the run state. Start again.");
+  } catch (error) {
+    const message = error.status === 400
+      ? "The game updated. Refresh the page before choosing again."
+      : error.status === 404
+        ? "This run expired. Start a new run from the lobby."
+        : "The arena could not resolve that choice. Start again.";
+    showToast(message);
     setVisibleScreen("lobby");
     return;
   }
