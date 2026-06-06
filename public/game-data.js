@@ -2,8 +2,8 @@ export const APP_COPY = {
   info: [
     "Every player starts with 2 lives.",
     "Each run is seeded by the arena. The server validates every choice and payout.",
-    "Each room has a readable clue. Pick the safer option, but nothing is guaranteed.",
-    "If you die and still have lives left, the run restarts at Room 1 and your current stack resets to 0.",
+    "Each room gives a readable arena tell. Pick the safer symbol, but nothing is guaranteed.",
+    "If you die and still have lives left, you choose whether to spend the next life or return to the lobby.",
     "Death reveals a room hint for the rest of that run, so failure can teach the next attempt.",
     "After each cleared room, choose Continue or Go Home Scared.",
     "If you run out of lives, the arena halves your current stack.",
@@ -15,10 +15,9 @@ export const APP_COPY = {
 };
 
 export const TIMINGS = {
-  typewriterMsPerCharacter: 28,
-  preRevealDelayMs: 900,
-  revealHoldMs: 1400,
-  restartDelayMs: 2200
+  typewriterMsPerCharacter: 24,
+  preRevealDelayMs: 850,
+  revealHoldMs: 1300
 };
 
 export const COMPLETION_BONUS = 1000;
@@ -28,33 +27,32 @@ export const RETRY_IMAGE = "/assets/squigs-gauntlet-retry.png";
 
 export const DECISION_GAUNTLET_RESTART_TEXT = (deathHint) =>
   [
-    "He chose wrong.",
+    "ELIMINATED.",
     "",
-    "DEAD.",
+    "The arena marks the mistake instead of hiding it.",
+    deathHint ? `Hint saved: ${deathHint}` : "Hint saved: the room remembers what happened.",
     "",
-    deathHint ? `The arena leaves a mark: ${deathHint}` : "The room remembers what happened.",
-    "",
-    "InSquignito gets another chance.",
-    "Returning to Room 1."
+    "You still have a life left.",
+    "Spend it to restart at Room 1, or return to the lobby."
   ].join("\n");
 
 export const DECISION_GAUNTLET_FAIL_END_TEXT = (amount) =>
   [
-    "DEAD.",
+    "FINAL ELIMINATION.",
     "",
     "No more chances.",
-    "No more doors.",
+    "No more symbols.",
     "",
-    "InSquignito falls back into the void.",
+    "InSquignito falls out of the spotlight.",
     "",
     `You walk away with ${amount} Pts.`,
     "",
-    "Tomorrow, perhaps."
+    "The lobby is waiting."
   ].join("\n");
 
 export const DECISION_GAUNTLET_HALVED_TEXT = (startingAmount, finalAmount, deathHint) =>
   [
-    "The arena takes its cut.",
+    "THE ARENA COLLECTS.",
     "",
     deathHint ? `Final room note: ${deathHint}` : "No useful mark remains.",
     "",
@@ -66,7 +64,7 @@ export const DECISION_GAUNTLET_WIN_END_TEXT = (basePoints, bonus, total) =>
   [
     "ALIVE.",
     "",
-    "The correct platform rises.",
+    "The final symbol locks into place.",
     "The spotlight intensifies.",
     "The arena trembles.",
     "",
@@ -90,170 +88,162 @@ export const DECISION_GAUNTLET_CLAIM_TEXT = [
 export const DECISION_GAUNTLET_ROUNDS = [
   {
     roundIndex: 1,
-    difficultyLabel: "Training room",
+    difficultyLabel: "Door Wake",
     safeSurvivalChance: 0.98,
     mistakeSurvivalChance: 0.45,
     reward: 15,
     image: LOBBY_IMAGE,
     text: [
-      "Two identical doors. No markings. No sound behind them.",
-      "One door has a colder handle.",
-      "The arena likes the obvious mistake.",
+      "Two doors light up first.",
+      "The red circle door and the blue triangle door both unlock.",
+      "One light blinks before the other catches up.",
       "",
-      "Choose a door. InSquignito is waiting."
+      "Choose the symbol that woke first."
     ].join("\n"),
-    buttons: ["Sweating Glass", "Still Glass"]
+    buttons: ["Red Circle", "Blue Triangle"]
   },
   {
     roundIndex: 2,
-    difficultyLabel: "Glass read",
+    difficultyLabel: "Steady Reflection",
     safeSurvivalChance: 0.94,
     mistakeSurvivalChance: 0.34,
     reward: 35,
     image: LOBBY_IMAGE,
     text: [
-      "The glass bridge hums beneath his feet.",
-      "One panel carries a faint vibration.",
-      "The other is silent in a way glass should not be.",
+      "Two platforms rise from the floor.",
+      "Gold square. Purple diamond.",
+      "One reflection stays still. The other jitters under the lights.",
       "",
-      "Choose the next step."
+      "Step onto the steadier mark."
     ].join("\n"),
-    buttons: ["Singing Rope", "Quiet Rope"]
+    buttons: ["Gold Square", "Purple Diamond"]
   },
   {
     roundIndex: 3,
-    difficultyLabel: "Symbol memory",
+    difficultyLabel: "Scratch Path",
     safeSurvivalChance: 0.89,
     mistakeSurvivalChance: 0.25,
     reward: 65,
     image: LOBBY_IMAGE,
     text: [
-      "Cold stone. Iron bars. Two levers.",
-      "A scratched arrow points toward the lever the last survivor avoided.",
-      "The arena is honest only when it is cruel.",
+      "The red circle and gold square doors grind open.",
+      "Fresh scratches cut across the floor.",
+      "They curve away from one symbol like something was dragged back.",
       "",
-      "Pull one. Quickly."
+      "Pick the symbol the scratches avoid."
     ].join("\n"),
-    buttons: ["A", "B"]
+    buttons: ["Red Circle", "Gold Square"]
   },
   {
     roundIndex: 4,
-    difficultyLabel: "Timed breath",
+    difficultyLabel: "Flicker Test",
     safeSurvivalChance: 0.83,
     mistakeSurvivalChance: 0.18,
     reward: 110,
     image: LOBBY_IMAGE,
     text: [
-      "The air burns. The room is filling fast.",
-      "Two masks hang on the wall.",
-      "One mask fogs from the inside before anyone touches it.",
-      "One stays clean.",
+      "Blue triangle and purple diamond wait under separate spotlights.",
+      "One beam holds clean.",
+      "The other flickers like it is counting down.",
       "",
-      "Choose before he collapses."
+      "Choose the symbol under the clean light."
     ].join("\n"),
-    buttons: ["Breeze", "Stale Air", "Scratch Marks"]
+    buttons: ["Blue Triangle", "Purple Diamond"]
   },
   {
     roundIndex: 5,
-    difficultyLabel: "Mirror split",
+    difficultyLabel: "Shadow Read",
     safeSurvivalChance: 0.76,
     mistakeSurvivalChance: 0.13,
     reward: 175,
     image: LOBBY_IMAGE,
     text: [
-      "A hallway splits in two - perfectly mirrored.",
-      "In one reflection, InSquignito blinks late.",
-      "In the other, he does not blink at all.",
+      "Red circle. Purple diamond.",
+      "InSquignito freezes between them.",
+      "His shadow stretches toward one door even though the spotlight is overhead.",
       "",
-      "Choose a reflection."
+      "Follow the shadow, or ignore it."
     ].join("\n"),
-    buttons: ["Creaking Door", "Silent Door"]
+    buttons: ["Red Circle", "Purple Diamond"]
   },
   {
     roundIndex: 6,
-    difficultyLabel: "Poison bargain",
+    difficultyLabel: "Low Hum",
     safeSurvivalChance: 0.69,
     mistakeSurvivalChance: 0.09,
     reward: 260,
     image: LOBBY_IMAGE,
     text: [
-      "Two identical glasses. Clear liquid.",
-      "One glass sweats. One glass refuses to.",
-      "The safe drink is never eager.",
+      "Blue triangle and gold square pulse in alternating beats.",
+      "One hum is low and steady.",
+      "The other climbs higher every second.",
       "",
-      "He must drink."
+      "Choose before the pitch peaks."
     ].join("\n"),
-    buttons: ["Left", "Right"]
+    buttons: ["Blue Triangle", "Gold Square"]
   },
   {
     roundIndex: 7,
-    difficultyLabel: "Rope tension",
+    difficultyLabel: "Warning Skip",
     safeSurvivalChance: 0.62,
     mistakeSurvivalChance: 0.07,
     reward: 380,
     image: LOBBY_IMAGE,
     text: [
-      "A rock island in the center of a massive gorge.",
-      "Two ropes stretch across the void.",
-      "One rope sings under tension.",
-      "One hangs quiet and loose.",
+      "Three symbols activate at once.",
+      "Red circle. Blue triangle. Gold square.",
+      "The warning lamps sweep across the room, but one symbol is skipped.",
       "",
-      "There is no third option."
+      "Choose the mark the warning refuses to touch."
     ].join("\n"),
-    buttons: ["Left", "Right"]
+    buttons: ["Red Circle", "Blue Triangle", "Gold Square"]
   },
   {
     roundIndex: 8,
-    difficultyLabel: "Ancient tunnel",
+    difficultyLabel: "Cracked Tile",
     safeSurvivalChance: 0.55,
     mistakeSurvivalChance: 0.05,
     reward: 540,
     image: LOBBY_IMAGE,
     text: [
-      "An ancient tunnel splits into two dark passages.",
-      "A faint breeze drifts from one side.",
-      "The other smells wrong.",
+      "Red circle, gold square, and purple diamond glow brighter.",
+      "Two doors have cracked tiles at their thresholds.",
+      "One threshold is clean.",
       "",
-      "The breeze may be an exit. Or bait.",
-      "Choose the path."
+      "Choose the clean approach."
     ].join("\n"),
-    buttons: ["Left", "Right"]
+    buttons: ["Red Circle", "Gold Square", "Purple Diamond"]
   },
   {
     roundIndex: 9,
-    difficultyLabel: "Elevator tell",
+    difficultyLabel: "Dust Line",
     safeSurvivalChance: 0.48,
     mistakeSurvivalChance: 0.04,
     reward: 760,
     image: LOBBY_IMAGE,
     text: [
-      "Two rusted elevator doors.",
-      "One creaks open just slightly.",
-      "The other stands still and silent.",
+      "Blue triangle. Gold square. Purple diamond.",
+      "Fresh dust rolls across the stage.",
+      "It stops at one symbol like an invisible wall is holding it back.",
       "",
-      "One rises.",
-      "One falls.",
-      "",
-      "Step inside."
+      "Step where the dust stops."
     ].join("\n"),
-    buttons: ["Left", "Right"]
+    buttons: ["Blue Triangle", "Gold Square", "Purple Diamond"]
   },
   {
     roundIndex: 10,
-    difficultyLabel: "Final platform",
+    difficultyLabel: "Final Silence",
     safeSurvivalChance: 0.41,
     mistakeSurvivalChance: 0.02,
     reward: 1100,
     image: LOBBY_IMAGE,
     text: [
-      "The arena falls silent.",
-      "A spotlight locks onto InSquignito.",
-      "Two glowing platforms stand before him.",
-      "One light warms his shadow.",
-      "The other erases it.",
+      "Every symbol comes alive.",
+      "Red circle. Blue triangle. Gold square. Purple diamond.",
+      "One glow makes the entire arena go silent.",
       "",
-      "The countdown begins."
+      "Choose the final mark."
     ].join("\n"),
-    buttons: ["Warm Shadow", "Erased Shadow"]
+    buttons: ["Red Circle", "Blue Triangle", "Gold Square", "Purple Diamond"]
   }
 ];

@@ -306,6 +306,10 @@ function flashScene(className) {
 
 async function presentScene({ title, image, text, buttons = [] }) {
   state.isBusy = true;
+  const isElimination = /eliminated|elimination|arena collects/i.test(title) || /ELIMINATED|FINAL ELIMINATION/.test(text);
+  const isCleared = /cleared|complete|prize claim/i.test(title) || /\bALIVE\b/.test(text);
+  els.sceneCard.classList.toggle("elimination-state", isElimination);
+  els.sceneCard.classList.toggle("cleared-state", isCleared && !isElimination);
   els.sceneTitle.textContent = title;
   els.sceneImage.src = image;
   els.sceneImage.alt = title;
@@ -658,9 +662,23 @@ async function resolveChoice(round, choice) {
   flashScene(response.survived ? "survive-pulse" : "death-flash");
 
   await presentScene({
-    title: `Decision Gauntlet - Round ${round.roundIndex}/10`,
+    title: response.survived
+      ? `Decision Gauntlet - Round ${round.roundIndex}/10`
+      : response.result === "finished"
+        ? "Final Elimination"
+        : "Eliminated",
     image: response.survived ? round.image : DEAD_IMAGE,
-    text: response.survived ? "ALIVE" : "DEAD"
+    text: response.survived
+      ? "ALIVE"
+      : [
+          "ELIMINATED.",
+          "",
+          response.madeCorrectChoice
+            ? "You read the symbol correctly, but the arena still took its chance."
+            : "The symbol was wrong, and the arena punished it.",
+          "",
+          `Lives Remaining: ${state.livesRemaining}`
+        ].join("\n")
   });
 
   await wait(TIMINGS.revealHoldMs);
@@ -687,13 +705,26 @@ async function resolveChoice(round, choice) {
 
   if (!response.survived) {
     await presentScene({
-      title: "The Gauntlet Pulls Him Back",
+      title: "Eliminated - Life Lost",
       image: RETRY_IMAGE,
-      text: DECISION_GAUNTLET_RESTART_TEXT(response.deathHint)
+      text: DECISION_GAUNTLET_RESTART_TEXT(response.deathHint),
+      buttons: [
+        {
+          label: "Use Next Life",
+          variant: "primary-action",
+          onClick: () => showRound()
+        },
+        {
+          label: "Back To Lobby",
+          variant: "secondary-action",
+          onClick: () => {
+            syncProfileForm();
+            syncLobbySummary();
+            setVisibleScreen("lobby");
+          }
+        }
+      ]
     });
-
-    await wait(TIMINGS.restartDelayMs);
-    await showRound();
     return;
   }
 
@@ -732,27 +763,26 @@ async function showRound() {
   if (!round) return;
 
   const revealedHint = state.revealedHints?.[round.roundIndex];
-  const hintText = revealedHint
-    ? `\n\nMarked from a previous death: ${revealedHint}`
-    : "";
-  const tellText = state.currentTell
-    ? `\n\nArena Tell: ${state.currentTell}`
-    : "";
+  const roomLines = [round.text];
+  if (state.currentTell) {
+    roomLines.push("", `Arena Tell: ${state.currentTell}`);
+  }
+  if (revealedHint) {
+    roomLines.push("", `Marked from a previous death: ${revealedHint}`);
+  }
+  roomLines.push(
+    "",
+    `Room Type: ${round.difficultyLabel}`,
+    `Reward: ${round.reward} Pts`,
+    `Best-choice survival: ${Math.round(round.safeSurvivalChance * 100)}%`,
+    `Wrong-choice mercy: ${Math.round(round.mistakeSurvivalChance * 100)}%`
+  );
 
   updateHud();
   await presentScene({
     title: `Decision Gauntlet - Round ${round.roundIndex}/10`,
     image: round.image,
-    text: [
-      round.text,
-      tellText,
-      hintText,
-      "",
-      `Room Type: ${round.difficultyLabel}`,
-      `Reward: ${round.reward} Pts`,
-      `Best-choice survival: ${Math.round(round.safeSurvivalChance * 100)}%`,
-      `Wrong-choice mercy: ${Math.round(round.mistakeSurvivalChance * 100)}%`
-    ].join("\n"),
+    text: roomLines.join("\n"),
     buttons: round.buttons.map((label) => ({
       label,
       variant: "primary-action",

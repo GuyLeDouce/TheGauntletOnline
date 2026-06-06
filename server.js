@@ -20,16 +20,16 @@ const RUN_CONFIG = {
   completionBonus: 1000,
   maxActiveAgeMs: 1000 * 60 * 60 * 4,
   rounds: [
-    { roundIndex: 1, reward: 15, choices: ["Left", "Right"], safeSurvivalChance: 0.98, mistakeSurvivalChance: 0.45 },
-    { roundIndex: 2, reward: 35, choices: ["Left", "Right"], safeSurvivalChance: 0.94, mistakeSurvivalChance: 0.34 },
-    { roundIndex: 3, reward: 65, choices: ["A", "B"], safeSurvivalChance: 0.89, mistakeSurvivalChance: 0.25 },
-    { roundIndex: 4, reward: 110, choices: ["Left", "Right"], safeSurvivalChance: 0.83, mistakeSurvivalChance: 0.18 },
-    { roundIndex: 5, reward: 175, choices: ["Left", "Right"], safeSurvivalChance: 0.76, mistakeSurvivalChance: 0.13 },
-    { roundIndex: 6, reward: 260, choices: ["Sweating Glass", "Still Glass"], safeSurvivalChance: 0.69, mistakeSurvivalChance: 0.09 },
-    { roundIndex: 7, reward: 380, choices: ["Singing Rope", "Quiet Rope"], safeSurvivalChance: 0.62, mistakeSurvivalChance: 0.07 },
-    { roundIndex: 8, reward: 540, choices: ["Breeze", "Stale Air", "Scratch Marks"], safeSurvivalChance: 0.55, mistakeSurvivalChance: 0.05 },
-    { roundIndex: 9, reward: 760, choices: ["Creaking Door", "Silent Door"], safeSurvivalChance: 0.48, mistakeSurvivalChance: 0.04 },
-    { roundIndex: 10, reward: 1100, choices: ["Warm Shadow", "Erased Shadow"], safeSurvivalChance: 0.41, mistakeSurvivalChance: 0.02 }
+    { roundIndex: 1, reward: 15, choices: ["Red Circle", "Blue Triangle"], safeSurvivalChance: 0.98, mistakeSurvivalChance: 0.45 },
+    { roundIndex: 2, reward: 35, choices: ["Gold Square", "Purple Diamond"], safeSurvivalChance: 0.94, mistakeSurvivalChance: 0.34 },
+    { roundIndex: 3, reward: 65, choices: ["Red Circle", "Gold Square"], safeSurvivalChance: 0.89, mistakeSurvivalChance: 0.25 },
+    { roundIndex: 4, reward: 110, choices: ["Blue Triangle", "Purple Diamond"], safeSurvivalChance: 0.83, mistakeSurvivalChance: 0.18 },
+    { roundIndex: 5, reward: 175, choices: ["Red Circle", "Purple Diamond"], safeSurvivalChance: 0.76, mistakeSurvivalChance: 0.13 },
+    { roundIndex: 6, reward: 260, choices: ["Blue Triangle", "Gold Square"], safeSurvivalChance: 0.69, mistakeSurvivalChance: 0.09 },
+    { roundIndex: 7, reward: 380, choices: ["Red Circle", "Blue Triangle", "Gold Square"], safeSurvivalChance: 0.62, mistakeSurvivalChance: 0.07 },
+    { roundIndex: 8, reward: 540, choices: ["Red Circle", "Gold Square", "Purple Diamond"], safeSurvivalChance: 0.55, mistakeSurvivalChance: 0.05 },
+    { roundIndex: 9, reward: 760, choices: ["Blue Triangle", "Gold Square", "Purple Diamond"], safeSurvivalChance: 0.48, mistakeSurvivalChance: 0.04 },
+    { roundIndex: 10, reward: 1100, choices: ["Red Circle", "Blue Triangle", "Gold Square", "Purple Diamond"], safeSurvivalChance: 0.41, mistakeSurvivalChance: 0.02 }
   ]
 };
 
@@ -122,16 +122,16 @@ function roomTellForRound(run) {
   if (!round || run.phase === "finished") return "";
   const safeChoice = safeChoiceForRound(run, round);
   const tells = {
-    1: `The ${safeChoice} handle is colder than the room.`,
-    2: `The ${safeChoice} panel carries a faint vibration.`,
-    3: `The scratches avoid lever ${safeChoice}.`,
-    4: `The ${safeChoice} mask stays clean while the other fogs.`,
-    5: `The ${safeChoice} reflection blinks exactly when he does.`,
-    6: `The ${safeChoice} refuses to sweat.`,
-    7: `The ${safeChoice} carries tension across the gorge.`,
-    8: `${safeChoice} is the only path with a repeating pattern.`,
-    9: `The ${safeChoice} has fresh dust on the threshold.`,
-    10: `The ${safeChoice} keeps his shadow attached.`
+    1: `The ${safeChoice} door light blinks once before the others wake up.`,
+    2: `The ${safeChoice} platform casts the only steady reflection.`,
+    3: `The floor scratches bend away from ${safeChoice}.`,
+    4: `A clean spotlight holds on ${safeChoice} while the other mark flickers.`,
+    5: `InSquignito's shadow points toward ${safeChoice}.`,
+    6: `The hum under ${safeChoice} stays low and even.`,
+    7: `The warning lamps skip over ${safeChoice}.`,
+    8: `${safeChoice} is the only mark without a cracked tile in front of it.`,
+    9: `Fresh dust stops at the edge of ${safeChoice}.`,
+    10: `The arena goes silent when ${safeChoice} glows.`
   };
   return tells[round.roundIndex] || "";
 }
@@ -698,7 +698,7 @@ async function handleRunChoice(req, res) {
   }
 
   run.livesRemaining -= 1;
-  run.revealedHints[round.roundIndex] = `${safeChoice} was the surviving choice in this room.`;
+  run.revealedHints[round.roundIndex] = `${safeChoice} was the best-read symbol in this room.`;
 
   if (run.livesRemaining <= 0) {
     const stackedBeforeHalving = run.stack;

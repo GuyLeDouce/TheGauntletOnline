@@ -435,6 +435,27 @@ button {
   animation: impact-shake 360ms ease both;
 }
 
+.scene-card.elimination-state {
+  border-color: rgba(224, 49, 49, 0.68);
+  box-shadow:
+    0 18px 70px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(224, 49, 49, 0.32),
+    0 0 42px rgba(224, 49, 49, 0.18);
+}
+
+.scene-card.elimination-state .scene-overlay {
+  border-color: rgba(224, 49, 49, 0.42);
+  background: linear-gradient(180deg, rgba(48, 10, 12, 0.26), rgba(12, 8, 10, 0.94));
+}
+
+.scene-card.elimination-state .scene-overlay h2 {
+  color: #ffb0a8;
+}
+
+.scene-card.cleared-state {
+  border-color: rgba(242, 196, 107, 0.44);
+}
+
 .scene-image-wrap {
   display: grid;
   place-items: center;
