@@ -617,6 +617,15 @@ async function handleRunStart(req, res) {
     return true;
   }
 
+  const profile = await getProfile(clientId);
+  if (!profile?.discord_user_id) {
+    sendJson(res, 403, {
+      error: "Discord login required",
+      code: "discord_required"
+    });
+    return true;
+  }
+
   const run = createRun(clientId);
   sendJson(res, 200, {
     run: publicRunState(run),
@@ -1115,7 +1124,15 @@ async function handleApi(req, res, requestUrl) {
       return true;
     }
 
-    const profile = await upsertProfile(clientId, body);
+    const existingProfile = await getProfile(clientId);
+    const profile = await upsertProfile(clientId, {
+      walletAddress: body.walletAddress,
+      twitterHandle: body.twitterHandle,
+      discordHandle: existingProfile?.discord_handle || "",
+      discordUserId: existingProfile?.discord_user_id || "",
+      discordAvatar: existingProfile?.discord_avatar || "",
+      discordGlobalName: existingProfile?.discord_global_name || ""
+    });
     sendJson(res, 200, {
       saved: true,
       storage: pool ? "database" : "local-only",

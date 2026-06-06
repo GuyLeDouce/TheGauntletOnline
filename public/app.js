@@ -213,6 +213,10 @@ function handleDiscordReturnNotice() {
   window.history.replaceState({}, "", url.toString());
 }
 
+function startDiscordAuth() {
+  window.location.href = `/api/auth/discord/start?clientId=${encodeURIComponent(state.clientId)}`;
+}
+
 function toggleConnectPanel(forceOpen) {
   const willOpen = typeof forceOpen === "boolean"
     ? forceOpen
@@ -256,7 +260,7 @@ function syncProfileForm() {
   els.identityStatus.textContent = leaderboardName() || "None Set";
   els.discordStatus.textContent = state.profile.discordUserId
     ? `Discord connected as ${state.profile.discordHandle || state.profile.discordGlobalName}.`
-    : "Connect Discord to save leaderboard runs.";
+    : "Connect Discord to enter The Gauntlet.";
   els.discordAuthButton.textContent = state.profile.discordUserId
     ? "Reconnect Discord"
     : "Connect Discord";
@@ -467,8 +471,9 @@ async function beginRun() {
     applyRunState(response.run);
     setVisibleScreen("game");
     await showRound();
-  } catch {
-    showToast("Could not start a run. Try again.");
+  } catch (error) {
+    showToast("Discord login is required to start a run.");
+    toggleConnectPanel(true);
     setVisibleScreen("lobby");
   }
 }
@@ -476,7 +481,7 @@ async function beginRun() {
 function handleStartAttempt() {
   const name = leaderboardName();
 
-  if (name) {
+  if (state.profile.discordUserId) {
     openStartPrompt(
       `Welcome to the Decision Gauntlet ${name}.\n\nAre you ready?`,
       [
@@ -488,13 +493,9 @@ function handleStartAttempt() {
   }
 
   openStartPrompt(
-    "Connect Discord if you want this run saved to the leaderboard.",
+    "Discord login is required before entering The Gauntlet.",
     [
-      { label: "Set", variant: "primary-action", onClick: () => {
-        setVisibleScreen("lobby");
-        toggleConnectPanel(true);
-      } },
-      { label: "Continue Anyway", variant: "secondary-action", onClick: beginRun }
+      { label: "Connect Discord", variant: "primary-action", onClick: startDiscordAuth }
     ]
   );
 }
@@ -806,9 +807,7 @@ els.leaderboardButton.addEventListener("click", async () => {
   els.leaderboardDialog.showModal();
 });
 els.startGameButton.addEventListener("click", handleStartAttempt);
-els.discordAuthButton.addEventListener("click", () => {
-  window.location.href = `/api/auth/discord/start?clientId=${encodeURIComponent(state.clientId)}`;
-});
+els.discordAuthButton.addEventListener("click", startDiscordAuth);
 
 els.periodTabs.forEach((tab) => {
   tab.addEventListener("click", async () => {
