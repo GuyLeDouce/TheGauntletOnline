@@ -1,11 +1,12 @@
 {
-  "name": "the-gauntlet-online",
+  "name": "insquignitos-ugly-interview",
   "version": "1.0.0",
-  "description": "Standalone web app version of The Gauntlet solo mode for Railway Public Networking.",
+  "description": "InSquignito's Ugly Interview, a Squigs Reloaded survival interview game for Railway.",
   "private": true,
   "type": "commonjs",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "check": "node --check server.js && node --check server/db.js && node --check server/discord-auth.js && node --check server/game-engine.js && node --check server/interview-questions.js && node --check server/rewards.js && node --check server/validators.js && node --check server/wallet-scan.js"
   },
   "engines": {
     "node": ">=18.0.0"

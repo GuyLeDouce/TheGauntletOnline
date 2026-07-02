@@ -3,209 +3,182 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Decision Gauntlet</title>
-    <meta
-      name="description"
-      content="Standalone web app adaptation of the Decision Gauntlet solo mode."
-    >
-    <link rel="stylesheet" href="/styles.css?v=20260606-3">
+    <title>InSquignito's Ugly Interview</title>
+    <meta name="description" content="A Squigs Reloaded survival interview. Get hired, get roasted, stay ugly.">
+    <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
     <div class="app-shell" id="app">
-      <div class="backdrop"></div>
-      <div class="backdrop-vignette"></div>
-
       <header class="topbar">
-        <a
-          class="brand"
-          href="https://squigs.io/"
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Squigs"
-        >
-          <img src="https://i.imgur.com/7BhOkhC.png" alt="Squigs">
+        <a class="brand" href="/" aria-label="InSquignito's Ugly Interview">
+          <span class="brand-mark">UGLY</span>
+          <span>Ugly Labs HR</span>
         </a>
-
-        <div class="topbar-actions">
-          <button
-            class="icon-button audio-toggle"
-            type="button"
-            id="audioToggle"
-            aria-pressed="false"
-            title="Toggle music"
-          >
-            <span id="audioIcon" aria-hidden="true">♪</span>
-          </button>
-
-          <a
-            class="icon-button discord-link"
-            href="https://squigs.io/discord"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Join Discord"
-            title="Join Discord"
-          >
-            <span class="discord-mark" aria-hidden="true"></span>
-          </a>
-
-          <button
-            class="icon-button connect-toggle"
-            type="button"
-            id="connectToggle"
-            aria-expanded="false"
-            aria-controls="connectPanel"
-          >
-            <span class="ugly-badge">I'm Ugly</span>
-          </button>
-        </div>
+        <nav class="top-actions" aria-label="Primary">
+          <button type="button" class="text-button" data-open="how">How It Works</button>
+          <button type="button" class="text-button" data-open="leaderboard">Leaderboard</button>
+          <button type="button" class="text-button" data-open="claims">My $CHARM Claims</button>
+        </nav>
       </header>
 
-      <aside class="connect-panel hidden" id="connectPanel">
-        <div class="panel-card">
-          <div class="panel-heading">
-            <h2>Identity Links</h2>
-            <button class="close-panel" id="closeConnectPanel" type="button" aria-label="Close">
-              ×
-            </button>
-          </div>
-
-          <div class="menu-thumb-wrap">
-            <img src="/assets/squigs-gauntlet-lobby.png" alt="Decision Gauntlet lobby" class="menu-thumb">
-          </div>
-
-          <p class="panel-copy" id="discordStatus">
-            Connect Discord to enter The Gauntlet.
-          </p>
-
-          <form class="connect-form" id="profileForm">
-            <button type="button" class="discord-auth-action" id="discordAuthButton">
-              Connect Discord
-            </button>
-
-            <label>
-              <span>Wallet Address</span>
-              <input id="walletAddress" name="walletAddress" type="text" placeholder="0x..." autocomplete="off">
-            </label>
-
-            <label>
-              <span>Discord</span>
-              <input id="discordHandle" name="discordHandle" type="text" placeholder="Connect Discord" autocomplete="off" readonly>
-            </label>
-
-            <label>
-              <span>X Handle</span>
-              <input id="twitterHandle" name="twitterHandle" type="text" placeholder="@handle" autocomplete="off">
-            </label>
-
-            <div class="profile-actions">
-              <button type="submit" class="primary-action">Save Details</button>
-              <button type="button" class="secondary-action" id="clearProfile">Clear</button>
+      <main>
+        <section class="hero-grid" id="menuView">
+          <div class="hero-copy">
+            <p class="sticker">A Squigs Reloaded Survival Interview</p>
+            <h1>InSquignito's Ugly Interview</h1>
+            <p class="subtitle">Get Hired. Get Roasted. Stay Ugly.</p>
+            <p class="tagline">Discord in. Wallet scanned. Dignity calculated.</p>
+            <div class="hero-actions">
+              <button type="button" class="primary-action" id="beginInterview">Begin Interview</button>
+              <button type="button" class="secondary-action" id="practiceInterview">Practice Without Pay</button>
             </div>
-          </form>
-        </div>
-      </aside>
-
-      <main class="stage">
-        <section class="screen lobby-screen visible" id="lobbyScreen">
-          <div class="overlay-card lobby-card">
-            <h1 class="hero-title">DECISION GAUNTLET</h1>
-            <p class="lead">
-              Click Start to enter alone. Every room is private. Every mistake resets the climb.
+            <p class="microcopy">
+              You are sitting across from InSquignito. He has reviewed your Discord, your wallet, and your general ugliness. He does not like what he sees. That means you may be qualified.
             </p>
-
-            <div class="lobby-actions">
-              <button type="button" class="primary-action" id="startGameButton">Start Run</button>
-              <button type="button" class="secondary-action" id="rulesButton">How It Works</button>
-              <button type="button" class="secondary-action" id="leaderboardButton">Leaderboard</button>
-            </div>
-
-            <div class="status-grid">
-              <div class="status-pill">
-                <span class="status-label">Lives</span>
-                <strong id="lobbyLives">2</strong>
-              </div>
-              <div class="status-pill">
-                <span class="status-label">Best All Time</span>
-                <strong id="lobbyBest">0 Pts</strong>
-              </div>
-              <div class="status-pill">
-                <span class="status-label">Leaderboard Name</span>
-                <strong id="identityStatus">None Set</strong>
-              </div>
-            </div>
           </div>
+
+          <aside class="applicant-file" aria-labelledby="fileTitle">
+            <div class="file-tab">Ugly Applicant File</div>
+            <div class="file-scene art-card" data-asset="lobby"></div>
+            <h2 id="fileTitle">Ugly Applicant File</h2>
+            <p id="gateSummary">Wallet scanned. It smells wrong. Approved.</p>
+
+            <div class="identity-row" id="discordStatus">
+              <div class="avatar-fallback" id="discordAvatar">?</div>
+              <div>
+                <strong id="discordName">Discord not connected</strong>
+                <span id="discordMeta">Required for reward runs</span>
+              </div>
+            </div>
+
+            <form class="wallet-form" id="walletForm">
+              <label for="walletAddress">Wallet address</label>
+              <div class="input-row">
+                <input id="walletAddress" name="walletAddress" type="text" placeholder="0x..." autocomplete="off">
+                <button type="submit" class="secondary-action">Save Wallet</button>
+              </div>
+            </form>
+
+            <div class="file-actions">
+              <button type="button" class="secondary-action" id="connectDiscord">Connect Discord</button>
+              <button type="button" class="primary-action" id="scanWallet">Scan Wallet</button>
+              <button type="button" class="secondary-action" id="refreshScan">Refresh Wallet Scan</button>
+            </div>
+
+            <div class="stat-grid">
+              <div><span>Squigs Detected</span><strong id="squigCount">0</strong></div>
+              <div><span>Revive Pill</span><strong id="revivePill">No</strong></div>
+              <div><span>Dignity Granted</span><strong id="dignityGranted">1</strong></div>
+              <div><span>Mode Available</span><strong id="modeAvailable">Practice</strong></div>
+            </div>
+
+            <p class="fine-print" id="walletNote"></p>
+            <p class="cooldown" id="cooldownStatus"></p>
+          </aside>
         </section>
 
-        <section class="screen game-screen" id="gameScreen">
-          <div class="hud-row">
-            <div class="hud-pill" id="roundHud">Round 1/10</div>
-            <div class="hud-pill" id="livesHud">Lives: 1</div>
-            <div class="hud-pill" id="rewardHud">Stack: 0 Pts</div>
+        <section class="game-view hidden" id="gameView" aria-live="polite">
+          <div class="hud">
+            <div><span>Question</span><strong id="hudQuestion">1/15</strong></div>
+            <div><span>Tier</span><strong id="hudTier">Easy Ugly HR</strong></div>
+            <div><span>Dignity Remaining</span><strong id="hudDignity">1</strong></div>
+            <div><span>$CHARM Stack</span><strong id="hudCharm">0</strong></div>
+            <div><span>Squigs Held</span><strong id="hudSquigs">0</strong></div>
+            <div class="timer-pill"><span>Timer</span><strong id="hudTimer">--</strong></div>
           </div>
 
-          <div class="scene-card">
-            <div class="scene-image-wrap">
-              <img id="sceneImage" alt="Gauntlet round scene">
+          <article class="interview-card">
+            <div class="interview-art art-card" id="questionArt" data-asset="interviewDesk"></div>
+            <div class="question-panel">
+              <p class="category" id="questionCategory">Ugly Vibe Check</p>
+              <h2 id="questionPrompt">InSquignito is finding the dampest question.</h2>
+              <p class="flavor" id="questionFlavor"></p>
+              <div class="answers" id="answerOptions"></div>
             </div>
+          </article>
 
-            <div class="scene-overlay">
-              <h2 id="sceneTitle">Decision Gauntlet</h2>
-              <pre id="sceneText" class="scene-text"></pre>
-              <div class="button-row centered-buttons" id="choiceButtons"></div>
+          <article class="feedback-card hidden" id="feedbackCard">
+            <div class="feedback-art art-card" id="feedbackArt" data-asset="correct"></div>
+            <div>
+              <p class="category" id="feedbackTitle">Correct</p>
+              <h2 id="feedbackRoast">Correct. Disgusting answer. Continue.</h2>
+              <p id="feedbackExplanation"></p>
+              <p class="gain-line" id="feedbackGain"></p>
+              <div class="feedback-actions" id="feedbackActions"></div>
+            </div>
+          </article>
+        </section>
+
+        <section class="final-view hidden" id="finalView">
+          <div class="final-card">
+            <div class="art-card final-art" id="finalArt" data-asset="hired"></div>
+            <p class="sticker" id="finalResult">HIRED BY INSQUIGNITO</p>
+            <h2 id="finalRank">Hired By InSquignito</h2>
+            <p id="finalCopy"></p>
+            <div class="final-stats">
+              <div><span>Final $CHARM</span><strong id="finalCharm">0</strong></div>
+              <div><span>Claim Code</span><strong id="finalClaim">Practice</strong></div>
+              <div><span>Payout Status</span><strong id="finalStatus">No payout</strong></div>
+            </div>
+            <p class="fine-print" id="dripInstructions"></p>
+            <div class="hero-actions">
+              <button type="button" class="primary-action" id="copyClaim">Copy Claim Code</button>
+              <a class="secondary-action link-action" id="openDiscord" href="https://squigs.io/discord" target="_blank" rel="noreferrer">Open Discord</a>
+              <button type="button" class="secondary-action" id="returnMenu">Return To Menu</button>
+              <button type="button" class="secondary-action" id="retryPractice">Practice Again</button>
             </div>
           </div>
         </section>
       </main>
 
-      <footer class="global-footer">SQUIGS ARE WATCHING</footer>
+      <div class="toast-stack" id="toastStack" aria-live="polite"></div>
     </div>
 
-    <dialog class="modal-card" id="rulesDialog">
-      <form method="dialog" class="modal-body">
-        <div class="panel-heading">
+    <dialog class="modal" id="howDialog">
+      <div class="modal-body">
+        <div class="modal-heading">
           <h2>How It Works</h2>
-          <button class="close-panel" type="submit" aria-label="Close">×</button>
+          <button type="button" class="icon-button" data-close="how" aria-label="Close">×</button>
         </div>
-        <div class="rules-copy" id="rulesCopy"></div>
-        <div class="footer-stamp">SQUIGS ARE WATCHING</div>
-        <div class="profile-actions">
-          <button class="primary-action" type="submit">Close</button>
-        </div>
-      </form>
+        <div id="howCopy" class="copy-list"></div>
+      </div>
     </dialog>
 
-    <dialog class="modal-card" id="leaderboardDialog">
-      <form method="dialog" class="modal-body">
-        <div class="panel-heading">
-          <h2>All-Time Leaderboard</h2>
-          <button class="close-panel" type="submit" aria-label="Close">×</button>
+    <dialog class="modal" id="leaderboardDialog">
+      <div class="modal-body wide">
+        <div class="modal-heading">
+          <h2>Leaderboard</h2>
+          <button type="button" class="icon-button" data-close="leaderboard" aria-label="Close">×</button>
         </div>
-        <div class="leaderboard-tabs" role="tablist" aria-label="Leaderboard period">
-          <button type="button" class="period-tab active" data-period="monthly">Monthly</button>
-          <button type="button" class="period-tab" data-period="weekly">Weekly</button>
-          <button type="button" class="period-tab" data-period="all-time">All Time</button>
+        <div class="tab-row" role="tablist" aria-label="Leaderboard period">
+          <button type="button" class="tab active" data-period="weekly">Weekly</button>
+          <button type="button" class="tab" data-period="monthly">Monthly</button>
+          <button type="button" class="tab" data-period="all-time">All-Time</button>
         </div>
-        <div class="rules-copy" id="leaderboardCopy">Loading...</div>
-        <div class="footer-stamp">SQUIGS ARE WATCHING</div>
-        <div class="profile-actions">
-          <button class="primary-action" type="submit">Close</button>
-        </div>
-      </form>
+        <div id="leaderboardRows" class="leaderboard-rows">Loading...</div>
+      </div>
     </dialog>
 
-    <dialog class="modal-card" id="startPromptDialog">
-      <form method="dialog" class="modal-body">
-        <div class="panel-heading">
-          <h2>Before You Enter</h2>
-          <button class="close-panel" type="submit" aria-label="Close">×</button>
+    <dialog class="modal" id="claimsDialog">
+      <div class="modal-body wide">
+        <div class="modal-heading">
+          <h2>My $CHARM Claims</h2>
+          <button type="button" class="icon-button" data-close="claims" aria-label="Close">×</button>
         </div>
-        <div class="rules-copy" id="startPromptCopy"></div>
-        <div class="footer-stamp">SQUIGS ARE WATCHING</div>
-        <div class="profile-actions" id="startPromptActions"></div>
-      </form>
+        <div id="claimRows" class="claim-rows">Loading...</div>
+      </div>
     </dialog>
 
-    <script type="module" src="/app.js?v=20260606-3"></script>
-    <audio id="themeAudio" src="/audio/the-ugly-ones-know-remastered.mp3" loop preload="auto"></audio>
+    <dialog class="modal" id="scanDialog">
+      <div class="modal-body wide">
+        <div class="modal-heading">
+          <h2>Wallet Scan Details</h2>
+          <button type="button" class="icon-button" data-close="scan" aria-label="Close">×</button>
+        </div>
+        <div id="scanDetails" class="scan-details"></div>
+      </div>
+    </dialog>
+
+    <script type="module" src="/app.js"></script>
   </body>
 </html>

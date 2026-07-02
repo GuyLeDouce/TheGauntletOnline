@@ -1,873 +1,545 @@
-import {
-  APP_COPY,
-  COMPLETION_BONUS,
-  DEAD_IMAGE,
-  DECISION_GAUNTLET_CLAIM_TEXT,
-  DECISION_GAUNTLET_FAIL_END_TEXT,
-  DECISION_GAUNTLET_HALVED_TEXT,
-  DECISION_GAUNTLET_RESTART_TEXT,
-  DECISION_GAUNTLET_ROUNDS,
-  DECISION_GAUNTLET_WIN_END_TEXT,
-  RETRY_IMAGE,
-  TIMINGS
-} from "/game-data.js?v=20260606-3";
+import { APP_COPY, ASSETS, CLAIM_STATUS_COPY, HOW_IT_WORKS } from "/game-data.js";
 
 const STORAGE_KEYS = {
-  clientId: "gauntlet-online-client-id",
-  profile: "gauntlet-online-profile",
-  audioEnabled: "gauntlet-online-audio-enabled"
+  clientId: "insquignito-client-id"
 };
 
 const els = {
-  audioToggle: document.getElementById("audioToggle"),
-  audioIcon: document.getElementById("audioIcon"),
-  themeAudio: document.getElementById("themeAudio"),
-  connectToggle: document.getElementById("connectToggle"),
-  connectPanel: document.getElementById("connectPanel"),
-  closeConnectPanel: document.getElementById("closeConnectPanel"),
-  profileForm: document.getElementById("profileForm"),
-  discordAuthButton: document.getElementById("discordAuthButton"),
-  discordStatus: document.getElementById("discordStatus"),
+  menuView: document.getElementById("menuView"),
+  gameView: document.getElementById("gameView"),
+  finalView: document.getElementById("finalView"),
+  beginInterview: document.getElementById("beginInterview"),
+  practiceInterview: document.getElementById("practiceInterview"),
+  connectDiscord: document.getElementById("connectDiscord"),
+  walletForm: document.getElementById("walletForm"),
   walletAddress: document.getElementById("walletAddress"),
-  discordHandle: document.getElementById("discordHandle"),
-  twitterHandle: document.getElementById("twitterHandle"),
-  clearProfile: document.getElementById("clearProfile"),
-  startGameButton: document.getElementById("startGameButton"),
-  rulesButton: document.getElementById("rulesButton"),
-  leaderboardButton: document.getElementById("leaderboardButton"),
-  lobbyScreen: document.getElementById("lobbyScreen"),
-  gameScreen: document.getElementById("gameScreen"),
-  sceneCard: document.querySelector(".scene-card"),
-  sceneImage: document.getElementById("sceneImage"),
-  sceneTitle: document.getElementById("sceneTitle"),
-  sceneText: document.getElementById("sceneText"),
-  choiceButtons: document.getElementById("choiceButtons"),
-  roundHud: document.getElementById("roundHud"),
-  livesHud: document.getElementById("livesHud"),
-  rewardHud: document.getElementById("rewardHud"),
-  lobbyLives: document.getElementById("lobbyLives"),
-  lobbyBest: document.getElementById("lobbyBest"),
-  identityStatus: document.getElementById("identityStatus"),
-  rulesDialog: document.getElementById("rulesDialog"),
-  rulesCopy: document.getElementById("rulesCopy"),
+  scanWallet: document.getElementById("scanWallet"),
+  refreshScan: document.getElementById("refreshScan"),
+  discordAvatar: document.getElementById("discordAvatar"),
+  discordName: document.getElementById("discordName"),
+  discordMeta: document.getElementById("discordMeta"),
+  gateSummary: document.getElementById("gateSummary"),
+  squigCount: document.getElementById("squigCount"),
+  revivePill: document.getElementById("revivePill"),
+  dignityGranted: document.getElementById("dignityGranted"),
+  modeAvailable: document.getElementById("modeAvailable"),
+  walletNote: document.getElementById("walletNote"),
+  cooldownStatus: document.getElementById("cooldownStatus"),
+  hudQuestion: document.getElementById("hudQuestion"),
+  hudTier: document.getElementById("hudTier"),
+  hudDignity: document.getElementById("hudDignity"),
+  hudCharm: document.getElementById("hudCharm"),
+  hudSquigs: document.getElementById("hudSquigs"),
+  hudTimer: document.getElementById("hudTimer"),
+  questionArt: document.getElementById("questionArt"),
+  questionCategory: document.getElementById("questionCategory"),
+  questionPrompt: document.getElementById("questionPrompt"),
+  questionFlavor: document.getElementById("questionFlavor"),
+  answerOptions: document.getElementById("answerOptions"),
+  feedbackCard: document.getElementById("feedbackCard"),
+  feedbackArt: document.getElementById("feedbackArt"),
+  feedbackTitle: document.getElementById("feedbackTitle"),
+  feedbackRoast: document.getElementById("feedbackRoast"),
+  feedbackExplanation: document.getElementById("feedbackExplanation"),
+  feedbackGain: document.getElementById("feedbackGain"),
+  feedbackActions: document.getElementById("feedbackActions"),
+  finalArt: document.getElementById("finalArt"),
+  finalResult: document.getElementById("finalResult"),
+  finalRank: document.getElementById("finalRank"),
+  finalCopy: document.getElementById("finalCopy"),
+  finalCharm: document.getElementById("finalCharm"),
+  finalClaim: document.getElementById("finalClaim"),
+  finalStatus: document.getElementById("finalStatus"),
+  dripInstructions: document.getElementById("dripInstructions"),
+  copyClaim: document.getElementById("copyClaim"),
+  openDiscord: document.getElementById("openDiscord"),
+  returnMenu: document.getElementById("returnMenu"),
+  retryPractice: document.getElementById("retryPractice"),
+  toastStack: document.getElementById("toastStack"),
+  howDialog: document.getElementById("howDialog"),
+  howCopy: document.getElementById("howCopy"),
   leaderboardDialog: document.getElementById("leaderboardDialog"),
-  leaderboardCopy: document.getElementById("leaderboardCopy"),
-  periodTabs: Array.from(document.querySelectorAll(".period-tab")),
-  startPromptDialog: document.getElementById("startPromptDialog"),
-  startPromptCopy: document.getElementById("startPromptCopy"),
-  startPromptActions: document.getElementById("startPromptActions")
+  leaderboardRows: document.getElementById("leaderboardRows"),
+  claimsDialog: document.getElementById("claimsDialog"),
+  claimRows: document.getElementById("claimRows"),
+  scanDialog: document.getElementById("scanDialog"),
+  scanDetails: document.getElementById("scanDetails")
 };
 
 const state = {
-  clientId: null,
-  profile: {
-    walletAddress: "",
-    discordHandle: "",
-    twitterHandle: "",
-    discordUserId: "",
-    discordAvatar: "",
-    discordGlobalName: ""
-  },
-  leaderboard: [],
-  leaderboardPeriod: "monthly",
-  currentPlacement: null,
-  currentRunId: null,
-  revealedHints: {},
-  currentTell: "",
-  completionBonus: COMPLETION_BONUS,
-  roundIndex: 1,
-  livesRemaining: 2,
-  stack: 0,
-  roundsCleared: 0,
-  isBusy: false
+  clientId: "",
+  config: {},
+  profile: {},
+  scan: null,
+  run: null,
+  timerHandle: null,
+  lastClaimCode: ""
 };
 
-const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
 function getOrCreateClientId() {
-  let clientId = window.localStorage.getItem(STORAGE_KEYS.clientId);
+  let clientId = localStorage.getItem(STORAGE_KEYS.clientId);
   if (!clientId) {
-    clientId = `client_${Math.random().toString(36).slice(2)}${Date.now().toString(36)}`;
-    window.localStorage.setItem(STORAGE_KEYS.clientId, clientId);
+    clientId = `client_${crypto.randomUUID().replace(/-/g, "")}`;
+    localStorage.setItem(STORAGE_KEYS.clientId, clientId);
   }
   return clientId;
 }
 
-function readLocalProfile() {
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEYS.profile);
-    if (!raw) return emptyProfile();
-    return JSON.parse(raw);
-  } catch {
-    return emptyProfile();
-  }
-}
-
-function writeLocalProfile(profile) {
-  window.localStorage.setItem(STORAGE_KEYS.profile, JSON.stringify(profile));
-}
-
-function emptyProfile() {
-  return {
-    walletAddress: "",
-    discordHandle: "",
-    twitterHandle: "",
-    discordUserId: "",
-    discordAvatar: "",
-    discordGlobalName: ""
-  };
-}
-
-function normalizeProfile(profile = {}) {
-  return {
-    ...emptyProfile(),
-    walletAddress: profile.walletAddress || "",
-    discordHandle: profile.discordHandle || "",
-    twitterHandle: profile.twitterHandle || "",
-    discordUserId: profile.discordUserId || "",
-    discordAvatar: profile.discordAvatar || "",
-    discordGlobalName: profile.discordGlobalName || ""
-  };
-}
-
 async function apiFetch(url, options = {}) {
   const response = await fetch(url, {
-    headers: {
-      "Content-Type": "application/json"
-    },
+    headers: { "Content-Type": "application/json" },
     ...options
   });
-
-  if (!response.ok) {
-    let payload = null;
-    try {
-      payload = await response.json();
-    } catch {
-      payload = null;
-    }
-    const error = new Error(payload?.error || `Request failed with status ${response.status}`);
-    error.status = response.status;
-    error.code = payload?.code || "";
-    error.payload = payload;
-    throw error;
-  }
-
-  return response.json();
-}
-
-function leaderboardName(profile = state.profile) {
-  return profile.discordHandle || profile.twitterHandle || "";
-}
-
-function lifeTierFromProfile(profile) {
-  void profile;
-  return 2;
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(data.error || `Request failed (${response.status})`);
+  return data;
 }
 
 function showToast(message) {
   const toast = document.createElement("div");
   toast.className = "toast";
   toast.textContent = message;
-  document.body.appendChild(toast);
-  window.setTimeout(() => toast.remove(), 2400);
+  els.toastStack.appendChild(toast);
+  setTimeout(() => toast.remove(), 3200);
 }
 
-function syncAudioUi(enabled) {
-  els.audioToggle.setAttribute("aria-pressed", enabled ? "true" : "false");
-  els.audioToggle.classList.toggle("active", enabled);
-  els.audioIcon.textContent = enabled ? "♫" : "♪";
-  els.audioToggle.title = enabled ? "Turn music off" : "Turn music on";
+function setView(view) {
+  els.menuView.classList.toggle("hidden", view !== "menu");
+  els.gameView.classList.toggle("hidden", view !== "game");
+  els.finalView.classList.toggle("hidden", view !== "final");
 }
 
-async function setAudioEnabled(enabled) {
-  window.localStorage.setItem(STORAGE_KEYS.audioEnabled, enabled ? "true" : "false");
-  syncAudioUi(enabled);
-
-  if (!enabled) {
-    els.themeAudio.pause();
-    return;
-  }
-
-  els.themeAudio.volume = 0.42;
-  try {
-    await els.themeAudio.play();
-  } catch {
-    syncAudioUi(false);
-    window.localStorage.setItem(STORAGE_KEYS.audioEnabled, "false");
-    showToast("Tap music again to start audio.");
-  }
+function setArt(el, key) {
+  el.dataset.asset = key;
+  el.style.backgroundImage = `url("${ASSETS[key] || ASSETS.interviewDesk}")`;
 }
 
-function initAudio() {
-  const enabled = window.localStorage.getItem(STORAGE_KEYS.audioEnabled) === "true";
-  syncAudioUi(enabled);
-  if (enabled) {
-    setAudioEnabled(true);
-  }
+function formatDate(value) {
+  if (!value) return "Unknown";
+  return new Date(value).toLocaleString([], { dateStyle: "medium", timeStyle: "short" });
 }
 
-function handleDiscordReturnNotice() {
-  const url = new URL(window.location.href);
-  const discordStatus = url.searchParams.get("discord");
-  const reason = url.searchParams.get("reason");
-  if (!discordStatus) return;
-
-  if (discordStatus === "connected") {
-    showToast("Discord connected.");
-  } else {
-    showToast(reason ? `Discord auth failed: ${reason}` : "Discord auth failed.");
-  }
-
-  url.searchParams.delete("discord");
-  url.searchParams.delete("reason");
-  window.history.replaceState({}, "", url.toString());
+function formatShortWallet(wallet) {
+  if (!wallet) return "No wallet";
+  return `${wallet.slice(0, 6)}...${wallet.slice(-4)}`;
 }
 
-function startDiscordAuth() {
-  window.location.href = `/api/auth/discord/start?clientId=${encodeURIComponent(state.clientId)}`;
+function cooldownText(cooldown) {
+  if (!cooldown?.nextAvailableAt) return "";
+  return `Reward run available ${formatDate(cooldown.nextAvailableAt)}. Practice mode is open.`;
 }
 
-function toggleConnectPanel(forceOpen) {
-  const willOpen = typeof forceOpen === "boolean"
-    ? forceOpen
-    : els.connectPanel.classList.contains("hidden");
-  els.connectPanel.classList.toggle("hidden", !willOpen);
-  els.connectToggle.setAttribute("aria-expanded", willOpen ? "true" : "false");
-}
+function syncApplicantFile() {
+  const profile = state.profile || {};
+  const scan = state.scan;
+  els.walletNote.textContent = APP_COPY.walletNote;
+  els.walletAddress.value = profile.walletAddress || els.walletAddress.value || "";
 
-function setVisibleScreen(screenName) {
-  els.lobbyScreen.classList.toggle("visible", screenName === "lobby");
-  els.gameScreen.classList.toggle("visible", screenName === "game");
-}
-
-function getRound(roundIndex) {
-  return DECISION_GAUNTLET_ROUNDS.find((round) => round.roundIndex === roundIndex);
-}
-
-function applyRunState(run) {
-  if (!run) return;
-  state.currentRunId = run.runId || state.currentRunId;
-  state.roundIndex = Number(run.roundIndex || 1);
-  state.livesRemaining = Number(run.livesRemaining || 0);
-  state.stack = Number(run.stack || 0);
-  state.roundsCleared = Number(run.roundsCleared || 0);
-  state.revealedHints = run.revealedHints || {};
-  state.currentTell = run.roomTell || "";
-  updateHud();
-}
-
-function updateHud() {
-  els.roundHud.textContent = `Round ${state.roundIndex}/10`;
-  els.livesHud.textContent = `Lives: ${state.livesRemaining}`;
-  els.rewardHud.textContent = `Stack: ${state.stack} Pts`;
-}
-
-function syncProfileForm() {
-  els.walletAddress.value = state.profile.walletAddress || "";
-  els.discordHandle.value = state.profile.discordHandle || "";
-  els.twitterHandle.value = state.profile.twitterHandle || "";
-  els.lobbyLives.textContent = String(lifeTierFromProfile(state.profile));
-  els.identityStatus.textContent = leaderboardName() || "None Set";
-  els.discordStatus.textContent = state.profile.discordUserId
-    ? `Discord connected as ${state.profile.discordHandle || state.profile.discordGlobalName}.`
-    : "Connect Discord to enter The Gauntlet.";
-  els.discordAuthButton.textContent = state.profile.discordUserId
-    ? "Reconnect Discord"
-    : "Connect Discord";
-}
-
-function syncLobbySummary() {
-  const best = Number(state.currentPlacement?.best_points_ever || 0);
-  els.lobbyBest.textContent = `${best} Pts`;
-  els.rulesCopy.textContent = APP_COPY.info.join("\n");
-}
-
-function disableButtons() {
-  Array.from(els.choiceButtons.querySelectorAll("button")).forEach((button) => {
-    button.disabled = true;
-  });
-}
-
-async function typeText(text) {
-  els.sceneText.textContent = "";
-  for (let index = 0; index < text.length; index += 1) {
-    els.sceneText.textContent += text[index];
-    await wait(text[index] === "\n" ? TIMINGS.typewriterMsPerCharacter * 4 : TIMINGS.typewriterMsPerCharacter);
-  }
-}
-
-function renderButtons(buttons) {
-  els.choiceButtons.innerHTML = "";
-  buttons.forEach((buttonConfig) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = buttonConfig.variant || "primary-action";
-    button.textContent = buttonConfig.label;
-    if (buttonConfig.title) {
-      button.title = buttonConfig.title;
+  if (profile.discordHandle || profile.discordUserId) {
+    els.discordName.textContent = profile.discordGlobalName || profile.discordHandle || profile.discordUserId;
+    els.discordMeta.textContent = profile.discordHandle ? `@${profile.discordHandle}` : "Discord connected";
+    if (profile.discordAvatar) {
+      els.discordAvatar.style.backgroundImage = `url("${profile.discordAvatar}")`;
+      els.discordAvatar.textContent = "";
+    } else {
+      els.discordAvatar.style.backgroundImage = "";
+      els.discordAvatar.textContent = "D";
     }
-    button.addEventListener("click", buttonConfig.onClick, { once: true });
-    els.choiceButtons.appendChild(button);
-  });
-}
-
-function flashScene(className) {
-  els.sceneCard.classList.remove("choice-lock", "death-flash", "survive-pulse");
-  void els.sceneCard.offsetWidth;
-  els.sceneCard.classList.add(className);
-  window.setTimeout(() => els.sceneCard.classList.remove(className), 900);
-}
-
-async function presentScene({ title, image, text, buttons = [] }) {
-  state.isBusy = true;
-  const isElimination = /eliminated|elimination|arena collects/i.test(title) || /ELIMINATED|FINAL ELIMINATION/.test(text);
-  const isCleared = /cleared|complete|prize claim/i.test(title) || /\bALIVE\b/.test(text);
-  els.sceneCard.classList.toggle("elimination-state", isElimination);
-  els.sceneCard.classList.toggle("cleared-state", isCleared && !isElimination);
-  els.sceneTitle.textContent = title;
-  els.sceneImage.src = image;
-  els.sceneImage.alt = title;
-  els.choiceButtons.innerHTML = "";
-  await typeText(text);
-  renderButtons(buttons);
-  state.isBusy = false;
-}
-
-function renderLeaderboard(entries) {
-  if (!entries.length) {
-    els.leaderboardCopy.textContent = `No ${periodLabel(state.leaderboardPeriod).toLowerCase()} leaderboard entries yet.`;
-    return;
+  } else {
+    els.discordName.textContent = "Discord not connected";
+    els.discordMeta.textContent = "Required for reward runs";
+    els.discordAvatar.style.backgroundImage = "";
+    els.discordAvatar.textContent = "?";
   }
 
-  const currentClientId = state.clientId;
-  const currentPlacement = state.currentPlacement;
-  const wrapper = document.createElement("div");
-  wrapper.className = "leaderboard-wrap";
-  const list = document.createElement("ol");
-  list.className = "leaderboard-list";
-
-  entries.forEach((entry) => {
-    const item = document.createElement("li");
-    item.className = `leaderboard-item${entry.client_id === currentClientId ? " leaderboard-item-current" : ""}`;
-
-    const placement = document.createElement("strong");
-    placement.textContent = `#${entry.placement}`;
-
-    const main = document.createElement("div");
-    main.className = "leaderboard-main";
-
-    const name = document.createElement("span");
-    name.className = "leaderboard-name";
-    name.textContent = entry.display_name;
-
-    const meta = document.createElement("span");
-    meta.className = "leaderboard-meta";
-    meta.textContent = `Runs ${entry.user_runs_total} · Total ${entry.total_points_earned} · Wins ${entry.wins}`;
-
-    const points = document.createElement("span");
-    points.className = "leaderboard-points";
-    points.textContent = `Best ${entry.best_points_ever}`;
-
-    main.append(name, meta);
-    item.append(placement, main, points);
-    list.appendChild(item);
-  });
-
-  els.leaderboardCopy.innerHTML = "";
-  wrapper.appendChild(list);
-  els.leaderboardCopy.appendChild(wrapper);
-
-  if (currentPlacement) {
-    const summary = document.createElement("div");
-    summary.className = "leaderboard-summary";
-    summary.textContent =
-      `${periodLabel(state.leaderboardPeriod)} placement: #${currentPlacement.placement} · ` +
-      `${currentPlacement.total_points_earned} Pts · ` +
-      `Runs ${currentPlacement.user_runs_total} · ` +
-      `Best ${currentPlacement.best_points_ever} · Wins ${currentPlacement.wins}`;
-    els.leaderboardCopy.appendChild(summary);
-  }
+  els.squigCount.textContent = String(scan?.squigCount || 0);
+  els.revivePill.textContent = scan?.hasRevivePill ? `Yes (${scan.revivePillCount})` : "No";
+  els.dignityGranted.textContent = String(scan?.dignityGranted || 1);
+  const rewardReady = Boolean(profile.discordUserId && scan && (scan.squigCount > 0 || state.config.allowZeroSquigReward));
+  els.modeAvailable.textContent = rewardReady ? "Reward" : "Practice";
+  els.gateSummary.textContent = scan
+    ? `Wallet scanned. ${scan.squigCount} Squigs found. ${scan.walletTitle || "Stay Ugly"}.`
+    : "Connect Discord, paste a wallet, and let the scanner insult it.";
+  els.cooldownStatus.textContent = cooldownText(state.cooldown);
 }
 
-async function refreshLeaderboard() {
-  try {
-    const response = await apiFetch(
-      `/api/leaderboard?limit=100&period=${encodeURIComponent(state.leaderboardPeriod)}&clientId=${encodeURIComponent(state.clientId)}`
-    );
-    state.leaderboard = Array.isArray(response.entries) ? response.entries : [];
-    state.currentPlacement = response.currentPlayer || null;
-    renderLeaderboard(state.leaderboard);
-    syncLobbySummary();
-  } catch {
-    els.leaderboardCopy.textContent = "Leaderboard unavailable right now.";
-  }
+function renderHow() {
+  els.howCopy.innerHTML = HOW_IT_WORKS.map((line) => `<p>${line}</p>`).join("");
+}
+
+async function loadConfig() {
+  state.config = await apiFetch("/api/config");
+  els.openDiscord.href = state.config.discordInviteUrl || "https://squigs.io/discord";
 }
 
 async function loadProfile() {
-  state.clientId = getOrCreateClientId();
-  state.profile = normalizeProfile(readLocalProfile());
-
-  try {
-    const response = await apiFetch(`/api/profile?clientId=${encodeURIComponent(state.clientId)}`);
-    if (response?.profile) {
-      state.profile = normalizeProfile(response.profile);
-      writeLocalProfile(state.profile);
-    }
-  } catch {
-    // Keep local fallback.
-  }
-
-  syncProfileForm();
+  const data = await apiFetch(`/api/profile?clientId=${encodeURIComponent(state.clientId)}`);
+  state.profile = data.profile || {};
+  state.scan = data.scan || null;
+  state.cooldown = data.cooldown || null;
+  syncApplicantFile();
 }
 
-async function saveProfile() {
-  writeLocalProfile(state.profile);
+async function saveWallet() {
+  const walletAddress = els.walletAddress.value.trim();
+  const data = await apiFetch("/api/profile", {
+    method: "POST",
+    body: JSON.stringify({ clientId: state.clientId, walletAddress })
+  });
+  state.profile = data.profile || state.profile;
+  syncApplicantFile();
+  showToast("Wallet saved. It smells wrong already.");
+}
+
+async function scanWallet(forceRefresh = false) {
+  const walletAddress = els.walletAddress.value.trim();
+  const data = await apiFetch("/api/wallet/scan", {
+    method: "POST",
+    body: JSON.stringify({ clientId: state.clientId, walletAddress, forceRefresh })
+  });
+  state.profile = data.profile || state.profile;
+  state.scan = data.scan;
+  syncApplicantFile();
+  renderScanDetails();
+  showToast(data.scan.cached ? "Fresh enough scan reused." : "Wallet scanned. It smells wrong. Approved.");
+}
+
+function syncHud(run) {
+  if (!run) return;
+  const q = run.question;
+  els.hudQuestion.textContent = q ? `${q.progressNumber}/${q.interviewLength}` : `${Math.min(run.currentIndex + 1, run.interviewLength)}/${run.interviewLength}`;
+  els.hudTier.textContent = q?.tierLabel || "Interview";
+  els.hudDignity.textContent = String(run.dignityRemaining);
+  els.hudCharm.textContent = String(run.charmStack);
+  els.hudSquigs.textContent = String(run.squigCount);
+}
+
+function startTimer(question) {
+  clearInterval(state.timerHandle);
+  if (!question?.expiresAt || !question.timerSeconds) {
+    els.hudTimer.textContent = "--";
+    return;
+  }
+  const tick = () => {
+    const remaining = Math.max(0, Math.ceil((Date.parse(question.expiresAt) - Date.now()) / 1000));
+    els.hudTimer.textContent = `${remaining}s`;
+    if (remaining <= 0) clearInterval(state.timerHandle);
+  };
+  tick();
+  state.timerHandle = setInterval(tick, 250);
+}
+
+function renderQuestion(run) {
+  state.run = run;
+  const question = run.question;
+  if (!question) return;
+  setView("game");
+  els.feedbackCard.classList.add("hidden");
+  els.answerOptions.innerHTML = "";
+  syncHud(run);
+  startTimer(question);
+  setArt(els.questionArt, question.imageKey || "interviewDesk");
+  els.questionCategory.textContent = question.category;
+  els.questionPrompt.textContent = question.prompt;
+  els.questionFlavor.textContent = question.flavorText || "";
+
+  for (const option of question.options) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "answer-button";
+    button.textContent = option.text;
+    button.addEventListener("click", () => submitChoice(option.id));
+    els.answerOptions.appendChild(button);
+  }
+}
+
+async function startRun(mode) {
   try {
-    await apiFetch("/api/profile", {
+    const data = await apiFetch("/api/run/start", {
+      method: "POST",
+      body: JSON.stringify({ clientId: state.clientId, mode })
+    });
+    renderQuestion(data.run);
+  } catch (error) {
+    showToast(error.message);
+  }
+}
+
+async function submitChoice(selectedOptionId) {
+  if (!state.run?.question) return;
+  Array.from(els.answerOptions.children).forEach((button) => {
+    button.disabled = true;
+  });
+  try {
+    const data = await apiFetch("/api/run/choice", {
       method: "POST",
       body: JSON.stringify({
         clientId: state.clientId,
-        ...state.profile
+        runId: state.run.runId,
+        questionId: state.run.question.id,
+        selectedOptionId
       })
     });
-  } catch {
-    showToast("Saved in this browser. Database sync failed.");
-    return;
+    clearInterval(state.timerHandle);
+    state.run = data.run;
+    syncHud(data.run);
+    renderFeedback(data);
+  } catch (error) {
+    showToast(error.message);
+    Array.from(els.answerOptions.children).forEach((button) => {
+      button.disabled = false;
+    });
   }
-  await refreshLeaderboard();
-  showToast("Profile details saved.");
 }
 
-function openStartPrompt(copy, actions) {
-  els.startPromptCopy.textContent = copy;
-  els.startPromptActions.innerHTML = "";
+function renderFeedback(data) {
+  const feedback = data.feedback;
+  els.feedbackCard.classList.remove("hidden");
+  setArt(els.feedbackArt, feedback.wasCorrect ? "correct" : "wrong");
+  els.feedbackTitle.textContent = feedback.wasCorrect ? "Correct" : feedback.timedOut ? "Too Slow" : "Wrong";
+  els.feedbackRoast.textContent = feedback.roast;
+  els.feedbackExplanation.textContent = `${feedback.explanation} Correct answer: ${feedback.correctAnswerText}`;
+  els.feedbackGain.textContent = feedback.wasCorrect
+    ? `+$${""}CHARM ${feedback.rewardAdded}. Disgusting answer. Continue.`
+    : `Dignity Lost: ${feedback.dignityLost}. You weren't using it well anyway.`;
+  els.feedbackActions.innerHTML = "";
 
-  actions.forEach((action) => {
+  if (data.final) {
     const button = document.createElement("button");
     button.type = "button";
-    button.className = action.variant || "secondary-action";
-    button.textContent = action.label;
-    button.addEventListener("click", () => {
-      els.startPromptDialog.close();
-      action.onClick();
-    }, { once: true });
-    els.startPromptActions.appendChild(button);
-  });
-
-  els.startPromptDialog.showModal();
-}
-
-function periodLabel(period) {
-  if (period === "weekly") return "Weekly";
-  if (period === "all-time") return "All-Time";
-  return "Monthly";
-}
-
-function syncLeaderboardTabs() {
-  els.periodTabs.forEach((tab) => {
-    const isActive = tab.dataset.period === state.leaderboardPeriod;
-    tab.classList.toggle("active", isActive);
-    tab.setAttribute("aria-selected", isActive ? "true" : "false");
-  });
-}
-
-async function beginRun() {
-  try {
-    const response = await apiFetch("/api/run/start", {
-      method: "POST",
-      body: JSON.stringify({ clientId: state.clientId })
-    });
-    state.completionBonus = Number(response.config?.completionBonus || COMPLETION_BONUS);
-    applyRunState(response.run);
-    setVisibleScreen("game");
-    await showRound();
-  } catch (error) {
-    showToast("Discord login is required to start a run.");
-    toggleConnectPanel(true);
-    setVisibleScreen("lobby");
-  }
-}
-
-function handleStartAttempt() {
-  const name = leaderboardName();
-
-  if (state.profile.discordUserId) {
-    openStartPrompt(
-      `Welcome to the Decision Gauntlet ${name}.\n\nAre you ready?`,
-      [
-        { label: "Yes", variant: "primary-action", onClick: beginRun },
-        { label: "No", variant: "secondary-action", onClick: () => setVisibleScreen("lobby") }
-      ]
-    );
+    button.className = "primary-action";
+    button.textContent = "View Result";
+    button.addEventListener("click", () => renderFinal(data));
+    els.feedbackActions.appendChild(button);
     return;
   }
 
-  openStartPrompt(
-    "Discord login is required before entering The Gauntlet.",
-    [
-      { label: "Connect Discord", variant: "primary-action", onClick: startDiscordAuth }
-    ]
-  );
-}
+  const continueButton = document.createElement("button");
+  continueButton.type = "button";
+  continueButton.className = "primary-action";
+  continueButton.textContent = "Continue And Risk Your Remaining Dignity";
+  continueButton.addEventListener("click", () => advanceRun("continue"));
+  els.feedbackActions.appendChild(continueButton);
 
-async function finishRunFromServer(final, finalText, finalImage) {
-  const leaderboardSave = final?.leaderboardSave;
-  const leaderboardNote = !leaderboardName()
-    ? "\n\nNo leaderboard entry was saved because Discord is not connected."
-    : leaderboardSave?.saved
-      ? ""
-      : "\n\nRun complete. Leaderboard sync is unavailable in this environment.";
-
-  await refreshLeaderboard();
-  updateHud();
-
-  await presentScene({
-    title: "Decision Gauntlet Complete",
-    image: finalImage,
-    text: [
-      finalText,
-      "",
-      `Final Round: ${final?.finalRound || 0}`,
-      `Final Award: ${final?.points || 0} Pts`,
-      `Result Type: ${final?.resultType || "Unknown"}`,
-      leaderboardNote
-    ].join("\n"),
-    buttons: [
-      {
-        label: "Back To Lobby",
-        variant: "primary-action",
-        onClick: () => {
-          syncProfileForm();
-          syncLobbySummary();
-          setVisibleScreen("lobby");
-        }
-      },
-      {
-        label: "Run Again",
-        variant: "secondary-action",
-        onClick: handleStartAttempt
-      }
-    ]
-  });
+  if (data.cashoutAvailable) {
+    const cashoutButton = document.createElement("button");
+    cashoutButton.type = "button";
+    cashoutButton.className = "secondary-action";
+    cashoutButton.textContent = "Leave With Your Ugly Little Bag";
+    cashoutButton.addEventListener("click", () => advanceRun("cashout"));
+    els.feedbackActions.appendChild(cashoutButton);
+  }
 }
 
 async function advanceRun(action) {
-  const response = await apiFetch("/api/run/advance", {
-    method: "POST",
-    body: JSON.stringify({
-      clientId: state.clientId,
-      runId: state.currentRunId,
-      action
-    })
-  });
-  applyRunState(response.run);
-  return response;
-}
-
-async function promptGoHomeScared(round) {
-  await presentScene({
-    title: "Leave The Arena?",
-    image: round.image,
-    text: [
-      "You still have lives remaining.",
-      "",
-      `Current Stacked Reward: ${state.stack} Pts`,
-      "",
-      "Are you sure you want to go home scared?"
-    ].join("\n"),
-    buttons: [
-      {
-        label: "Confirm Go Home Scared",
-        variant: "danger-action",
-        onClick: async () => {
-          try {
-            const response = await advanceRun("cashout");
-            await finishRunFromServer(
-              response.final,
-              "You turned back and left the arena.",
-              round.image
-            );
-          } catch {
-            showToast("Could not finish the run. Try again.");
-          }
-        }
-      },
-      {
-        label: "Continue",
-        variant: "secondary-action",
-        onClick: async () => {
-          try {
-            await advanceRun("continue");
-            await showRound();
-          } catch {
-            showToast("Could not continue the run. Try again.");
-          }
-        }
-      }
-    ]
-  });
-}
-
-async function promptPostRound(round, madeCorrectChoice) {
-  await presentScene({
-    title: `Round ${round.roundIndex} Cleared`,
-    image: round.image,
-    text: [
-      `InSquignito survived and stacked ${round.reward} Pts.`,
-      `Current stack: ${state.stack} Pts`,
-      madeCorrectChoice ? "You read the room correctly." : "You chose poorly, but the arena blinked.",
-      "",
-      "Choose whether to keep pushing or go home scared."
-    ].join("\n"),
-    buttons: [
-      {
-        label: "Continue",
-        variant: "primary-action",
-        onClick: async () => {
-          try {
-            await advanceRun("continue");
-            await showRound();
-          } catch {
-            showToast("Could not continue the run. Try again.");
-          }
-        }
-      },
-      {
-        label: "Go Home Scared",
-        variant: "secondary-action",
-        onClick: () => promptGoHomeScared(round)
-      }
-    ]
-  });
-}
-
-async function resolveChoice(round, choice) {
-  if (state.isBusy) return;
-  disableButtons();
-  flashScene("choice-lock");
-  await wait(TIMINGS.preRevealDelayMs);
-  await presentScene({
-    title: `Decision Gauntlet - Round ${round.roundIndex}/10`,
-    image: round.image,
-    text: `You chose ${choice}.\n\nThe arena is deciding what that means.`
-  });
-
-  let response;
   try {
-    response = await apiFetch("/api/run/choice", {
+    const data = await apiFetch("/api/run/advance", {
       method: "POST",
-      body: JSON.stringify({
-        clientId: state.clientId,
-        runId: state.currentRunId,
-        choice
-      })
+      body: JSON.stringify({ clientId: state.clientId, runId: state.run.runId, action })
     });
+    if (data.final) {
+      renderFinal(data);
+      return;
+    }
+    renderQuestion(data.run);
   } catch (error) {
-    const message = error.status === 400
-      ? "The game updated. Refresh the page before choosing again."
-      : error.status === 404
-        ? "This run expired. Start a new run from the lobby."
-        : "The arena could not resolve that choice. Start again.";
-    showToast(message);
-    setVisibleScreen("lobby");
-    return;
+    showToast(error.message);
   }
-
-  applyRunState(response.run);
-  await wait(500);
-  flashScene(response.survived ? "survive-pulse" : "death-flash");
-
-  await presentScene({
-    title: response.survived
-      ? `Decision Gauntlet - Round ${round.roundIndex}/10`
-      : response.result === "finished"
-        ? "Final Elimination"
-        : "Eliminated",
-    image: response.survived ? round.image : DEAD_IMAGE,
-    text: response.survived
-      ? "ALIVE"
-      : [
-          "ELIMINATED.",
-          "",
-          response.madeCorrectChoice
-            ? "You read the symbol correctly, but the arena still took its chance."
-            : "The symbol was wrong, and the arena punished it.",
-          "",
-          `Lives Remaining: ${state.livesRemaining}`
-        ].join("\n")
-  });
-
-  await wait(TIMINGS.revealHoldMs);
-
-  if (!response.survived && response.result === "finished") {
-    await presentScene({
-      title: "The Arena Collects",
-      image: DEAD_IMAGE,
-      text: DECISION_GAUNTLET_HALVED_TEXT(
-        response.stackedBeforeHalving || 0,
-        response.final?.points || 0,
-        response.deathHint
-      )
-    });
-
-    await wait(TIMINGS.revealHoldMs);
-    await finishRunFromServer(
-      response.final,
-      DECISION_GAUNTLET_FAIL_END_TEXT(response.final?.points || 0),
-      DEAD_IMAGE
-    );
-    return;
-  }
-
-  if (!response.survived) {
-    await presentScene({
-      title: "Eliminated - Life Lost",
-      image: RETRY_IMAGE,
-      text: DECISION_GAUNTLET_RESTART_TEXT(response.deathHint),
-      buttons: [
-        {
-          label: "Use Next Life",
-          variant: "primary-action",
-          onClick: () => showRound()
-        },
-        {
-          label: "Back To Lobby",
-          variant: "secondary-action",
-          onClick: () => {
-            syncProfileForm();
-            syncLobbySummary();
-            setVisibleScreen("lobby");
-          }
-        }
-      ]
-    });
-    return;
-  }
-
-  if (response.result === "completed") {
-    const basePoints = Math.max(0, Number(response.final?.points || 0) - Number(response.completionBonus || 0));
-    const winText = DECISION_GAUNTLET_WIN_END_TEXT(
-      basePoints,
-      Number(response.completionBonus || 0),
-      Number(response.final?.points || 0)
-    );
-    await presentScene({
-      title: "Prize Claim",
-      image: round.image,
-      text: DECISION_GAUNTLET_CLAIM_TEXT,
-      buttons: [
-        {
-          label: "Open Discord",
-          variant: "primary-action",
-          onClick: () => window.open("https://squigs.io/discord", "_blank", "noopener,noreferrer")
-        },
-        {
-          label: "Finish Run",
-          variant: "secondary-action",
-          onClick: () => finishRunFromServer(response.final, winText, round.image)
-        }
-      ]
-    });
-    return;
-  }
-
-  await promptPostRound(round, response.madeCorrectChoice);
 }
 
-async function showRound() {
-  const round = getRound(state.roundIndex);
-  if (!round) return;
-
-  const revealedHint = state.revealedHints?.[round.roundIndex];
-  const roomLines = [round.text];
-  if (state.currentTell) {
-    roomLines.push("", `Arena Tell: ${state.currentTell}`);
-  }
-  if (revealedHint) {
-    roomLines.push("", `Marked from a previous death: ${revealedHint}`);
-  }
-  roomLines.push(
-    "",
-    `Room Type: ${round.difficultyLabel}`,
-    `Reward: ${round.reward} Pts`,
-    `Best-choice survival: ${Math.round(round.safeSurvivalChance * 100)}%`,
-    `Wrong-choice mercy: ${Math.round(round.mistakeSurvivalChance * 100)}%`
-  );
-
-  updateHud();
-  await presentScene({
-    title: `Decision Gauntlet - Round ${round.roundIndex}/10`,
-    image: round.image,
-    text: roomLines.join("\n"),
-    buttons: round.buttons.map((label) => ({
-      label,
-      variant: "primary-action",
-      title: `Choose ${label}`,
-      onClick: () => resolveChoice(round, label)
-    }))
-  });
+function renderFinal(data) {
+  const run = data.run;
+  const payout = run.payout;
+  state.lastClaimCode = payout?.claimCode || "";
+  setView("final");
+  setArt(els.finalArt, run.status === "completed" ? "hired" : run.status === "out_of_dignity" ? "prettyJail" : "claimBooth");
+  els.finalResult.textContent = run.status === "completed" ? "HIRED BY INSQUIGNITO" : run.resultType || "Interview Complete";
+  els.finalRank.textContent = run.rankTitle;
+  els.finalCopy.textContent = data.endCopy || "InSquignito is disappointed, but not surprised. Stay Ugly.";
+  els.finalCharm.textContent = String(run.charmFinal || 0);
+  els.finalClaim.textContent = payout?.claimCode || (run.mode === "practice" ? "Practice run" : "No claim");
+  els.finalStatus.textContent = payout ? `pending` : "No payout";
+  els.dripInstructions.textContent = payout ? APP_COPY.drip : "Practice runs and zero-value results do not create $CHARM payouts.";
+  els.copyClaim.disabled = !payout?.claimCode;
 }
 
-els.audioToggle.addEventListener("click", () => {
-  const shouldEnable = els.audioToggle.getAttribute("aria-pressed") !== "true";
-  setAudioEnabled(shouldEnable);
-});
-
-els.connectToggle.addEventListener("click", () => toggleConnectPanel());
-els.closeConnectPanel.addEventListener("click", () => toggleConnectPanel(false));
-els.rulesButton.addEventListener("click", () => els.rulesDialog.showModal());
-els.leaderboardButton.addEventListener("click", async () => {
-  syncLeaderboardTabs();
-  await refreshLeaderboard();
-  els.leaderboardDialog.showModal();
-});
-els.startGameButton.addEventListener("click", handleStartAttempt);
-els.discordAuthButton.addEventListener("click", startDiscordAuth);
-
-els.periodTabs.forEach((tab) => {
-  tab.addEventListener("click", async () => {
-    state.leaderboardPeriod = tab.dataset.period || "monthly";
-    syncLeaderboardTabs();
-    await refreshLeaderboard();
-  });
-});
-
-els.profileForm.addEventListener("submit", async (event) => {
-  event.preventDefault();
-  state.profile = {
-    ...state.profile,
-    walletAddress: els.walletAddress.value.trim(),
-    twitterHandle: els.twitterHandle.value.trim()
-  };
-  syncProfileForm();
-  toggleConnectPanel(false);
-  await saveProfile();
-});
-
-els.clearProfile.addEventListener("click", async () => {
-  state.profile = {
-    ...emptyProfile()
-  };
-  syncProfileForm();
-  await saveProfile();
-});
-
-window.addEventListener("click", (event) => {
-  if (
-    !els.connectPanel.classList.contains("hidden") &&
-    !els.connectPanel.contains(event.target) &&
-    !els.connectToggle.contains(event.target)
-  ) {
-    toggleConnectPanel(false);
+async function renderLeaderboard(period = "weekly") {
+  els.leaderboardRows.textContent = "Loading...";
+  try {
+    const data = await apiFetch(`/api/leaderboard?period=${period}&limit=100&clientId=${encodeURIComponent(state.clientId)}`);
+    const entries = data.entries || [];
+    if (!entries.length) {
+      els.leaderboardRows.textContent = "No ugly applicants have survived this period yet. Be the first mistake.";
+      return;
+    }
+    const current = data.currentPlayer;
+    els.leaderboardRows.innerHTML = entries.map((entry) => `
+      <div class="leaderboard-row">
+        <strong>#${entry.placement}</strong>
+        <div class="mini-avatar"${entry.discordAvatar ? ` style="background-image:url('${entry.discordAvatar}')"` : ""}></div>
+        <div>
+          <b>${entry.displayName || "Ugly Applicant"}</b>
+          <span>${entry.lastRankTitle || "Applicant"} · ${entry.lastSquigCount || 0} Squigs ${entry.lastHasRevivePill ? "· Revive Pill" : ""}</span>
+        </div>
+        <div><b>${entry.bestCharmEver || 0}</b><span>Best $CHARM</span></div>
+        <div><b>${entry.totalCharmEarned || 0}</b><span>Total</span></div>
+        <div><b>${entry.fullClears || 0}</b><span>Full Clears</span></div>
+        <div><b>${entry.bestQuestionReached || 0}</b><span>Best Q</span></div>
+      </div>
+    `).join("") + (current ? `
+      <div class="current-player-row">
+        Your placement: #${current.placement} · Best ${current.bestCharmEver || 0} $CHARM · ${current.fullClears || 0} full clears · Best question ${current.bestQuestionReached || 0}
+      </div>
+    ` : "");
+  } catch (error) {
+    els.leaderboardRows.textContent = error.message;
   }
-});
+}
 
-state.clientId = getOrCreateClientId();
-initAudio();
-await loadProfile();
-handleDiscordReturnNotice();
-await refreshLeaderboard();
-syncProfileForm();
-syncLobbySummary();
-syncLeaderboardTabs();
-setVisibleScreen("lobby");
+async function renderClaims() {
+  els.claimRows.textContent = "Loading...";
+  try {
+    const data = await apiFetch(`/api/payouts?clientId=${encodeURIComponent(state.clientId)}`);
+    const payouts = data.payouts || [];
+    if (!payouts.length) {
+      els.claimRows.textContent = "No $CHARM claims yet. InSquignito's drawer remains damp and empty.";
+      return;
+    }
+    els.claimRows.innerHTML = payouts.map((payout) => `
+      <div class="claim-row">
+        <div>
+          <b>${payout.claimCode}</b>
+          <span>${CLAIM_STATUS_COPY[payout.status] || payout.status}</span>
+        </div>
+        <div><b>${payout.amount}</b><span>$CHARM</span></div>
+        <div><b>${payout.status}</b><span>${formatDate(payout.createdAt)}</span></div>
+        <div><b>${formatShortWallet(payout.walletAddress)}</b><span>${payout.runId}</span></div>
+        <button type="button" class="secondary-action copy-claim" data-code="${payout.claimCode}">Copy</button>
+      </div>
+    `).join("");
+  } catch (error) {
+    els.claimRows.textContent = error.message;
+  }
+}
+
+function renderScanDetails() {
+  const scan = state.scan;
+  if (!scan) {
+    els.scanDetails.textContent = "No scan yet.";
+    return;
+  }
+  const traitRows = Object.entries(scan.traitSummary || {}).slice(0, 24).map(([trait, values]) => {
+    const summary = Object.entries(values).slice(0, 6).map(([value, count]) => `${value} (${count})`).join(", ");
+    return `<dt>${trait}</dt><dd>${summary}</dd>`;
+  }).join("");
+  els.scanDetails.innerHTML = `
+    <div class="stat-grid">
+      <div><span>Wallet</span><strong>${formatShortWallet(scan.walletAddress)}</strong></div>
+      <div><span>Squigs</span><strong>${scan.squigCount}</strong></div>
+      <div><span>Revive Pill Tokens</span><strong>${(scan.revivePillTokenIds || []).join(", ") || "None"}</strong></div>
+      <div><span>Fetched</span><strong>${formatDate(scan.fetchedAt)}</strong></div>
+    </div>
+    <h3>Trait Summary</h3>
+    <dl>${traitRows || "<dt>None</dt><dd>No traits reported.</dd>"}</dl>
+  `;
+}
+
+function openModal(name) {
+  if (name === "how") {
+    renderHow();
+    els.howDialog.showModal();
+  }
+  if (name === "leaderboard") {
+    renderLeaderboard("weekly");
+    els.leaderboardDialog.showModal();
+  }
+  if (name === "claims") {
+    renderClaims();
+    els.claimsDialog.showModal();
+  }
+  if (name === "scan") {
+    renderScanDetails();
+    els.scanDialog.showModal();
+  }
+}
+
+function closeModal(name) {
+  const dialog = {
+    how: els.howDialog,
+    leaderboard: els.leaderboardDialog,
+    claims: els.claimsDialog,
+    scan: els.scanDialog
+  }[name];
+  dialog?.close();
+}
+
+function wireEvents() {
+  document.querySelectorAll("[data-open]").forEach((button) => {
+    button.addEventListener("click", () => openModal(button.dataset.open));
+  });
+  document.querySelectorAll("[data-close]").forEach((button) => {
+    button.addEventListener("click", () => closeModal(button.dataset.close));
+  });
+  document.querySelectorAll("[data-period]").forEach((button) => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll("[data-period]").forEach((tab) => tab.classList.toggle("active", tab === button));
+      renderLeaderboard(button.dataset.period);
+    });
+  });
+
+  els.walletForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    try {
+      await saveWallet();
+    } catch (error) {
+      showToast(error.message);
+    }
+  });
+  els.connectDiscord.addEventListener("click", () => {
+    window.location.href = `/api/auth/discord/start?clientId=${encodeURIComponent(state.clientId)}`;
+  });
+  els.scanWallet.addEventListener("click", () => scanWallet(false).catch((error) => showToast(error.message)));
+  els.refreshScan.addEventListener("click", () => scanWallet(true).catch((error) => showToast(error.message)));
+  els.beginInterview.addEventListener("click", () => startRun("reward"));
+  els.practiceInterview.addEventListener("click", () => startRun("practice"));
+  els.returnMenu.addEventListener("click", async () => {
+    await loadProfile().catch(() => {});
+    setView("menu");
+  });
+  els.retryPractice.addEventListener("click", () => startRun("practice"));
+  els.copyClaim.addEventListener("click", async () => {
+    if (!state.lastClaimCode) return;
+    await navigator.clipboard.writeText(state.lastClaimCode);
+    showToast("Claim code copied. Guard the ugly paperwork.");
+  });
+  els.claimRows.addEventListener("click", async (event) => {
+    const button = event.target.closest(".copy-claim");
+    if (!button) return;
+    await navigator.clipboard.writeText(button.dataset.code);
+    showToast("Claim code copied.");
+  });
+  els.gateSummary.addEventListener("click", () => openModal("scan"));
+}
+
+async function init() {
+  state.clientId = getOrCreateClientId();
+  wireEvents();
+  renderHow();
+  setArt(document.querySelector(".file-scene"), "lobby");
+  setArt(els.questionArt, "interviewDesk");
+  setArt(els.feedbackArt, "correct");
+  setArt(els.finalArt, "hired");
+  await loadConfig().catch((error) => showToast(error.message));
+  await loadProfile().catch((error) => showToast(error.message));
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("discord") === "connected") {
+    showToast("Discord connected. InSquignito is unimpressed.");
+    history.replaceState({}, "", "/");
+    await loadProfile().catch(() => {});
+  } else if (params.get("discord")) {
+    showToast("Discord login did not finish. The paperwork hissed.");
+    history.replaceState({}, "", "/");
+  }
+}
+
+init();
