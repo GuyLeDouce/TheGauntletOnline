@@ -13,73 +13,11 @@ const STORAGE_KEYS = {
 };
 
 const els = {
-  menuView: document.getElementById("menuView"),
-  gameView: document.getElementById("gameView"),
-  finalView: document.getElementById("finalView"),
-  sceneFrame: document.getElementById("sceneFrame"),
+  interviewStage: document.getElementById("interviewStage"),
   sceneImage: document.getElementById("sceneImage"),
   sceneBadge: document.getElementById("sceneBadge"),
-  sceneCaption: document.getElementById("sceneCaption"),
-  gameSceneFrame: document.getElementById("gameSceneFrame"),
-  gameSceneImage: document.getElementById("gameSceneImage"),
-  gameSceneBadge: document.getElementById("gameSceneBadge"),
-  finalSceneFrame: document.getElementById("finalSceneFrame"),
-  finalSceneImage: document.getElementById("finalSceneImage"),
-  finalSceneBadge: document.getElementById("finalSceneBadge"),
-  howSceneFrame: document.getElementById("howSceneFrame"),
-  howSceneImage: document.getElementById("howSceneImage"),
-  leaderboardSceneFrame: document.getElementById("leaderboardSceneFrame"),
-  leaderboardSceneImage: document.getElementById("leaderboardSceneImage"),
-  claimsSceneFrame: document.getElementById("claimsSceneFrame"),
-  claimsSceneImage: document.getElementById("claimsSceneImage"),
-  scanSceneFrame: document.getElementById("scanSceneFrame"),
-  scanSceneImage: document.getElementById("scanSceneImage"),
-  beginInterview: document.getElementById("beginInterview"),
-  practiceInterview: document.getElementById("practiceInterview"),
-  connectDiscord: document.getElementById("connectDiscord"),
-  walletForm: document.getElementById("walletForm"),
-  walletAddress: document.getElementById("walletAddress"),
-  scanWallet: document.getElementById("scanWallet"),
-  refreshScan: document.getElementById("refreshScan"),
-  discordAvatar: document.getElementById("discordAvatar"),
-  discordName: document.getElementById("discordName"),
-  discordMeta: document.getElementById("discordMeta"),
-  gateSummary: document.getElementById("gateSummary"),
-  squigCount: document.getElementById("squigCount"),
-  revivePill: document.getElementById("revivePill"),
-  dignityGranted: document.getElementById("dignityGranted"),
-  modeAvailable: document.getElementById("modeAvailable"),
-  walletNote: document.getElementById("walletNote"),
-  cooldownStatus: document.getElementById("cooldownStatus"),
-  hudQuestion: document.getElementById("hudQuestion"),
-  hudTier: document.getElementById("hudTier"),
-  hudDignity: document.getElementById("hudDignity"),
-  hudCharm: document.getElementById("hudCharm"),
-  hudSquigs: document.getElementById("hudSquigs"),
-  hudTimer: document.getElementById("hudTimer"),
-  questionTierSticker: document.getElementById("questionTierSticker"),
-  questionReward: document.getElementById("questionReward"),
-  questionCategory: document.getElementById("questionCategory"),
-  questionPrompt: document.getElementById("questionPrompt"),
-  questionFlavor: document.getElementById("questionFlavor"),
-  answerOptions: document.getElementById("answerOptions"),
-  feedbackCard: document.getElementById("feedbackCard"),
-  feedbackTitle: document.getElementById("feedbackTitle"),
-  feedbackRoast: document.getElementById("feedbackRoast"),
-  feedbackExplanation: document.getElementById("feedbackExplanation"),
-  feedbackGain: document.getElementById("feedbackGain"),
-  feedbackActions: document.getElementById("feedbackActions"),
-  finalResult: document.getElementById("finalResult"),
-  finalRank: document.getElementById("finalRank"),
-  finalCopy: document.getElementById("finalCopy"),
-  finalCharm: document.getElementById("finalCharm"),
-  finalClaim: document.getElementById("finalClaim"),
-  finalStatus: document.getElementById("finalStatus"),
-  dripInstructions: document.getElementById("dripInstructions"),
-  copyClaim: document.getElementById("copyClaim"),
-  openDiscord: document.getElementById("openDiscord"),
-  returnMenu: document.getElementById("returnMenu"),
-  retryPractice: document.getElementById("retryPractice"),
+  stageHud: document.getElementById("stageHud"),
+  stageDeskConsole: document.getElementById("stageDeskConsole"),
   toastStack: document.getElementById("toastStack"),
   howDialog: document.getElementById("howDialog"),
   howCopy: document.getElementById("howCopy"),
@@ -99,12 +37,11 @@ const state = {
   cooldown: null,
   run: null,
   timerHandle: null,
+  currentSceneKey: "",
+  currentMode: "menu",
+  modeBeforeModal: "menu",
   lastClaimCode: "",
-  sceneKeys: {
-    menu: "hero",
-    game: "activeInterview",
-    final: "hired"
-  }
+  pendingFinalData: null
 };
 
 class ApiError extends Error {
@@ -148,46 +85,37 @@ function getOfficeImage(key) {
   return OFFICE_IMAGES[key] || OFFICE_IMAGES.hero;
 }
 
-function setOfficeStage(stageEl, imgEl, key, label = "") {
-  const imageKey = OFFICE_IMAGES[key] ? key : "hero";
-  const asset = getOfficeImage(imageKey);
-  stageEl.dataset.scene = imageKey;
-  stageEl.classList.remove("image-error");
-  imgEl.onerror = () => {
-    if (imageKey === "hero") {
-      stageEl.classList.add("image-error");
-      return;
-    }
-    setOfficeStage(stageEl, imgEl, "hero", "Image failed. Ugly fallback active.");
-  };
-  imgEl.src = asset.url;
-  imgEl.alt = asset.alt;
-
-  if (stageEl === els.sceneFrame) {
-    state.sceneKeys.menu = imageKey;
-    els.sceneBadge.textContent = label || "Ugly Labs HR";
-    els.sceneCaption.textContent = label || "";
-  }
-  if (stageEl === els.gameSceneFrame) {
-    state.sceneKeys.game = imageKey;
-    els.gameSceneBadge.textContent = label || "Active Interview";
-  }
-  if (stageEl === els.finalSceneFrame) {
-    state.sceneKeys.final = imageKey;
-    els.finalSceneBadge.textContent = label || "Interview Result";
-  }
+function setStageMode(mode) {
+  state.currentMode = mode;
+  els.interviewStage.dataset.view = mode;
+  document.body.dataset.view = mode;
 }
 
-function setMenuScene(key, label) {
-  setOfficeStage(els.sceneFrame, els.sceneImage, key, label);
-}
+function setStageScene(key, options = {}) {
+  const nextKey = OFFICE_IMAGES[key] ? key : "hero";
+  const asset = getOfficeImage(nextKey);
+  els.sceneBadge.textContent = options.badge || asset.badge || "Ugly Labs HR";
+  els.interviewStage.dataset.scene = nextKey;
 
-function setGameScene(key, label) {
-  setOfficeStage(els.gameSceneFrame, els.gameSceneImage, key, label);
-}
+  if (state.currentSceneKey === nextKey && els.sceneImage.src === asset.url) {
+    return;
+  }
 
-function setFinalScene(key, label) {
-  setOfficeStage(els.finalSceneFrame, els.finalSceneImage, key, label);
+  state.currentSceneKey = nextKey;
+  els.sceneImage.classList.add("is-fading");
+  window.setTimeout(() => {
+    els.sceneImage.onload = () => els.sceneImage.classList.remove("is-fading");
+    els.sceneImage.onerror = () => {
+      const fallback = getOfficeImage("hero");
+      state.currentSceneKey = "hero";
+      els.interviewStage.dataset.scene = "hero";
+      els.sceneImage.src = fallback.url;
+      els.sceneImage.alt = fallback.alt;
+      els.sceneImage.classList.remove("is-fading");
+    };
+    els.sceneImage.src = asset.url;
+    els.sceneImage.alt = asset.alt || "InSquignito's Ugly Interview scene";
+  }, 90);
 }
 
 function preloadImages() {
@@ -206,12 +134,6 @@ function showToast(message) {
   setTimeout(() => toast.remove(), 3200);
 }
 
-function setView(view) {
-  els.menuView.classList.toggle("hidden", view !== "menu");
-  els.gameView.classList.toggle("hidden", view !== "game");
-  els.finalView.classList.toggle("hidden", view !== "final");
-}
-
 function formatDate(value) {
   if (!value) return "Unknown";
   return new Date(value).toLocaleString([], { dateStyle: "medium", timeStyle: "short" });
@@ -227,70 +149,295 @@ function cooldownText(cooldown) {
   return `Reward run available ${formatDate(cooldown.nextAvailableAt)}. Practice mode is open.`;
 }
 
-function chooseMenuScene() {
+function isRewardReady() {
   const profile = state.profile || {};
   const scan = state.scan;
-  if (state.cooldown?.nextAvailableAt) return ["cooldown", "Reward Cooldown"];
-  if (!profile.discordUserId && !profile.walletAddress) return ["gate", "Discord + Wallet Gate"];
-  if (!scan && profile.walletAddress) return ["applicantFile", "Applicant File"];
-  if (!scan) return ["gate", "Applicant Intake"];
-  if (scan.hasRevivePill) return ["revivePillDetected", "Revive Pill Detected"];
-  if (scan.squigCount <= 0 && !state.config.allowZeroSquigReward) return ["zeroSquigs", "Practice Only"];
-  if (scan.squigCount > 0) return ["walletApproved", "Wallet Approved"];
-  return ["walletScan", "Wallet Scan"];
+  return Boolean(
+    profile.discordUserId &&
+    scan &&
+    (scan.squigCount > 0 || state.config.allowZeroSquigReward) &&
+    !state.cooldown?.nextAvailableAt
+  );
 }
 
-function syncApplicantFile() {
+function statusChips() {
   const profile = state.profile || {};
   const scan = state.scan;
-  els.walletNote.textContent = APP_COPY.walletNote;
-  els.walletAddress.value = profile.walletAddress || els.walletAddress.value || "";
-
-  if (profile.discordHandle || profile.discordUserId) {
-    els.discordName.textContent = profile.discordGlobalName || profile.discordHandle || profile.discordUserId;
-    els.discordMeta.textContent = profile.discordHandle ? `@${profile.discordHandle}` : "Discord connected";
-    if (profile.discordAvatar) {
-      els.discordAvatar.style.backgroundImage = `url("${profile.discordAvatar}")`;
-      els.discordAvatar.textContent = "";
-    } else {
-      els.discordAvatar.style.backgroundImage = "";
-      els.discordAvatar.textContent = "D";
-    }
-  } else {
-    els.discordName.textContent = "Discord not connected";
-    els.discordMeta.textContent = "Required for reward runs";
-    els.discordAvatar.style.backgroundImage = "";
-    els.discordAvatar.textContent = "?";
-  }
-
-  els.squigCount.textContent = String(scan?.squigCount || 0);
-  els.revivePill.textContent = scan?.hasRevivePill ? `Yes (${scan.revivePillCount})` : "No";
-  els.dignityGranted.textContent = String(scan?.dignityGranted || 1);
-  const rewardReady = Boolean(profile.discordUserId && scan && (scan.squigCount > 0 || state.config.allowZeroSquigReward));
-  els.modeAvailable.textContent = rewardReady ? "Reward" : "Practice";
-  els.gateSummary.textContent = scan
-    ? `Wallet scanned. ${scan.squigCount} Squigs found. ${scan.walletTitle || "Stay Ugly"}.`
-    : "Connect Discord, paste a wallet, and let the scanner insult it.";
-  els.cooldownStatus.textContent = cooldownText(state.cooldown);
-  const [scene, label] = chooseMenuScene();
-  setMenuScene(scene, label);
+  const rewardReady = isRewardReady();
+  return [
+    ["Discord", profile.discordUserId ? "Connected" : "Needed"],
+    ["Wallet", profile.walletAddress ? formatShortWallet(profile.walletAddress) : "Missing"],
+    ["Squigs", String(scan?.squigCount || 0)],
+    ["Dignity", String(scan?.dignityGranted || 1)],
+    ["Mode", rewardReady ? "Reward" : "Practice"]
+  ];
 }
 
-function renderHow() {
-  els.howCopy.innerHTML = HOW_IT_WORKS.map((item) => `
-    <article class="step-card">
-      <span>${escapeHtml(item.step)}</span>
-      <div>
-        <strong>${escapeHtml(item.title)}</strong>
-        <p>${escapeHtml(item.copy)}</p>
-      </div>
-    </article>
+function renderStatusHud() {
+  clearInterval(state.timerHandle);
+  els.stageHud.innerHTML = statusChips().map(([label, value]) => `
+    <div class="hud-chip"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>
   `).join("");
+}
+
+function renderRunHud(run) {
+  const question = run.question;
+  els.stageHud.innerHTML = `
+    <div class="hud-chip"><span>Question</span><strong>${question ? `${question.progressNumber}/${question.interviewLength}` : `${Math.min(run.currentIndex + 1, run.interviewLength)}/${run.interviewLength}`}</strong></div>
+    <div class="hud-chip hud-chip--wide"><span>Tier</span><strong>${escapeHtml(question?.tierLabel || "Interview")}</strong></div>
+    <div class="hud-chip"><span>Dignity</span><strong>${run.dignityRemaining}</strong></div>
+    <div class="hud-chip"><span>$CHARM</span><strong>${run.charmStack}</strong></div>
+    <div class="hud-chip"><span>Squigs</span><strong>${run.squigCount}</strong></div>
+    <div class="hud-chip"><span>Timer</span><strong id="hudTimer">--</strong></div>
+  `;
+}
+
+function startTimer(question) {
+  clearInterval(state.timerHandle);
+  const timerEl = document.getElementById("hudTimer");
+  if (!timerEl) return;
+  timerEl.classList.remove("timer-low");
+  if (!question?.expiresAt || !question.timerSeconds) {
+    timerEl.textContent = "--";
+    return;
+  }
+  const tick = () => {
+    const remaining = Math.max(0, Math.ceil((Date.parse(question.expiresAt) - Date.now()) / 1000));
+    timerEl.textContent = `${remaining}s`;
+    timerEl.classList.toggle("timer-low", remaining <= 5);
+    if (remaining <= 0) clearInterval(state.timerHandle);
+  };
+  tick();
+  state.timerHandle = setInterval(tick, 250);
+}
+
+function chooseApplicantScene() {
+  const profile = state.profile || {};
+  const scan = state.scan;
+  if (state.cooldown?.nextAvailableAt) return "cooldown";
+  if (!profile.discordUserId && !profile.walletAddress) return "gate";
+  if (!scan && profile.walletAddress) return "applicantFile";
+  if (!scan) return "gate";
+  if (scan.hasRevivePill) return "revivePillDetected";
+  if (scan.squigCount <= 0 && !state.config.allowZeroSquigReward) return "zeroSquigs";
+  if (scan.squigCount > 0) return "walletApproved";
+  return "walletScan";
+}
+
+function applicantSummary() {
+  const profile = state.profile || {};
+  const scan = state.scan;
+  const rewardReady = isRewardReady();
+  return {
+    discordName: profile.discordGlobalName || profile.discordHandle || profile.discordUserId || "Discord not connected",
+    discordMeta: profile.discordUserId ? "Connected for reward files" : "Required for reward runs",
+    discordAvatar: profile.discordAvatar || "",
+    walletAddress: profile.walletAddress || "",
+    squigCount: scan?.squigCount || 0,
+    revivePill: scan?.hasRevivePill ? `Yes (${scan.revivePillCount})` : "No",
+    dignity: scan?.dignityGranted || 1,
+    mode: rewardReady ? "Reward" : "Practice",
+    gateSummary: scan
+      ? `Wallet scanned. ${scan.squigCount} Squigs found. ${scan.walletTitle || "Stay Ugly"}.`
+      : "Connect Discord, paste a wallet, and let the scanner insult it."
+  };
+}
+
+function applicantFormHtml(summary, context = "applicant") {
+  return `
+    <form class="intake-form" id="walletForm">
+      <div class="identity-row">
+        <div class="avatar-fallback"${summary.discordAvatar ? ` style="background-image:url('${escapeHtml(summary.discordAvatar)}')"` : ""}>${summary.discordAvatar ? "" : "?"}</div>
+        <div>
+          <strong>${escapeHtml(summary.discordName)}</strong>
+          <span>${escapeHtml(summary.discordMeta)}</span>
+        </div>
+      </div>
+
+      <label for="walletAddress">Wallet address</label>
+      <div class="input-row">
+        <input id="walletAddress" name="walletAddress" type="text" placeholder="0x..." value="${escapeHtml(summary.walletAddress)}" autocomplete="off">
+        <button type="submit" class="secondary-action">Save Wallet</button>
+      </div>
+
+      <div class="file-actions">
+        <button type="button" class="secondary-action" data-action="connect-discord">Connect Discord</button>
+        <button type="button" class="primary-action" data-action="scan-wallet">Scan Wallet</button>
+        <button type="button" class="secondary-action" data-action="refresh-scan">Refresh Scan</button>
+      </div>
+
+      <div class="stat-grid">
+        <div><span>Squigs Detected</span><strong>${summary.squigCount}</strong></div>
+        <div><span>Revive Pill</span><strong>${escapeHtml(summary.revivePill)}</strong></div>
+        <div><span>Dignity Granted</span><strong>${summary.dignity}</strong></div>
+        <div><span>Mode Available</span><strong>${escapeHtml(summary.mode)}</strong></div>
+      </div>
+
+      <p class="fine-print">${escapeHtml(APP_COPY.walletNote)}</p>
+      ${state.cooldown?.nextAvailableAt ? `<p class="cooldown">${escapeHtml(cooldownText(state.cooldown))}</p>` : ""}
+      ${context === "reward-blocked" ? `<p class="cooldown">${escapeHtml(APP_COPY.zeroSquig)}</p>` : ""}
+    </form>
+  `;
+}
+
+function renderMenuScene() {
+  setStageMode("menu");
+  setStageScene("hero", { badge: "Main Menu" });
+  renderStatusHud();
+  const summary = applicantSummary();
+  els.stageDeskConsole.innerHTML = `
+    <section class="desk-card desk-card--menu ugly-paper">
+      <p class="sticker">A Squigs Reloaded Survival Interview</p>
+      <h1>InSquignito's Ugly Interview</h1>
+      <p class="subtitle">Get Hired. Get Roasted. Stay Ugly.</p>
+      <p class="tagline">Discord in. Wallet scanned. Dignity calculated.</p>
+      <div class="action-row">
+        <button type="button" class="primary-action" data-action="begin-reward">Begin Interview</button>
+        <button type="button" class="secondary-action" data-action="practice">Practice Without Pay</button>
+        <button type="button" class="secondary-action" data-open="how">How It Works</button>
+      </div>
+      <button type="button" class="status-strip" data-action="show-applicant">
+        <span>Applicant Status</span>
+        <strong>${escapeHtml(summary.mode)} Mode</strong>
+        <small>${escapeHtml(summary.gateSummary)}</small>
+      </button>
+    </section>
+  `;
+}
+
+function renderApplicantScene({ sceneKey = chooseApplicantScene(), context = "applicant" } = {}) {
+  setStageMode(context === "scanning" ? "scanning" : "applicant");
+  setStageScene(sceneKey, {
+    badge: sceneKey === "loading" ? "Processing Ugly" : "Ugly Applicant File"
+  });
+  renderStatusHud();
+  const summary = applicantSummary();
+  els.stageDeskConsole.innerHTML = `
+    <section class="desk-card desk-card--applicant ugly-paper">
+      <div class="console-heading">
+        <p class="file-tab">Ugly Applicant File</p>
+        <p class="category">${escapeHtml(summary.mode)} Mode</p>
+      </div>
+      <h2>${context === "scanning" ? "InSquignito is processing ugly..." : "Applicant Intake"}</h2>
+      <p class="microcopy">${escapeHtml(summary.gateSummary)}</p>
+      ${context === "scanning" ? `<div class="loading-strip">Scanner warm. Clipboard damp. Please wait.</div>` : applicantFormHtml(summary, context)}
+    </section>
+  `;
+}
+
+function renderScanningScene() {
+  renderApplicantScene({ sceneKey: "loading", context: "scanning" });
+}
+
+function renderQuestionScene(run) {
+  state.run = run;
+  const question = run.question;
+  if (!question) return;
+  setStageMode("question");
+  const tierKey = TIER_IMAGE_KEYS[question.tier] || question.imageKey || "activeInterview";
+  setStageScene(tierKey, { badge: question.tierLabel || "Active Interview" });
+  renderRunHud(run);
+  startTimer(question);
+  els.stageDeskConsole.innerHTML = `
+    <section class="desk-card desk-card--question ugly-paper">
+      <div class="console-heading">
+        <p class="tier-sticker">${escapeHtml(question.tierLabel || "Interview")}</p>
+        <p class="category">${escapeHtml(question.category)}</p>
+        <p class="reward-chip">+${question.reward} $CHARM</p>
+      </div>
+      <h2>${escapeHtml(question.prompt)}</h2>
+      <p class="flavor">${escapeHtml(question.flavorText || "InSquignito taps the clipboard. It leaves a stain.")}</p>
+      <div class="answers">
+        ${question.options.map((option) => `
+          <button type="button" class="answer-button" data-action="answer" data-option-id="${escapeHtml(option.id)}">
+            <span>${escapeHtml(option.id)}</span>
+            ${escapeHtml(option.text)}
+          </button>
+        `).join("")}
+      </div>
+    </section>
+  `;
+}
+
+function renderFeedbackScene(data) {
+  const feedback = data.feedback;
+  const imageKey = data.cashoutAvailable
+    ? "cashout"
+    : feedback.wasCorrect
+      ? "correct"
+      : feedback.dignityLost > 0
+        ? "dignityLost"
+        : "wrong";
+  setStageMode("feedback");
+  setStageScene(imageKey, {
+    badge: data.cashoutAvailable ? "Cash Out Checkpoint" : feedback.wasCorrect ? "Ugly Verified" : "Pretty Energy Detected"
+  });
+  renderRunHud(data.run);
+  clearInterval(state.timerHandle);
+  const resultLabel = feedback.wasCorrect ? "Correct" : feedback.timedOut ? "Too Slow" : "Wrong";
+  state.pendingFinalData = data.final ? data : null;
+  els.stageDeskConsole.innerHTML = `
+    <section class="desk-card desk-card--feedback ugly-paper">
+      <p class="stamp-label ${feedback.wasCorrect ? "stamp-label--good" : "stamp-label--bad"}">${escapeHtml(resultLabel)}</p>
+      <h2>${escapeHtml(feedback.roast)}</h2>
+      <p class="microcopy">${escapeHtml(feedback.explanation)}</p>
+      <p class="correct-answer"><span>Correct answer:</span> ${escapeHtml(feedback.correctAnswerText)}</p>
+      <div class="delta-row">
+        ${feedback.rewardAdded ? `<strong>+$CHARM ${feedback.rewardAdded}</strong>` : ""}
+        ${feedback.dignityLost ? `<strong>-${feedback.dignityLost} Dignity</strong>` : ""}
+      </div>
+      <div class="action-row">
+        ${data.final
+          ? `<button type="button" class="primary-action" data-action="view-final">View Stamped File</button>`
+          : `<button type="button" class="primary-action" data-action="continue">Continue</button>`}
+        ${data.cashoutAvailable ? `<button type="button" class="secondary-action" data-action="cashout">Leave With Your Ugly Little Bag</button>` : ""}
+      </div>
+    </section>
+  `;
+}
+
+function finalImageKey(run) {
+  if (run.status === "out_of_dignity") return "gameOver";
+  if (run.status === "cashed_out") return "cashout";
+  if (run.mode === "practice") return "practice";
+  if (run.status === "completed" && run.correctCount >= 15 && run.wrongCount === 0) return "fullClear";
+  if (run.status === "completed") return "hired";
+  return "hired";
+}
+
+function renderFinalScene(data) {
+  const run = data.run;
+  const payout = run.payout;
+  state.lastClaimCode = payout?.claimCode || "";
+  setStageMode("final");
+  setStageScene(finalImageKey(run), {
+    badge: run.status === "completed" ? "Hired By InSquignito" : run.resultType || "Interview Result"
+  });
+  clearInterval(state.timerHandle);
+  els.stageHud.innerHTML = "";
+  els.stageDeskConsole.innerHTML = `
+    <section class="desk-card desk-card--final ugly-paper">
+      <p class="stamp-label ${run.status === "completed" ? "stamp-label--good" : "stamp-label--bad"}">${escapeHtml(run.status === "completed" ? "HIRED BY INSQUIGNITO" : run.resultType || "Interview Complete")}</p>
+      <h2>${escapeHtml(run.rankTitle)}</h2>
+      <p class="microcopy">${escapeHtml(data.endCopy || "InSquignito is disappointed, but not surprised. Stay Ugly.")}</p>
+      <div class="final-stats">
+        <div><span>Final $CHARM</span><strong>${run.charmFinal || 0}</strong></div>
+        <div><span>Claim Code</span><strong>${escapeHtml(payout?.claimCode || (run.mode === "practice" ? "Practice run" : "No claim"))}</strong></div>
+        <div><span>Payout Status</span><strong>${payout ? "pending" : "No payout"}</strong></div>
+      </div>
+      <p class="fine-print">${escapeHtml(payout ? APP_COPY.drip : "Practice runs and zero-value results do not create $CHARM payouts.")}</p>
+      <div class="action-row">
+        <button type="button" class="primary-action" data-action="copy-claim" ${payout?.claimCode ? "" : "disabled"}>Copy Claim Code</button>
+        <a class="secondary-action link-action" href="${escapeHtml(state.config.discordInviteUrl || "https://squigs.io/discord")}" target="_blank" rel="noreferrer">Open Discord</a>
+        <button type="button" class="secondary-action" data-action="return-menu">Return To Menu</button>
+        <button type="button" class="secondary-action" data-action="practice">Practice Again</button>
+      </div>
+    </section>
+  `;
 }
 
 async function loadConfig() {
   state.config = await apiFetch("/api/config");
-  els.openDiscord.href = state.config.discordInviteUrl || "https://squigs.io/discord";
 }
 
 async function loadProfile() {
@@ -298,26 +445,24 @@ async function loadProfile() {
   state.profile = data.profile || {};
   state.scan = data.scan || null;
   state.cooldown = data.cooldown || null;
-  syncApplicantFile();
 }
 
-async function saveWallet() {
-  const walletAddress = els.walletAddress.value.trim();
+async function saveWallet(form) {
+  const formData = new FormData(form);
+  const walletAddress = String(formData.get("walletAddress") || "").trim();
   const data = await apiFetch("/api/profile", {
     method: "POST",
     body: JSON.stringify({ clientId: state.clientId, walletAddress })
   });
   state.profile = data.profile || state.profile;
-  syncApplicantFile();
-  setMenuScene("applicantFile", "Applicant File Saved");
+  renderApplicantScene({ sceneKey: "applicantFile" });
   showToast("Wallet saved. It smells wrong already.");
 }
 
 async function scanWallet(forceRefresh = false) {
-  const walletAddress = els.walletAddress.value.trim();
-  setMenuScene("loading", "InSquignito is processing ugly...");
-  els.scanWallet.disabled = true;
-  els.refreshScan.disabled = true;
+  const input = document.getElementById("walletAddress");
+  const walletAddress = String(input?.value || state.profile.walletAddress || "").trim();
+  renderScanningScene();
   try {
     const data = await apiFetch("/api/wallet/scan", {
       method: "POST",
@@ -325,99 +470,47 @@ async function scanWallet(forceRefresh = false) {
     });
     state.profile = data.profile || state.profile;
     state.scan = data.scan;
-    syncApplicantFile();
-    renderScanDetails();
-    if (data.scan.hasRevivePill) {
-      setMenuScene("revivePillDetected", "Revive Pill Detected");
-    } else if (data.scan.squigCount <= 0 && !state.config.allowZeroSquigReward) {
-      setMenuScene("zeroSquigs", "Practice Only");
-    } else {
-      setMenuScene("walletApproved", "Wallet Approved");
-    }
+    await loadProfile().catch(() => {});
+    const sceneKey = data.scan.hasRevivePill
+      ? "revivePillDetected"
+      : data.scan.squigCount <= 0 && !state.config.allowZeroSquigReward
+        ? "zeroSquigs"
+        : "walletApproved";
+    renderApplicantScene({ sceneKey });
     showToast(data.scan.cached ? "Fresh enough scan reused." : "Wallet scanned. It smells wrong. Approved.");
-  } finally {
-    els.scanWallet.disabled = false;
-    els.refreshScan.disabled = false;
-  }
-}
-
-function syncHud(run) {
-  if (!run) return;
-  const q = run.question;
-  els.hudQuestion.textContent = q ? `${q.progressNumber}/${q.interviewLength}` : `${Math.min(run.currentIndex + 1, run.interviewLength)}/${run.interviewLength}`;
-  els.hudTier.textContent = q?.tierLabel || "Interview";
-  els.hudDignity.textContent = String(run.dignityRemaining);
-  els.hudCharm.textContent = String(run.charmStack);
-  els.hudSquigs.textContent = String(run.squigCount);
-}
-
-function startTimer(question) {
-  clearInterval(state.timerHandle);
-  els.hudTimer.classList.remove("timer-low");
-  if (!question?.expiresAt || !question.timerSeconds) {
-    els.hudTimer.textContent = "--";
-    return;
-  }
-  const tick = () => {
-    const remaining = Math.max(0, Math.ceil((Date.parse(question.expiresAt) - Date.now()) / 1000));
-    els.hudTimer.textContent = `${remaining}s`;
-    els.hudTimer.classList.toggle("timer-low", remaining <= 5);
-    if (remaining <= 0) clearInterval(state.timerHandle);
-  };
-  tick();
-  state.timerHandle = setInterval(tick, 250);
-}
-
-function renderQuestion(run) {
-  state.run = run;
-  const question = run.question;
-  if (!question) return;
-  setView("game");
-  els.feedbackCard.classList.add("hidden");
-  els.answerOptions.innerHTML = "";
-  syncHud(run);
-  startTimer(question);
-  const tierKey = TIER_IMAGE_KEYS[question.tier] || "activeInterview";
-  setGameScene(tierKey, question.tierLabel || "Active Interview");
-  els.questionTierSticker.textContent = question.tierLabel || "Interview";
-  els.questionReward.textContent = `+${question.reward} $CHARM`;
-  els.questionCategory.textContent = question.category;
-  els.questionPrompt.textContent = question.prompt;
-  els.questionFlavor.textContent = question.flavorText || "InSquignito taps the clipboard. It leaves a stain.";
-
-  for (const option of question.options) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "answer-button";
-    button.innerHTML = `<span>${escapeHtml(option.id)}</span>${escapeHtml(option.text)}`;
-    button.addEventListener("click", () => submitChoice(option.id));
-    els.answerOptions.appendChild(button);
+  } catch (error) {
+    renderApplicantScene();
+    throw error;
   }
 }
 
 async function startRun(mode) {
-  setView("game");
-  setGameScene(mode === "practice" ? "practice" : "loading", mode === "practice" ? "Practice Interview" : "InSquignito is processing ugly...");
-  els.feedbackCard.classList.add("hidden");
-  els.answerOptions.innerHTML = "";
-  els.questionPrompt.textContent = mode === "practice" ? "Practice file opened. No payout drawer." : "InSquignito is pulling your reward file.";
-  els.questionFlavor.textContent = "Please keep your ugliness inside the marked area.";
+  setStageMode("question");
+  setStageScene(mode === "practice" ? "practice" : "loading", {
+    badge: mode === "practice" ? "Practice Interview" : "Processing Ugly"
+  });
+  els.stageHud.innerHTML = "";
+  els.stageDeskConsole.innerHTML = `
+    <section class="desk-card desk-card--feedback ugly-paper">
+      <p class="stamp-label">Processing</p>
+      <h2>${mode === "practice" ? "Practice file opened. No payout drawer." : "InSquignito is pulling your reward file."}</h2>
+      <p class="microcopy">Please keep your ugliness inside the marked area.</p>
+    </section>
+  `;
   try {
     const data = await apiFetch("/api/run/start", {
       method: "POST",
       body: JSON.stringify({ clientId: state.clientId, mode })
     });
-    renderQuestion(data.run);
+    renderQuestionScene(data.run);
   } catch (error) {
     if (error.data?.nextAvailableAt) {
-      setView("menu");
-      setMenuScene("cooldown", "Reward Cooldown");
+      state.cooldown = { nextAvailableAt: error.data.nextAvailableAt };
+      renderApplicantScene({ sceneKey: "cooldown" });
     } else if (error.data?.practiceAvailable || error.message.includes("non-holders")) {
-      setView("menu");
-      setMenuScene("zeroSquigs", "Practice Only");
+      renderApplicantScene({ sceneKey: "zeroSquigs", context: "reward-blocked" });
     } else {
-      setView("menu");
-      syncApplicantFile();
+      renderApplicantScene();
     }
     showToast(error.message);
   }
@@ -425,7 +518,7 @@ async function startRun(mode) {
 
 async function submitChoice(selectedOptionId) {
   if (!state.run?.question) return;
-  Array.from(els.answerOptions.children).forEach((button) => {
+  Array.from(els.stageDeskConsole.querySelectorAll(".answer-button")).forEach((button) => {
     button.disabled = true;
   });
   try {
@@ -438,119 +531,54 @@ async function submitChoice(selectedOptionId) {
         selectedOptionId
       })
     });
-    clearInterval(state.timerHandle);
     state.run = data.run;
-    syncHud(data.run);
-    renderFeedback(data);
+    renderFeedbackScene(data);
   } catch (error) {
     showToast(error.message);
-    Array.from(els.answerOptions.children).forEach((button) => {
+    Array.from(els.stageDeskConsole.querySelectorAll(".answer-button")).forEach((button) => {
       button.disabled = false;
     });
   }
 }
 
-function renderFeedback(data) {
-  const feedback = data.feedback;
-  els.feedbackCard.classList.remove("hidden");
-  const imageKey = data.cashoutAvailable
-    ? "cashout"
-    : feedback.wasCorrect
-      ? "correct"
-      : data.final
-        ? "dignityLost"
-        : "wrong";
-  setGameScene(imageKey, data.cashoutAvailable ? "Cash Out Checkpoint" : feedback.wasCorrect ? "Ugly Verified" : "Pretty Energy Detected");
-  els.feedbackTitle.textContent = feedback.wasCorrect ? "Correct" : feedback.timedOut ? "Too Slow" : "Wrong";
-  els.feedbackRoast.textContent = feedback.roast;
-  els.feedbackExplanation.textContent = `${feedback.explanation} Correct answer: ${feedback.correctAnswerText}`;
-  els.feedbackGain.textContent = feedback.wasCorrect
-    ? `+$CHARM ${feedback.rewardAdded}. Disgusting answer. Continue.`
-    : `Dignity Lost: ${feedback.dignityLost}. You weren't using it well anyway.`;
-  els.feedbackActions.innerHTML = "";
-
-  if (data.final) {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "primary-action";
-    button.textContent = "View Stamped File";
-    button.addEventListener("click", () => renderFinal(data));
-    els.feedbackActions.appendChild(button);
-    return;
-  }
-
-  const continueButton = document.createElement("button");
-  continueButton.type = "button";
-  continueButton.className = "primary-action";
-  continueButton.textContent = "Continue And Risk Your Remaining Dignity";
-  continueButton.addEventListener("click", () => advanceRun("continue"));
-  els.feedbackActions.appendChild(continueButton);
-
-  if (data.cashoutAvailable) {
-    const cashoutButton = document.createElement("button");
-    cashoutButton.type = "button";
-    cashoutButton.className = "secondary-action";
-    cashoutButton.textContent = "Leave With Your Ugly Little Bag";
-    cashoutButton.addEventListener("click", () => advanceRun("cashout"));
-    els.feedbackActions.appendChild(cashoutButton);
-  }
-}
-
 async function advanceRun(action) {
-  if (action === "cashout") {
-    setGameScene("cashout", "Cashing Out");
-  } else {
-    setGameScene("loading", "InSquignito is processing ugly...");
-  }
+  setStageScene(action === "cashout" ? "cashout" : "loading", {
+    badge: action === "cashout" ? "Cashing Out" : "Processing Ugly"
+  });
   try {
     const data = await apiFetch("/api/run/advance", {
       method: "POST",
       body: JSON.stringify({ clientId: state.clientId, runId: state.run.runId, action })
     });
     if (data.final) {
-      renderFinal(data);
+      renderFinalScene(data);
       return;
     }
-    renderQuestion(data.run);
+    renderQuestionScene(data.run);
   } catch (error) {
     showToast(error.message);
   }
 }
 
-function finalImageKey(run) {
-  if (run.mode === "practice" && run.status !== "completed") return "practice";
-  if (run.status === "out_of_dignity") return "gameOver";
-  if (run.status === "cashed_out") return "cashout";
-  if (run.status === "completed" && run.correctCount >= 15 && run.wrongCount === 0) return "fullClear";
-  if (run.status === "completed") return "hired";
-  return run.mode === "practice" ? "practice" : "hired";
+function renderHowModal() {
+  els.howCopy.innerHTML = HOW_IT_WORKS.map((item) => `
+    <article class="step-card">
+      <span>${escapeHtml(item.step)}</span>
+      <div>
+        <strong>${escapeHtml(item.title)}</strong>
+        <p>${escapeHtml(item.copy)}</p>
+      </div>
+    </article>
+  `).join("");
 }
 
-function renderFinal(data) {
-  const run = data.run;
-  const payout = run.payout;
-  state.lastClaimCode = payout?.claimCode || "";
-  setView("final");
-  setFinalScene(finalImageKey(run), run.status === "completed" ? "Hired By InSquignito" : run.resultType || "Interview Result");
-  els.finalResult.textContent = run.status === "completed" ? "HIRED BY INSQUIGNITO" : run.resultType || "Interview Complete";
-  els.finalRank.textContent = run.rankTitle;
-  els.finalCopy.textContent = data.endCopy || "InSquignito is disappointed, but not surprised. Stay Ugly.";
-  els.finalCharm.textContent = String(run.charmFinal || 0);
-  els.finalClaim.textContent = payout?.claimCode || (run.mode === "practice" ? "Practice run" : "No claim");
-  els.finalStatus.textContent = payout ? "pending" : "No payout";
-  els.dripInstructions.textContent = payout ? APP_COPY.drip : "Practice runs and zero-value results do not create $CHARM payouts.";
-  els.copyClaim.disabled = !payout?.claimCode;
-}
-
-async function renderLeaderboard(period = "weekly") {
-  setOfficeStage(els.leaderboardSceneFrame, els.leaderboardSceneImage, "loading", "InSquignito is processing ugly...");
+async function renderLeaderboardModal(period = "weekly") {
   els.leaderboardRows.innerHTML = `<div class="empty-state">InSquignito is processing ugly...</div>`;
   try {
     const data = await apiFetch(`/api/leaderboard?period=${period}&limit=100&clientId=${encodeURIComponent(state.clientId)}`);
-    setOfficeStage(els.leaderboardSceneFrame, els.leaderboardSceneImage, "leaderboard", "Leaderboard");
     const entries = data.entries || [];
     if (!entries.length) {
-      els.leaderboardRows.textContent = "No ugly applicants have survived this period yet. Be the first mistake.";
+      els.leaderboardRows.innerHTML = `<div class="empty-state">No ugly applicants have survived this period yet. Be the first mistake.</div>`;
       return;
     }
     const current = data.currentPlayer;
@@ -578,16 +606,15 @@ async function renderLeaderboard(period = "weekly") {
   }
 }
 
-async function renderClaims() {
-  setOfficeStage(els.claimsSceneFrame, els.claimsSceneImage, "loading", "InSquignito is processing ugly...");
+async function renderClaimsModal() {
   els.claimRows.innerHTML = `<div class="empty-state">InSquignito is processing ugly...</div>`;
   try {
     const data = await apiFetch(`/api/payouts?clientId=${encodeURIComponent(state.clientId)}`);
     const payouts = data.payouts || [];
     const firstStatus = payouts[0]?.status || "claims";
-    setOfficeStage(els.claimsSceneFrame, els.claimsSceneImage, CLAIM_STATUS_IMAGE_KEYS[firstStatus] || "claims", "My $CHARM Claims");
+    setStageScene(CLAIM_STATUS_IMAGE_KEYS[firstStatus] || "claims", { badge: "My $CHARM Claims" });
     if (!payouts.length) {
-      els.claimRows.textContent = "No $CHARM claims yet. InSquignito's drawer remains damp and empty.";
+      els.claimRows.innerHTML = `<div class="empty-state">No $CHARM claims yet. InSquignito's drawer remains damp and empty.</div>`;
       return;
     }
     els.claimRows.innerHTML = payouts.map((payout) => `
@@ -609,8 +636,6 @@ async function renderClaims() {
 
 function renderScanDetails() {
   const scan = state.scan;
-  const scanScene = scan?.hasRevivePill ? "revivePillDetected" : scan?.squigCount > 0 ? "walletScan" : "zeroSquigs";
-  setOfficeStage(els.scanSceneFrame, els.scanSceneImage, scan ? scanScene : "gate", "Wallet Scan Details");
   if (!scan) {
     els.scanDetails.textContent = "No scan yet.";
     return;
@@ -631,21 +656,39 @@ function renderScanDetails() {
   `;
 }
 
+function restoreSceneAfterModal() {
+  if (state.currentMode === "question" && state.run?.question) {
+    setStageScene(TIER_IMAGE_KEYS[state.run.question.tier] || "activeInterview", { badge: state.run.question.tierLabel || "Active Interview" });
+    return;
+  }
+  if (state.currentMode === "applicant" || state.currentMode === "scanning") {
+    setStageScene(chooseApplicantScene(), { badge: "Ugly Applicant File" });
+    return;
+  }
+  if (state.currentMode === "final") return;
+  setStageScene("hero", { badge: "Main Menu" });
+}
+
 function openModal(name) {
+  state.modeBeforeModal = state.currentMode;
+  setStageMode("modal");
   if (name === "how") {
-    setOfficeStage(els.howSceneFrame, els.howSceneImage, "howItWorks", "How It Works");
-    renderHow();
+    setStageScene("howItWorks", { badge: "How It Works" });
+    renderHowModal();
     els.howDialog.showModal();
   }
   if (name === "leaderboard") {
-    renderLeaderboard("weekly");
+    setStageScene("leaderboard", { badge: "Leaderboard" });
+    renderLeaderboardModal("weekly");
     els.leaderboardDialog.showModal();
   }
   if (name === "claims") {
-    renderClaims();
+    setStageScene("claims", { badge: "My $CHARM Claims" });
+    renderClaimsModal();
     els.claimsDialog.showModal();
   }
   if (name === "scan") {
+    setStageScene(state.scan?.hasRevivePill ? "revivePillDetected" : state.scan?.squigCount > 0 ? "walletScan" : "gate", { badge: "Wallet Scan Details" });
     renderScanDetails();
     els.scanDialog.showModal();
   }
@@ -659,83 +702,118 @@ function closeModal(name) {
     scan: els.scanDialog
   }[name];
   dialog?.close();
+  setStageMode(state.modeBeforeModal || "menu");
+  restoreSceneAfterModal();
 }
 
 function wireEvents() {
-  document.querySelectorAll("[data-open]").forEach((button) => {
-    button.addEventListener("click", () => openModal(button.dataset.open));
-  });
-  document.querySelectorAll("[data-close]").forEach((button) => {
-    button.addEventListener("click", () => closeModal(button.dataset.close));
-  });
-  document.querySelectorAll("[data-period]").forEach((button) => {
-    button.addEventListener("click", () => {
-      document.querySelectorAll("[data-period]").forEach((tab) => tab.classList.toggle("active", tab === button));
-      renderLeaderboard(button.dataset.period);
-    });
-  });
+  document.addEventListener("click", async (event) => {
+    const openButton = event.target.closest("[data-open]");
+    if (openButton) {
+      openModal(openButton.dataset.open);
+      return;
+    }
 
-  els.walletForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
+    const closeButton = event.target.closest("[data-close]");
+    if (closeButton) {
+      closeModal(closeButton.dataset.close);
+      return;
+    }
+
+    const periodButton = event.target.closest("[data-period]");
+    if (periodButton) {
+      document.querySelectorAll("[data-period]").forEach((tab) => tab.classList.toggle("active", tab === periodButton));
+      renderLeaderboardModal(periodButton.dataset.period);
+      return;
+    }
+
+    const copyClaimButton = event.target.closest(".copy-claim");
+    if (copyClaimButton) {
+      await navigator.clipboard.writeText(copyClaimButton.dataset.code);
+      showToast("Claim code copied.");
+      return;
+    }
+
+    const actionEl = event.target.closest("[data-action]");
+    if (!actionEl) return;
+    const action = actionEl.dataset.action;
+
     try {
-      await saveWallet();
+      if (action === "begin-reward") {
+        if (!isRewardReady()) {
+          renderApplicantScene({ sceneKey: chooseApplicantScene(), context: state.scan?.squigCount === 0 ? "reward-blocked" : "applicant" });
+          return;
+        }
+        await startRun("reward");
+      }
+      if (action === "practice") await startRun("practice");
+      if (action === "show-applicant") renderApplicantScene();
+      if (action === "connect-discord") {
+        setStageScene("loading", { badge: "Discord Redirect" });
+        window.location.href = `/api/auth/discord/start?clientId=${encodeURIComponent(state.clientId)}`;
+      }
+      if (action === "scan-wallet") await scanWallet(false);
+      if (action === "refresh-scan") await scanWallet(true);
+      if (action === "answer") await submitChoice(actionEl.dataset.optionId);
+      if (action === "continue") await advanceRun("continue");
+      if (action === "cashout") await advanceRun("cashout");
+      if (action === "view-final" && state.pendingFinalData) renderFinalScene(state.pendingFinalData);
+      if (action === "copy-claim" && state.lastClaimCode) {
+        await navigator.clipboard.writeText(state.lastClaimCode);
+        showToast("Claim code copied. Guard the ugly paperwork.");
+      }
+      if (action === "return-menu") {
+        await loadProfile().catch(() => {});
+        renderMenuScene();
+      }
     } catch (error) {
       showToast(error.message);
     }
   });
-  els.connectDiscord.addEventListener("click", () => {
-    setMenuScene("loading", "Discord Redirect");
-    window.location.href = `/api/auth/discord/start?clientId=${encodeURIComponent(state.clientId)}`;
+
+  els.stageDeskConsole.addEventListener("submit", async (event) => {
+    if (event.target.id !== "walletForm") return;
+    event.preventDefault();
+    try {
+      await saveWallet(event.target);
+    } catch (error) {
+      showToast(error.message);
+    }
   });
-  els.scanWallet.addEventListener("click", () => scanWallet(false).catch((error) => {
-    syncApplicantFile();
-    showToast(error.message);
-  }));
-  els.refreshScan.addEventListener("click", () => scanWallet(true).catch((error) => {
-    syncApplicantFile();
-    showToast(error.message);
-  }));
-  els.beginInterview.addEventListener("click", () => startRun("reward"));
-  els.practiceInterview.addEventListener("click", () => startRun("practice"));
-  els.returnMenu.addEventListener("click", async () => {
-    await loadProfile().catch(() => {});
-    setView("menu");
+
+  [els.howDialog, els.leaderboardDialog, els.claimsDialog, els.scanDialog].forEach((dialog) => {
+    dialog.addEventListener("close", () => {
+      if (document.body.dataset.view === "modal") {
+        setStageMode(state.modeBeforeModal || "menu");
+        restoreSceneAfterModal();
+      }
+    });
   });
-  els.retryPractice.addEventListener("click", () => startRun("practice"));
-  els.copyClaim.addEventListener("click", async () => {
-    if (!state.lastClaimCode) return;
-    await navigator.clipboard.writeText(state.lastClaimCode);
-    showToast("Claim code copied. Guard the ugly paperwork.");
-  });
-  els.claimRows.addEventListener("click", async (event) => {
-    const button = event.target.closest(".copy-claim");
-    if (!button) return;
-    await navigator.clipboard.writeText(button.dataset.code);
-    showToast("Claim code copied.");
-  });
-  els.gateSummary.addEventListener("click", () => openModal("scan"));
 }
 
 async function init() {
   state.clientId = getOrCreateClientId();
   wireEvents();
   preloadImages();
-  renderHow();
-  setMenuScene("hero", "Main Menu");
-  setGameScene("activeInterview", "Active Interview");
-  setFinalScene("hired", "Interview Result");
-  setMenuScene("loading", "InSquignito is processing ugly...");
+  renderMenuScene();
+  setStageScene("loading", { badge: "Processing Ugly" });
   await loadConfig().catch((error) => showToast(error.message));
   await loadProfile().catch((error) => showToast(error.message));
+
   const params = new URLSearchParams(window.location.search);
   if (params.get("discord") === "connected") {
     showToast("Discord connected. InSquignito is unimpressed.");
     history.replaceState({}, "", "/");
     await loadProfile().catch(() => {});
-  } else if (params.get("discord")) {
+    renderApplicantScene({ sceneKey: "applicantFile" });
+    return;
+  }
+  if (params.get("discord")) {
     showToast("Discord login did not finish. The paperwork hissed.");
     history.replaceState({}, "", "/");
   }
+
+  renderMenuScene();
 }
 
 init();

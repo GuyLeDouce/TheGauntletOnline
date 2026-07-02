@@ -9,7 +9,7 @@
     <link rel="preload" as="image" href="https://i.imgur.com/8U7n401.png">
     <link rel="stylesheet" href="/styles.css">
   </head>
-  <body>
+  <body data-view="menu">
     <div class="app-shell" id="app">
       <header class="topbar">
         <a class="brand" href="/" aria-label="InSquignito's Ugly Interview">
@@ -24,150 +24,39 @@
       </header>
 
       <main>
-        <section class="hero-layout" id="menuView">
-          <div class="menu-stage-stack">
-            <div class="office-stage office-stage--hero" id="sceneFrame" data-scene="hero">
-              <img id="sceneImage" class="office-stage__image" src="https://i.imgur.com/8U7n401.png" alt="InSquignito at the Ugly Labs interview desk for the main menu" loading="eager">
-              <div class="office-stage__badge" id="sceneBadge">Ugly Labs HR</div>
-              <div class="office-stage__caption" id="sceneCaption">Main Menu</div>
-            </div>
-
-            <section class="hero-card" aria-labelledby="heroTitle">
-              <p class="sticker">A Squigs Reloaded Survival Interview</p>
-              <h1 id="heroTitle">InSquignito's Ugly Interview</h1>
-              <p class="subtitle">Get Hired. Get Roasted. Stay Ugly.</p>
-              <p class="tagline">Discord in. Wallet scanned. Dignity calculated.</p>
-              <div class="hero-actions">
-                <button type="button" class="primary-action" id="beginInterview">Begin Interview</button>
-                <button type="button" class="secondary-action" id="practiceInterview">Practice Without Pay</button>
-                <button type="button" class="secondary-action" data-open="how">How It Works</button>
-              </div>
-            </section>
-          </div>
-
-          <aside class="applicant-panel" aria-labelledby="fileTitle">
-            <div class="file-tab">Ugly Applicant File</div>
-            <h2 id="fileTitle">Applicant Intake</h2>
-            <p id="gateSummary">Connect Discord, paste a wallet, and let the scanner insult it.</p>
-
-            <div class="identity-row" id="discordStatus">
-              <div class="avatar-fallback" id="discordAvatar">?</div>
-              <div>
-                <strong id="discordName">Discord not connected</strong>
-                <span id="discordMeta">Required for reward runs</span>
-              </div>
-            </div>
-
-            <form class="wallet-form" id="walletForm">
-              <label for="walletAddress">Wallet address</label>
-              <div class="input-row">
-                <input id="walletAddress" name="walletAddress" type="text" placeholder="0x..." autocomplete="off">
-                <button type="submit" class="secondary-action">Save Wallet</button>
-              </div>
-            </form>
-
-            <div class="file-actions">
-              <button type="button" class="secondary-action" id="connectDiscord">Connect Discord</button>
-              <button type="button" class="primary-action" id="scanWallet">Scan Wallet</button>
-              <button type="button" class="secondary-action" id="refreshScan">Refresh Scan</button>
-            </div>
-
-            <div class="stat-grid">
-              <div><span>Squigs Detected</span><strong id="squigCount">0</strong></div>
-              <div><span>Revive Pill</span><strong id="revivePill">No</strong></div>
-              <div><span>Dignity Granted</span><strong id="dignityGranted">1</strong></div>
-              <div><span>Mode Available</span><strong id="modeAvailable">Practice</strong></div>
-            </div>
-
-            <p class="fine-print" id="walletNote"></p>
-            <p class="cooldown" id="cooldownStatus"></p>
-          </aside>
-        </section>
-
-        <section class="interview-layout hidden" id="gameView" aria-live="polite">
-          <div class="office-stage office-stage--game" id="gameSceneFrame" data-scene="activeInterview">
-            <img id="gameSceneImage" class="office-stage__image" src="https://i.imgur.com/SLMvqtN.png" alt="Active interview question scene with InSquignito" loading="eager">
-            <div class="office-stage__badge" id="gameSceneBadge">Active Interview</div>
-            <div class="hud-overlay" id="hudOverlay">
-              <div><span>Question</span><strong id="hudQuestion">1/15</strong></div>
-              <div><span>Tier</span><strong id="hudTier">Easy Ugly HR</strong></div>
-              <div><span>Dignity</span><strong id="hudDignity">1</strong></div>
-              <div><span>$CHARM</span><strong id="hudCharm">0</strong></div>
-              <div><span>Squigs</span><strong id="hudSquigs">0</strong></div>
-              <div class="timer-pill"><span>Timer</span><strong id="hudTimer">--</strong></div>
-            </div>
-          </div>
-
-          <article class="question-console">
-            <div class="console-heading">
-              <p class="tier-sticker" id="questionTierSticker">Easy Ugly HR</p>
-              <p class="category" id="questionCategory">Ugly Vibe Check</p>
-              <p class="reward-chip" id="questionReward">+10 $CHARM</p>
-            </div>
-            <h2 id="questionPrompt">InSquignito is finding the dampest question.</h2>
-            <p class="flavor" id="questionFlavor"></p>
-            <div class="answers" id="answerOptions"></div>
-          </article>
-
-          <article class="feedback-card hidden" id="feedbackCard">
-            <p class="category" id="feedbackTitle">Correct</p>
-            <h2 id="feedbackRoast">Correct. Disgusting answer. Continue.</h2>
-            <p id="feedbackExplanation"></p>
-            <p class="gain-line" id="feedbackGain"></p>
-            <div class="feedback-actions" id="feedbackActions"></div>
-          </article>
-        </section>
-
-        <section class="final-view hidden" id="finalView">
-          <div class="office-stage office-stage--final" id="finalSceneFrame" data-scene="hired">
-            <img id="finalSceneImage" class="office-stage__image" src="https://i.imgur.com/3LutfNp.png" alt="Final win, Hired by InSquignito" loading="lazy">
-            <div class="office-stage__badge" id="finalSceneBadge">Interview Result</div>
-          </div>
-
-          <div class="final-card">
-            <p class="sticker" id="finalResult">HIRED BY INSQUIGNITO</p>
-            <h2 id="finalRank">Hired By InSquignito</h2>
-            <p id="finalCopy"></p>
-            <div class="final-stats">
-              <div><span>Final $CHARM</span><strong id="finalCharm">0</strong></div>
-              <div><span>Claim Code</span><strong id="finalClaim">Practice</strong></div>
-              <div><span>Payout Status</span><strong id="finalStatus">No payout</strong></div>
-            </div>
-            <p class="fine-print" id="dripInstructions"></p>
-            <div class="hero-actions">
-              <button type="button" class="primary-action" id="copyClaim">Copy Claim Code</button>
-              <a class="secondary-action link-action" id="openDiscord" href="https://squigs.io/discord" target="_blank" rel="noreferrer">Open Discord</a>
-              <button type="button" class="secondary-action" id="returnMenu">Return To Menu</button>
-              <button type="button" class="secondary-action" id="retryPractice">Practice Again</button>
-            </div>
-          </div>
+        <section id="interviewStage" class="interview-stage" data-view="menu" data-scene="hero">
+          <img
+            id="sceneImage"
+            class="interview-stage__image"
+            src="https://i.imgur.com/8U7n401.png"
+            alt="InSquignito at the Ugly Labs interview desk for the main menu"
+            loading="eager"
+          >
+          <div class="stage-vignette"></div>
+          <div class="stage-badge" id="sceneBadge">Ugly Labs HR</div>
+          <div class="stage-hud" id="stageHud" aria-live="polite"></div>
+          <div class="stage-desk-console" id="stageDeskConsole" aria-live="polite"></div>
         </section>
       </main>
 
       <div class="toast-stack" id="toastStack" aria-live="polite"></div>
     </div>
 
-    <dialog class="modal" id="howDialog">
-      <div class="modal-body">
-        <div class="modal-heading">
+    <dialog class="paper-modal" id="howDialog">
+      <div class="paper-modal__body">
+        <div class="paper-modal__heading">
           <h2>How It Works</h2>
-          <button type="button" class="icon-button" data-close="how" aria-label="Close">x</button>
-        </div>
-        <div class="modal-scene office-stage" id="howSceneFrame" data-scene="howItWorks">
-          <img id="howSceneImage" class="office-stage__image" src="https://i.imgur.com/YuceW7s.png" alt="How It Works: Discord, wallet scan, interview" loading="lazy">
+          <button type="button" class="stamp-button" data-close="how" aria-label="Close">Close</button>
         </div>
         <div id="howCopy" class="step-list"></div>
       </div>
     </dialog>
 
-    <dialog class="modal" id="leaderboardDialog">
-      <div class="modal-body wide">
-        <div class="modal-heading">
+    <dialog class="paper-modal paper-modal--wide" id="leaderboardDialog">
+      <div class="paper-modal__body">
+        <div class="paper-modal__heading">
           <h2>Leaderboard</h2>
-          <button type="button" class="icon-button" data-close="leaderboard" aria-label="Close">x</button>
-        </div>
-        <div class="modal-scene office-stage" id="leaderboardSceneFrame" data-scene="leaderboard">
-          <img id="leaderboardSceneImage" class="office-stage__image" src="https://i.imgur.com/7PFzUYA.png" alt="Ugly Labs leaderboard" loading="lazy">
+          <button type="button" class="stamp-button" data-close="leaderboard" aria-label="Close">Close</button>
         </div>
         <div class="tab-row" role="tablist" aria-label="Leaderboard period">
           <button type="button" class="tab active" data-period="weekly">Weekly</button>
@@ -178,27 +67,21 @@
       </div>
     </dialog>
 
-    <dialog class="modal" id="claimsDialog">
-      <div class="modal-body wide">
-        <div class="modal-heading">
+    <dialog class="paper-modal paper-modal--wide" id="claimsDialog">
+      <div class="paper-modal__body">
+        <div class="paper-modal__heading">
           <h2>My $CHARM Claims</h2>
-          <button type="button" class="icon-button" data-close="claims" aria-label="Close">x</button>
-        </div>
-        <div class="modal-scene office-stage" id="claimsSceneFrame" data-scene="claims">
-          <img id="claimsSceneImage" class="office-stage__image" src="https://i.imgur.com/woVCjwN.png" alt="$CHARM claims desk" loading="lazy">
+          <button type="button" class="stamp-button" data-close="claims" aria-label="Close">Close</button>
         </div>
         <div id="claimRows" class="claim-rows">Loading...</div>
       </div>
     </dialog>
 
-    <dialog class="modal" id="scanDialog">
-      <div class="modal-body wide">
-        <div class="modal-heading">
+    <dialog class="paper-modal paper-modal--wide" id="scanDialog">
+      <div class="paper-modal__body">
+        <div class="paper-modal__heading">
           <h2>Wallet Scan Details</h2>
-          <button type="button" class="icon-button" data-close="scan" aria-label="Close">x</button>
-        </div>
-        <div class="modal-scene office-stage" id="scanSceneFrame" data-scene="walletScan">
-          <img id="scanSceneImage" class="office-stage__image" src="https://i.imgur.com/1xm38v9.png" alt="Ugly Labs wallet scan result with Squigs detected" loading="lazy">
+          <button type="button" class="stamp-button" data-close="scan" aria-label="Close">Close</button>
         </div>
         <div id="scanDetails" class="scan-details"></div>
       </div>

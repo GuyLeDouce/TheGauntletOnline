@@ -156,9 +156,11 @@ Each question includes:
 
 Startup validation checks duplicate IDs, tier counts, correct options, option counts by tier, rewards, prompts, and roasts. If validation fails, the server does not start.
 
-## Office Image System
+## Immersive Office Stage UI
 
-The finished office images are currently hosted on Imgur and loaded directly by the frontend. No new Railway variables are required.
+The frontend is built around one reusable 16:9 Ugly Labs office stage. The scene image is the game board: menu copy, applicant intake, questions, feedback, final files, leaderboard, claims, and how-it-works overlays render as desk paperwork, stamps, and HUD stickers on top of the same office frame. No new Railway variables are required.
+
+The finished office images are currently hosted on Imgur and loaded directly by the frontend.
 
 The image manifest lives in [public/game-data.js](public/game-data.js):
 
@@ -167,7 +169,7 @@ The image manifest lives in [public/game-data.js](public/game-data.js):
 - `CLAIM_STATUS_IMAGE_KEYS` maps claim statuses to claim desk images.
 - `PRELOAD_IMAGE_KEYS` identifies the small eager preload set used after app startup.
 
-The images are designed as a fixed 16:9 Ugly Labs interview office set. The CSS uses a reusable `.office-stage` frame so menu, game, final, leaderboard, claims, scan details, and how-it-works all feel like one cartoon set.
+The images are designed as a fixed 16:9 Ugly Labs interview office set. The CSS uses a reusable `.interview-stage` frame and stage overlay regions so the app feels like the player is sitting across the desk from InSquignito instead of moving through separate dashboard panels.
 
 To switch to local files later, replace the Imgur `url` values in `OFFICE_IMAGES` with `/assets/office/<filename>.png` paths. A mapping reference is included in [public/assets/office/README.md](public/assets/office/README.md). The app does not require the files locally right now.
 

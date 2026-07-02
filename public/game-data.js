@@ -143,7 +143,7 @@ export const TIER_IMAGE_KEYS = {
   5: "tierImpossible"
 };
 
-export const PRELOAD_IMAGE_KEYS = ["hero", "gate", "activeInterview", "tierEasy", "correct", "wrong"];
+export const PRELOAD_IMAGE_KEYS = ["hero", "gate", "activeInterview", "tierEasy", "correct", "wrong", "loading"];
 
 export const CLAIM_STATUS_COPY = {
   pending: "Pending review. InSquignito is licking the paperwork.",
