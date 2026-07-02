@@ -156,31 +156,20 @@ Each question includes:
 
 Startup validation checks duplicate IDs, tier counts, correct options, option counts by tier, rewards, prompts, and roasts. If validation fails, the server does not start.
 
-## Image Asset TODOs
+## Office Image System
 
-The app works without images. Add these later under `public/assets/`:
+The finished office images are currently hosted on Imgur and loaded directly by the frontend. No new Railway variables are required.
 
-- `ugly-interview-lobby.png`
-- `insquignito-desk.png`
-- `ugly-wallet-scan.png`
-- `ugly-correct.png`
-- `ugly-wrong.png`
-- `revive-pill-bonus.png`
-- `drip-claim-booth.png`
-- `ugly-hired.png`
-- `ugly-fired.png`
-- `pretty-jail.png`
+The image manifest lives in [public/game-data.js](public/game-data.js):
 
-Image ideas:
+- `OFFICE_IMAGES` maps every UI state to a `{ url, alt }` image record.
+- `TIER_IMAGE_KEYS` maps question tiers 1-5 to the matching interview office images.
+- `CLAIM_STATUS_IMAGE_KEYS` maps claim statuses to claim desk images.
+- `PRELOAD_IMAGE_KEYS` identifies the small eager preload set used after app startup.
 
-1. InSquignito behind a messy Ugly Labs interview desk, stamping a file that says UGLY VERIFIED.
-2. A cartoon wallet being scanned by a gross alien machine while Squigs peek at the monitor.
-3. InSquignito giving a thumbs up with the text "DISGUSTING. CONTINUE."
-4. InSquignito holding a clipboard that says "TOO PRETTY" after a wrong answer.
-5. A glowing Revive Pill on a medical tray with a weird Squig doctor.
-6. A broken `$CHARM` / DRIP claim booth leaking cartoon tokens.
-7. Final victory scene: player file stamped HIRED BY INSQUIGNITO with `$CHARM` confetti.
-8. Failure scene: Pretty Jail with a sign saying "ANSWERED TOO CLEAN."
+The images are designed as a fixed 16:9 Ugly Labs interview office set. The CSS uses a reusable `.office-stage` frame so menu, game, final, leaderboard, claims, scan details, and how-it-works all feel like one cartoon set.
+
+To switch to local files later, replace the Imgur `url` values in `OFFICE_IMAGES` with `/assets/office/<filename>.png` paths. A mapping reference is included in [public/assets/office/README.md](public/assets/office/README.md). The app does not require the files locally right now.
 
 ## Safety / Tone Rules
 
