@@ -8,6 +8,8 @@ import {
   TIER_IMAGE_KEYS
 } from "/game-data.js";
 
+window.__uglyAppModuleLoaded = true;
+
 const STORAGE_KEYS = {
   clientId: "insquignito-client-id"
 };
@@ -834,6 +836,7 @@ async function retryConnection() {
 function wireEvents() {
   if (state.eventsWired) return;
   state.eventsWired = true;
+  window.__uglyAppReady = true;
   document.addEventListener("click", async (event) => {
     const openButton = event.target.closest("[data-open]");
     if (openButton) {

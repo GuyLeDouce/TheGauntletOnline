@@ -35,7 +35,20 @@
           <div class="stage-vignette"></div>
           <div class="stage-badge" id="sceneBadge">Ugly Labs HR</div>
           <div class="stage-hud" id="stageHud" aria-live="polite"></div>
-          <div class="stage-desk-console" id="stageDeskConsole" aria-live="polite"></div>
+          <div class="stage-desk-console" id="stageDeskConsole" aria-live="polite">
+            <section class="desk-card desk-card--menu ugly-paper fallback-menu">
+              <p class="sticker">A Squigs Reloaded Survival Interview</p>
+              <h1>InSquignito's Ugly Interview</h1>
+              <p class="subtitle">Get Hired. Get Roasted. Stay Ugly.</p>
+              <p class="tagline">Discord in. Wallet scanned. Dignity calculated.</p>
+              <div class="action-row">
+                <button type="button" class="primary-action" data-action="begin-reward">Begin Interview</button>
+                <button type="button" class="secondary-action" data-action="practice">Practice Interview</button>
+                <button type="button" class="secondary-action" data-open="how">How It Works</button>
+              </div>
+              <p class="build-marker">Loading Ugly Labs console...</p>
+            </section>
+          </div>
         </section>
       </main>
 
@@ -87,6 +100,205 @@
       </div>
     </dialog>
 
+    <script>
+      (function () {
+        var clientKey = "insquignito-client-id";
+        var run = null;
+
+        function getClientId() {
+          try {
+            var existing = localStorage.getItem(clientKey);
+            if (existing) return existing;
+            var random = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(36).slice(2)).replace(/-/g, "");
+            var next = "client_" + random;
+            localStorage.setItem(clientKey, next);
+            return next;
+          } catch (error) {
+            return "client_fallback_" + Date.now();
+          }
+        }
+
+        function html(value) {
+          return String(value == null ? "" : value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+        }
+
+        function api(path, options) {
+          var controller = new AbortController();
+          var timeout = setTimeout(function () { controller.abort(); }, 8000);
+          return fetch(path, Object.assign({
+            headers: { "Content-Type": "application/json", "Accept": "application/json" },
+            signal: controller.signal
+          }, options || {}))
+            .then(function (response) {
+              return response.text().then(function (text) {
+                var data = {};
+                try { data = text ? JSON.parse(text) : {}; } catch (error) { data = { error: text || "Non-JSON response" }; }
+                if (!response.ok) throw new Error(data.error || "Request failed (" + response.status + ")");
+                return data;
+              });
+            })
+            .finally(function () { clearTimeout(timeout); });
+        }
+
+        function consoleEl() {
+          return document.getElementById("stageDeskConsole");
+        }
+
+        function setBadge(text) {
+          var badge = document.getElementById("sceneBadge");
+          if (badge) badge.textContent = text;
+        }
+
+        function setConsole(markup) {
+          var el = consoleEl();
+          if (el) el.innerHTML = markup;
+        }
+
+        function fallbackMenu(message) {
+          setBadge("Ugly Labs HR");
+          setConsole(
+            '<section class="desk-card desk-card--menu ugly-paper fallback-menu">' +
+              '<p class="sticker">Ugly Labs Safety Console</p>' +
+              "<h1>InSquignito's Ugly Interview</h1>" +
+              '<p class="subtitle">Get Hired. Get Roasted. Stay Ugly.</p>' +
+              (message ? '<p class="cooldown">' + html(message) + '</p>' : '<p class="tagline">The backup console is active.</p>') +
+              '<div class="action-row">' +
+                '<button type="button" class="primary-action" data-action="practice">Practice Interview</button>' +
+                '<button type="button" class="secondary-action" data-action="begin-reward">Start Interview</button>' +
+                '<button type="button" class="secondary-action" data-open="how">How It Works</button>' +
+                '<button type="button" class="secondary-action" data-action="fallback-retry">Retry Console</button>' +
+              '</div>' +
+            '</section>'
+          );
+        }
+
+        function renderQuestion(nextRun) {
+          run = nextRun;
+          var question = run && run.question;
+          if (!question) {
+            fallbackMenu("Practice started, but no question came back from the server.");
+            return;
+          }
+          setBadge(question.tierLabel || "Active Interview");
+          setConsole(
+            '<section class="desk-card desk-card--question ugly-paper">' +
+              '<div class="console-heading">' +
+                '<p class="tier-sticker">' + html(question.tierLabel || "Interview") + '</p>' +
+                '<p class="category">' + html(question.category || "Ugly Logic") + '</p>' +
+                '<p class="reward-chip">+' + html(question.reward || 0) + ' $CHARM</p>' +
+              '</div>' +
+              '<h2>' + html(question.prompt) + '</h2>' +
+              '<div class="answers">' +
+                question.options.map(function (option) {
+                  return '<button type="button" class="answer-button" data-action="fallback-answer" data-option-id="' + html(option.id) + '"><span>' + html(option.id) + '</span>' + html(option.text) + '</button>';
+                }).join("") +
+              '</div>' +
+            '</section>'
+          );
+        }
+
+        function renderFeedback(data) {
+          var feedback = data.feedback || {};
+          setBadge(feedback.wasCorrect ? "Ugly Verified" : "Pretty Energy Detected");
+          setConsole(
+            '<section class="desk-card desk-card--feedback ugly-paper">' +
+              '<p class="stamp-label ' + (feedback.wasCorrect ? "stamp-label--good" : "stamp-label--bad") + '">' + html(feedback.wasCorrect ? "Correct" : feedback.timedOut ? "Too Slow" : "Wrong") + '</p>' +
+              '<h2>' + html(feedback.roast || "InSquignito has notes.") + '</h2>' +
+              '<p class="microcopy">' + html(feedback.explanation || "") + '</p>' +
+              '<div class="action-row">' +
+                (data.final ? '<button type="button" class="primary-action" data-action="fallback-final">View Result</button>' : '<button type="button" class="primary-action" data-action="fallback-continue">Continue</button>') +
+              '</div>' +
+            '</section>'
+          );
+          window.__uglyFallbackFinal = data.final ? data : null;
+        }
+
+        function showHow() {
+          var howCopy = document.getElementById("howCopy");
+          var dialog = document.getElementById("howDialog");
+          if (howCopy) {
+            howCopy.innerHTML =
+              '<article class="step-card"><span>1</span><div><strong>Discord In</strong><p>Connect Discord for reward files.</p></div></article>' +
+              '<article class="step-card"><span>2</span><div><strong>Wallet Scanned</strong><p>Paste a wallet. No signing.</p></div></article>' +
+              '<article class="step-card"><span>3</span><div><strong>Survive Interview</strong><p>Practice works even if optional services are grumpy.</p></div></article>';
+          }
+          if (dialog && dialog.showModal) dialog.showModal();
+        }
+
+        document.addEventListener("click", function (event) {
+          if (window.__uglyAppReady) return;
+          var open = event.target.closest("[data-open]");
+          var actionEl = event.target.closest("[data-action]");
+          var close = event.target.closest("[data-close]");
+          if (!open && !actionEl && !close) return;
+          event.preventDefault();
+
+          if (close) {
+            var closeDialog = document.getElementById(close.dataset.close + "Dialog");
+            if (closeDialog && closeDialog.close) closeDialog.close();
+            return;
+          }
+
+          if (open) {
+            if (open.dataset.open === "how") showHow();
+            if (open.dataset.open === "leaderboard") {
+              var leaderboardDialog = document.getElementById("leaderboardDialog");
+              var rows = document.getElementById("leaderboardRows");
+              if (rows) rows.innerHTML = '<div class="empty-state">Backup console is online. Full leaderboard loads when the main console boots.</div>';
+              if (leaderboardDialog && leaderboardDialog.showModal) leaderboardDialog.showModal();
+            }
+            if (open.dataset.open === "claims") {
+              var claimsDialog = document.getElementById("claimsDialog");
+              var claimRows = document.getElementById("claimRows");
+              if (claimRows) claimRows.innerHTML = '<div class="empty-state">No claim drawer loaded in backup mode. Refresh after the main console boots.</div>';
+              if (claimsDialog && claimsDialog.showModal) claimsDialog.showModal();
+            }
+            return;
+          }
+
+          var action = actionEl.dataset.action;
+          if (action === "begin-reward") {
+            fallbackMenu("Reward interviews need Discord and a wallet scan. Practice is available right now.");
+          }
+          if (action === "practice" || action === "fallback-retry") {
+            setConsole('<section class="desk-card desk-card--feedback ugly-paper"><p class="stamp-label">Processing</p><h2>Opening practice interview...</h2></section>');
+            api("/api/run/start", {
+              method: "POST",
+              body: JSON.stringify({ clientId: getClientId(), mode: "practice" })
+            }).then(function (data) { renderQuestion(data.run); }).catch(function (error) { fallbackMenu(error.message); });
+          }
+          if (action === "fallback-answer" && run && run.question) {
+            api("/api/run/choice", {
+              method: "POST",
+              body: JSON.stringify({
+                clientId: getClientId(),
+                runId: run.runId,
+                questionId: run.question.id,
+                selectedOptionId: actionEl.dataset.optionId
+              })
+            }).then(function (data) { run = data.run; renderFeedback(data); }).catch(function (error) { fallbackMenu(error.message); });
+          }
+          if (action === "fallback-continue" && run) {
+            api("/api/run/advance", {
+              method: "POST",
+              body: JSON.stringify({ clientId: getClientId(), runId: run.runId, action: "continue" })
+            }).then(function (data) {
+              if (data.final) renderFeedback(data);
+              else renderQuestion(data.run);
+            }).catch(function (error) { fallbackMenu(error.message); });
+          }
+        });
+
+        setTimeout(function () {
+          if (!window.__uglyAppReady) fallbackMenu("Backup console active. The main console did not finish booting yet.");
+        }, 1800);
+      }());
+    </script>
     <script type="module" src="/app.js"></script>
   </body>
 </html>

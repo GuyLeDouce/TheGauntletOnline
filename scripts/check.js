@@ -26,6 +26,9 @@ function run(command, args, options = {}) {
 
 const commonJsFiles = [join(root, "server.js"), ...jsFiles(join(root, "server")), ...jsFiles(__dirname)];
 const publicJsFiles = jsFiles(join(root, "public"));
+const publicHtmlFiles = readdirSync(join(root, "public"), { withFileTypes: true })
+  .filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
+  .map((entry) => join(root, "public", entry.name));
 
 for (const file of commonJsFiles) {
   run(process.execPath, ["--check", file]);
@@ -37,4 +40,14 @@ for (const file of publicJsFiles) {
   });
 }
 
-console.log(`Checked ${commonJsFiles.length + publicJsFiles.length} JavaScript files.`);
+let inlineScriptCount = 0;
+for (const file of publicHtmlFiles) {
+  const html = readFileSync(file, "utf8");
+  const scripts = html.matchAll(/<script>([\s\S]*?)<\/script>/gi);
+  for (const match of scripts) {
+    inlineScriptCount += 1;
+    run(process.execPath, ["--check"], { input: match[1] });
+  }
+}
+
+console.log(`Checked ${commonJsFiles.length + publicJsFiles.length} JavaScript files and ${inlineScriptCount} inline script(s).`);
