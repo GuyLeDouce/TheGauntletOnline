@@ -171,6 +171,7 @@ input:focus-visible {
   object-fit: cover;
   object-position: center;
   background: var(--ugly-wall-deep);
+  pointer-events: none;
   transition: opacity 0.18s ease, transform 0.18s ease;
 }
 
@@ -205,6 +206,7 @@ input:focus-visible {
   font-size: clamp(0.72rem, 1.25vw, 0.92rem);
   font-weight: 950;
   text-transform: uppercase;
+  pointer-events: none;
 }
 
 .stage-hud {
@@ -270,6 +272,14 @@ input:focus-visible {
 
 .stage-desk-console > * {
   pointer-events: auto;
+}
+
+.build-marker {
+  margin: 10px 0 0;
+  color: #5b4b68;
+  font-size: 0.68rem;
+  font-weight: 850;
+  text-transform: uppercase;
 }
 
 .ugly-paper,

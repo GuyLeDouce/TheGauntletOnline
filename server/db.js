@@ -11,7 +11,10 @@ const DATABASE_URL = process.env.DATABASE_URL_LEADERBOARD || "";
 const pool = DATABASE_URL && Pool
   ? new Pool({
       connectionString: DATABASE_URL,
-      ssl: process.env.PGSSL === "false" ? false : { rejectUnauthorized: false }
+      ssl: process.env.PGSSL === "false" ? false : { rejectUnauthorized: false },
+      connectionTimeoutMillis: 5000,
+      query_timeout: 8000,
+      statement_timeout: 8000
     })
   : null;
 

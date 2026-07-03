@@ -6,7 +6,8 @@
   "type": "commonjs",
   "scripts": {
     "start": "node server.js",
-    "check": "node --check server.js && node --check server/db.js && node --check server/discord-auth.js && node --check server/game-engine.js && node --check server/interview-questions.js && node --check server/rewards.js && node --check server/validators.js && node --check server/wallet-scan.js"
+    "check": "node scripts/check.js",
+    "smoke": "node scripts/smoke-test.js"
   },
   "engines": {
     "node": ">=18.0.0"

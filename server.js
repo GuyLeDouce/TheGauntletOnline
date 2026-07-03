@@ -26,6 +26,8 @@ const HOST = "0.0.0.0";
 const PORT = Number(process.env.PORT || 3000);
 const PUBLIC_DIR = path.join(__dirname, "public");
 const QUESTIONS_BY_ID = questionMap(QUESTIONS);
+const APP_VERSION = "2026-07-02-stage-reliability";
+const BUILD_ID = process.env.RAILWAY_GIT_COMMIT_SHA || process.env.SOURCE_VERSION || process.env.GIT_COMMIT || APP_VERSION;
 
 const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -202,6 +204,8 @@ async function handleHealth(res) {
   sendJson(res, 200, {
     ok: true,
     app: "insquignitos-ugly-interview",
+    appVersion: APP_VERSION,
+    buildId: BUILD_ID,
     dbEnabled: db.isDbEnabled(),
     dbOk,
     alchemyConfigured: isAlchemyConfigured(),
@@ -483,7 +487,9 @@ async function handleApi(req, res, requestUrl) {
       dripProfileUrl: process.env.DRIP_PROFILE_URL || "",
       dripClaimHelpUrl: process.env.DRIP_CLAIM_HELP_URL || "",
       timersEnabled: config.timersEnabled,
-      interviewLength: config.interviewLength
+      interviewLength: config.interviewLength,
+      appVersion: APP_VERSION,
+      buildId: BUILD_ID
     });
     return true;
   }
@@ -502,16 +508,26 @@ async function handleApi(req, res, requestUrl) {
       sendJson(res, 400, { error: "Invalid clientId" });
       return true;
     }
-    const profile = await db.getProfile(clientId);
-    const scan = profile?.walletAddress ? await db.getLatestWalletScan(profile.walletAddress) : null;
-    const cooldown = profile?.discordUserId && profile.walletAddress
-      ? await db.getRewardCooldown(profile.discordUserId, profile.walletAddress, getGameConfig().rewardCooldownHours)
-      : { available: false, nextAvailableAt: null };
+    let profile = null;
+    let scan = null;
+    let cooldown = { available: false, nextAvailableAt: null };
+    let apiWarning = "";
+    try {
+      profile = await db.getProfile(clientId);
+      scan = profile?.walletAddress ? await db.getLatestWalletScan(profile.walletAddress) : null;
+      cooldown = profile?.discordUserId && profile.walletAddress
+        ? await db.getRewardCooldown(profile.discordUserId, profile.walletAddress, getGameConfig().rewardCooldownHours)
+        : cooldown;
+    } catch (error) {
+      apiWarning = error?.message || "Profile storage unavailable";
+      console.warn("Profile API degraded:", apiWarning);
+    }
     sendJson(res, 200, {
       profile: publicProfile(profile || { clientId }),
       scan: publicScan(scan),
       cooldown,
-      storage: db.isDbEnabled() ? "database" : "memory"
+      storage: db.isDbEnabled() ? "database" : "memory",
+      warning: apiWarning
     });
     return true;
   }
@@ -596,7 +612,11 @@ async function handleApi(req, res, requestUrl) {
       sendJson(res, 400, { error: "Invalid clientId" });
       return true;
     }
-    sendJson(res, 200, { payouts: await db.getPayouts(clientId) });
+    try {
+      sendJson(res, 200, { payouts: await db.getPayouts(clientId) });
+    } catch (error) {
+      sendJson(res, 200, { payouts: [], warning: error?.message || "Claims unavailable" });
+    }
     return true;
   }
 
@@ -605,7 +625,16 @@ async function handleApi(req, res, requestUrl) {
     const period = ["weekly", "monthly", "all-time"].includes(requestUrl.searchParams.get("period"))
       ? requestUrl.searchParams.get("period")
       : "all-time";
-    sendJson(res, 200, await db.getLeaderboard(period, requestUrl.searchParams.get("limit") || 100, isValidClientId(clientId) ? clientId : null));
+    try {
+      sendJson(res, 200, await db.getLeaderboard(period, requestUrl.searchParams.get("limit") || 100, isValidClientId(clientId) ? clientId : null));
+    } catch (error) {
+      sendJson(res, 200, {
+        entries: [],
+        currentPlayer: null,
+        period,
+        warning: error?.message || "Leaderboard unavailable"
+      });
+    }
     return true;
   }
 
@@ -671,9 +700,12 @@ const server = http.createServer(async (req, res) => {
         return;
       }
       const ext = path.extname(filePath).toLowerCase();
+      const cacheControl = [".html", ".js", ".css"].includes(ext)
+        ? "no-cache, no-store, must-revalidate"
+        : "public, max-age=3600";
       res.writeHead(200, {
         "Content-Type": MIME_TYPES[ext] || "application/octet-stream",
-        "Cache-Control": ext === ".html" ? "no-cache" : "public, max-age=3600"
+        "Cache-Control": cacheControl
       });
       if (req.method === "HEAD") {
         res.end();
@@ -688,6 +720,9 @@ const server = http.createServer(async (req, res) => {
     });
   }
 });
+
+server.requestTimeout = 15000;
+server.headersTimeout = 16000;
 
 server.listen(PORT, HOST, () => {
   console.log(`InSquignito's Ugly Interview listening on http://${HOST}:${PORT}`);

@@ -19,7 +19,10 @@ Useful check:
 
 ```bash
 npm run check
+npm run smoke
 ```
+
+`npm run check` syntax-checks the CommonJS backend and browser ES modules. `npm run smoke` starts the server on a test port, verifies JSON health/config/profile/leaderboard/payout routes, and starts a practice interview without Discord, wallet scan, Alchemy, or Postgres.
 
 ## Railway Deploy Setup
 
@@ -31,6 +34,15 @@ This repo remains a standalone Node/CommonJS app. Railway should use:
 - Node 18+
 
 `railway.json` already contains the start command and health check.
+
+After a deploy, verify Railway is serving the current build:
+
+```bash
+curl https://<your-railway-domain>/health
+curl https://<your-railway-domain>/api/config
+```
+
+Both responses include `appVersion` and `buildId`. Browser assets (`/app.js`, `/game-data.js`, and `/styles.css`) are served with no-cache headers so a redeploy should not keep stale frontend files around.
 
 ## Required Railway Variables
 

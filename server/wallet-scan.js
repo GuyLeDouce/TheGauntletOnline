@@ -108,7 +108,17 @@ async function fetchAlchemyNfts(walletAddress) {
     url.searchParams.set("withMetadata", "true");
     if (pageKey) url.searchParams.set("pageKey", pageKey);
 
-    const response = await fetch(url);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    let response;
+    try {
+      response = await fetch(url, { signal: controller.signal });
+    } catch (error) {
+      if (error?.name === "AbortError") throw new Error("Alchemy scan timed out");
+      throw error;
+    } finally {
+      clearTimeout(timeout);
+    }
     if (!response.ok) {
       const detail = await response.text().catch(() => "");
       throw new Error(`Alchemy scan failed (${response.status}) ${detail.slice(0, 180)}`);

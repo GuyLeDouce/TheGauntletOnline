@@ -12,6 +12,21 @@ const STORAGE_KEYS = {
   clientId: "insquignito-client-id"
 };
 
+const API_TIMEOUT_MS = 8000;
+const DEFAULT_CONFIG = {
+  appName: "InSquignito's Ugly Interview",
+  rewardCooldownHours: 24,
+  scanCacheMinutes: 15,
+  allowZeroSquigReward: false,
+  discordInviteUrl: "https://squigs.io/discord",
+  dripProfileUrl: "",
+  dripClaimHelpUrl: "",
+  timersEnabled: true,
+  interviewLength: 15,
+  appVersion: "frontend-local",
+  buildId: "frontend-local"
+};
+
 const els = {
   interviewStage: document.getElementById("interviewStage"),
   sceneImage: document.getElementById("sceneImage"),
@@ -31,7 +46,7 @@ const els = {
 
 const state = {
   clientId: "",
-  config: {},
+  config: { ...DEFAULT_CONFIG },
   profile: {},
   scan: null,
   cooldown: null,
@@ -41,7 +56,9 @@ const state = {
   currentMode: "menu",
   modeBeforeModal: "menu",
   lastClaimCode: "",
-  pendingFinalData: null
+  pendingFinalData: null,
+  eventsWired: false,
+  bootError: ""
 };
 
 class ApiError extends Error {
@@ -63,13 +80,56 @@ function getOrCreateClientId() {
 }
 
 async function apiFetch(url, options = {}) {
-  const response = await fetch(url, {
-    headers: { "Content-Type": "application/json" },
-    ...options
-  });
-  const data = await response.json().catch(() => ({}));
-  if (!response.ok) throw new ApiError(data.error || `Request failed (${response.status})`, data);
-  return data;
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), options.timeoutMs || API_TIMEOUT_MS);
+  const headers = {
+    Accept: "application/json",
+    ...(options.body ? { "Content-Type": "application/json" } : {}),
+    ...(options.headers || {})
+  };
+
+  try {
+    const response = await fetch(url, {
+      ...options,
+      headers,
+      signal: controller.signal
+    });
+    const raw = await response.text().catch(() => "");
+    let data = {};
+    if (raw) {
+      try {
+        data = JSON.parse(raw);
+      } catch {
+        data = { error: raw.slice(0, 220), nonJson: true };
+      }
+    }
+    if (!response.ok) {
+      throw new ApiError(data.error || `Request failed (${response.status})`, { ...data, status: response.status });
+    }
+    return data;
+  } catch (error) {
+    if (error?.name === "AbortError") {
+      throw new ApiError("Request timed out. InSquignito dropped the clipboard.", { timeout: true });
+    }
+    if (error instanceof ApiError) throw error;
+    throw new ApiError(error?.message || "Network request failed. The office wires are ugly today.", { originalError: true });
+  } finally {
+    window.clearTimeout(timeout);
+  }
+}
+
+function safeClipboardWrite(text) {
+  if (navigator.clipboard?.writeText) return navigator.clipboard.writeText(text);
+  const input = document.createElement("textarea");
+  input.value = text;
+  input.setAttribute("readonly", "");
+  input.style.position = "fixed";
+  input.style.left = "-999px";
+  document.body.appendChild(input);
+  input.select();
+  document.execCommand("copy");
+  input.remove();
+  return Promise.resolve();
 }
 
 function escapeHtml(value) {
@@ -79,6 +139,13 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function ensureElements() {
+  const missing = Object.entries(els).filter(([, value]) => !value).map(([key]) => key);
+  if (missing.length) {
+    throw new Error(`Frontend boot is missing required elements: ${missing.join(", ")}`);
+  }
 }
 
 function getOfficeImage(key) {
@@ -127,11 +194,39 @@ function preloadImages() {
 }
 
 function showToast(message) {
+  if (!els.toastStack) return;
   const toast = document.createElement("div");
   toast.className = "toast";
   toast.textContent = message;
   els.toastStack.appendChild(toast);
   setTimeout(() => toast.remove(), 3200);
+}
+
+function renderFallbackMenu(message, action = "retry-connection") {
+  setStageMode("menu");
+  setStageScene("hero", { badge: "Offline Ugly Mode" });
+  renderStatusHud();
+  els.stageDeskConsole.innerHTML = `
+    <section class="desk-card desk-card--menu ugly-paper">
+      <p class="sticker">Ugly Labs Connection Notice</p>
+      <h1>InSquignito's Ugly Interview</h1>
+      <p class="subtitle">Get Hired. Get Roasted. Stay Ugly.</p>
+      <p class="cooldown">${escapeHtml(message || "The office connection failed. Practice mode still works.")}</p>
+      <div class="action-row">
+        <button type="button" class="primary-action" data-action="practice">Practice Interview</button>
+        <button type="button" class="secondary-action" data-action="begin-reward">Start Interview</button>
+        <button type="button" class="secondary-action" data-open="how">How It Works</button>
+        <button type="button" class="secondary-action" data-action="${escapeHtml(action)}">Retry Connection</button>
+      </div>
+    </section>
+  `;
+}
+
+function showVisibleError(message, action = "retry-connection") {
+  const text = message || "The office connection failed. Practice mode still works.";
+  state.bootError = text;
+  showToast(text);
+  renderFallbackMenu(text, action);
 }
 
 function formatDate(value) {
@@ -301,6 +396,7 @@ function renderMenuScene() {
         <strong>${escapeHtml(summary.mode)} Mode</strong>
         <small>${escapeHtml(summary.gateSummary)}</small>
       </button>
+      <p class="build-marker">Build ${escapeHtml(state.config.buildId || state.config.appVersion || "local")}</p>
     </section>
   `;
 }
@@ -437,7 +533,11 @@ function renderFinalScene(data) {
 }
 
 async function loadConfig() {
-  state.config = await apiFetch("/api/config");
+  const config = await apiFetch("/api/config");
+  state.config = { ...DEFAULT_CONFIG, ...config };
+  if (state.config.appVersion || state.config.buildId) {
+    console.info(`[Ugly Interview] ${state.config.appVersion} ${state.config.buildId}`);
+  }
 }
 
 async function loadProfile() {
@@ -509,6 +609,8 @@ async function startRun(mode) {
       renderApplicantScene({ sceneKey: "cooldown" });
     } else if (error.data?.practiceAvailable || error.message.includes("non-holders")) {
       renderApplicantScene({ sceneKey: "zeroSquigs", context: "reward-blocked" });
+    } else if (mode === "practice") {
+      renderFallbackMenu(`Practice could not start: ${error.message}`);
     } else {
       renderApplicantScene();
     }
@@ -602,7 +704,12 @@ async function renderLeaderboardModal(period = "weekly") {
       </div>
     ` : "");
   } catch (error) {
-    els.leaderboardRows.textContent = error.message;
+    els.leaderboardRows.innerHTML = `
+      <div class="empty-state">
+        Leaderboard paperwork failed to load. ${escapeHtml(error.message)}
+        <button type="button" class="secondary-action" data-retry="leaderboard" data-period="${escapeHtml(period)}">Retry Leaderboard</button>
+      </div>
+    `;
   }
 }
 
@@ -630,7 +737,12 @@ async function renderClaimsModal() {
       </div>
     `).join("");
   } catch (error) {
-    els.claimRows.textContent = error.message;
+    els.claimRows.innerHTML = `
+      <div class="empty-state">
+        Claim drawer failed to open. ${escapeHtml(error.message)}
+        <button type="button" class="secondary-action" data-retry="claims">Retry Claims</button>
+      </div>
+    `;
   }
 }
 
@@ -706,7 +818,22 @@ function closeModal(name) {
   restoreSceneAfterModal();
 }
 
+async function retryConnection() {
+  setStageScene("loading", { badge: "Retrying Connection" });
+  try {
+    await loadConfig();
+    await loadProfile();
+    state.bootError = "";
+    renderMenuScene();
+    showToast("Connection refreshed. InSquignito remains suspicious.");
+  } catch (error) {
+    showVisibleError(error.message);
+  }
+}
+
 function wireEvents() {
+  if (state.eventsWired) return;
+  state.eventsWired = true;
   document.addEventListener("click", async (event) => {
     const openButton = event.target.closest("[data-open]");
     if (openButton) {
@@ -727,9 +854,18 @@ function wireEvents() {
       return;
     }
 
+    const retryButton = event.target.closest("[data-retry]");
+    if (retryButton) {
+      const target = retryButton.dataset.retry;
+      if (target === "leaderboard") await renderLeaderboardModal(retryButton.dataset.period || "weekly");
+      if (target === "claims") await renderClaimsModal();
+      if (target === "profile") await retryConnection();
+      return;
+    }
+
     const copyClaimButton = event.target.closest(".copy-claim");
     if (copyClaimButton) {
-      await navigator.clipboard.writeText(copyClaimButton.dataset.code);
+      await safeClipboardWrite(copyClaimButton.dataset.code);
       showToast("Claim code copied.");
       return;
     }
@@ -748,6 +884,7 @@ function wireEvents() {
       }
       if (action === "practice") await startRun("practice");
       if (action === "show-applicant") renderApplicantScene();
+      if (action === "retry-connection") await retryConnection();
       if (action === "connect-discord") {
         setStageScene("loading", { badge: "Discord Redirect" });
         window.location.href = `/api/auth/discord/start?clientId=${encodeURIComponent(state.clientId)}`;
@@ -759,7 +896,7 @@ function wireEvents() {
       if (action === "cashout") await advanceRun("cashout");
       if (action === "view-final" && state.pendingFinalData) renderFinalScene(state.pendingFinalData);
       if (action === "copy-claim" && state.lastClaimCode) {
-        await navigator.clipboard.writeText(state.lastClaimCode);
+        await safeClipboardWrite(state.lastClaimCode);
         showToast("Claim code copied. Guard the ugly paperwork.");
       }
       if (action === "return-menu") {
@@ -768,6 +905,9 @@ function wireEvents() {
       }
     } catch (error) {
       showToast(error.message);
+      if (["begin-reward", "retry-connection"].includes(action)) {
+        renderFallbackMenu(error.message);
+      }
     }
   });
 
@@ -792,28 +932,62 @@ function wireEvents() {
 }
 
 async function init() {
-  state.clientId = getOrCreateClientId();
-  wireEvents();
-  preloadImages();
-  renderMenuScene();
-  setStageScene("loading", { badge: "Processing Ugly" });
-  await loadConfig().catch((error) => showToast(error.message));
-  await loadProfile().catch((error) => showToast(error.message));
+  try {
+    ensureElements();
+    state.clientId = getOrCreateClientId();
+    wireEvents();
+    preloadImages();
+    renderMenuScene();
 
-  const params = new URLSearchParams(window.location.search);
-  if (params.get("discord") === "connected") {
-    showToast("Discord connected. InSquignito is unimpressed.");
-    history.replaceState({}, "", "/");
-    await loadProfile().catch(() => {});
-    renderApplicantScene({ sceneKey: "applicantFile" });
-    return;
-  }
-  if (params.get("discord")) {
-    showToast("Discord login did not finish. The paperwork hissed.");
-    history.replaceState({}, "", "/");
-  }
+    const params = new URLSearchParams(window.location.search);
+    const discordConnected = params.get("discord") === "connected";
+    const discordFailed = params.get("discord") && !discordConnected;
 
-  renderMenuScene();
+    try {
+      await loadConfig();
+    } catch (error) {
+      state.config = { ...DEFAULT_CONFIG };
+      showToast(error.message);
+    }
+
+    try {
+      await loadProfile();
+    } catch (error) {
+      state.profile = { clientId: state.clientId };
+      state.scan = null;
+      state.cooldown = null;
+      showToast(error.message);
+    }
+
+    if (discordConnected) {
+      showToast("Discord connected. InSquignito is unimpressed.");
+      history.replaceState({}, "", "/");
+      renderApplicantScene({ sceneKey: "applicantFile" });
+      return;
+    }
+    if (discordFailed) {
+      showToast("Discord login did not finish. The paperwork hissed.");
+      history.replaceState({}, "", "/");
+    }
+
+    renderMenuScene();
+  } catch (error) {
+    console.error("[Ugly Interview] boot failed", error);
+    try {
+      state.clientId ||= "client_fallback";
+      wireEvents();
+      renderFallbackMenu(error.message || "Frontend boot failed. Practice mode may still work.");
+    } catch {
+      document.body.innerHTML = `
+        <main class="app-shell">
+          <section class="ugly-paper desk-card">
+            <h1>InSquignito's Ugly Interview</h1>
+            <p class="cooldown">The office failed to boot. Refresh and try again.</p>
+          </section>
+        </main>
+      `;
+    }
+  }
 }
 
 init();
