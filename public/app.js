@@ -172,19 +172,22 @@ function setStageScene(key, options = {}) {
 
   state.currentSceneKey = nextKey;
   els.sceneImage.classList.add("is-fading");
-  window.setTimeout(() => {
-    els.sceneImage.onload = () => els.sceneImage.classList.remove("is-fading");
-    els.sceneImage.onerror = () => {
-      const fallback = getOfficeImage("hero");
-      state.currentSceneKey = "hero";
-      els.interviewStage.dataset.scene = "hero";
-      els.sceneImage.src = fallback.url;
-      els.sceneImage.alt = fallback.alt;
-      els.sceneImage.classList.remove("is-fading");
-    };
-    els.sceneImage.src = asset.url;
-    els.sceneImage.alt = asset.alt || "InSquignito's Ugly Interview scene";
-  }, 90);
+  const clearFade = window.setTimeout(() => els.sceneImage.classList.remove("is-fading"), 450);
+  els.sceneImage.onload = () => {
+    window.clearTimeout(clearFade);
+    els.sceneImage.classList.remove("is-fading");
+  };
+  els.sceneImage.onerror = () => {
+    const fallback = getOfficeImage("hero");
+    window.clearTimeout(clearFade);
+    state.currentSceneKey = "hero";
+    els.interviewStage.dataset.scene = "hero";
+    els.sceneImage.src = fallback.url;
+    els.sceneImage.alt = fallback.alt;
+    els.sceneImage.classList.remove("is-fading");
+  };
+  els.sceneImage.src = asset.url;
+  els.sceneImage.alt = asset.alt || "InSquignito's Ugly Interview scene";
 }
 
 function preloadImages() {
@@ -390,6 +393,8 @@ function renderMenuScene() {
       <p class="tagline">Discord in. Wallet scanned. Dignity calculated.</p>
       <div class="action-row">
         <button type="button" class="primary-action" data-action="begin-reward">Begin Interview</button>
+        ${state.profile?.discordUserId ? "" : `<button type="button" class="secondary-action" data-action="connect-discord">Connect Discord</button>`}
+        <button type="button" class="secondary-action" data-action="show-applicant">Applicant File</button>
         <button type="button" class="secondary-action" data-action="practice">Practice Without Pay</button>
         <button type="button" class="secondary-action" data-open="how">How It Works</button>
       </div>

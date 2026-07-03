@@ -43,6 +43,7 @@
               <p class="tagline">Discord in. Wallet scanned. Dignity calculated.</p>
               <div class="action-row">
                 <button type="button" class="primary-action" data-action="begin-reward">Begin Interview</button>
+                <button type="button" class="secondary-action" data-action="connect-discord">Connect Discord</button>
                 <button type="button" class="secondary-action" data-action="practice">Practice Interview</button>
                 <button type="button" class="secondary-action" data-open="how">How It Works</button>
               </div>
@@ -104,6 +105,28 @@
       (function () {
         var clientKey = "insquignito-client-id";
         var run = null;
+        var images = {
+          hero: "https://i.imgur.com/8U7n401.png",
+          gate: "https://i.imgur.com/XPpBV3d.png",
+          loading: "https://i.imgur.com/act5Z2A.png",
+          practice: "https://i.imgur.com/aUvymLk.png",
+          tierEasy: "https://i.imgur.com/hWGERfA.png",
+          tierCertified: "https://i.imgur.com/TnGpThq.png",
+          tierDeep: "https://i.imgur.com/1m0ULcv.png",
+          tierInternal: "https://i.imgur.com/0HK1Az6.png",
+          tierImpossible: "https://i.imgur.com/hw7jbda.png",
+          correct: "https://i.imgur.com/0iCy6UZ.png",
+          wrong: "https://i.imgur.com/RGM611v.png",
+          dignityLost: "https://i.imgur.com/HCWJXdG.png",
+          howItWorks: "https://i.imgur.com/YuceW7s.png"
+        };
+        var tierImages = {
+          1: "tierEasy",
+          2: "tierCertified",
+          3: "tierDeep",
+          4: "tierInternal",
+          5: "tierImpossible"
+        };
 
         function getClientId() {
           try {
@@ -154,13 +177,30 @@
           if (badge) badge.textContent = text;
         }
 
+        function setScene(key, badge) {
+          var stage = document.getElementById("interviewStage");
+          var img = document.getElementById("sceneImage");
+          var next = images[key] ? key : "hero";
+          if (stage) stage.dataset.scene = next;
+          if (badge) setBadge(badge);
+          if (img && img.src !== images[next]) {
+            img.classList.add("is-fading");
+            img.onload = function () { img.classList.remove("is-fading"); };
+            img.onerror = function () {
+              img.src = images.hero;
+              img.classList.remove("is-fading");
+            };
+            img.src = images[next];
+          }
+        }
+
         function setConsole(markup) {
           var el = consoleEl();
           if (el) el.innerHTML = markup;
         }
 
         function fallbackMenu(message) {
-          setBadge("Ugly Labs HR");
+          setScene("hero", "Ugly Labs HR");
           setConsole(
             '<section class="desk-card desk-card--menu ugly-paper fallback-menu">' +
               '<p class="sticker">Ugly Labs Safety Console</p>' +
@@ -170,8 +210,25 @@
               '<div class="action-row">' +
                 '<button type="button" class="primary-action" data-action="practice">Practice Interview</button>' +
                 '<button type="button" class="secondary-action" data-action="begin-reward">Start Interview</button>' +
+                '<button type="button" class="secondary-action" data-action="connect-discord">Connect Discord</button>' +
                 '<button type="button" class="secondary-action" data-open="how">How It Works</button>' +
                 '<button type="button" class="secondary-action" data-action="fallback-retry">Retry Console</button>' +
+              '</div>' +
+            '</section>'
+          );
+        }
+
+        function fallbackApplicant(message) {
+          setScene("gate", "Discord + Wallet Gate");
+          setConsole(
+            '<section class="desk-card desk-card--applicant ugly-paper fallback-menu">' +
+              '<div class="console-heading"><p class="file-tab">Ugly Applicant File</p><p class="category">Reward Setup</p></div>' +
+              '<h2>Connect Discord first.</h2>' +
+              '<p class="microcopy">' + html(message || "Reward interviews require Discord login and a wallet scan. Practice mode works without either.") + '</p>' +
+              '<div class="file-actions">' +
+                '<button type="button" class="primary-action" data-action="connect-discord">Connect Discord</button>' +
+                '<button type="button" class="secondary-action" data-action="practice">Practice Interview</button>' +
+                '<button type="button" class="secondary-action" data-open="how">How It Works</button>' +
               '</div>' +
             '</section>'
           );
@@ -184,7 +241,7 @@
             fallbackMenu("Practice started, but no question came back from the server.");
             return;
           }
-          setBadge(question.tierLabel || "Active Interview");
+          setScene(tierImages[question.tier] || "practice", question.tierLabel || "Active Interview");
           setConsole(
             '<section class="desk-card desk-card--question ugly-paper">' +
               '<div class="console-heading">' +
@@ -204,7 +261,7 @@
 
         function renderFeedback(data) {
           var feedback = data.feedback || {};
-          setBadge(feedback.wasCorrect ? "Ugly Verified" : "Pretty Energy Detected");
+          setScene(feedback.wasCorrect ? "correct" : feedback.dignityLost > 0 ? "dignityLost" : "wrong", feedback.wasCorrect ? "Ugly Verified" : "Pretty Energy Detected");
           setConsole(
             '<section class="desk-card desk-card--feedback ugly-paper">' +
               '<p class="stamp-label ' + (feedback.wasCorrect ? "stamp-label--good" : "stamp-label--bad") + '">' + html(feedback.wasCorrect ? "Correct" : feedback.timedOut ? "Too Slow" : "Wrong") + '</p>' +
@@ -219,6 +276,7 @@
         }
 
         function showHow() {
+          setScene("howItWorks", "How It Works");
           var howCopy = document.getElementById("howCopy");
           var dialog = document.getElementById("howDialog");
           if (howCopy) {
@@ -263,9 +321,14 @@
 
           var action = actionEl.dataset.action;
           if (action === "begin-reward") {
-            fallbackMenu("Reward interviews need Discord and a wallet scan. Practice is available right now.");
+            fallbackApplicant("Reward interviews need Discord and a wallet scan. Connect Discord here, then scan your wallet when the main console loads.");
+          }
+          if (action === "connect-discord") {
+            setScene("loading", "Discord Redirect");
+            window.location.href = "/api/auth/discord/start?clientId=" + encodeURIComponent(getClientId());
           }
           if (action === "practice" || action === "fallback-retry") {
+            setScene("practice", "Practice Interview");
             setConsole('<section class="desk-card desk-card--feedback ugly-paper"><p class="stamp-label">Processing</p><h2>Opening practice interview...</h2></section>');
             api("/api/run/start", {
               method: "POST",

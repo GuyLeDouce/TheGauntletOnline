@@ -309,7 +309,7 @@ input:focus-visible {
 }
 
 .desk-card--question {
-  width: min(100%, 920px);
+  width: min(100%, 1040px);
 }
 
 .desk-card--feedback,
@@ -324,7 +324,9 @@ input:focus-visible {
 
 [data-view="question"] .desk-card,
 [data-view="feedback"] .desk-card {
-  background: rgba(236, 214, 180, 0.93);
+  background:
+    linear-gradient(180deg, rgba(255, 247, 230, 0.96), rgba(236, 214, 180, 0.99)),
+    var(--ugly-cream);
 }
 
 .desk-card h1,
@@ -352,8 +354,13 @@ input:focus-visible {
 }
 
 .desk-card--question h2 {
-  font-size: clamp(1.18rem, 2.1vw, 1.95rem);
-  line-height: 1.12;
+  padding: 10px 12px;
+  border: 3px solid var(--ugly-black);
+  border-radius: 16px;
+  background: var(--ugly-white);
+  box-shadow: 3px 3px 0 var(--ugly-black);
+  font-size: clamp(1.26rem, 2.35vw, 2.25rem);
+  line-height: 1.14;
   text-transform: none;
 }
 
@@ -373,6 +380,11 @@ input:focus-visible {
   font-size: clamp(0.88rem, 1.25vw, 1rem);
   font-weight: 700;
   line-height: 1.45;
+}
+
+.desk-card--question .flavor {
+  color: #241d2e;
+  font-weight: 850;
 }
 
 .sticker,
@@ -624,10 +636,11 @@ input {
   min-height: 62px;
   padding: 12px;
   border-radius: 16px;
-  background: var(--ugly-cream);
+  background: var(--ugly-white);
   text-align: left;
   text-transform: none;
   font-size: clamp(0.92rem, 1.4vw, 1.05rem);
+  font-weight: 900;
   line-height: 1.2;
 }
 
@@ -648,6 +661,7 @@ input {
 
 .answer-button:hover {
   background: var(--ugly-yellow);
+  color: var(--ugly-black);
 }
 
 .stamp-label {
@@ -1024,7 +1038,7 @@ input {
 
   .desk-card h2,
   .desk-card--question h2 {
-    font-size: clamp(1.05rem, 5.1vw, 1.45rem);
+    font-size: clamp(1.08rem, 5.4vw, 1.58rem);
   }
 
   .subtitle {
