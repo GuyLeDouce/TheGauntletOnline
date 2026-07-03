@@ -17,9 +17,17 @@
           <span>Interview Office</span>
         </a>
         <nav class="top-actions" aria-label="Primary">
-          <button type="button" class="text-button" data-open="how">How It Works</button>
-          <button type="button" class="text-button" data-open="leaderboard">Leaderboard</button>
-          <button type="button" class="text-button" data-open="claims">My $CHARM Claims</button>
+          <label class="language-control" for="languageSelect">
+            <span data-i18n="languageLabel">Language</span>
+            <select id="languageSelect" aria-label="Language">
+              <option value="en">English</option>
+              <option value="fr">Francais</option>
+              <option value="es">Espanol</option>
+            </select>
+          </label>
+          <button type="button" class="text-button" data-open="how" data-i18n="howItWorks">How It Works</button>
+          <button type="button" class="text-button" data-open="leaderboard" data-i18n="leaderboard">Leaderboard</button>
+          <button type="button" class="text-button" data-open="claims" data-i18n="myClaims">My $CHARM Claims</button>
         </nav>
       </header>
 
@@ -39,15 +47,15 @@
             <section class="desk-card desk-card--menu ugly-paper fallback-menu">
               <p class="sticker">A Squigs Reloaded Survival Interview</p>
               <h1>InSquignito's Ugly Interview</h1>
-              <p class="subtitle">Get Hired. Get Roasted. Stay Ugly.</p>
-              <p class="tagline">Discord in. Wallet scanned. Dignity calculated.</p>
+              <p class="subtitle" data-i18n="subtitle">Get Hired. Get Roasted. Stay Ugly.</p>
+              <p class="tagline" data-i18n="tagline">Discord in. Wallet scanned. Dignity calculated.</p>
               <div class="action-row">
-                <button type="button" class="primary-action" data-action="begin-reward">Begin Interview</button>
-                <button type="button" class="secondary-action" data-action="connect-discord">Connect Discord</button>
-                <button type="button" class="secondary-action" data-action="practice">Practice Interview</button>
-                <button type="button" class="secondary-action" data-open="how">How It Works</button>
+                <button type="button" class="primary-action" data-action="begin-reward" data-i18n="beginInterview">Begin Interview</button>
+                <button type="button" class="secondary-action" data-action="connect-discord" data-i18n="connectDiscord">Connect Discord</button>
+                <button type="button" class="secondary-action" data-action="practice" data-i18n="practiceInterview">Practice Interview</button>
+                <button type="button" class="secondary-action" data-open="how" data-i18n="howItWorks">How It Works</button>
               </div>
-              <p class="build-marker">Loading Ugly Labs console...</p>
+              <p class="build-marker" data-no-translate>Loading Ugly Labs console...</p>
             </section>
           </div>
         </section>
@@ -59,8 +67,8 @@
     <dialog class="paper-modal" id="howDialog">
       <div class="paper-modal__body">
         <div class="paper-modal__heading">
-          <h2>How It Works</h2>
-          <button type="button" class="stamp-button" data-close="how" aria-label="Close">Close</button>
+          <h2 data-i18n="howItWorks">How It Works</h2>
+          <button type="button" class="stamp-button" data-close="how" aria-label="Close" data-i18n="close">Close</button>
         </div>
         <div id="howCopy" class="step-list"></div>
       </div>
@@ -69,33 +77,33 @@
     <dialog class="paper-modal paper-modal--wide" id="leaderboardDialog">
       <div class="paper-modal__body">
         <div class="paper-modal__heading">
-          <h2>Leaderboard</h2>
-          <button type="button" class="stamp-button" data-close="leaderboard" aria-label="Close">Close</button>
+          <h2 data-i18n="leaderboard">Leaderboard</h2>
+          <button type="button" class="stamp-button" data-close="leaderboard" aria-label="Close" data-i18n="close">Close</button>
         </div>
         <div class="tab-row" role="tablist" aria-label="Leaderboard period">
-          <button type="button" class="tab active" data-period="weekly">Weekly</button>
-          <button type="button" class="tab" data-period="monthly">Monthly</button>
-          <button type="button" class="tab" data-period="all-time">All-Time</button>
+          <button type="button" class="tab active" data-period="weekly" data-i18n="weekly">Weekly</button>
+          <button type="button" class="tab" data-period="monthly" data-i18n="monthly">Monthly</button>
+          <button type="button" class="tab" data-period="all-time" data-i18n="allTime">All-Time</button>
         </div>
-        <div id="leaderboardRows" class="leaderboard-rows">Loading...</div>
+        <div id="leaderboardRows" class="leaderboard-rows" data-i18n="loading">Loading...</div>
       </div>
     </dialog>
 
     <dialog class="paper-modal paper-modal--wide" id="claimsDialog">
       <div class="paper-modal__body">
         <div class="paper-modal__heading">
-          <h2>My $CHARM Claims</h2>
-          <button type="button" class="stamp-button" data-close="claims" aria-label="Close">Close</button>
+          <h2 data-i18n="myClaims">My $CHARM Claims</h2>
+          <button type="button" class="stamp-button" data-close="claims" aria-label="Close" data-i18n="close">Close</button>
         </div>
-        <div id="claimRows" class="claim-rows">Loading...</div>
+        <div id="claimRows" class="claim-rows" data-i18n="loading">Loading...</div>
       </div>
     </dialog>
 
     <dialog class="paper-modal paper-modal--wide" id="scanDialog">
       <div class="paper-modal__body">
         <div class="paper-modal__heading">
-          <h2>Wallet Scan Details</h2>
-          <button type="button" class="stamp-button" data-close="scan" aria-label="Close">Close</button>
+          <h2 data-i18n="walletScanDetails">Wallet Scan Details</h2>
+          <button type="button" class="stamp-button" data-close="scan" aria-label="Close" data-i18n="close">Close</button>
         </div>
         <div id="scanDetails" class="scan-details"></div>
       </div>

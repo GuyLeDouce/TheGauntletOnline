@@ -26,8 +26,10 @@ const HOST = "0.0.0.0";
 const PORT = Number(process.env.PORT || 3000);
 const PUBLIC_DIR = path.join(__dirname, "public");
 const QUESTIONS_BY_ID = questionMap(QUESTIONS);
-const APP_VERSION = "2026-07-02-stage-extension";
+const APP_VERSION = "2026-07-02-language-select";
 const BUILD_ID = process.env.RAILWAY_GIT_COMMIT_SHA || process.env.SOURCE_VERSION || process.env.GIT_COMMIT || APP_VERSION;
+const SUPPORTED_TRANSLATION_LANGUAGES = new Set(["en", "fr", "es"]);
+const translationCache = new Map();
 
 const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -86,6 +88,36 @@ function parseRequestBody(req) {
     });
     req.on("error", reject);
   });
+}
+
+async function translateOneText(text, language) {
+  const cleanText = String(text || "").slice(0, 1000);
+  if (!cleanText || language === "en") return cleanText;
+  const cacheKey = `${language}:${cleanText}`;
+  if (translationCache.has(cacheKey)) return translationCache.get(cacheKey);
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 7000);
+  try {
+    const url = new URL("https://translate.googleapis.com/translate_a/single");
+    url.searchParams.set("client", "gtx");
+    url.searchParams.set("sl", "en");
+    url.searchParams.set("tl", language);
+    url.searchParams.set("dt", "t");
+    url.searchParams.set("q", cleanText);
+    const response = await fetch(url, { signal: controller.signal });
+    if (!response.ok) throw new Error(`Translation failed (${response.status})`);
+    const data = await response.json();
+    const translated = Array.isArray(data?.[0])
+      ? data[0].map((part) => Array.isArray(part) ? part[0] : "").join("")
+      : cleanText;
+    translationCache.set(cacheKey, translated || cleanText);
+    return translated || cleanText;
+  } catch {
+    return cleanText;
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 function publicProfile(profile) {
@@ -491,6 +523,19 @@ async function handleApi(req, res, requestUrl) {
       appVersion: APP_VERSION,
       buildId: BUILD_ID
     });
+    return true;
+  }
+
+  if (requestUrl.pathname === "/api/translate" && req.method === "POST") {
+    const body = await parseRequestBody(req);
+    const language = SUPPORTED_TRANSLATION_LANGUAGES.has(body.language) ? body.language : "en";
+    const texts = Array.isArray(body.texts) ? body.texts.slice(0, 80).map((text) => String(text || "").slice(0, 1000)) : [];
+    if (language === "en") {
+      sendJson(res, 200, { language, translations: texts });
+      return true;
+    }
+    const translations = await Promise.all(texts.map((text) => translateOneText(text, language)));
+    sendJson(res, 200, { language, translations });
     return true;
   }
 

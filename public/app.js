@@ -5,13 +5,16 @@ import {
   HOW_IT_WORKS,
   OFFICE_IMAGES,
   PRELOAD_IMAGE_KEYS,
+  SUPPORTED_LANGUAGES,
+  UI_TRANSLATIONS,
   TIER_IMAGE_KEYS
 } from "/game-data.js";
 
 window.__uglyAppModuleLoaded = true;
 
 const STORAGE_KEYS = {
-  clientId: "insquignito-client-id"
+  clientId: "insquignito-client-id",
+  language: "insquignito-language"
 };
 
 const API_TIMEOUT_MS = 8000;
@@ -46,6 +49,8 @@ const els = {
   scanDetails: document.getElementById("scanDetails")
 };
 
+els.languageSelect = document.getElementById("languageSelect");
+
 const state = {
   clientId: "",
   config: { ...DEFAULT_CONFIG },
@@ -59,8 +64,12 @@ const state = {
   modeBeforeModal: "menu",
   lastClaimCode: "",
   pendingFinalData: null,
+  lastFeedbackData: null,
+  lastFinalData: null,
   eventsWired: false,
-  bootError: ""
+  bootError: "",
+  language: "en",
+  translationCache: new Map()
 };
 
 class ApiError extends Error {
@@ -143,6 +152,92 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
+function getSavedLanguage() {
+  const saved = localStorage.getItem(STORAGE_KEYS.language);
+  return SUPPORTED_LANGUAGES[saved] ? saved : "en";
+}
+
+function t(key) {
+  return UI_TRANSLATIONS[state.language]?.[key] || UI_TRANSLATIONS.en[key] || key;
+}
+
+function setLanguage(lang, { rerender = true } = {}) {
+  state.language = SUPPORTED_LANGUAGES[lang] ? lang : "en";
+  localStorage.setItem(STORAGE_KEYS.language, state.language);
+  document.documentElement.lang = state.language;
+  if (els.languageSelect) els.languageSelect.value = state.language;
+  localizeStaticText();
+  if (rerender) rerenderCurrentView();
+}
+
+function localizeStaticText(root = document) {
+  root.querySelectorAll("[data-i18n]").forEach((node) => {
+    node.textContent = t(node.dataset.i18n);
+  });
+}
+
+function shouldTranslateText(text) {
+  const trimmed = String(text || "").trim();
+  if (!trimmed) return false;
+  if (/^[$#]?[0-9,.]+$/.test(trimmed)) return false;
+  if (/^0x[a-fA-F0-9]{6,}/.test(trimmed)) return false;
+  if (/^[A-Z0-9]{4,}-[A-Z0-9]{4,}$/.test(trimmed)) return false;
+  return /[A-Za-z]/.test(trimmed);
+}
+
+function textNodesForTranslation(root) {
+  const nodes = [];
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      const parent = node.parentElement;
+      if (!parent) return NodeFilter.FILTER_REJECT;
+      if (parent.closest("script, style, input, textarea, select, [data-no-translate], .build-marker, .avatar-fallback")) {
+        return NodeFilter.FILTER_REJECT;
+      }
+      return shouldTranslateText(node.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+    }
+  });
+  let node = walker.nextNode();
+  while (node) {
+    nodes.push(node);
+    node = walker.nextNode();
+  }
+  return nodes;
+}
+
+async function translateTexts(texts) {
+  if (state.language === "en") return texts;
+  const unique = [...new Set(texts.map((text) => text.trim()).filter(shouldTranslateText))];
+  const missing = unique.filter((text) => !state.translationCache.has(`${state.language}:${text}`));
+  if (missing.length) {
+    const data = await apiFetch("/api/translate", {
+      method: "POST",
+      body: JSON.stringify({ language: state.language, texts: missing }),
+      timeoutMs: 10000
+    }).catch(() => ({ translations: missing }));
+    const translations = Array.isArray(data.translations) ? data.translations : missing;
+    missing.forEach((text, index) => {
+      state.translationCache.set(`${state.language}:${text}`, translations[index] || text);
+    });
+  }
+  return texts.map((text) => state.translationCache.get(`${state.language}:${text.trim()}`) || text);
+}
+
+function queueTranslate(root = document.body) {
+  localizeStaticText(root.nodeType === 1 ? root : document);
+  if (state.language === "en") return;
+  const languageAtRequest = state.language;
+  const nodes = textNodesForTranslation(root);
+  const originals = nodes.map((node) => node.nodeValue.trim());
+  if (!originals.length) return;
+  translateTexts(originals).then((translations) => {
+    if (languageAtRequest !== state.language) return;
+    nodes.forEach((node, index) => {
+      if (node.parentElement && translations[index]) node.nodeValue = translations[index];
+    });
+  }).catch(() => {});
+}
+
 function ensureElements() {
   const missing = Object.entries(els).filter(([, value]) => !value).map(([key]) => key);
   if (missing.length) {
@@ -218,13 +313,14 @@ function renderFallbackMenu(message, action = "retry-connection") {
       <p class="subtitle">Get Hired. Get Roasted. Stay Ugly.</p>
       <p class="cooldown">${escapeHtml(message || "The office connection failed. Practice mode still works.")}</p>
       <div class="action-row">
-        <button type="button" class="primary-action" data-action="practice">Practice Interview</button>
-        <button type="button" class="secondary-action" data-action="begin-reward">Start Interview</button>
-        <button type="button" class="secondary-action" data-open="how">How It Works</button>
+        <button type="button" class="primary-action" data-action="practice">${escapeHtml(t("practiceInterview"))}</button>
+        <button type="button" class="secondary-action" data-action="begin-reward">${escapeHtml(t("beginInterview"))}</button>
+        <button type="button" class="secondary-action" data-open="how">${escapeHtml(t("howItWorks"))}</button>
         <button type="button" class="secondary-action" data-action="${escapeHtml(action)}">Retry Connection</button>
       </div>
     </section>
   `;
+  queueTranslate(els.stageDeskConsole);
 }
 
 function showVisibleError(message, action = "retry-connection") {
@@ -278,6 +374,7 @@ function renderStatusHud() {
   els.stageHud.innerHTML = statusChips().map(([label, value]) => `
     <div class="hud-chip"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>
   `).join("");
+  queueTranslate(els.stageHud);
 }
 
 function renderRunHud(run) {
@@ -290,6 +387,7 @@ function renderRunHud(run) {
     <div class="hud-chip"><span>Squigs</span><strong>${run.squigCount}</strong></div>
     <div class="hud-chip"><span>Timer</span><strong id="hudTimer">--</strong></div>
   `;
+  queueTranslate(els.stageHud);
 }
 
 function startTimer(question) {
@@ -352,15 +450,15 @@ function applicantNextActionsHtml(summary) {
       ? "scan-wallet"
       : "begin-reward";
   const rewardCopy = summary.mode === "Reward"
-    ? "Play Reward Interview"
+    ? t("playRewardInterview")
     : needsScan
-      ? "Scan Wallet Now"
-      : "Finish Reward Setup";
+      ? t("scanWalletNow")
+      : t("finishRewardSetup");
   return `
-    <div class="next-actions">
+      <div class="next-actions">
       <button type="button" class="primary-action" data-action="${escapeHtml(primaryAction)}">${escapeHtml(rewardCopy)}</button>
-      <button type="button" class="secondary-action" data-action="practice">Play Practice Now</button>
-      <button type="button" class="secondary-action" data-open="how">How It Works</button>
+      <button type="button" class="secondary-action" data-action="practice">${escapeHtml(t("playPracticeNow"))}</button>
+      <button type="button" class="secondary-action" data-open="how">${escapeHtml(t("howItWorks"))}</button>
     </div>
   `;
 }
@@ -379,13 +477,13 @@ function applicantFormHtml(summary, context = "applicant") {
       <label for="walletAddress">Wallet address</label>
       <div class="input-row">
         <input id="walletAddress" name="walletAddress" type="text" placeholder="0x..." value="${escapeHtml(summary.walletAddress)}" autocomplete="off">
-        <button type="submit" class="secondary-action">Save Wallet</button>
+        <button type="submit" class="secondary-action">${escapeHtml(t("saveWallet"))}</button>
       </div>
 
       <div class="file-actions">
-        <button type="button" class="secondary-action" data-action="connect-discord">Connect Discord</button>
-        <button type="button" class="primary-action" data-action="scan-wallet">Scan Wallet</button>
-        <button type="button" class="secondary-action" data-action="refresh-scan">Refresh Scan</button>
+        <button type="button" class="secondary-action" data-action="connect-discord">${escapeHtml(t("connectDiscord"))}</button>
+        <button type="button" class="primary-action" data-action="scan-wallet">${escapeHtml(t("scanWallet"))}</button>
+        <button type="button" class="secondary-action" data-action="refresh-scan">${escapeHtml(t("refreshScan"))}</button>
       </div>
 
       <div class="stat-grid">
@@ -415,11 +513,11 @@ function renderMenuScene() {
       <p class="subtitle">Get Hired. Get Roasted. Stay Ugly.</p>
       <p class="tagline">Discord in. Wallet scanned. Dignity calculated.</p>
       <div class="action-row">
-        <button type="button" class="primary-action" data-action="begin-reward">Begin Interview</button>
-        ${state.profile?.discordUserId ? "" : `<button type="button" class="secondary-action" data-action="connect-discord">Connect Discord</button>`}
-        <button type="button" class="secondary-action" data-action="show-applicant">Applicant File</button>
-        <button type="button" class="secondary-action" data-action="practice">Practice Without Pay</button>
-        <button type="button" class="secondary-action" data-open="how">How It Works</button>
+        <button type="button" class="primary-action" data-action="begin-reward">${escapeHtml(t("beginInterview"))}</button>
+        ${state.profile?.discordUserId ? "" : `<button type="button" class="secondary-action" data-action="connect-discord">${escapeHtml(t("connectDiscord"))}</button>`}
+        <button type="button" class="secondary-action" data-action="show-applicant">${escapeHtml(t("applicantFile"))}</button>
+        <button type="button" class="secondary-action" data-action="practice">${escapeHtml(t("practiceWithoutPay"))}</button>
+        <button type="button" class="secondary-action" data-open="how">${escapeHtml(t("howItWorks"))}</button>
       </div>
       <button type="button" class="status-strip" data-action="show-applicant">
         <span>Applicant Status</span>
@@ -429,6 +527,7 @@ function renderMenuScene() {
       <p class="build-marker">Build ${escapeHtml(state.config.buildId || state.config.appVersion || "local")}</p>
     </section>
   `;
+  queueTranslate(els.stageDeskConsole);
 }
 
 function renderApplicantScene({ sceneKey = chooseApplicantScene(), context = "applicant" } = {}) {
@@ -449,6 +548,7 @@ function renderApplicantScene({ sceneKey = chooseApplicantScene(), context = "ap
       ${context === "scanning" ? `<div class="loading-strip">Scanner warm. Clipboard damp. Please wait.</div>` : applicantFormHtml(summary, context)}
     </section>
   `;
+  queueTranslate(els.stageDeskConsole);
 }
 
 function renderScanningScene() {
@@ -483,9 +583,11 @@ function renderQuestionScene(run) {
       </div>
     </section>
   `;
+  queueTranslate(els.stageDeskConsole);
 }
 
 function renderFeedbackScene(data) {
+  state.lastFeedbackData = data;
   const feedback = data.feedback;
   const imageKey = data.cashoutAvailable
     ? "cashout"
@@ -520,6 +622,7 @@ function renderFeedbackScene(data) {
       </div>
     </section>
   `;
+  queueTranslate(els.stageDeskConsole);
 }
 
 function finalImageKey(run) {
@@ -532,6 +635,7 @@ function finalImageKey(run) {
 }
 
 function renderFinalScene(data) {
+  state.lastFinalData = data;
   const run = data.run;
   const payout = run.payout;
   state.lastClaimCode = payout?.claimCode || "";
@@ -560,6 +664,7 @@ function renderFinalScene(data) {
       </div>
     </section>
   `;
+  queueTranslate(els.stageDeskConsole);
 }
 
 async function loadConfig() {
@@ -627,6 +732,7 @@ async function startRun(mode) {
       <p class="microcopy">Please keep your ugliness inside the marked area.</p>
     </section>
   `;
+  queueTranslate(els.stageDeskConsole);
   try {
     const data = await apiFetch("/api/run/start", {
       method: "POST",
@@ -702,15 +808,18 @@ function renderHowModal() {
       </div>
     </article>
   `).join("");
+  queueTranslate(els.howDialog);
 }
 
 async function renderLeaderboardModal(period = "weekly") {
   els.leaderboardRows.innerHTML = `<div class="empty-state">InSquignito is processing ugly...</div>`;
+  queueTranslate(els.leaderboardRows);
   try {
     const data = await apiFetch(`/api/leaderboard?period=${period}&limit=100&clientId=${encodeURIComponent(state.clientId)}`);
     const entries = data.entries || [];
     if (!entries.length) {
       els.leaderboardRows.innerHTML = `<div class="empty-state">No ugly applicants have survived this period yet. Be the first mistake.</div>`;
+      queueTranslate(els.leaderboardRows);
       return;
     }
     const current = data.currentPlayer;
@@ -733,6 +842,7 @@ async function renderLeaderboardModal(period = "weekly") {
         Your placement: #${current.placement} · Best ${current.bestCharmEver || 0} $CHARM · ${current.fullClears || 0} full clears · Best question ${current.bestQuestionReached || 0}
       </div>
     ` : "");
+    queueTranslate(els.leaderboardRows);
   } catch (error) {
     els.leaderboardRows.innerHTML = `
       <div class="empty-state">
@@ -740,11 +850,13 @@ async function renderLeaderboardModal(period = "weekly") {
         <button type="button" class="secondary-action" data-retry="leaderboard" data-period="${escapeHtml(period)}">Retry Leaderboard</button>
       </div>
     `;
+    queueTranslate(els.leaderboardRows);
   }
 }
 
 async function renderClaimsModal() {
   els.claimRows.innerHTML = `<div class="empty-state">InSquignito is processing ugly...</div>`;
+  queueTranslate(els.claimRows);
   try {
     const data = await apiFetch(`/api/payouts?clientId=${encodeURIComponent(state.clientId)}`);
     const payouts = data.payouts || [];
@@ -752,6 +864,7 @@ async function renderClaimsModal() {
     setStageScene(CLAIM_STATUS_IMAGE_KEYS[firstStatus] || "claims", { badge: "My $CHARM Claims" });
     if (!payouts.length) {
       els.claimRows.innerHTML = `<div class="empty-state">No $CHARM claims yet. InSquignito's drawer remains damp and empty.</div>`;
+      queueTranslate(els.claimRows);
       return;
     }
     els.claimRows.innerHTML = payouts.map((payout) => `
@@ -766,6 +879,7 @@ async function renderClaimsModal() {
         <button type="button" class="secondary-action copy-claim" data-code="${escapeHtml(payout.claimCode)}">Copy</button>
       </div>
     `).join("");
+    queueTranslate(els.claimRows);
   } catch (error) {
     els.claimRows.innerHTML = `
       <div class="empty-state">
@@ -773,6 +887,7 @@ async function renderClaimsModal() {
         <button type="button" class="secondary-action" data-retry="claims">Retry Claims</button>
       </div>
     `;
+    queueTranslate(els.claimRows);
   }
 }
 
@@ -780,6 +895,7 @@ function renderScanDetails() {
   const scan = state.scan;
   if (!scan) {
     els.scanDetails.textContent = "No scan yet.";
+    queueTranslate(els.scanDetails);
     return;
   }
   const traitRows = Object.entries(scan.traitSummary || {}).slice(0, 24).map(([trait, values]) => {
@@ -796,6 +912,7 @@ function renderScanDetails() {
     <h3>Trait Summary</h3>
     <dl>${traitRows || "<dt>None</dt><dd>No traits reported.</dd>"}</dl>
   `;
+  queueTranslate(els.scanDetails);
 }
 
 function restoreSceneAfterModal() {
@@ -809,6 +926,26 @@ function restoreSceneAfterModal() {
   }
   if (state.currentMode === "final") return;
   setStageScene("hero", { badge: "Main Menu" });
+}
+
+function rerenderCurrentView() {
+  if (state.currentMode === "question" && state.run?.question) {
+    renderQuestionScene(state.run);
+    return;
+  }
+  if (state.currentMode === "feedback" && state.lastFeedbackData) {
+    renderFeedbackScene(state.lastFeedbackData);
+    return;
+  }
+  if (state.currentMode === "final" && state.lastFinalData) {
+    renderFinalScene(state.lastFinalData);
+    return;
+  }
+  if (state.currentMode === "applicant" || state.currentMode === "scanning") {
+    renderApplicantScene();
+    return;
+  }
+  renderMenuScene();
 }
 
 function openModal(name) {
@@ -960,6 +1097,11 @@ function wireEvents() {
       }
     });
   });
+
+  els.languageSelect.addEventListener("change", (event) => {
+    setLanguage(event.target.value);
+    showToast(state.language === "en" ? "Language set to English." : `Language set to ${SUPPORTED_LANGUAGES[state.language]}.`);
+  });
 }
 
 async function init() {
@@ -967,6 +1109,7 @@ async function init() {
     ensureElements();
     state.clientId = getOrCreateClientId();
     wireEvents();
+    setLanguage(getSavedLanguage(), { rerender: false });
     preloadImages();
     renderMenuScene();
 

@@ -69,6 +69,13 @@ async function main() {
     await waitForServer();
     await fetchJson("/api/config");
     await fetchJson(`/api/profile?clientId=${encodeURIComponent(CLIENT_ID)}`);
+    const translate = await fetchJson("/api/translate", {
+      method: "POST",
+      body: JSON.stringify({ language: "fr", texts: ["Begin Interview"] })
+    });
+    if (!Array.isArray(translate.data.translations) || translate.data.translations.length !== 1) {
+      throw new Error("Translate route did not return a translations array");
+    }
     const run = await fetchJson("/api/run/start", {
       method: "POST",
       body: JSON.stringify({ clientId: CLIENT_ID, mode: "practice" })

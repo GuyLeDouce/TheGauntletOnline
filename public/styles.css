@@ -41,7 +41,8 @@ body {
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
 }
 
@@ -100,7 +101,32 @@ a {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
+  align-items: center;
   gap: 8px;
+}
+
+.language-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 8px;
+  border: 3px solid var(--ugly-black);
+  border-radius: 999px;
+  background: rgba(236, 214, 180, 0.94);
+  box-shadow: 3px 3px 0 var(--ugly-black);
+  color: var(--ugly-black);
+  font-size: 0.78rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.language-control select {
+  min-height: 30px;
+  border: 2px solid var(--ugly-black);
+  border-radius: 999px;
+  background: var(--ugly-white);
+  color: var(--ugly-black);
+  font-weight: 900;
 }
 
 .text-button,

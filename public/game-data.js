@@ -12,6 +12,93 @@ export const APP_COPY = {
     "Your $CHARM has been logged as a pending Ugly Interview claim. Make sure your Discord and wallet are linked wherever $CHARM/DRIP claims are handled. Save this claim code and open a ticket if needed."
 };
 
+export const SUPPORTED_LANGUAGES = {
+  en: "English",
+  fr: "Francais",
+  es: "Espanol"
+};
+
+export const UI_TRANSLATIONS = {
+  en: {
+    languageLabel: "Language",
+    howItWorks: "How It Works",
+    leaderboard: "Leaderboard",
+    myClaims: "My $CHARM Claims",
+    close: "Close",
+    weekly: "Weekly",
+    monthly: "Monthly",
+    allTime: "All-Time",
+    loading: "Loading...",
+    walletScanDetails: "Wallet Scan Details",
+    subtitle: "Get Hired. Get Roasted. Stay Ugly.",
+    tagline: "Discord in. Wallet scanned. Dignity calculated.",
+    beginInterview: "Begin Interview",
+    connectDiscord: "Connect Discord",
+    practiceInterview: "Practice Interview",
+    applicantFile: "Applicant File",
+    practiceWithoutPay: "Practice Without Pay",
+    playPracticeNow: "Play Practice Now",
+    playRewardInterview: "Play Reward Interview",
+    scanWalletNow: "Scan Wallet Now",
+    finishRewardSetup: "Finish Reward Setup",
+    scanWallet: "Scan Wallet",
+    refreshScan: "Refresh Scan",
+    saveWallet: "Save Wallet"
+  },
+  fr: {
+    languageLabel: "Langue",
+    howItWorks: "Comment ca marche",
+    leaderboard: "Classement",
+    myClaims: "Mes demandes $CHARM",
+    close: "Fermer",
+    weekly: "Semaine",
+    monthly: "Mois",
+    allTime: "Global",
+    loading: "Chargement...",
+    walletScanDetails: "Details du scan du wallet",
+    subtitle: "Fais-toi embaucher. Fais-toi griller. Reste laid.",
+    tagline: "Discord entre. Wallet scanne. Dignite calculee.",
+    beginInterview: "Commencer l'entretien",
+    connectDiscord: "Connecter Discord",
+    practiceInterview: "Entretien d'entrainement",
+    applicantFile: "Dossier candidat",
+    practiceWithoutPay: "S'entrainer sans paiement",
+    playPracticeNow: "Jouer en entrainement",
+    playRewardInterview: "Jouer l'entretien recompense",
+    scanWalletNow: "Scanner le wallet",
+    finishRewardSetup: "Finir la configuration",
+    scanWallet: "Scanner le wallet",
+    refreshScan: "Rafraichir le scan",
+    saveWallet: "Sauver le wallet"
+  },
+  es: {
+    languageLabel: "Idioma",
+    howItWorks: "Como funciona",
+    leaderboard: "Clasificacion",
+    myClaims: "Mis reclamos $CHARM",
+    close: "Cerrar",
+    weekly: "Semanal",
+    monthly: "Mensual",
+    allTime: "Historico",
+    loading: "Cargando...",
+    walletScanDetails: "Detalles del escaneo de wallet",
+    subtitle: "Consigue el puesto. Recibe roast. Sigue feo.",
+    tagline: "Discord entra. Wallet escaneada. Dignidad calculada.",
+    beginInterview: "Comenzar entrevista",
+    connectDiscord: "Conectar Discord",
+    practiceInterview: "Entrevista de practica",
+    applicantFile: "Archivo de solicitante",
+    practiceWithoutPay: "Practicar sin pago",
+    playPracticeNow: "Jugar practica ahora",
+    playRewardInterview: "Jugar entrevista con recompensa",
+    scanWalletNow: "Escanear wallet",
+    finishRewardSetup: "Terminar configuracion",
+    scanWallet: "Escanear wallet",
+    refreshScan: "Actualizar escaneo",
+    saveWallet: "Guardar wallet"
+  }
+};
+
 export const OFFICE_IMAGES = {
   hero: {
     url: "https://i.imgur.com/8U7n401.png",
