@@ -154,10 +154,10 @@ input:focus-visible {
   position: relative;
   width: min(96vw, 1500px);
   aspect-ratio: 16 / 9;
-  margin: 18px auto;
+  margin: 18px auto clamp(300px, 30vw, 510px);
   border: 6px solid var(--ugly-black);
   border-radius: 28px;
-  overflow: hidden;
+  overflow: visible;
   background: var(--ugly-wall-deep);
   box-shadow: var(--stage-shadow);
 }
@@ -171,6 +171,7 @@ input:focus-visible {
   object-fit: cover;
   object-position: center;
   background: var(--ugly-wall-deep);
+  border-radius: 20px;
   pointer-events: none;
   transition: opacity 0.18s ease, transform 0.18s ease;
 }
@@ -185,6 +186,7 @@ input:focus-visible {
   inset: 0;
   z-index: 1;
   pointer-events: none;
+  border-radius: 20px;
   background:
     linear-gradient(to top, rgba(0, 0, 0, 0.42), transparent 39%),
     linear-gradient(to bottom, rgba(0, 0, 0, 0.22), transparent 22%),
@@ -261,11 +263,12 @@ input:focus-visible {
 .stage-desk-console {
   position: absolute;
   z-index: 5;
-  left: clamp(14px, 4vw, 54px);
-  right: clamp(14px, 4vw, 54px);
-  bottom: clamp(14px, 3vw, 42px);
+  left: -6px;
+  right: -6px;
+  top: calc(100% - 2px);
+  bottom: auto;
   display: grid;
-  justify-items: center;
+  justify-items: stretch;
   gap: 12px;
   pointer-events: none;
 }
@@ -285,7 +288,7 @@ input:focus-visible {
 .ugly-paper,
 .paper-modal__body {
   border: 4px solid var(--ugly-black);
-  border-radius: 20px;
+  border-radius: 0 0 22px 22px;
   background:
     linear-gradient(180deg, rgba(255, 247, 230, 0.74), rgba(236, 214, 180, 0.96)),
     var(--ugly-cream);
@@ -293,33 +296,36 @@ input:focus-visible {
   color: var(--ugly-black);
 }
 
+.paper-modal__body {
+  border-radius: 20px;
+}
+
 .desk-card {
   position: relative;
-  width: min(100%, 760px);
+  width: 100%;
   padding: clamp(14px, 2vw, 24px);
 }
 
 .desk-card--menu {
-  justify-self: start;
-  width: min(100%, 590px);
+  justify-self: stretch;
 }
 
 .desk-card--applicant {
-  width: min(100%, 760px);
+  width: 100%;
 }
 
 .desk-card--question {
-  width: min(100%, 1040px);
+  width: 100%;
 }
 
 .desk-card--feedback,
 .desk-card--final {
-  width: min(100%, 790px);
+  width: 100%;
 }
 
 [data-view="question"] .stage-desk-console,
 [data-view="feedback"] .stage-desk-console {
-  bottom: clamp(12px, 2.2vw, 30px);
+  top: calc(100% - 2px);
 }
 
 [data-view="question"] .desk-card,
@@ -446,6 +452,15 @@ input:focus-visible {
 
 .action-row {
   margin-top: 14px;
+}
+
+.next-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 3px dashed rgba(16, 16, 20, 0.45);
 }
 
 .primary-action,
@@ -622,13 +637,9 @@ input {
 
 .answers {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
   gap: 10px;
   margin-top: 14px;
-}
-
-.answers:has(.answer-button:nth-child(3):last-child) {
-  grid-template-columns: 1fr;
 }
 
 .answer-button {
@@ -887,21 +898,6 @@ input {
   font-weight: 950;
 }
 
-@media (min-width: 1100px) {
-  [data-view="menu"] .stage-desk-console {
-    right: auto;
-    width: min(42vw, 620px);
-  }
-
-  [data-view="applicant"] .stage-desk-console,
-  [data-view="scanning"] .stage-desk-console {
-    left: 50%;
-    right: auto;
-    width: min(58vw, 790px);
-    transform: translateX(-50%);
-  }
-}
-
 @media (max-width: 900px) {
   .topbar {
     align-items: flex-start;
@@ -964,7 +960,7 @@ input {
   .interview-stage {
     width: calc(100vw - 10px);
     min-height: auto;
-    margin: 8px auto;
+    margin: 8px auto clamp(360px, 88vw, 680px);
     border-width: 4px;
     border-radius: 18px;
     overflow: visible;
@@ -1003,26 +999,10 @@ input {
 
   .stage-desk-console {
     position: absolute;
-    left: 7px;
-    right: 7px;
-    bottom: 7px;
-  }
-
-  [data-view="question"] .stage-desk-console,
-  [data-view="feedback"] .stage-desk-console,
-  [data-view="applicant"] .stage-desk-console,
-  [data-view="scanning"] .stage-desk-console,
-  [data-view="final"] .stage-desk-console {
-    top: calc(100% + 10px);
+    left: -4px;
+    right: -4px;
+    top: calc(100% - 1px);
     bottom: auto;
-  }
-
-  [data-view="question"],
-  [data-view="feedback"],
-  [data-view="applicant"],
-  [data-view="scanning"],
-  [data-view="final"] {
-    margin-bottom: min(82vh, 620px);
   }
 
   .desk-card {
@@ -1047,9 +1027,11 @@ input {
 
   .action-row,
   .file-actions,
-  .input-row {
+  .input-row,
+  .next-actions {
     align-items: stretch;
     flex-direction: column;
+    display: flex;
   }
 
   .primary-action,
@@ -1117,15 +1099,7 @@ input {
   }
 
   .interview-stage {
-    margin-bottom: 58px;
-  }
-
-  [data-view="question"],
-  [data-view="feedback"],
-  [data-view="applicant"],
-  [data-view="scanning"],
-  [data-view="final"] {
-    margin-bottom: min(92vh, 700px);
+    margin-bottom: clamp(420px, 112vw, 760px);
   }
 
   .desk-card--menu {

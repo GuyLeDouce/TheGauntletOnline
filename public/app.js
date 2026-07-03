@@ -343,6 +343,28 @@ function applicantSummary() {
   };
 }
 
+function applicantNextActionsHtml(summary) {
+  const hasWallet = Boolean(summary.walletAddress);
+  const needsScan = hasWallet && !state.scan;
+  const primaryAction = summary.mode === "Reward"
+    ? "begin-reward"
+    : needsScan
+      ? "scan-wallet"
+      : "begin-reward";
+  const rewardCopy = summary.mode === "Reward"
+    ? "Play Reward Interview"
+    : needsScan
+      ? "Scan Wallet Now"
+      : "Finish Reward Setup";
+  return `
+    <div class="next-actions">
+      <button type="button" class="primary-action" data-action="${escapeHtml(primaryAction)}">${escapeHtml(rewardCopy)}</button>
+      <button type="button" class="secondary-action" data-action="practice">Play Practice Now</button>
+      <button type="button" class="secondary-action" data-open="how">How It Works</button>
+    </div>
+  `;
+}
+
 function applicantFormHtml(summary, context = "applicant") {
   return `
     <form class="intake-form" id="walletForm">
@@ -376,6 +398,7 @@ function applicantFormHtml(summary, context = "applicant") {
       <p class="fine-print">${escapeHtml(APP_COPY.walletNote)}</p>
       ${state.cooldown?.nextAvailableAt ? `<p class="cooldown">${escapeHtml(cooldownText(state.cooldown))}</p>` : ""}
       ${context === "reward-blocked" ? `<p class="cooldown">${escapeHtml(APP_COPY.zeroSquig)}</p>` : ""}
+      ${applicantNextActionsHtml(summary)}
     </form>
   `;
 }

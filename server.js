@@ -26,7 +26,7 @@ const HOST = "0.0.0.0";
 const PORT = Number(process.env.PORT || 3000);
 const PUBLIC_DIR = path.join(__dirname, "public");
 const QUESTIONS_BY_ID = questionMap(QUESTIONS);
-const APP_VERSION = "2026-07-02-interaction-polish";
+const APP_VERSION = "2026-07-02-stage-extension";
 const BUILD_ID = process.env.RAILWAY_GIT_COMMIT_SHA || process.env.SOURCE_VERSION || process.env.GIT_COMMIT || APP_VERSION;
 
 const MIME_TYPES = {
