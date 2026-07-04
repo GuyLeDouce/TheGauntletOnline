@@ -38,6 +38,7 @@ body {
 
 body {
   min-height: 100vh;
+  min-height: 100svh;
 }
 
 button,
@@ -966,30 +967,69 @@ input {
 
 @media (max-width: 760px) {
   .app-shell {
-    padding: 8px 5px 24px;
+    padding: 10px 12px 20px;
   }
 
   .topbar {
-    width: calc(100vw - 10px);
-    margin-bottom: 8px;
+    width: calc(100vw - 24px);
+    gap: 10px;
+    margin-bottom: 10px;
   }
 
   .brand {
     font-size: 0.9rem;
   }
 
+  .brand-mark {
+    padding: 6px 9px;
+    border-width: 2px;
+    box-shadow: 2px 2px 0 var(--ugly-black);
+  }
+
+  .top-actions {
+    width: 100%;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 7px;
+    margin-inline: -2px;
+    padding: 2px 2px 8px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .top-actions > * {
+    flex: 0 0 auto;
+  }
+
+  .language-control {
+    padding: 5px 7px;
+    border-width: 2px;
+    box-shadow: 2px 2px 0 var(--ugly-black);
+    font-size: 0.7rem;
+  }
+
+  .language-control select {
+    min-height: 28px;
+    max-width: 112px;
+    border-width: 2px;
+  }
+
   .text-button {
+    white-space: nowrap;
     padding: 6px 9px;
     font-size: 0.75rem;
   }
 
   .interview-stage {
-    width: calc(100vw - 10px);
-    min-height: auto;
-    margin: 8px auto clamp(360px, 88vw, 680px);
+    width: calc(100vw - 24px);
+    height: clamp(560px, calc(100svh - 132px), 760px);
+    min-height: 0;
+    aspect-ratio: auto;
+    margin: 8px auto 18px;
     border-width: 4px;
     border-radius: 18px;
-    overflow: visible;
+    overflow: hidden;
   }
 
   .interview-stage__image,
@@ -997,22 +1037,35 @@ input {
     border-radius: 13px;
   }
 
+  .interview-stage__image {
+    object-position: center top;
+  }
+
+  .stage-vignette {
+    background:
+      linear-gradient(to top, rgba(0, 0, 0, 0.72), transparent 56%),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.2), transparent 24%),
+      linear-gradient(to right, rgba(0, 0, 0, 0.1), transparent 20%, transparent 80%, rgba(0, 0, 0, 0.1));
+  }
+
   .stage-badge {
     top: 9px;
     left: 9px;
+    max-width: min(58vw, 260px);
     padding: 6px 9px;
     border-width: 2px;
     font-size: 0.62rem;
   }
 
   .stage-hud {
-    top: 7px;
-    left: 7px;
-    right: 7px;
+    top: 48px;
+    left: 8px;
+    right: 8px;
+    padding: 0 2px 7px;
   }
 
   .stage-hud .hud-chip:first-child {
-    margin-left: 104px;
+    margin-left: 0;
   }
 
   .hud-chip {
@@ -1025,10 +1078,10 @@ input {
 
   .stage-desk-console {
     position: absolute;
-    left: -4px;
-    right: -4px;
-    top: calc(100% - 1px);
-    bottom: auto;
+    left: 8px;
+    right: 8px;
+    top: auto;
+    bottom: 10px;
   }
 
   .desk-card {
@@ -1036,10 +1089,14 @@ input {
     border-width: 3px;
     border-radius: 16px;
     box-shadow: 4px 4px 0 var(--ugly-black);
+    max-height: min(64svh, 510px);
+    overflow: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
   }
 
   .desk-card h1 {
-    font-size: clamp(1.7rem, 11vw, 3.15rem);
+    font-size: clamp(1.78rem, 10vw, 3.05rem);
   }
 
   .desk-card h2,
@@ -1107,6 +1164,24 @@ input {
     flex-direction: column;
   }
 
+  .leaderboard-row {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+  }
+
+  .leaderboard-row .mini-avatar {
+    grid-row: span 2;
+  }
+
+  .leaderboard-row > div:nth-child(n + 4) {
+    padding-top: 8px;
+    border-top: 2px dashed rgba(16, 16, 20, 0.28);
+  }
+
+  .claim-row {
+    align-items: stretch;
+  }
+
   .scan-details dl {
     grid-template-columns: 1fr;
   }
@@ -1114,10 +1189,10 @@ input {
 
 @media (max-width: 520px) {
   .stage-hud {
-    top: calc(100% + 8px);
-    left: 0;
-    right: 0;
-    padding: 0 3px 7px;
+    top: 48px;
+    left: 8px;
+    right: 8px;
+    padding: 0 2px 7px;
   }
 
   .stage-hud .hud-chip:first-child {
@@ -1125,11 +1200,13 @@ input {
   }
 
   .interview-stage {
-    margin-bottom: clamp(420px, 112vw, 760px);
+    width: calc(100vw - 16px);
+    height: clamp(560px, calc(100svh - 116px), 720px);
+    margin-bottom: 16px;
   }
 
   .desk-card--menu {
-    max-height: 54%;
+    max-height: min(62svh, 460px);
     overflow: auto;
   }
 
@@ -1142,5 +1219,63 @@ input {
     border-width: 2px;
     box-shadow: 2px 2px 0 var(--ugly-black);
     font-size: 0.66rem;
+  }
+
+  .desk-card {
+    max-height: min(66svh, 480px);
+  }
+
+  .desk-card h1 {
+    text-shadow:
+      2px 2px 0 var(--ugly-black),
+      4px 4px 0 var(--ugly-purple-dark);
+  }
+
+  .console-heading {
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .answer-button span {
+    width: 28px;
+    height: 28px;
+    margin-right: 8px;
+    border-width: 2px;
+  }
+}
+
+@media (max-width: 420px) {
+  .app-shell {
+    padding-inline: 8px;
+  }
+
+  .topbar,
+  .interview-stage {
+    width: calc(100vw - 16px);
+  }
+
+  .brand {
+    gap: 7px;
+    font-size: 0.78rem;
+  }
+
+  .brand > span:last-child {
+    max-width: 44vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .language-control > span {
+    display: none;
+  }
+
+  .stage-badge {
+    max-width: 68vw;
+  }
+
+  .stat-grid,
+  .final-stats {
+    grid-template-columns: 1fr;
   }
 }
