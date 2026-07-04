@@ -53,7 +53,8 @@ const els = {
   claimRows: document.getElementById("claimRows"),
   scanDialog: document.getElementById("scanDialog"),
   scanDetails: document.getElementById("scanDetails"),
-  leaveDialog: document.getElementById("leaveDialog")
+  leaveDialog: document.getElementById("leaveDialog"),
+  disconnectDialog: document.getElementById("disconnectDialog")
 };
 
 els.languageSelect = document.getElementById("languageSelect");
@@ -74,6 +75,8 @@ const state = {
   lastFeedbackData: null,
   lastFinalData: null,
   pendingLeaveAction: null,
+  disconnecting: false,
+  visuallyDisconnected: false,
   eventsWired: false,
   bootError: "",
   language: "en",
@@ -377,7 +380,7 @@ function isInterviewInProgress() {
 }
 
 function closeAllDialogs() {
-  [els.howDialog, els.leaderboardDialog, els.claimsDialog, els.scanDialog, els.leaveDialog].forEach((dialog) => {
+  [els.howDialog, els.leaderboardDialog, els.claimsDialog, els.scanDialog, els.leaveDialog, els.disconnectDialog].forEach((dialog) => {
     if (dialog?.open) dialog.close();
   });
 }
@@ -438,6 +441,44 @@ async function confirmLeave() {
     return;
   }
   await goHome({ force: true });
+}
+
+function hasConnectedIdentity() {
+  return Boolean(state.profile?.discordUserId || state.profile?.walletAddress || state.scan);
+}
+
+function requestDisconnectConfirmation() {
+  if (!hasConnectedIdentity() && !isInterviewInProgress()) {
+    showToast(t("nothingConnected"));
+    return;
+  }
+  if (els.disconnectDialog) localizeStaticText(els.disconnectDialog);
+  if (els.disconnectDialog?.showModal) {
+    els.disconnectDialog.showModal();
+  } else if (window.confirm(t("disconnectWarning"))) {
+    disconnectLocally();
+  }
+}
+
+async function disconnectLocally() {
+  if (state.disconnecting) return;
+  state.disconnecting = true;
+  try {
+    if (els.disconnectDialog?.open) els.disconnectDialog.close();
+    await abandonCurrentRun();
+    state.visuallyDisconnected = true;
+    state.profile = { clientId: state.clientId };
+    state.scan = null;
+    state.cooldown = { available: false, nextAvailableAt: null };
+    state.pendingFinalData = null;
+    state.lastFeedbackData = null;
+    state.lastFinalData = null;
+    closeAllDialogs();
+    renderMenuScene();
+    showToast(t("disconnectDone"));
+  } finally {
+    state.disconnecting = false;
+  }
 }
 
 function cooldownText(cooldown) {
@@ -857,11 +898,14 @@ async function loadConfig() {
   }
 }
 
-async function loadProfile() {
+async function loadProfile({ forceApply = false } = {}) {
   const data = await apiFetch(`/api/profile?clientId=${encodeURIComponent(state.clientId)}`);
+  if (state.visuallyDisconnected && !forceApply) return data;
   state.profile = data.profile || {};
   state.scan = data.scan || null;
   state.cooldown = data.cooldown || null;
+  state.visuallyDisconnected = false;
+  return data;
 }
 
 async function saveWallet(form) {
@@ -871,6 +915,7 @@ async function saveWallet(form) {
     method: "POST",
     body: JSON.stringify({ clientId: state.clientId, walletAddress })
   });
+  state.visuallyDisconnected = false;
   state.profile = data.profile || state.profile;
   renderApplicantScene({ sceneKey: "applicantFile" });
   showToast("Wallet saved. It smells wrong already.");
@@ -904,6 +949,7 @@ async function scanWallet(forceRefresh = false) {
       method: "POST",
       body: JSON.stringify({ clientId: state.clientId, walletAddress, forceRefresh })
     });
+    state.visuallyDisconnected = false;
     state.profile = data.profile || state.profile;
     state.scan = data.scan;
     await loadProfile().catch(() => {});
@@ -1265,6 +1311,18 @@ function wireEvents() {
       if (action === "cancel-leave") {
         state.pendingLeaveAction = null;
         els.leaveDialog?.close();
+        return;
+      }
+      if (action === "disconnect") {
+        requestDisconnectConfirmation();
+        return;
+      }
+      if (action === "confirm-disconnect") {
+        await disconnectLocally();
+        return;
+      }
+      if (action === "cancel-disconnect") {
+        els.disconnectDialog?.close();
         return;
       }
       if (action === "begin-reward") {

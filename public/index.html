@@ -26,6 +26,7 @@
             </select>
           </label>
           <button type="button" class="text-button" data-action="go-home" data-i18n="home">Home</button>
+          <button type="button" class="text-button" data-action="disconnect" data-i18n="disconnect">Disconnect</button>
           <button type="button" class="text-button" data-open="how" data-i18n="howItWorks">How It Works</button>
           <button type="button" class="text-button" data-open="leaderboard" data-i18n="leaderboard">Leaderboard</button>
           <button type="button" class="text-button" data-open="claims" data-i18n="myClaims">My $CHARM Claims</button>
@@ -119,6 +120,19 @@
         <div class="action-row">
           <button type="button" class="primary-action" data-action="confirm-leave" data-i18n="continue">Continue</button>
           <button type="button" class="secondary-action" data-action="cancel-leave" data-i18n="cancel">Cancel</button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="paper-modal" id="disconnectDialog">
+      <div class="paper-modal__body">
+        <div class="paper-modal__heading">
+          <h2 data-i18n="disconnectTitle">Disconnect Discord and wallet?</h2>
+        </div>
+        <p class="microcopy" data-i18n="disconnectWarning">This will hide your Discord and wallet on this screen. Any active interview progress will be lost, but reward history and cooldowns stay recorded.</p>
+        <div class="action-row">
+          <button type="button" class="primary-action" data-action="confirm-disconnect" data-i18n="disconnectConfirm">Disconnect</button>
+          <button type="button" class="secondary-action" data-action="cancel-disconnect" data-i18n="cancel">Cancel</button>
         </div>
       </div>
     </dialog>
