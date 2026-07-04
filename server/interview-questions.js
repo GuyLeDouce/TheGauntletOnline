@@ -87,7 +87,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What do people usually start with before using a crypto on-ramp?",
     "correct": "Fiat",
     "wrong": [
-      "Gas"
+      "Bank"
     ],
     "correctRoast": "Correct. Fiat survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -97,21 +97,21 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What do people usually start with before using a crypto on-ramp?",
         "correct": "Fiat",
         "wrong": [
-          "Gas"
+          "Bank"
         ]
       },
       "fr": {
         "prompt": "Avec quoi commence-t-on généralement avant d'utiliser une rampe crypto ?",
         "correct": "Fiat",
         "wrong": [
-          "Gas"
+          "Banque"
         ]
       },
       "es": {
         "prompt": "¿Con qué suele empezar alguien antes de usar una rampa cripto?",
         "correct": "Fiat",
         "wrong": [
-          "Gas"
+          "Banco"
         ]
       }
     }
@@ -123,7 +123,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "Which service commonly turns regular money into crypto?",
     "correct": "Exchange",
     "wrong": [
-      "Explorer"
+      "Wallet"
     ],
     "correctRoast": "Correct. Exchange survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -133,21 +133,21 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "Which service commonly turns regular money into crypto?",
         "correct": "Exchange",
         "wrong": [
-          "Explorer"
+          "Wallet"
         ]
       },
       "fr": {
         "prompt": "Quel service transforme souvent l'argent classique en crypto ?",
         "correct": "Exchange",
         "wrong": [
-          "Explorer"
+          "Wallet"
         ]
       },
       "es": {
         "prompt": "¿Qué servicio suele convertir dinero normal en cripto?",
         "correct": "Exchange",
         "wrong": [
-          "Explorer"
+          "Wallet"
         ]
       }
     }
@@ -159,7 +159,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "Which asset usually pays transaction fees on Ethereum?",
     "correct": "ETH",
     "wrong": [
-      "NFT"
+      "WETH"
     ],
     "correctRoast": "Correct. ETH survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -169,21 +169,21 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "Which asset usually pays transaction fees on Ethereum?",
         "correct": "ETH",
         "wrong": [
-          "NFT"
+          "WETH"
         ]
       },
       "fr": {
         "prompt": "Quel actif paie généralement les frais de transaction sur Ethereum ?",
         "correct": "ETH",
         "wrong": [
-          "NFT"
+          "WETH"
         ]
       },
       "es": {
         "prompt": "¿Qué activo suele pagar las tarifas de transacción en Ethereum?",
         "correct": "ETH",
         "wrong": [
-          "NFT"
+          "WETH"
         ]
       }
     }
@@ -195,7 +195,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What tool controls blockchain assets with keys?",
     "correct": "Wallet",
     "wrong": [
-      "Browser"
+      "Account"
     ],
     "correctRoast": "Correct. Wallet survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -205,21 +205,21 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What tool controls blockchain assets with keys?",
         "correct": "Wallet",
         "wrong": [
-          "Browser"
+          "Account"
         ]
       },
       "fr": {
         "prompt": "Quel outil contrôle les actifs blockchain avec des clés ?",
         "correct": "Wallet",
         "wrong": [
-          "Navigateur"
+          "Compte"
         ]
       },
       "es": {
         "prompt": "¿Qué herramienta controla activos blockchain con llaves?",
         "correct": "Wallet",
         "wrong": [
-          "Navegador"
+          "Cuenta"
         ]
       }
     }
@@ -231,7 +231,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "Which wallet item must stay private forever?",
     "correct": "Seed",
     "wrong": [
-      "Address"
+      "Password"
     ],
     "correctRoast": "Correct. Seed survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -241,21 +241,21 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "Which wallet item must stay private forever?",
         "correct": "Seed",
         "wrong": [
-          "Address"
+          "Password"
         ]
       },
       "fr": {
         "prompt": "Quel élément du wallet doit rester privé pour toujours ?",
         "correct": "Seed",
         "wrong": [
-          "Adresse"
+          "Passe"
         ]
       },
       "es": {
         "prompt": "¿Qué elemento del wallet debe quedar privado para siempre?",
         "correct": "Semilla",
         "wrong": [
-          "Dirección"
+          "Clave"
         ]
       }
     }
@@ -267,7 +267,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "Which wallet item can be shared to receive assets?",
     "correct": "Address",
     "wrong": [
-      "Seed"
+      "Key"
     ],
     "correctRoast": "Correct. Address survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -277,21 +277,21 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "Which wallet item can be shared to receive assets?",
         "correct": "Address",
         "wrong": [
-          "Seed"
+          "Key"
         ]
       },
       "fr": {
         "prompt": "Quel élément du wallet peut être partagé pour recevoir des actifs ?",
         "correct": "Adresse",
         "wrong": [
-          "Seed"
+          "Clé"
         ]
       },
       "es": {
         "prompt": "¿Qué elemento del wallet puede compartirse para recibir activos?",
         "correct": "Dirección",
         "wrong": [
-          "Semilla"
+          "Llave"
         ]
       }
     }
@@ -303,7 +303,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What pays validators to process an Ethereum transaction?",
     "correct": "Gas",
     "wrong": [
-      "Royalty"
+      "Tip"
     ],
     "correctRoast": "Correct. Gas survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -313,21 +313,21 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What pays validators to process an Ethereum transaction?",
         "correct": "Gas",
         "wrong": [
-          "Royalty"
+          "Tip"
         ]
       },
       "fr": {
         "prompt": "Qu'est-ce qui paie les validateurs pour traiter une transaction Ethereum ?",
         "correct": "Gas",
         "wrong": [
-          "Royalty"
+          "Pourboire"
         ]
       },
       "es": {
         "prompt": "¿Qué paga a validadores por procesar una transacción de Ethereum?",
         "correct": "Gas",
         "wrong": [
-          "Regalía"
+          "Propina"
         ]
       }
     }
@@ -375,7 +375,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What unique on-chain item can represent a collectible?",
     "correct": "NFT",
     "wrong": [
-      "JPEG"
+      "Coin"
     ],
     "correctRoast": "Correct. NFT survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -385,21 +385,21 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What unique on-chain item can represent a collectible?",
         "correct": "NFT",
         "wrong": [
-          "JPEG"
+          "Coin"
         ]
       },
       "fr": {
         "prompt": "Quel élément unique on-chain peut représenter un collectible ?",
         "correct": "NFT",
         "wrong": [
-          "JPEG"
+          "Coin"
         ]
       },
       "es": {
         "prompt": "¿Qué elemento único on-chain puede representar un coleccionable?",
         "correct": "NFT",
         "wrong": [
-          "JPEG"
+          "Moneda"
         ]
       }
     }
@@ -411,7 +411,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What shared record stores verified transactions?",
     "correct": "Blockchain",
     "wrong": [
-      "Spreadsheet"
+      "Database"
     ],
     "correctRoast": "Correct. Blockchain survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -421,21 +421,21 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What shared record stores verified transactions?",
         "correct": "Blockchain",
         "wrong": [
-          "Spreadsheet"
+          "Database"
         ]
       },
       "fr": {
         "prompt": "Quel registre partagé stocke les transactions vérifiées ?",
         "correct": "Blockchain",
         "wrong": [
-          "Tableur"
+          "Database"
         ]
       },
       "es": {
         "prompt": "¿Qué registro compartido guarda transacciones verificadas?",
         "correct": "Blockchain",
         "wrong": [
-          "Planilla"
+          "Database"
         ]
       }
     }
@@ -447,7 +447,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "Where do buyers usually browse listed collectibles?",
     "correct": "Marketplace",
     "wrong": [
-      "Notepad"
+      "Exchange"
     ],
     "correctRoast": "Correct. Marketplace survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -457,21 +457,21 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "Where do buyers usually browse listed collectibles?",
         "correct": "Marketplace",
         "wrong": [
-          "Notepad"
+          "Exchange"
         ]
       },
       "fr": {
         "prompt": "Où les acheteurs consultent-ils généralement les collectibles listés ?",
         "correct": "Marketplace",
         "wrong": [
-          "Blocnote"
+          "Exchange"
         ]
       },
       "es": {
         "prompt": "¿Dónde suelen mirar los compradores coleccionables listados?",
         "correct": "Marketplace",
         "wrong": [
-          "Bloc"
+          "Exchange"
         ]
       }
     }
@@ -479,35 +479,35 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-easy-012",
     "tier": 1,
-    "category": "Verification",
-    "prompt": "What on-chain identifier is harder to fake than a collection name?",
-    "correct": "Contract",
+    "category": "Listings",
+    "prompt": "What marketplace record shows an item is being sold?",
+    "correct": "Listing",
     "wrong": [
-      "Logo"
+      "Offer"
     ],
     "correctRoast": "Correct. Contract survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
-    "explanation": "A contract address identifies the real on-chain collection more reliably than a copied name.",
+    "explanation": "A listing is the marketplace sale record for an item offered at a price.",
     "i18n": {
       "en": {
-        "prompt": "What on-chain identifier is harder to fake than a collection name?",
-        "correct": "Contract",
+        "prompt": "What marketplace record shows an item is being sold?",
+        "correct": "Listing",
         "wrong": [
-          "Logo"
+          "Offer"
         ]
       },
       "fr": {
-        "prompt": "Quel identifiant on-chain est plus difficile à copier qu'un nom de collection ?",
-        "correct": "Contrat",
+        "prompt": "Quel enregistrement marketplace montre qu'un item est en vente ?",
+        "correct": "Listing",
         "wrong": [
-          "Logo"
+          "Offre"
         ]
       },
       "es": {
-        "prompt": "¿Qué identificador on-chain es más difícil de copiar que un nombre de colección?",
-        "correct": "Contrato",
+        "prompt": "¿Qué registro de marketplace muestra que un ítem está en venta?",
+        "correct": "Listing",
         "wrong": [
-          "Logo"
+          "Oferta"
         ]
       }
     }
@@ -516,34 +516,34 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-easy-013",
     "tier": 1,
     "category": "Learning",
-    "prompt": "What should happen before spending real money?",
+    "prompt": "What should happen before clicking a first crypto buy button?",
     "correct": "Learn",
     "wrong": [
-      "FOMO"
+      "Browse"
     ],
     "correctRoast": "Correct. Learn survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
     "explanation": "Beginners should understand wallets, fees, verification, and risk before buying.",
     "i18n": {
       "en": {
-        "prompt": "What should happen before spending real money?",
+        "prompt": "What should happen before clicking a first crypto buy button?",
         "correct": "Learn",
         "wrong": [
-          "FOMO"
+          "Browse"
         ]
       },
       "fr": {
-        "prompt": "Que faut-il faire avant de dépenser de l'argent réel ?",
+        "prompt": "Que faut-il faire avant le premier clic d'achat crypto ?",
         "correct": "Apprendre",
         "wrong": [
-          "FOMO"
+          "Parcourir"
         ]
       },
       "es": {
-        "prompt": "¿Qué debería pasar antes de gastar dinero real?",
+        "prompt": "¿Qué debería pasar antes del primer clic de compra cripto?",
         "correct": "Aprender",
         "wrong": [
-          "FOMO"
+          "Navegar"
         ]
       }
     }
@@ -552,34 +552,34 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-easy-014",
     "tier": 1,
     "category": "Transfers",
-    "prompt": "What must match before sending funds away from an exchange?",
+    "prompt": "Which chain selection must match before sending funds away from an exchange?",
     "correct": "Network",
     "wrong": [
-      "Color"
+      "Address"
     ],
     "correctRoast": "Correct. Network survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
     "explanation": "The destination network must match what the wallet and app support.",
     "i18n": {
       "en": {
-        "prompt": "What must match before sending funds away from an exchange?",
+        "prompt": "Which chain selection must match before sending funds away from an exchange?",
         "correct": "Network",
         "wrong": [
-          "Color"
+          "Address"
         ]
       },
       "fr": {
-        "prompt": "Que doit correspondre avant d'envoyer des fonds depuis un exchange ?",
+        "prompt": "Quelle sélection de chaîne doit correspondre avant un retrait depuis un exchange ?",
         "correct": "Réseau",
         "wrong": [
-          "Couleur"
+          "Adresse"
         ]
       },
       "es": {
-        "prompt": "¿Qué debe coincidir antes de enviar fondos desde un exchange?",
+        "prompt": "¿Qué selección de cadena debe coincidir antes de retirar desde un exchange?",
         "correct": "Red",
         "wrong": [
-          "Color"
+          "Dirección"
         ]
       }
     }
@@ -591,7 +591,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "Where can public transaction status be inspected?",
     "correct": "Explorer",
     "wrong": [
-      "Discord"
+      "Wallet"
     ],
     "correctRoast": "Correct. Explorer survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -601,21 +601,21 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "Where can public transaction status be inspected?",
         "correct": "Explorer",
         "wrong": [
-          "Discord"
+          "Wallet"
         ]
       },
       "fr": {
         "prompt": "Où peut-on inspecter le statut public d'une transaction ?",
         "correct": "Explorer",
         "wrong": [
-          "Discord"
+          "Wallet"
         ]
       },
       "es": {
         "prompt": "¿Dónde se puede inspeccionar el estado público de una transacción?",
         "correct": "Explorer",
         "wrong": [
-          "Discord"
+          "Wallet"
         ]
       }
     }
@@ -627,7 +627,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What may prove wallet control without sending tokens?",
     "correct": "Signature",
     "wrong": [
-      "Password"
+      "Approval"
     ],
     "correctRoast": "Correct. Signature survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -637,21 +637,21 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What may prove wallet control without sending tokens?",
         "correct": "Signature",
         "wrong": [
-          "Password"
+          "Approval"
         ]
       },
       "fr": {
         "prompt": "Qu'est-ce qui peut prouver le contrôle d'un wallet sans envoyer de tokens ?",
         "correct": "Signature",
         "wrong": [
-          "Passe"
+          "Approbation"
         ]
       },
       "es": {
         "prompt": "¿Qué puede probar control del wallet sin enviar tokens?",
         "correct": "Firma",
         "wrong": [
-          "Clave"
+          "Aprobación"
         ]
       }
     }
@@ -663,7 +663,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What should be read before confirming a wallet action?",
     "correct": "Prompt",
     "wrong": [
-      "Mascot"
+      "Transaction"
     ],
     "correctRoast": "Correct. Prompt survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -673,21 +673,21 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What should be read before confirming a wallet action?",
         "correct": "Prompt",
         "wrong": [
-          "Mascot"
+          "Transaction"
         ]
       },
       "fr": {
         "prompt": "Que faut-il lire avant de confirmer une action wallet ?",
         "correct": "Popup",
         "wrong": [
-          "Mascotte"
+          "Transaction"
         ]
       },
       "es": {
         "prompt": "¿Qué se debe leer antes de confirmar una acción del wallet?",
         "correct": "Popup",
         "wrong": [
-          "Mascota"
+          "Transacción"
         ]
       }
     }
@@ -699,7 +699,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What can map a readable name to a wallet destination?",
     "correct": "ENS",
     "wrong": [
-      "PDF"
+      "DNS"
     ],
     "correctRoast": "Correct. ENS survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -709,21 +709,21 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What can map a readable name to a wallet destination?",
         "correct": "ENS",
         "wrong": [
-          "PDF"
+          "DNS"
         ]
       },
       "fr": {
         "prompt": "Qu'est-ce qui peut lier un nom lisible à une destination wallet ?",
         "correct": "ENS",
         "wrong": [
-          "PDF"
+          "DNS"
         ]
       },
       "es": {
         "prompt": "¿Qué puede vincular un nombre legible con un destino wallet?",
         "correct": "ENS",
         "wrong": [
-          "PDF"
+          "DNS"
         ]
       }
     }
@@ -735,7 +735,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What proves a wallet owns a specific collectible?",
     "correct": "Token",
     "wrong": [
-      "Screenshot"
+      "Metadata"
     ],
     "correctRoast": "Correct. Token survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -745,21 +745,21 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What proves a wallet owns a specific collectible?",
         "correct": "Token",
         "wrong": [
-          "Screenshot"
+          "Metadata"
         ]
       },
       "fr": {
         "prompt": "Qu'est-ce qui prouve qu'un wallet possède un collectible précis ?",
         "correct": "Token",
         "wrong": [
-          "Capture"
+          "Métadonnées"
         ]
       },
       "es": {
         "prompt": "¿Qué prueba que un wallet posee un coleccionable específico?",
         "correct": "Token",
         "wrong": [
-          "Captura"
+          "Metadatos"
         ]
       }
     }
@@ -771,7 +771,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What protects beginners from hype and ugly mistakes?",
     "correct": "Caution",
     "wrong": [
-      "Panic"
+      "Confidence"
     ],
     "correctRoast": "Correct. Caution survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -781,21 +781,21 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What protects beginners from hype and ugly mistakes?",
         "correct": "Caution",
         "wrong": [
-          "Panic"
+          "Confidence"
         ]
       },
       "fr": {
         "prompt": "Qu'est-ce qui protège les débutants du hype et des erreurs laides ?",
         "correct": "Prudence",
         "wrong": [
-          "Panique"
+          "Confiance"
         ]
       },
       "es": {
         "prompt": "¿Qué protege a principiantes del hype y errores feos?",
         "correct": "Cautela",
         "wrong": [
-          "Pánico"
+          "Confianza"
         ]
       }
     }
@@ -804,38 +804,38 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-certified-001",
     "tier": 2,
     "category": "Exchange Security",
-    "prompt": "What should protect an exchange login?",
+    "prompt": "Which extra login layer should protect an exchange account?",
     "correct": "2FA",
     "wrong": [
-      "Theme",
-      "Avatar"
+      "Password",
+      "Email"
     ],
     "correctRoast": "Correct. 2FA survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
     "explanation": "Two-factor authentication helps protect exchange accounts from password-only failure.",
     "i18n": {
       "en": {
-        "prompt": "What should protect an exchange login?",
+        "prompt": "Which extra login layer should protect an exchange account?",
         "correct": "2FA",
         "wrong": [
-          "Theme",
-          "Avatar"
+          "Password",
+          "Email"
         ]
       },
       "fr": {
-        "prompt": "Qu'est-ce qui doit protéger une connexion exchange ?",
+        "prompt": "Quelle couche de connexion supplémentaire doit protéger un compte exchange ?",
         "correct": "2FA",
         "wrong": [
-          "Thème",
-          "Avatar"
+          "Passe",
+          "Email"
         ]
       },
       "es": {
-        "prompt": "¿Qué debe proteger un inicio de sesión en exchange?",
+        "prompt": "¿Qué capa extra de inicio debe proteger una cuenta de exchange?",
         "correct": "2FA",
         "wrong": [
-          "Tema",
-          "Avatar"
+          "Clave",
+          "Email"
         ]
       }
     }
@@ -847,8 +847,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What identity check may a regulated exchange require?",
     "correct": "KYC",
     "wrong": [
-      "Lore",
-      "Rarity"
+      "AML",
+      "Captcha"
     ],
     "correctRoast": "Correct. KYC survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -858,24 +858,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What identity check may a regulated exchange require?",
         "correct": "KYC",
         "wrong": [
-          "Lore",
-          "Rarity"
+          "AML",
+          "Captcha"
         ]
       },
       "fr": {
         "prompt": "Quel contrôle d'identité un exchange régulé peut-il demander ?",
         "correct": "KYC",
         "wrong": [
-          "Lore",
-          "Rareté"
+          "AML",
+          "Captcha"
         ]
       },
       "es": {
         "prompt": "¿Qué verificación de identidad puede pedir un exchange regulado?",
         "correct": "KYC",
         "wrong": [
-          "Lore",
-          "Rareza"
+          "AML",
+          "Captcha"
         ]
       }
     }
@@ -884,38 +884,38 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-certified-003",
     "tier": 2,
     "category": "Deposits",
-    "prompt": "What should be checked before depositing regular money?",
+    "prompt": "What cost should be checked before depositing regular money?",
     "correct": "Fees",
     "wrong": [
-      "Stickers",
-      "Mascot"
+      "Limits",
+      "Holds"
     ],
     "correctRoast": "Correct. Fees survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
     "explanation": "Deposit methods, fees, limits, and holds can affect the final amount and timing.",
     "i18n": {
       "en": {
-        "prompt": "What should be checked before depositing regular money?",
+        "prompt": "What cost should be checked before depositing regular money?",
         "correct": "Fees",
         "wrong": [
-          "Stickers",
-          "Mascot"
+          "Limits",
+          "Holds"
         ]
       },
       "fr": {
-        "prompt": "Que faut-il vérifier avant de déposer de l'argent classique ?",
+        "prompt": "Quel coût faut-il vérifier avant de déposer de l'argent classique ?",
         "correct": "Frais",
         "wrong": [
-          "Stickers",
-          "Mascotte"
+          "Limites",
+          "Blocages"
         ]
       },
       "es": {
-        "prompt": "¿Qué se debe revisar antes de depositar dinero normal?",
+        "prompt": "¿Qué coste conviene revisar antes de depositar dinero normal?",
         "correct": "Tarifas",
         "wrong": [
-          "Stickers",
-          "Mascota"
+          "Límites",
+          "Retenciones"
         ]
       }
     }
@@ -927,8 +927,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "Which balance is normally needed for Ethereum collectible shopping?",
     "correct": "ETH",
     "wrong": [
-      "BTC",
-      "DOGE"
+      "WETH",
+      "USDC"
     ],
     "correctRoast": "Correct. ETH survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -938,24 +938,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "Which balance is normally needed for Ethereum collectible shopping?",
         "correct": "ETH",
         "wrong": [
-          "BTC",
-          "DOGE"
+          "WETH",
+          "USDC"
         ]
       },
       "fr": {
         "prompt": "Quel solde faut-il généralement pour acheter des collectibles Ethereum ?",
         "correct": "ETH",
         "wrong": [
-          "BTC",
-          "DOGE"
+          "WETH",
+          "USDC"
         ]
       },
       "es": {
         "prompt": "¿Qué saldo suele hacer falta para comprar coleccionables Ethereum?",
         "correct": "ETH",
         "wrong": [
-          "BTC",
-          "DOGE"
+          "WETH",
+          "USDC"
         ]
       }
     }
@@ -964,38 +964,38 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-certified-005",
     "tier": 2,
     "category": "Withdrawals",
-    "prompt": "What should be confirmed before withdrawing from an exchange?",
+    "prompt": "Which destination string should be checked before withdrawing?",
     "correct": "Address",
     "wrong": [
-      "Banner",
-      "Emoji"
+      "Network",
+      "ENS"
     ],
     "correctRoast": "Correct. Address survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
     "explanation": "Crypto transfers are hard to reverse, so the destination must be checked carefully.",
     "i18n": {
       "en": {
-        "prompt": "What should be confirmed before withdrawing from an exchange?",
+        "prompt": "Which destination string should be checked before withdrawing?",
         "correct": "Address",
         "wrong": [
-          "Banner",
-          "Emoji"
+          "Network",
+          "ENS"
         ]
       },
       "fr": {
-        "prompt": "Que faut-il confirmer avant un retrait depuis un exchange ?",
+        "prompt": "Quelle chaîne de destination faut-il vérifier avant un retrait ?",
         "correct": "Adresse",
         "wrong": [
-          "Bannière",
-          "Emoji"
+          "Réseau",
+          "ENS"
         ]
       },
       "es": {
-        "prompt": "¿Qué se debe confirmar antes de retirar desde un exchange?",
+        "prompt": "¿Qué cadena de destino debe revisarse antes de retirar?",
         "correct": "Dirección",
         "wrong": [
-          "Banner",
-          "Emoji"
+          "Red",
+          "ENS"
         ]
       }
     }
@@ -1007,8 +1007,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "Which withdrawal choice must match the destination wallet and app?",
     "correct": "Network",
     "wrong": [
-      "Logo",
-      "Ranking"
+      "Wallet",
+      "Asset"
     ],
     "correctRoast": "Correct. Network survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -1018,24 +1018,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "Which withdrawal choice must match the destination wallet and app?",
         "correct": "Network",
         "wrong": [
-          "Logo",
-          "Ranking"
+          "Wallet",
+          "Asset"
         ]
       },
       "fr": {
         "prompt": "Quel choix de retrait doit correspondre au wallet et à l'app destination ?",
         "correct": "Réseau",
         "wrong": [
-          "Logo",
-          "Classement"
+          "Wallet",
+          "Actif"
         ]
       },
       "es": {
         "prompt": "¿Qué opción de retiro debe coincidir con el wallet y la app destino?",
         "correct": "Red",
         "wrong": [
-          "Logo",
-          "Ranking"
+          "Wallet",
+          "Activo"
         ]
       }
     }
@@ -1047,8 +1047,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What reduces risk before sending a large amount?",
     "correct": "Test",
     "wrong": [
-      "Prayer",
-      "Speed"
+      "Estimate",
+      "Preview"
     ],
     "correctRoast": "Correct. Test survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -1058,24 +1058,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What reduces risk before sending a large amount?",
         "correct": "Test",
         "wrong": [
-          "Prayer",
-          "Speed"
+          "Estimate",
+          "Preview"
         ]
       },
       "fr": {
         "prompt": "Qu'est-ce qui réduit le risque avant d'envoyer un gros montant ?",
         "correct": "Test",
         "wrong": [
-          "Prière",
-          "Vitesse"
+          "Estimation",
+          "Aperçu"
         ]
       },
       "es": {
         "prompt": "¿Qué reduce el riesgo antes de enviar una cantidad grande?",
         "correct": "Prueba",
         "wrong": [
-          "Rezo",
-          "Velocidad"
+          "Estimación",
+          "Vista"
         ]
       }
     }
@@ -1087,8 +1087,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What should be stored offline during wallet setup?",
     "correct": "Backup",
     "wrong": [
-      "Selfie",
-      "Screenshot"
+      "Password",
+      "Device"
     ],
     "correctRoast": "Correct. Backup survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -1098,24 +1098,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What should be stored offline during wallet setup?",
         "correct": "Backup",
         "wrong": [
-          "Selfie",
-          "Screenshot"
+          "Password",
+          "Device"
         ]
       },
       "fr": {
         "prompt": "Que faut-il garder offline pendant la configuration du wallet ?",
         "correct": "Sauvegarde",
         "wrong": [
-          "Selfie",
-          "Capture"
+          "Passe",
+          "Appareil"
         ]
       },
       "es": {
         "prompt": "¿Qué debe guardarse offline al configurar el wallet?",
         "correct": "Respaldo",
         "wrong": [
-          "Selfie",
-          "Captura"
+          "Clave",
+          "Dispositivo"
         ]
       }
     }
@@ -1124,38 +1124,38 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-certified-009",
     "tier": 2,
     "category": "Secret Storage",
-    "prompt": "What should never be saved in cloud screenshots?",
+    "prompt": "Which recovery phrase should never be saved in cloud screenshots?",
     "correct": "Seed",
     "wrong": [
-      "Address",
-      "Avatar"
+      "Password",
+      "Address"
     ],
     "correctRoast": "Correct. Seed survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
     "explanation": "Cloud screenshots can leak recovery secrets to attackers.",
     "i18n": {
       "en": {
-        "prompt": "What should never be saved in cloud screenshots?",
+        "prompt": "Which recovery phrase should never be saved in cloud screenshots?",
         "correct": "Seed",
         "wrong": [
-          "Address",
-          "Avatar"
+          "Password",
+          "Address"
         ]
       },
       "fr": {
-        "prompt": "Qu'est-ce qui ne doit jamais être sauvegardé en captures cloud ?",
+        "prompt": "Quelle phrase de récupération ne doit jamais être sauvegardée en capture cloud ?",
         "correct": "Seed",
         "wrong": [
-          "Adresse",
-          "Avatar"
+          "Passe",
+          "Adresse"
         ]
       },
       "es": {
-        "prompt": "¿Qué nunca debe guardarse en capturas de la nube?",
+        "prompt": "¿Qué frase de recuperación nunca debe guardarse en capturas cloud?",
         "correct": "Semilla",
         "wrong": [
-          "Dirección",
-          "Avatar"
+          "Clave",
+          "Dirección"
         ]
       }
     }
@@ -1167,8 +1167,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What describes assets held by a company account?",
     "correct": "Custody",
     "wrong": [
-      "Freedom",
-      "Rarity"
+      "Escrow",
+      "Account"
     ],
     "correctRoast": "Correct. Custody survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -1178,24 +1178,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What describes assets held by a company account?",
         "correct": "Custody",
         "wrong": [
-          "Freedom",
-          "Rarity"
+          "Escrow",
+          "Account"
         ]
       },
       "fr": {
         "prompt": "Quel mot décrit des actifs gardés par un compte d'entreprise ?",
         "correct": "Custodie",
         "wrong": [
-          "Liberté",
-          "Rareté"
+          "Escrow",
+          "Compte"
         ]
       },
       "es": {
         "prompt": "¿Qué describe activos guardados por una cuenta de empresa?",
         "correct": "Custodia",
         "wrong": [
-          "Libertad",
-          "Rareza"
+          "Escrow",
+          "Cuenta"
         ]
       }
     }
@@ -1207,8 +1207,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What gives direct control after withdrawing from a platform?",
     "correct": "Wallet",
     "wrong": [
-      "Exchange",
-      "Browser"
+      "Custody",
+      "Account"
     ],
     "correctRoast": "Correct. Wallet survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -1218,24 +1218,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What gives direct control after withdrawing from a platform?",
         "correct": "Wallet",
         "wrong": [
-          "Exchange",
-          "Browser"
+          "Custody",
+          "Account"
         ]
       },
       "fr": {
         "prompt": "Qu'est-ce qui donne un contrôle direct après retrait d'une plateforme ?",
         "correct": "Wallet",
         "wrong": [
-          "Exchange",
-          "Navigateur"
+          "Custodie",
+          "Compte"
         ]
       },
       "es": {
         "prompt": "¿Qué da control directo tras retirar desde una plataforma?",
         "correct": "Wallet",
         "wrong": [
-          "Exchange",
-          "Navegador"
+          "Custodia",
+          "Cuenta"
         ]
       }
     }
@@ -1244,38 +1244,38 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-certified-012",
     "tier": 2,
     "category": "Prices",
-    "prompt": "What should be compared before buying crypto?",
+    "prompt": "Which headline quote shows purchase cost before extra charges?",
     "correct": "Price",
     "wrong": [
-      "Mood",
-      "Confetti"
+      "Spread",
+      "Fee"
     ],
     "correctRoast": "Correct. Price survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
     "explanation": "Displayed quotes can vary by fee, spread, and payment method.",
     "i18n": {
       "en": {
-        "prompt": "What should be compared before buying crypto?",
+        "prompt": "Which headline quote shows purchase cost before extra charges?",
         "correct": "Price",
         "wrong": [
-          "Mood",
-          "Confetti"
+          "Spread",
+          "Fee"
         ]
       },
       "fr": {
-        "prompt": "Que faut-il comparer avant d'acheter de la crypto ?",
+        "prompt": "Quel devis principal montre le coût d'achat avant frais extras ?",
         "correct": "Prix",
         "wrong": [
-          "Humeur",
-          "Confetti"
+          "Spread",
+          "Frais"
         ]
       },
       "es": {
-        "prompt": "¿Qué conviene comparar antes de comprar cripto?",
+        "prompt": "¿Qué cotización principal muestra el coste antes de cargos extra?",
         "correct": "Precio",
         "wrong": [
-          "Humor",
-          "Confeti"
+          "Spread",
+          "Tarifa"
         ]
       }
     }
@@ -1287,8 +1287,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What hidden trading cost can reduce the received amount?",
     "correct": "Spread",
     "wrong": [
-      "Trait",
-      "Crown"
+      "Fee",
+      "Slippage"
     ],
     "correctRoast": "Correct. Spread survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -1298,24 +1298,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What hidden trading cost can reduce the received amount?",
         "correct": "Spread",
         "wrong": [
-          "Trait",
-          "Crown"
+          "Fee",
+          "Slippage"
         ]
       },
       "fr": {
         "prompt": "Quel coût de trading caché peut réduire le montant reçu ?",
         "correct": "Spread",
         "wrong": [
-          "Trait",
-          "Couronne"
+          "Frais",
+          "Slippage"
         ]
       },
       "es": {
         "prompt": "¿Qué coste oculto de trading puede reducir lo recibido?",
         "correct": "Spread",
         "wrong": [
-          "Rasgo",
-          "Corona"
+          "Tarifa",
+          "Slippage"
         ]
       }
     }
@@ -1327,8 +1327,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What must be verified when using a readable wallet name?",
     "correct": "Address",
     "wrong": [
-      "Sticker",
-      "Hat"
+      "Resolver",
+      "ENS"
     ],
     "correctRoast": "Correct. Address survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -1338,24 +1338,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What must be verified when using a readable wallet name?",
         "correct": "Address",
         "wrong": [
-          "Sticker",
-          "Hat"
+          "Resolver",
+          "ENS"
         ]
       },
       "fr": {
         "prompt": "Que faut-il vérifier avec un nom wallet lisible ?",
         "correct": "Adresse",
         "wrong": [
-          "Sticker",
-          "Chapeau"
+          "Resolver",
+          "ENS"
         ]
       },
       "es": {
         "prompt": "¿Qué debe verificarse al usar un nombre legible de wallet?",
         "correct": "Dirección",
         "wrong": [
-          "Sticker",
-          "Sombrero"
+          "Resolver",
+          "ENS"
         ]
       }
     }
@@ -1367,8 +1367,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What status means a transfer is not final yet?",
     "correct": "Pending",
     "wrong": [
-      "Paid",
-      "Minted"
+      "Queued",
+      "Confirmed"
     ],
     "correctRoast": "Correct. Pending survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -1378,24 +1378,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What status means a transfer is not final yet?",
         "correct": "Pending",
         "wrong": [
-          "Paid",
-          "Minted"
+          "Queued",
+          "Confirmed"
         ]
       },
       "fr": {
         "prompt": "Quel statut indique qu'un transfert n'est pas encore final ?",
         "correct": "Pending",
         "wrong": [
-          "Payé",
-          "Minté"
+          "Queue",
+          "Confirmé"
         ]
       },
       "es": {
         "prompt": "¿Qué estado indica que una transferencia aún no es final?",
         "correct": "Pendiente",
         "wrong": [
-          "Pagado",
-          "Minteado"
+          "Cola",
+          "Confirmado"
         ]
       }
     }
@@ -1407,8 +1407,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What should be avoided when support asks for secrets?",
     "correct": "Sharing",
     "wrong": [
-      "Verifying",
-      "Waiting"
+      "Signing",
+      "Clicking"
     ],
     "correctRoast": "Correct. Sharing survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -1418,24 +1418,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What should be avoided when support asks for secrets?",
         "correct": "Sharing",
         "wrong": [
-          "Verifying",
-          "Waiting"
+          "Signing",
+          "Clicking"
         ]
       },
       "fr": {
         "prompt": "Que faut-il éviter si le support demande des secrets ?",
         "correct": "Partager",
         "wrong": [
-          "Vérifier",
-          "Attendre"
+          "Signer",
+          "Cliquer"
         ]
       },
       "es": {
         "prompt": "¿Qué se debe evitar si soporte pide secretos?",
         "correct": "Compartir",
         "wrong": [
-          "Verificar",
-          "Esperar"
+          "Firmar",
+          "Clicar"
         ]
       }
     }
@@ -1447,8 +1447,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What should official project links become?",
     "correct": "Bookmarks",
     "wrong": [
-      "Rumors",
-      "Popups"
+      "Search",
+      "Ads"
     ],
     "correctRoast": "Correct. Bookmarks survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -1458,24 +1458,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What should official project links become?",
         "correct": "Bookmarks",
         "wrong": [
-          "Rumors",
-          "Popups"
+          "Search",
+          "Ads"
         ]
       },
       "fr": {
         "prompt": "Que devraient devenir les liens officiels du projet ?",
         "correct": "Favoris",
         "wrong": [
-          "Rumeurs",
-          "Popups"
+          "Recherche",
+          "Pubs"
         ]
       },
       "es": {
         "prompt": "¿En qué deberían convertirse los enlaces oficiales del proyecto?",
         "correct": "Marcadores",
         "wrong": [
-          "Rumores",
-          "Popups"
+          "Búsqueda",
+          "Anuncios"
         ]
       }
     }
@@ -1487,8 +1487,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What signal in messages should make a beginner slow down?",
     "correct": "Urgency",
     "wrong": [
-      "Help",
-      "Grammar"
+      "Bonus",
+      "Offer"
     ],
     "correctRoast": "Correct. Urgency survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -1498,24 +1498,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What signal in messages should make a beginner slow down?",
         "correct": "Urgency",
         "wrong": [
-          "Help",
-          "Grammar"
+          "Bonus",
+          "Offer"
         ]
       },
       "fr": {
         "prompt": "Quel signal dans les messages doit faire ralentir un débutant ?",
         "correct": "Urgence",
         "wrong": [
-          "Aide",
-          "Grammaire"
+          "Bonus",
+          "Offre"
         ]
       },
       "es": {
         "prompt": "¿Qué señal en mensajes debería hacer frenar a un principiante?",
         "correct": "Urgencia",
         "wrong": [
-          "Ayuda",
-          "Gramática"
+          "Bono",
+          "Oferta"
         ]
       }
     }
@@ -1527,7 +1527,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What should limit a beginner's first purchases?",
     "correct": "Budget",
     "wrong": [
-      "Rent",
+      "Leverage",
       "Loan"
     ],
     "correctRoast": "Correct. Budget survives the Ugly Labs clipboard.",
@@ -1538,7 +1538,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What should limit a beginner's first purchases?",
         "correct": "Budget",
         "wrong": [
-          "Rent",
+          "Leverage",
           "Loan"
         ]
       },
@@ -1546,7 +1546,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "Qu'est-ce qui doit limiter les premiers achats d'un débutant ?",
         "correct": "Budget",
         "wrong": [
-          "Loyer",
+          "Levier",
           "Prêt"
         ]
       },
@@ -1554,7 +1554,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "¿Qué debería limitar las primeras compras de un principiante?",
         "correct": "Presupuesto",
         "wrong": [
-          "Renta",
+          "Apalancar",
           "Préstamo"
         ]
       }
@@ -1567,7 +1567,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What comes before shopping for collectibles?",
     "correct": "Security",
     "wrong": [
-      "Flexing",
+      "Funding",
       "Bidding"
     ],
     "correctRoast": "Correct. Security survives the Ugly Labs clipboard.",
@@ -1578,7 +1578,7 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What comes before shopping for collectibles?",
         "correct": "Security",
         "wrong": [
-          "Flexing",
+          "Funding",
           "Bidding"
         ]
       },
@@ -1586,16 +1586,16 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "Qu'est-ce qui vient avant d'acheter des collectibles ?",
         "correct": "Sécurité",
         "wrong": [
-          "Flex",
-          "Offre"
+          "Financer",
+          "Offrir"
         ]
       },
       "es": {
         "prompt": "¿Qué viene antes de comprar coleccionables?",
         "correct": "Seguridad",
         "wrong": [
-          "Flex",
-          "Oferta"
+          "Fondos",
+          "Ofertar"
         ]
       }
     }
@@ -1604,38 +1604,38 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-deep-001",
     "tier": 3,
     "category": "Marketplaces",
-    "prompt": "Which platform do many buyers use to browse Ethereum collectible listings?",
+    "prompt": "Which named marketplace is this Squig buying path focused on?",
     "correct": "OpenSea",
     "wrong": [
-      "Etherscan",
-      "Uniswap"
+      "Blur",
+      "Rarible"
     ],
     "correctRoast": "Correct. OpenSea survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
     "explanation": "OpenSea is a common marketplace for browsing and buying Ethereum NFTs.",
     "i18n": {
       "en": {
-        "prompt": "Which platform do many buyers use to browse Ethereum collectible listings?",
+        "prompt": "Which named marketplace is this Squig buying path focused on?",
         "correct": "OpenSea",
         "wrong": [
-          "Etherscan",
-          "Uniswap"
+          "Blur",
+          "Rarible"
         ]
       },
       "fr": {
-        "prompt": "Quelle plateforme beaucoup d'acheteurs utilisent-ils pour voir des listings Ethereum ?",
+        "prompt": "Sur quelle marketplace nommée ce parcours d'achat Squig se concentre-t-il ?",
         "correct": "OpenSea",
         "wrong": [
-          "Etherscan",
-          "Uniswap"
+          "Blur",
+          "Rarible"
         ]
       },
       "es": {
-        "prompt": "¿Qué plataforma usan muchos compradores para ver listings de Ethereum?",
+        "prompt": "¿En qué marketplace nombrada se centra este camino para comprar Squigs?",
         "correct": "OpenSea",
         "wrong": [
-          "Etherscan",
-          "Uniswap"
+          "Blur",
+          "Rarible"
         ]
       }
     }
@@ -1643,39 +1643,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-deep-002",
     "tier": 3,
-    "category": "Collection Search",
-    "prompt": "What should be found through official project links?",
-    "correct": "Collection",
+    "category": "OpenSea Pages",
+    "prompt": "Which OpenSea page type shows one NFT with price and buy actions?",
+    "correct": "Item",
     "wrong": [
-      "Influencer",
-      "Advertisement"
+      "Profile",
+      "Activity"
     ],
     "correctRoast": "Correct. Collection survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
-    "explanation": "Official links help buyers find the real collection instead of a copycat.",
+    "explanation": "An item page is where a buyer reviews a specific NFT, its sale details, and available actions.",
     "i18n": {
       "en": {
-        "prompt": "What should be found through official project links?",
-        "correct": "Collection",
+        "prompt": "Which OpenSea page type shows one NFT with price and buy actions?",
+        "correct": "Item",
         "wrong": [
-          "Influencer",
-          "Advertisement"
+          "Profile",
+          "Activity"
         ]
       },
       "fr": {
-        "prompt": "Que faut-il trouver via les liens officiels du projet ?",
-        "correct": "Collection",
+        "prompt": "Quel type de page OpenSea montre un NFT avec prix et actions d'achat ?",
+        "correct": "Item",
         "wrong": [
-          "Influenceur",
-          "Publicité"
+          "Profil",
+          "Activité"
         ]
       },
       "es": {
-        "prompt": "¿Qué debe encontrarse mediante enlaces oficiales del proyecto?",
-        "correct": "Colección",
+        "prompt": "¿Qué tipo de página de OpenSea muestra un NFT con precio y compra?",
+        "correct": "Ítem",
         "wrong": [
-          "Influencer",
-          "Anuncio"
+          "Perfil",
+          "Actividad"
         ]
       }
     }
@@ -1684,38 +1684,38 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-deep-003",
     "tier": 3,
     "category": "Contracts",
-    "prompt": "What identifies the real set on-chain?",
+    "prompt": "What on-chain code handles marketplace permissions and transfers?",
     "correct": "Contract",
     "wrong": [
-      "Banner",
-      "Volume"
+      "Signature",
+      "Listing"
     ],
     "correctRoast": "Correct. Contract survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
-    "explanation": "The official contract is the core identifier for a real NFT collection.",
+    "explanation": "Smart contracts handle rules such as approvals, transfers, and marketplace execution.",
     "i18n": {
       "en": {
-        "prompt": "What identifies the real set on-chain?",
+        "prompt": "What on-chain code handles marketplace permissions and transfers?",
         "correct": "Contract",
         "wrong": [
-          "Banner",
-          "Volume"
+          "Signature",
+          "Listing"
         ]
       },
       "fr": {
-        "prompt": "Qu'est-ce qui identifie le vrai set on-chain ?",
+        "prompt": "Quel code on-chain gère les permissions et transferts marketplace ?",
         "correct": "Contrat",
         "wrong": [
-          "Bannière",
-          "Volume"
+          "Signature",
+          "Listing"
         ]
       },
       "es": {
-        "prompt": "¿Qué identifica el conjunto real on-chain?",
+        "prompt": "¿Qué código on-chain maneja permisos y transferencias de marketplace?",
         "correct": "Contrato",
         "wrong": [
-          "Banner",
-          "Volumen"
+          "Firma",
+          "Listing"
         ]
       }
     }
@@ -1727,8 +1727,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What number identifies one item inside a collection contract?",
     "correct": "Token",
     "wrong": [
-      "Price",
-      "Rank"
+      "Listing",
+      "Trait"
     ],
     "correctRoast": "Correct. Token survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -1738,24 +1738,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What number identifies one item inside a collection contract?",
         "correct": "Token",
         "wrong": [
-          "Price",
-          "Rank"
+          "Listing",
+          "Trait"
         ]
       },
       "fr": {
         "prompt": "Quel numéro identifie un item dans un contrat de collection ?",
         "correct": "Token",
         "wrong": [
-          "Prix",
-          "Rang"
+          "Listing",
+          "Trait"
         ]
       },
       "es": {
         "prompt": "¿Qué número identifica un ítem dentro de un contrato de colección?",
         "correct": "Token",
         "wrong": [
-          "Precio",
-          "Rango"
+          "Listing",
+          "Rasgo"
         ]
       }
     }
@@ -1764,38 +1764,38 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-deep-005",
     "tier": 3,
     "category": "Metadata",
-    "prompt": "What describes the media and attributes of a collectible?",
+    "prompt": "What data package stores media links and attributes?",
     "correct": "Metadata",
     "wrong": [
-      "Gas",
-      "Seed"
+      "Trait",
+      "URI"
     ],
     "correctRoast": "Correct. Metadata survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
     "explanation": "Metadata points to information such as image, name, description, and traits.",
     "i18n": {
       "en": {
-        "prompt": "What describes the media and attributes of a collectible?",
+        "prompt": "What data package stores media links and attributes?",
         "correct": "Metadata",
         "wrong": [
-          "Gas",
-          "Seed"
+          "Trait",
+          "URI"
         ]
       },
       "fr": {
-        "prompt": "Qu'est-ce qui décrit le média et les attributs d'un collectible ?",
+        "prompt": "Quel paquet de données stocke les liens média et attributs ?",
         "correct": "Métadonnées",
         "wrong": [
-          "Gas",
-          "Seed"
+          "Trait",
+          "URI"
         ]
       },
       "es": {
-        "prompt": "¿Qué describe el medio y los atributos de un coleccionable?",
+        "prompt": "¿Qué paquete de datos guarda enlaces de medios y atributos?",
         "correct": "Metadatos",
         "wrong": [
-          "Gas",
-          "Semilla"
+          "Rasgo",
+          "URI"
         ]
       }
     }
@@ -1807,8 +1807,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What visual properties can affect collector preference?",
     "correct": "Traits",
     "wrong": [
-      "Fees",
-      "Password"
+      "Metadata",
+      "Rarity"
     ],
     "correctRoast": "Correct. Traits survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -1818,24 +1818,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What visual properties can affect collector preference?",
         "correct": "Traits",
         "wrong": [
-          "Fees",
-          "Password"
+          "Metadata",
+          "Rarity"
         ]
       },
       "fr": {
         "prompt": "Quelles propriétés visuelles peuvent influencer les préférences des collectionneurs ?",
         "correct": "Traits",
         "wrong": [
-          "Frais",
-          "Passe"
+          "Métadonnées",
+          "Rareté"
         ]
       },
       "es": {
         "prompt": "¿Qué propiedades visuales pueden influir en preferencias de coleccionistas?",
         "correct": "Rasgos",
         "wrong": [
-          "Tarifas",
-          "Clave"
+          "Metadatos",
+          "Rareza"
         ]
       }
     }
@@ -1847,8 +1847,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What means the lowest current listed price?",
     "correct": "Floor",
     "wrong": [
-      "Ceiling",
-      "Profit"
+      "Ask",
+      "Bid"
     ],
     "correctRoast": "Correct. Floor survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -1858,24 +1858,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What means the lowest current listed price?",
         "correct": "Floor",
         "wrong": [
-          "Ceiling",
-          "Profit"
+          "Ask",
+          "Bid"
         ]
       },
       "fr": {
         "prompt": "Qu'est-ce qui signifie le prix listé le plus bas actuellement ?",
         "correct": "Floor",
         "wrong": [
-          "Plafond",
-          "Profit"
+          "Ask",
+          "Bid"
         ]
       },
       "es": {
         "prompt": "¿Qué significa el precio listado más bajo actual?",
         "correct": "Floor",
         "wrong": [
-          "Techo",
-          "Ganancia"
+          "Ask",
+          "Bid"
         ]
       }
     }
@@ -1887,8 +1887,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What means an owner has offered an item for sale?",
     "correct": "Listing",
     "wrong": [
-      "Airdrop",
-      "Approval"
+      "Offer",
+      "Auction"
     ],
     "correctRoast": "Correct. Listing survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -1898,24 +1898,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What means an owner has offered an item for sale?",
         "correct": "Listing",
         "wrong": [
-          "Airdrop",
-          "Approval"
+          "Offer",
+          "Auction"
         ]
       },
       "fr": {
         "prompt": "Qu'est-ce qui signifie qu'un propriétaire propose un item à la vente ?",
         "correct": "Listing",
         "wrong": [
-          "Airdrop",
-          "Approbation"
+          "Offre",
+          "Enchère"
         ]
       },
       "es": {
         "prompt": "¿Qué significa que un dueño ofrece un ítem en venta?",
         "correct": "Listing",
         "wrong": [
-          "Airdrop",
-          "Aprobación"
+          "Oferta",
+          "Subasta"
         ]
       }
     }
@@ -1927,8 +1927,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What is a buyer's bid on an item called?",
     "correct": "Offer",
     "wrong": [
-      "Fee",
-      "Trait"
+      "Listing",
+      "Auction"
     ],
     "correctRoast": "Correct. Offer survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -1938,24 +1938,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What is a buyer's bid on an item called?",
         "correct": "Offer",
         "wrong": [
-          "Fee",
-          "Trait"
+          "Listing",
+          "Auction"
         ]
       },
       "fr": {
         "prompt": "Comment appelle-t-on l'enchère d'un acheteur sur un item ?",
         "correct": "Offre",
         "wrong": [
-          "Frais",
-          "Trait"
+          "Listing",
+          "Enchère"
         ]
       },
       "es": {
         "prompt": "¿Cómo se llama la puja de un comprador por un ítem?",
         "correct": "Oferta",
         "wrong": [
-          "Tarifa",
-          "Rasgo"
+          "Listing",
+          "Subasta"
         ]
       }
     }
@@ -1964,38 +1964,38 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-deep-010",
     "tier": 3,
     "category": "Checkout",
-    "prompt": "What must be inspected before using a buy button?",
+    "prompt": "Which listing number should match the sale amount?",
     "correct": "Price",
     "wrong": [
-      "Confetti",
-      "Banner"
+      "Gas",
+      "Floor"
     ],
     "correctRoast": "Correct. Price survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
     "explanation": "The price, fees, token, network, and action should match the buyer's intention.",
     "i18n": {
       "en": {
-        "prompt": "What must be inspected before using a buy button?",
+        "prompt": "Which listing number should match the sale amount?",
         "correct": "Price",
         "wrong": [
-          "Confetti",
-          "Banner"
+          "Gas",
+          "Floor"
         ]
       },
       "fr": {
-        "prompt": "Que faut-il inspecter avant d'utiliser le bouton d'achat ?",
+        "prompt": "Quel nombre du listing doit correspondre au montant de vente ?",
         "correct": "Prix",
         "wrong": [
-          "Confetti",
-          "Bannière"
+          "Gas",
+          "Floor"
         ]
       },
       "es": {
-        "prompt": "¿Qué debe inspeccionarse antes de usar el botón de compra?",
+        "prompt": "¿Qué número del listing debe coincidir con el monto de venta?",
         "correct": "Precio",
         "wrong": [
-          "Confeti",
-          "Banner"
+          "Gas",
+          "Floor"
         ]
       }
     }
@@ -2007,8 +2007,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "Which wrapped asset may be needed for bids?",
     "correct": "WETH",
     "wrong": [
-      "Fiat",
-      "JPEG"
+      "ETH",
+      "USDC"
     ],
     "correctRoast": "Correct. WETH survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -2018,24 +2018,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "Which wrapped asset may be needed for bids?",
         "correct": "WETH",
         "wrong": [
-          "Fiat",
-          "JPEG"
+          "ETH",
+          "USDC"
         ]
       },
       "fr": {
         "prompt": "Quel actif emballé peut être nécessaire pour les offres ?",
         "correct": "WETH",
         "wrong": [
-          "Fiat",
-          "JPEG"
+          "ETH",
+          "USDC"
         ]
       },
       "es": {
         "prompt": "¿Qué activo envuelto puede hacer falta para ofertas?",
         "correct": "WETH",
         "wrong": [
-          "Fiat",
-          "JPEG"
+          "ETH",
+          "USDC"
         ]
       }
     }
@@ -2047,8 +2047,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What can rise when network traffic gets heavy?",
     "correct": "Gas",
     "wrong": [
-      "Rarity",
-      "Seed"
+      "Gwei",
+      "Tip"
     ],
     "correctRoast": "Correct. Gas survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -2058,24 +2058,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What can rise when network traffic gets heavy?",
         "correct": "Gas",
         "wrong": [
-          "Rarity",
-          "Seed"
+          "Gwei",
+          "Tip"
         ]
       },
       "fr": {
         "prompt": "Qu'est-ce qui peut augmenter quand le trafic réseau est fort ?",
         "correct": "Gas",
         "wrong": [
-          "Rareté",
-          "Seed"
+          "Gwei",
+          "Pourboire"
         ]
       },
       "es": {
         "prompt": "¿Qué puede subir cuando el tráfico de red es alto?",
         "correct": "Gas",
         "wrong": [
-          "Rareza",
-          "Semilla"
+          "Gwei",
+          "Propina"
         ]
       }
     }
@@ -2083,39 +2083,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-deep-013",
     "tier": 3,
-    "category": "Copies",
-    "prompt": "What is a likely sign of a copied collection?",
+    "category": "Impersonation",
+    "prompt": "What scam behavior pretends to be trusted staff or support?",
     "correct": "Impersonation",
     "wrong": [
-      "Metadata",
-      "Royalty"
+      "Migration",
+      "Airdrop"
     ],
     "correctRoast": "Correct. Impersonation survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
-    "explanation": "Impersonation copies names, images, and pages to trick buyers.",
+    "explanation": "Impersonation scams pretend to be trusted people or support channels to push unsafe actions.",
     "i18n": {
       "en": {
-        "prompt": "What is a likely sign of a copied collection?",
+        "prompt": "What scam behavior pretends to be trusted staff or support?",
         "correct": "Impersonation",
         "wrong": [
-          "Metadata",
-          "Royalty"
+          "Migration",
+          "Airdrop"
         ]
       },
       "fr": {
-        "prompt": "Quel est un signe probable d'une collection copiée ?",
+        "prompt": "Quel comportement d'arnaque prétend être du staff ou support fiable ?",
         "correct": "Usurpation",
         "wrong": [
-          "Métadonnées",
-          "Royalty"
+          "Migration",
+          "Airdrop"
         ]
       },
       "es": {
-        "prompt": "¿Cuál es una señal probable de una colección copiada?",
+        "prompt": "¿Qué conducta de estafa finge ser staff o soporte confiable?",
         "correct": "Suplantación",
         "wrong": [
-          "Metadatos",
-          "Regalía"
+          "Migración",
+          "Airdrop"
         ]
       }
     }
@@ -2127,8 +2127,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What should unknown wallet gifts trigger?",
     "correct": "Suspicion",
     "wrong": [
-      "Gratitude",
-      "FOMO"
+      "Curiosity",
+      "Claim"
     ],
     "correctRoast": "Correct. Suspicion survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -2138,24 +2138,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What should unknown wallet gifts trigger?",
         "correct": "Suspicion",
         "wrong": [
-          "Gratitude",
-          "FOMO"
+          "Curiosity",
+          "Claim"
         ]
       },
       "fr": {
         "prompt": "Que doivent déclencher des cadeaux inconnus dans un wallet ?",
         "correct": "Suspicion",
         "wrong": [
-          "Gratitude",
-          "FOMO"
+          "Curiosité",
+          "Claim"
         ]
       },
       "es": {
         "prompt": "¿Qué deberían provocar regalos desconocidos en un wallet?",
         "correct": "Sospecha",
         "wrong": [
-          "Gratitud",
-          "FOMO"
+          "Curiosidad",
+          "Claim"
         ]
       }
     }
@@ -2167,8 +2167,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What permission lets a marketplace move an item during sale?",
     "correct": "Approval",
     "wrong": [
-      "Tribute",
-      "Screenshot"
+      "Signature",
+      "Listing"
     ],
     "correctRoast": "Correct. Approval survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -2178,24 +2178,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What permission lets a marketplace move an item during sale?",
         "correct": "Approval",
         "wrong": [
-          "Tribute",
-          "Screenshot"
+          "Signature",
+          "Listing"
         ]
       },
       "fr": {
         "prompt": "Quelle permission permet à une marketplace de déplacer un item pendant une vente ?",
         "correct": "Approbation",
         "wrong": [
-          "Tribut",
-          "Capture"
+          "Signature",
+          "Listing"
         ]
       },
       "es": {
         "prompt": "¿Qué permiso deja que una marketplace mueva un ítem durante la venta?",
         "correct": "Aprobación",
         "wrong": [
-          "Tributo",
-          "Captura"
+          "Firma",
+          "Listing"
         ]
       }
     }
@@ -2207,8 +2207,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What removes an old marketplace permission?",
     "correct": "Revoke",
     "wrong": [
-      "Refresh",
-      "Rename"
+      "Cancel",
+      "Disconnect"
     ],
     "correctRoast": "Correct. Revoke survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -2218,24 +2218,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What removes an old marketplace permission?",
         "correct": "Revoke",
         "wrong": [
-          "Refresh",
-          "Rename"
+          "Cancel",
+          "Disconnect"
         ]
       },
       "fr": {
         "prompt": "Qu'est-ce qui retire une ancienne permission de marketplace ?",
         "correct": "Révoquer",
         "wrong": [
-          "Rafraîchir",
-          "Renommer"
+          "Annuler",
+          "Déconnecter"
         ]
       },
       "es": {
         "prompt": "¿Qué quita un permiso viejo de marketplace?",
         "correct": "Revocar",
         "wrong": [
-          "Refrescar",
-          "Renombrar"
+          "Cancelar",
+          "Desconectar"
         ]
       }
     }
@@ -2247,8 +2247,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What shows independent ownership data?",
     "correct": "Explorer",
     "wrong": [
-      "Trailer",
-      "Chat"
+      "Marketplace",
+      "Wallet"
     ],
     "correctRoast": "Correct. Explorer survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -2258,24 +2258,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What shows independent ownership data?",
         "correct": "Explorer",
         "wrong": [
-          "Trailer",
-          "Chat"
+          "Marketplace",
+          "Wallet"
         ]
       },
       "fr": {
         "prompt": "Qu'est-ce qui montre des données de propriété indépendantes ?",
         "correct": "Explorer",
         "wrong": [
-          "Bande",
-          "Chat"
+          "Marketplace",
+          "Wallet"
         ]
       },
       "es": {
         "prompt": "¿Qué muestra datos independientes de propiedad?",
         "correct": "Explorer",
         "wrong": [
-          "Tráiler",
-          "Chat"
+          "Marketplace",
+          "Wallet"
         ]
       }
     }
@@ -2287,8 +2287,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What should be avoided while a purchase is pending?",
     "correct": "Duplicates",
     "wrong": [
-      "Patience",
-      "Status"
+      "Refresh",
+      "Speed"
     ],
     "correctRoast": "Correct. Duplicates survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -2298,24 +2298,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What should be avoided while a purchase is pending?",
         "correct": "Duplicates",
         "wrong": [
-          "Patience",
-          "Status"
+          "Refresh",
+          "Speed"
         ]
       },
       "fr": {
         "prompt": "Que faut-il éviter pendant qu'un achat est pending ?",
         "correct": "Doublons",
         "wrong": [
-          "Patience",
-          "Statut"
+          "Rafraîchir",
+          "Vitesse"
         ]
       },
       "es": {
         "prompt": "¿Qué se debe evitar mientras una compra está pendiente?",
         "correct": "Duplicados",
         "wrong": [
-          "Paciencia",
-          "Estado"
+          "Refrescar",
+          "Velocidad"
         ]
       }
     }
@@ -2327,8 +2327,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What can delay an image after purchase?",
     "correct": "Indexing",
     "wrong": [
-      "Theft",
-      "Burning"
+      "Metadata",
+      "Cache"
     ],
     "correctRoast": "Correct. Indexing survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -2338,24 +2338,24 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What can delay an image after purchase?",
         "correct": "Indexing",
         "wrong": [
-          "Theft",
-          "Burning"
+          "Metadata",
+          "Cache"
         ]
       },
       "fr": {
         "prompt": "Qu'est-ce qui peut retarder une image après achat ?",
         "correct": "Indexation",
         "wrong": [
-          "Vol",
-          "Brûlage"
+          "Métadonnées",
+          "Cache"
         ]
       },
       "es": {
         "prompt": "¿Qué puede retrasar una imagen después de comprar?",
         "correct": "Indexación",
         "wrong": [
-          "Robo",
-          "Quema"
+          "Metadatos",
+          "Cache"
         ]
       }
     }
@@ -2364,38 +2364,38 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-deep-020",
     "tier": 3,
     "category": "Confirmation",
-    "prompt": "What should the final wallet action match?",
+    "prompt": "What should the overall final wallet action match?",
     "correct": "Intent",
     "wrong": [
-      "Hype",
-      "Color"
+      "Price",
+      "Network"
     ],
     "correctRoast": "Correct. Intent survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
     "explanation": "The wallet prompt should match what the buyer intends to do.",
     "i18n": {
       "en": {
-        "prompt": "What should the final wallet action match?",
+        "prompt": "What should the overall final wallet action match?",
         "correct": "Intent",
         "wrong": [
-          "Hype",
-          "Color"
+          "Price",
+          "Network"
         ]
       },
       "fr": {
-        "prompt": "À quoi l'action finale du wallet doit-elle correspondre ?",
+        "prompt": "À quoi l'action finale globale du wallet doit-elle correspondre ?",
         "correct": "Intention",
         "wrong": [
-          "Hype",
-          "Couleur"
+          "Prix",
+          "Réseau"
         ]
       },
       "es": {
-        "prompt": "¿Con qué debe coincidir la acción final del wallet?",
+        "prompt": "¿Con qué debe coincidir la acción final global del wallet?",
         "correct": "Intención",
         "wrong": [
-          "Hype",
-          "Color"
+          "Precio",
+          "Red"
         ]
       }
     }
@@ -2407,9 +2407,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What attack copies real project pages?",
     "correct": "Phishing",
     "wrong": [
-      "Indexing",
-      "Bridging",
-      "Minting"
+      "Spoofing",
+      "Dusting",
+      "Indexing"
     ],
     "correctRoast": "Correct. Phishing survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -2419,27 +2419,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What attack copies real project pages?",
         "correct": "Phishing",
         "wrong": [
-          "Indexing",
-          "Bridging",
-          "Minting"
+          "Spoofing",
+          "Dusting",
+          "Indexing"
         ]
       },
       "fr": {
         "prompt": "Quelle attaque copie les vraies pages d'un projet ?",
         "correct": "Phishing",
         "wrong": [
-          "Indexation",
-          "Bridge",
-          "Mint"
+          "Spoofing",
+          "Dusting",
+          "Indexation"
         ]
       },
       "es": {
         "prompt": "¿Qué ataque copia páginas reales de un proyecto?",
         "correct": "Phishing",
         "wrong": [
-          "Indexación",
-          "Bridge",
-          "Mint"
+          "Spoofing",
+          "Dusting",
+          "Indexación"
         ]
       }
     }
@@ -2451,9 +2451,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "Which signing risk means approving data you cannot understand?",
     "correct": "Blind",
     "wrong": [
-      "Bright",
-      "Public",
-      "Cached"
+      "Batch",
+      "Typed",
+      "Public"
     ],
     "correctRoast": "Correct. Blind survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -2463,27 +2463,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "Which signing risk means approving data you cannot understand?",
         "correct": "Blind",
         "wrong": [
-          "Bright",
-          "Public",
-          "Cached"
+          "Batch",
+          "Typed",
+          "Public"
         ]
       },
       "fr": {
         "prompt": "Quel risque de signature signifie approuver des données incomprises ?",
         "correct": "Aveugle",
         "wrong": [
-          "Brillant",
-          "Public",
-          "Cache"
+          "Batch",
+          "Typé",
+          "Public"
         ]
       },
       "es": {
         "prompt": "¿Qué riesgo de firma significa aprobar datos que no entiendes?",
         "correct": "Ciega",
         "wrong": [
-          "Brillante",
-          "Pública",
-          "Caché"
+          "Batch",
+          "Tipada",
+          "Pública"
         ]
       }
     }
@@ -2495,9 +2495,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What device type keeps private keys offline?",
     "correct": "Hardware",
     "wrong": [
-      "Exchange",
-      "Browser",
-      "Marketplace"
+      "Mobile",
+      "Desktop",
+      "Web"
     ],
     "correctRoast": "Correct. Hardware survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -2507,27 +2507,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What device type keeps private keys offline?",
         "correct": "Hardware",
         "wrong": [
-          "Exchange",
-          "Browser",
-          "Marketplace"
+          "Mobile",
+          "Desktop",
+          "Web"
         ]
       },
       "fr": {
         "prompt": "Quel type d'appareil garde les clés privées offline ?",
         "correct": "Matériel",
         "wrong": [
-          "Exchange",
-          "Navigateur",
-          "Marketplace"
+          "Mobile",
+          "Desktop",
+          "Web"
         ]
       },
       "es": {
         "prompt": "¿Qué tipo de dispositivo mantiene llaves privadas offline?",
         "correct": "Hardware",
         "wrong": [
-          "Exchange",
-          "Navegador",
-          "Marketplace"
+          "Móvil",
+          "Desktop",
+          "Web"
         ]
       }
     }
@@ -2539,9 +2539,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What kind of wallet tests risky sites with little value?",
     "correct": "Burner",
     "wrong": [
+      "Hot",
       "Vault",
-      "Mainnet",
-      "Exchange"
+      "Main"
     ],
     "correctRoast": "Correct. Burner survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -2551,27 +2551,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What kind of wallet tests risky sites with little value?",
         "correct": "Burner",
         "wrong": [
+          "Hot",
           "Vault",
-          "Mainnet",
-          "Exchange"
+          "Main"
         ]
       },
       "fr": {
         "prompt": "Quel genre de wallet teste les sites risqués avec peu de valeur ?",
         "correct": "Burner",
         "wrong": [
+          "Hot",
           "Coffre",
-          "Mainnet",
-          "Exchange"
+          "Principal"
         ]
       },
       "es": {
         "prompt": "¿Qué tipo de wallet prueba sitios riesgosos con poco valor?",
         "correct": "Burner",
         "wrong": [
+          "Hot",
           "Bóveda",
-          "Mainnet",
-          "Exchange"
+          "Principal"
         ]
       }
     }
@@ -2580,11 +2580,11 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-internal-005",
     "tier": 4,
     "category": "Vaults",
-    "prompt": "What kind of wallet stores valuables with minimal clicking?",
+    "prompt": "Which wallet role stores valuables with minimal clicking?",
     "correct": "Vault",
     "wrong": [
       "Burner",
-      "Browser",
+      "Hot",
       "Exchange"
     ],
     "correctRoast": "Correct. Vault survives the Ugly Labs clipboard.",
@@ -2592,29 +2592,29 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "explanation": "Vault wallets should avoid routine risky interactions.",
     "i18n": {
       "en": {
-        "prompt": "What kind of wallet stores valuables with minimal clicking?",
+        "prompt": "Which wallet role stores valuables with minimal clicking?",
         "correct": "Vault",
         "wrong": [
           "Burner",
-          "Browser",
+          "Hot",
           "Exchange"
         ]
       },
       "fr": {
-        "prompt": "Quel genre de wallet garde les objets précieux avec peu de clics ?",
+        "prompt": "Quel rôle de wallet garde les objets précieux avec peu de clics ?",
         "correct": "Coffre",
         "wrong": [
           "Burner",
-          "Navigateur",
+          "Hot",
           "Exchange"
         ]
       },
       "es": {
-        "prompt": "¿Qué tipo de wallet guarda objetos valiosos con pocos clics?",
+        "prompt": "¿Qué rol de wallet guarda objetos valiosos con pocos clics?",
         "correct": "Bóveda",
         "wrong": [
           "Burner",
-          "Navegador",
+          "Hot",
           "Exchange"
         ]
       }
@@ -2628,8 +2628,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "correct": "Unlimited",
     "wrong": [
       "Limited",
-      "Revoked",
-      "Expired"
+      "Session",
+      "Token"
     ],
     "correctRoast": "Correct. Unlimited survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -2640,8 +2640,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "correct": "Unlimited",
         "wrong": [
           "Limited",
-          "Revoked",
-          "Expired"
+          "Session",
+          "Token"
         ]
       },
       "fr": {
@@ -2649,8 +2649,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "correct": "Illimité",
         "wrong": [
           "Limité",
-          "Révoqué",
-          "Expiré"
+          "Session",
+          "Token"
         ]
       },
       "es": {
@@ -2658,8 +2658,8 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "correct": "Ilimitado",
         "wrong": [
           "Limitado",
-          "Revocado",
-          "Expirado"
+          "Sesión",
+          "Token"
         ]
       }
     }
@@ -2671,9 +2671,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What should happen to old unused permissions?",
     "correct": "Revoked",
     "wrong": [
-      "Listed",
-      "Minted",
-      "Bridged"
+      "Expired",
+      "Limited",
+      "Scoped"
     ],
     "correctRoast": "Correct. Revoked survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -2683,27 +2683,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What should happen to old unused permissions?",
         "correct": "Revoked",
         "wrong": [
-          "Listed",
-          "Minted",
-          "Bridged"
+          "Expired",
+          "Limited",
+          "Scoped"
         ]
       },
       "fr": {
         "prompt": "Que faut-il faire aux anciennes permissions inutilisées ?",
         "correct": "Révoqué",
         "wrong": [
-          "Listé",
-          "Minté",
-          "Bridgé"
+          "Expiré",
+          "Limité",
+          "Cadré"
         ]
       },
       "es": {
         "prompt": "¿Qué debería pasar con permisos viejos sin uso?",
         "correct": "Revocado",
         "wrong": [
-          "Listado",
-          "Minteado",
-          "Bridgeado"
+          "Expirado",
+          "Limitado",
+          "Acotado"
         ]
       }
     }
@@ -2715,9 +2715,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What scam uses tiny lookalike transfers?",
     "correct": "Poisoning",
     "wrong": [
-      "Slippage",
-      "Royalty",
-      "Metadata"
+      "Dusting",
+      "Phishing",
+      "Spoofing"
     ],
     "correctRoast": "Correct. Poisoning survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -2727,27 +2727,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What scam uses tiny lookalike transfers?",
         "correct": "Poisoning",
         "wrong": [
-          "Slippage",
-          "Royalty",
-          "Metadata"
+          "Dusting",
+          "Phishing",
+          "Spoofing"
         ]
       },
       "fr": {
         "prompt": "Quelle arnaque utilise de petits transferts ressemblants ?",
         "correct": "Poisoning",
         "wrong": [
-          "Slippage",
-          "Royalty",
-          "Métadonnées"
+          "Dusting",
+          "Phishing",
+          "Spoofing"
         ]
       },
       "es": {
         "prompt": "¿Qué estafa usa transferencias pequeñas parecidas?",
         "correct": "Poisoning",
         "wrong": [
-          "Slippage",
-          "Regalía",
-          "Metadatos"
+          "Dusting",
+          "Phishing",
+          "Spoofing"
         ]
       }
     }
@@ -2759,9 +2759,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What readable-name service must resolve correctly before sending?",
     "correct": "ENS",
     "wrong": [
-      "IPFS",
-      "WETH",
-      "KYC"
+      "DNS",
+      "URL",
+      "IPFS"
     ],
     "correctRoast": "Correct. ENS survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -2771,27 +2771,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What readable-name service must resolve correctly before sending?",
         "correct": "ENS",
         "wrong": [
-          "IPFS",
-          "WETH",
-          "KYC"
+          "DNS",
+          "URL",
+          "IPFS"
         ]
       },
       "fr": {
         "prompt": "Quel service de nom lisible doit résoudre correctement avant envoi ?",
         "correct": "ENS",
         "wrong": [
-          "IPFS",
-          "WETH",
-          "KYC"
+          "DNS",
+          "URL",
+          "IPFS"
         ]
       },
       "es": {
         "prompt": "¿Qué servicio de nombre legible debe resolver bien antes de enviar?",
         "correct": "ENS",
         "wrong": [
-          "IPFS",
-          "WETH",
-          "KYC"
+          "DNS",
+          "URL",
+          "IPFS"
         ]
       }
     }
@@ -2847,9 +2847,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What problem means final trade price differs from the quote?",
     "correct": "Slippage",
     "wrong": [
-      "Rarity",
-      "Royalty",
-      "Floor"
+      "Spread",
+      "Volatility",
+      "Premium"
     ],
     "correctRoast": "Correct. Slippage survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -2859,27 +2859,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What problem means final trade price differs from the quote?",
         "correct": "Slippage",
         "wrong": [
-          "Rarity",
-          "Royalty",
-          "Floor"
+          "Spread",
+          "Volatility",
+          "Premium"
         ]
       },
       "fr": {
         "prompt": "Quel problème signifie que le prix final diffère du devis ?",
         "correct": "Slippage",
         "wrong": [
-          "Rareté",
-          "Royalty",
-          "Floor"
+          "Spread",
+          "Volatilité",
+          "Prime"
         ]
       },
       "es": {
         "prompt": "¿Qué problema significa que el precio final difiere de la cotización?",
         "correct": "Slippage",
         "wrong": [
-          "Rareza",
-          "Regalía",
-          "Floor"
+          "Spread",
+          "Volatilidad",
+          "Prima"
         ]
       }
     }
@@ -2891,9 +2891,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What makes collectibles harder to sell quickly?",
     "correct": "Liquidity",
     "wrong": [
-      "Metadata",
-      "ENS",
-      "Backup"
+      "Volume",
+      "Demand",
+      "Floor"
     ],
     "correctRoast": "Correct. Liquidity survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -2903,27 +2903,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What makes collectibles harder to sell quickly?",
         "correct": "Liquidity",
         "wrong": [
-          "Metadata",
-          "ENS",
-          "Backup"
+          "Volume",
+          "Demand",
+          "Floor"
         ]
       },
       "fr": {
         "prompt": "Qu'est-ce qui rend les collectibles plus difficiles à vendre vite ?",
         "correct": "Liquidité",
         "wrong": [
-          "Métadonnées",
-          "ENS",
-          "Sauvegarde"
+          "Volume",
+          "Demande",
+          "Floor"
         ]
       },
       "es": {
         "prompt": "¿Qué hace que coleccionables sean más difíciles de vender rápido?",
         "correct": "Liquidez",
         "wrong": [
-          "Metadatos",
-          "ENS",
-          "Respaldo"
+          "Volumen",
+          "Demanda",
+          "Floor"
         ]
       }
     }
@@ -2935,9 +2935,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What records may matter after purchases and sales?",
     "correct": "Taxes",
     "wrong": [
-      "Traits",
-      "Confetti",
-      "PFP"
+      "Receipts",
+      "Audits",
+      "Profit"
     ],
     "correctRoast": "Correct. Taxes survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -2947,27 +2947,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What records may matter after purchases and sales?",
         "correct": "Taxes",
         "wrong": [
-          "Traits",
-          "Confetti",
-          "PFP"
+          "Receipts",
+          "Audits",
+          "Profit"
         ]
       },
       "fr": {
         "prompt": "Quels registres peuvent compter après achats et ventes ?",
         "correct": "Taxes",
         "wrong": [
-          "Traits",
-          "Confetti",
-          "PFP"
+          "Reçus",
+          "Audits",
+          "Profit"
         ]
       },
       "es": {
         "prompt": "¿Qué registros pueden importar después de compras y ventas?",
         "correct": "Impuestos",
         "wrong": [
-          "Rasgos",
-          "Confeti",
-          "PFP"
+          "Recibos",
+          "Auditorías",
+          "Ganancia"
         ]
       }
     }
@@ -2979,9 +2979,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What route between chains adds extra risk?",
     "correct": "Bridge",
     "wrong": [
-      "Bookmark",
-      "Listing",
-      "Trait"
+      "Swap",
+      "Wrap",
+      "Transfer"
     ],
     "correctRoast": "Correct. Bridge survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -2991,27 +2991,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What route between chains adds extra risk?",
         "correct": "Bridge",
         "wrong": [
-          "Bookmark",
-          "Listing",
-          "Trait"
+          "Swap",
+          "Wrap",
+          "Transfer"
         ]
       },
       "fr": {
         "prompt": "Quelle route entre chaînes ajoute un risque supplémentaire ?",
         "correct": "Bridge",
         "wrong": [
-          "Favori",
-          "Listing",
-          "Trait"
+          "Swap",
+          "Wrap",
+          "Transfert"
         ]
       },
       "es": {
         "prompt": "¿Qué ruta entre cadenas añade riesgo extra?",
         "correct": "Bridge",
         "wrong": [
-          "Marcador",
-          "Listing",
-          "Rasgo"
+          "Swap",
+          "Wrap",
+          "Transferir"
         ]
       }
     }
@@ -3023,9 +3023,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What should public hype claims be treated as?",
     "correct": "Marketing",
     "wrong": [
-      "Audits",
-      "Guarantees",
-      "Receipts"
+      "Advice",
+      "Research",
+      "Audit"
     ],
     "correctRoast": "Correct. Marketing survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -3035,27 +3035,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What should public hype claims be treated as?",
         "correct": "Marketing",
         "wrong": [
-          "Audits",
-          "Guarantees",
-          "Receipts"
+          "Advice",
+          "Research",
+          "Audit"
         ]
       },
       "fr": {
         "prompt": "Comme quoi faut-il traiter les affirmations hype publiques ?",
         "correct": "Marketing",
         "wrong": [
-          "Audits",
-          "Garanties",
-          "Reçus"
+          "Conseil",
+          "Recherche",
+          "Audit"
         ]
       },
       "es": {
         "prompt": "¿Cómo deben tratarse las afirmaciones públicas de hype?",
         "correct": "Marketing",
         "wrong": [
-          "Auditorías",
-          "Garantías",
-          "Recibos"
+          "Consejo",
+          "Investigación",
+          "Auditoría"
         ]
       }
     }
@@ -3067,9 +3067,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "Which promise is a classic scam signal?",
     "correct": "Guaranteed",
     "wrong": [
-      "Verified",
-      "Official",
-      "Cached"
+      "Pump",
+      "Bonus",
+      "Yield"
     ],
     "correctRoast": "Correct. Guaranteed survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -3079,27 +3079,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "Which promise is a classic scam signal?",
         "correct": "Guaranteed",
         "wrong": [
-          "Verified",
-          "Official",
-          "Cached"
+          "Pump",
+          "Bonus",
+          "Yield"
         ]
       },
       "fr": {
         "prompt": "Quelle promesse est un signal classique d'arnaque ?",
         "correct": "Garanti",
         "wrong": [
-          "Vérifié",
-          "Officiel",
-          "Caché"
+          "Pump",
+          "Bonus",
+          "Rendement"
         ]
       },
       "es": {
         "prompt": "¿Qué promesa es una señal clásica de estafa?",
         "correct": "Garantizado",
         "wrong": [
-          "Verificado",
-          "Oficial",
-          "Cacheado"
+          "Pump",
+          "Bono",
+          "Rendimiento"
         ]
       }
     }
@@ -3108,42 +3108,42 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-internal-017",
     "tier": 4,
     "category": "Privacy",
-    "prompt": "What helps separate public identity from storage?",
+    "prompt": "What goal is improved by separating public identity from storage?",
     "correct": "Privacy",
     "wrong": [
-      "Volume",
-      "Ranking",
-      "Confetti"
+      "Security",
+      "Rarity",
+      "Liquidity"
     ],
     "correctRoast": "Correct. Privacy survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
     "explanation": "Wallet separation can reduce privacy leakage and risk concentration.",
     "i18n": {
       "en": {
-        "prompt": "What helps separate public identity from storage?",
+        "prompt": "What goal is improved by separating public identity from storage?",
         "correct": "Privacy",
         "wrong": [
-          "Volume",
-          "Ranking",
-          "Confetti"
+          "Security",
+          "Rarity",
+          "Liquidity"
         ]
       },
       "fr": {
-        "prompt": "Qu'est-ce qui aide à séparer identité publique et stockage ?",
+        "prompt": "Quel objectif est amélioré en séparant identité publique et stockage ?",
         "correct": "Vieprivée",
         "wrong": [
-          "Volume",
-          "Classement",
-          "Confetti"
+          "Sécurité",
+          "Rareté",
+          "Liquidité"
         ]
       },
       "es": {
-        "prompt": "¿Qué ayuda a separar identidad pública y almacenamiento?",
+        "prompt": "¿Qué objetivo mejora al separar identidad pública y almacenamiento?",
         "correct": "Privacidad",
         "wrong": [
-          "Volumen",
-          "Ranking",
-          "Confeti"
+          "Seguridad",
+          "Rareza",
+          "Liquidez"
         ]
       }
     }
@@ -3155,9 +3155,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "How should shared computers be treated for wallet use?",
     "correct": "Risky",
     "wrong": [
-      "Safer",
-      "Empty",
-      "Verified"
+      "Shared",
+      "Public",
+      "Unknown"
     ],
     "correctRoast": "Correct. Risky survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -3167,27 +3167,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "How should shared computers be treated for wallet use?",
         "correct": "Risky",
         "wrong": [
-          "Safer",
-          "Empty",
-          "Verified"
+          "Shared",
+          "Public",
+          "Unknown"
         ]
       },
       "fr": {
         "prompt": "Comment traiter les ordinateurs partagés pour l'usage wallet ?",
         "correct": "Risque",
         "wrong": [
-          "Sûr",
-          "Vide",
-          "Vérifié"
+          "Partagé",
+          "Public",
+          "Inconnu"
         ]
       },
       "es": {
         "prompt": "¿Cómo tratar computadores compartidos para usar wallets?",
         "correct": "Riesgo",
         "wrong": [
-          "Seguro",
-          "Vacío",
-          "Verificado"
+          "Compartido",
+          "Público",
+          "Desconocido"
         ]
       }
     }
@@ -3196,42 +3196,42 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-internal-019",
     "tier": 4,
     "category": "Persistent Orders",
-    "prompt": "What can remain active until canceled or expired?",
+    "prompt": "Which buyer-side order can remain active until canceled or expired?",
     "correct": "Offer",
     "wrong": [
-      "Trait",
-      "Image",
-      "Username"
+      "Listing",
+      "Approval",
+      "Signature"
     ],
     "correctRoast": "Correct. Offer survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
     "explanation": "Offers and listings can persist according to marketplace rules.",
     "i18n": {
       "en": {
-        "prompt": "What can remain active until canceled or expired?",
+        "prompt": "Which buyer-side order can remain active until canceled or expired?",
         "correct": "Offer",
         "wrong": [
-          "Trait",
-          "Image",
-          "Username"
+          "Listing",
+          "Approval",
+          "Signature"
         ]
       },
       "fr": {
-        "prompt": "Qu'est-ce qui peut rester actif jusqu'à annulation ou expiration ?",
+        "prompt": "Quel ordre côté acheteur peut rester actif jusqu'à annulation ou expiration ?",
         "correct": "Offre",
         "wrong": [
-          "Trait",
-          "Image",
-          "Pseudo"
+          "Listing",
+          "Approbation",
+          "Signature"
         ]
       },
       "es": {
-        "prompt": "¿Qué puede seguir activo hasta cancelarse o expirar?",
+        "prompt": "¿Qué orden del comprador puede seguir activa hasta cancelarse o expirar?",
         "correct": "Oferta",
         "wrong": [
-          "Rasgo",
-          "Imagen",
-          "Usuario"
+          "Listing",
+          "Aprobación",
+          "Firma"
         ]
       }
     }
@@ -3240,42 +3240,42 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-internal-020",
     "tier": 4,
     "category": "Configuration",
-    "prompt": "What should app code use for the official collection identifier?",
+    "prompt": "What should app code use instead of hardcoded lore values?",
     "correct": "Config",
     "wrong": [
       "Chat",
-      "Logo",
-      "Rumor"
+      "Copy",
+      "Lore"
     ],
     "correctRoast": "Correct. Config survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
-    "explanation": "Configuration or official sources should be the source of truth, not lore text or chat.",
+    "explanation": "Configuration keeps deployment-specific values out of question lore and random chat copy.",
     "i18n": {
       "en": {
-        "prompt": "What should app code use for the official collection identifier?",
+        "prompt": "What should app code use instead of hardcoded lore values?",
         "correct": "Config",
         "wrong": [
           "Chat",
-          "Logo",
-          "Rumor"
+          "Copy",
+          "Lore"
         ]
       },
       "fr": {
-        "prompt": "Que doit utiliser le code app pour l'identifiant officiel de collection ?",
+        "prompt": "Que doit utiliser le code app au lieu de valeurs lore codées en dur ?",
         "correct": "Config",
         "wrong": [
           "Chat",
-          "Logo",
-          "Rumeur"
+          "Copie",
+          "Lore"
         ]
       },
       "es": {
-        "prompt": "¿Qué debe usar el código para el identificador oficial de colección?",
+        "prompt": "¿Qué debe usar el código en vez de valores lore hardcodeados?",
         "correct": "Config",
         "wrong": [
           "Chat",
-          "Logo",
-          "Rumor"
+          "Copia",
+          "Lore"
         ]
       }
     }
@@ -3287,39 +3287,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What should be completed before shopping for a Squig?",
     "correct": "Setup",
     "wrong": [
-      "FOMO",
-      "Flex",
-      "Guess"
+      "Funding",
+      "Research",
+      "Security"
     ],
     "correctRoast": "Correct. Setup survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
-    "explanation": "A safe path includes wallet setup, funding, verification, and risk awareness.",
+    "explanation": "A safe path includes wallet setup, funding, careful review, and risk awareness.",
     "i18n": {
       "en": {
         "prompt": "What should be completed before shopping for a Squig?",
         "correct": "Setup",
         "wrong": [
-          "FOMO",
-          "Flex",
-          "Guess"
+          "Funding",
+          "Research",
+          "Security"
         ]
       },
       "fr": {
         "prompt": "Que faut-il compléter avant d'acheter un Squig ?",
         "correct": "Setup",
         "wrong": [
-          "FOMO",
-          "Flex",
-          "Hasard"
+          "Financer",
+          "Recherche",
+          "Sécurité"
         ]
       },
       "es": {
         "prompt": "¿Qué debe completarse antes de comprar un Squig?",
         "correct": "Setup",
         "wrong": [
-          "FOMO",
-          "Flex",
-          "Azar"
+          "Fondos",
+          "Investigación",
+          "Seguridad"
         ]
       }
     }
@@ -3328,42 +3328,42 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-impossible-002",
     "tier": 5,
     "category": "Withdrawals",
-    "prompt": "What must match before moving ETH from an exchange?",
+    "prompt": "Which chain choice must match before moving ETH from an exchange?",
     "correct": "Network",
     "wrong": [
-      "Hairstyle",
-      "Banner",
-      "Rarity"
+      "Address",
+      "Asset",
+      "Wallet"
     ],
     "correctRoast": "Correct. Network survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
     "explanation": "Network mismatch can trap assets away from the intended app or wallet.",
     "i18n": {
       "en": {
-        "prompt": "What must match before moving ETH from an exchange?",
+        "prompt": "Which chain choice must match before moving ETH from an exchange?",
         "correct": "Network",
         "wrong": [
-          "Hairstyle",
-          "Banner",
-          "Rarity"
+          "Address",
+          "Asset",
+          "Wallet"
         ]
       },
       "fr": {
-        "prompt": "Que doit correspondre avant de déplacer ETH depuis un exchange ?",
+        "prompt": "Quel choix de chaîne doit correspondre avant de déplacer ETH depuis un exchange ?",
         "correct": "Réseau",
         "wrong": [
-          "Coiffure",
-          "Bannière",
-          "Rareté"
+          "Adresse",
+          "Actif",
+          "Wallet"
         ]
       },
       "es": {
-        "prompt": "¿Qué debe coincidir antes de mover ETH desde un exchange?",
+        "prompt": "¿Qué elección de cadena debe coincidir antes de mover ETH desde un exchange?",
         "correct": "Red",
         "wrong": [
-          "Peinado",
-          "Banner",
-          "Rareza"
+          "Dirección",
+          "Activo",
+          "Wallet"
         ]
       }
     }
@@ -3371,43 +3371,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-003",
     "tier": 5,
-    "category": "Final Checks",
-    "prompt": "Which final wallet detail helps avoid fake collections?",
-    "correct": "Contract",
+    "category": "Checkout",
+    "prompt": "Which final wallet detail should match the amount shown at checkout?",
+    "correct": "Price",
     "wrong": [
-      "Color",
-      "Emoji",
-      "Volume"
+      "Contract",
+      "Network",
+      "Token"
     ],
     "correctRoast": "Correct. Contract survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
-    "explanation": "The contract in the final prompt should match the verified collection.",
+    "explanation": "The wallet amount should match the marketplace checkout amount before confirming.",
     "i18n": {
       "en": {
-        "prompt": "Which final wallet detail helps avoid fake collections?",
-        "correct": "Contract",
+        "prompt": "Which final wallet detail should match the amount shown at checkout?",
+        "correct": "Price",
         "wrong": [
-          "Color",
-          "Emoji",
-          "Volume"
+          "Contract",
+          "Network",
+          "Token"
         ]
       },
       "fr": {
-        "prompt": "Quel détail final du wallet aide à éviter les fausses collections ?",
-        "correct": "Contrat",
+        "prompt": "Quel détail final du wallet doit correspondre au montant affiché au checkout ?",
+        "correct": "Prix",
         "wrong": [
-          "Couleur",
-          "Emoji",
-          "Volume"
+          "Contrat",
+          "Réseau",
+          "Token"
         ]
       },
       "es": {
-        "prompt": "¿Qué detalle final del wallet ayuda a evitar colecciones falsas?",
-        "correct": "Contrato",
+        "prompt": "¿Qué detalle final del wallet debe coincidir con el monto del checkout?",
+        "correct": "Precio",
         "wrong": [
-          "Color",
-          "Emoji",
-          "Volumen"
+          "Contrato",
+          "Red",
+          "Token"
         ]
       }
     }
@@ -3416,42 +3416,42 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-impossible-004",
     "tier": 5,
     "category": "Support",
-    "prompt": "What should be refused when anyone offers recovery help?",
+    "prompt": "Which recovery phrase should be refused when anyone offers help?",
     "correct": "Seed",
     "wrong": [
+      "Password",
       "Ticket",
-      "Link",
-      "Status"
+      "Link"
     ],
     "correctRoast": "Correct. Seed survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
     "explanation": "Recovery help should never require wallet recovery secrets.",
     "i18n": {
       "en": {
-        "prompt": "What should be refused when anyone offers recovery help?",
+        "prompt": "Which recovery phrase should be refused when anyone offers help?",
         "correct": "Seed",
         "wrong": [
+          "Password",
           "Ticket",
-          "Link",
-          "Status"
+          "Link"
         ]
       },
       "fr": {
-        "prompt": "Que faut-il refuser si quelqu'un propose de l'aide de récupération ?",
+        "prompt": "Quelle phrase de récupération faut-il refuser si quelqu'un propose de l'aide ?",
         "correct": "Seed",
         "wrong": [
+          "Passe",
           "Ticket",
-          "Lien",
-          "Statut"
+          "Lien"
         ]
       },
       "es": {
-        "prompt": "¿Qué debe rechazarse si alguien ofrece ayuda de recuperación?",
+        "prompt": "¿Qué frase de recuperación debe rechazarse cuando alguien ofrece ayuda?",
         "correct": "Semilla",
         "wrong": [
+          "Clave",
           "Ticket",
-          "Enlace",
-          "Estado"
+          "Enlace"
         ]
       }
     }
@@ -3460,42 +3460,42 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-impossible-005",
     "tier": 5,
     "category": "Lost Funds",
-    "prompt": "Which mismatch can make withdrawn assets hard to access?",
+    "prompt": "Which chain mismatch can make withdrawn assets hard to access?",
     "correct": "Network",
     "wrong": [
-      "Floor",
-      "Trait",
-      "Metadata"
+      "Address",
+      "Asset",
+      "Wallet"
     ],
     "correctRoast": "Correct. Network survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
     "explanation": "Sending on the wrong network can make assets difficult or impossible to recover.",
     "i18n": {
       "en": {
-        "prompt": "Which mismatch can make withdrawn assets hard to access?",
+        "prompt": "Which chain mismatch can make withdrawn assets hard to access?",
         "correct": "Network",
         "wrong": [
-          "Floor",
-          "Trait",
-          "Metadata"
+          "Address",
+          "Asset",
+          "Wallet"
         ]
       },
       "fr": {
-        "prompt": "Quelle incompatibilité peut rendre des actifs retirés difficiles d'accès ?",
+        "prompt": "Quelle incompatibilité de chaîne peut rendre des actifs retirés difficiles d'accès ?",
         "correct": "Réseau",
         "wrong": [
-          "Floor",
-          "Trait",
-          "Métadonnées"
+          "Adresse",
+          "Actif",
+          "Wallet"
         ]
       },
       "es": {
-        "prompt": "¿Qué incompatibilidad puede dificultar acceso a activos retirados?",
+        "prompt": "¿Qué incompatibilidad de cadena puede dificultar acceso a activos retirados?",
         "correct": "Red",
         "wrong": [
-          "Floor",
-          "Rasgo",
-          "Metadatos"
+          "Dirección",
+          "Activo",
+          "Wallet"
         ]
       }
     }
@@ -3503,43 +3503,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-006",
     "tier": 5,
-    "category": "Collection Authenticity",
-    "prompt": "What confirms a marketplace page belongs to the real project?",
-    "correct": "Verification",
+    "category": "Offers",
+    "prompt": "Which offer field tells when a bid stops being valid?",
+    "correct": "Expiration",
     "wrong": [
-      "Discount",
-      "Confetti",
-      "Ranking"
+      "Currency",
+      "Amount",
+      "Royalty"
     ],
     "correctRoast": "Correct. Verification survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
-    "explanation": "Verification through official links and contract checks helps avoid impostors.",
+    "explanation": "Offer expiration matters because active bids can disappear or remain valid only until their deadline.",
     "i18n": {
       "en": {
-        "prompt": "What confirms a marketplace page belongs to the real project?",
-        "correct": "Verification",
+        "prompt": "Which offer field tells when a bid stops being valid?",
+        "correct": "Expiration",
         "wrong": [
-          "Discount",
-          "Confetti",
-          "Ranking"
+          "Currency",
+          "Amount",
+          "Royalty"
         ]
       },
       "fr": {
-        "prompt": "Qu'est-ce qui confirme qu'une page marketplace appartient au vrai projet ?",
-        "correct": "Vérification",
+        "prompt": "Quel champ d'offre indique quand une enchère cesse d'être valide ?",
+        "correct": "Expiration",
         "wrong": [
-          "Promo",
-          "Confetti",
-          "Classement"
+          "Devise",
+          "Montant",
+          "Royalty"
         ]
       },
       "es": {
-        "prompt": "¿Qué confirma que una página de marketplace pertenece al proyecto real?",
-        "correct": "Verificación",
+        "prompt": "¿Qué campo de oferta indica cuándo una puja deja de ser válida?",
+        "correct": "Vencimiento",
         "wrong": [
-          "Descuento",
-          "Confeti",
-          "Ranking"
+          "Moneda",
+          "Monto",
+          "Regalía"
         ]
       }
     }
@@ -3548,42 +3548,42 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-impossible-007",
     "tier": 5,
     "category": "Offer Review",
-    "prompt": "What should be reviewed before accepting a large bid?",
+    "prompt": "Which field can expose a huge bid made in the wrong token?",
     "correct": "Currency",
     "wrong": [
-      "Compliment",
-      "Thumbnail",
-      "Floor"
+      "Amount",
+      "Expiry",
+      "Fee"
     ],
     "correctRoast": "Correct. Currency survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
     "explanation": "Large offers can use unexpected currencies, terms, or expiration rules.",
     "i18n": {
       "en": {
-        "prompt": "What should be reviewed before accepting a large bid?",
+        "prompt": "Which field can expose a huge bid made in the wrong token?",
         "correct": "Currency",
         "wrong": [
-          "Compliment",
-          "Thumbnail",
-          "Floor"
+          "Amount",
+          "Expiry",
+          "Fee"
         ]
       },
       "fr": {
-        "prompt": "Que faut-il vérifier avant d'accepter une grosse offre ?",
+        "prompt": "Quel champ peut révéler une grosse offre dans le mauvais token ?",
         "correct": "Devise",
         "wrong": [
-          "Compliment",
-          "Miniature",
-          "Floor"
+          "Montant",
+          "Expiration",
+          "Frais"
         ]
       },
       "es": {
-        "prompt": "¿Qué debe revisarse antes de aceptar una oferta grande?",
+        "prompt": "¿Qué campo puede revelar una oferta enorme en el token equivocado?",
         "correct": "Moneda",
         "wrong": [
-          "Cumplido",
-          "Miniatura",
-          "Floor"
+          "Monto",
+          "Vencimiento",
+          "Tarifa"
         ]
       }
     }
@@ -3595,9 +3595,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What can a malicious broad permission move?",
     "correct": "Assets",
     "wrong": [
-      "Stickers",
-      "Profiles",
-      "Names"
+      "Listings",
+      "Metadata",
+      "Profiles"
     ],
     "correctRoast": "Correct. Assets survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -3607,27 +3607,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What can a malicious broad permission move?",
         "correct": "Assets",
         "wrong": [
-          "Stickers",
-          "Profiles",
-          "Names"
+          "Listings",
+          "Metadata",
+          "Profiles"
         ]
       },
       "fr": {
         "prompt": "Que peut déplacer une permission large et malveillante ?",
         "correct": "Actifs",
         "wrong": [
-          "Stickers",
-          "Profils",
-          "Noms"
+          "Listings",
+          "Métadonnées",
+          "Profils"
         ]
       },
       "es": {
         "prompt": "¿Qué puede mover un permiso amplio y malicioso?",
         "correct": "Activos",
         "wrong": [
-          "Stickers",
-          "Perfiles",
-          "Nombres"
+          "Listings",
+          "Metadatos",
+          "Perfiles"
         ]
       }
     }
@@ -3636,42 +3636,42 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-impossible-009",
     "tier": 5,
     "category": "Storage",
-    "prompt": "What should protect valuable Squigs after purchase?",
+    "prompt": "Which storage role should protect valuable Squigs after purchase?",
     "correct": "Vault",
     "wrong": [
-      "Browser",
-      "DM",
-      "Tab"
+      "Cold",
+      "Hardware",
+      "Burner"
     ],
     "correctRoast": "Correct. Vault survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
     "explanation": "A low-interaction vault wallet reduces exposure for valuable assets.",
     "i18n": {
       "en": {
-        "prompt": "What should protect valuable Squigs after purchase?",
+        "prompt": "Which storage role should protect valuable Squigs after purchase?",
         "correct": "Vault",
         "wrong": [
-          "Browser",
-          "DM",
-          "Tab"
+          "Cold",
+          "Hardware",
+          "Burner"
         ]
       },
       "fr": {
-        "prompt": "Qu'est-ce qui doit protéger les Squigs précieux après achat ?",
+        "prompt": "Quel rôle de stockage doit protéger les Squigs précieux après achat ?",
         "correct": "Coffre",
         "wrong": [
-          "Navigateur",
-          "DM",
-          "Onglet"
+          "Cold",
+          "Matériel",
+          "Burner"
         ]
       },
       "es": {
-        "prompt": "¿Qué debería proteger Squigs valiosos después de comprar?",
+        "prompt": "¿Qué rol de almacenamiento debería proteger Squigs valiosos tras comprar?",
         "correct": "Bóveda",
         "wrong": [
-          "Navegador",
-          "DM",
-          "Pestaña"
+          "Cold",
+          "Hardware",
+          "Burner"
         ]
       }
     }
@@ -3683,9 +3683,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What can vanish before a seller finds a fair price?",
     "correct": "Buyers",
     "wrong": [
-      "Traits",
-      "Contract",
-      "Token"
+      "Liquidity",
+      "Demand",
+      "Volume"
     ],
     "correctRoast": "Correct. Buyers survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -3695,27 +3695,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What can vanish before a seller finds a fair price?",
         "correct": "Buyers",
         "wrong": [
-          "Traits",
-          "Contract",
-          "Token"
+          "Liquidity",
+          "Demand",
+          "Volume"
         ]
       },
       "fr": {
         "prompt": "Qu'est-ce qui peut disparaître avant qu'un vendeur trouve un bon prix ?",
         "correct": "Acheteurs",
         "wrong": [
-          "Traits",
-          "Contrat",
-          "Token"
+          "Liquidité",
+          "Demande",
+          "Volume"
         ]
       },
       "es": {
         "prompt": "¿Qué puede desaparecer antes de que un vendedor encuentre buen precio?",
         "correct": "Compradores",
         "wrong": [
-          "Rasgos",
-          "Contrato",
-          "Token"
+          "Liquidez",
+          "Demanda",
+          "Volumen"
         ]
       }
     }
@@ -3727,9 +3727,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What should urgent migration posts trigger first?",
     "correct": "Verification",
     "wrong": [
-      "Clicking",
-      "Signing",
-      "Sending"
+      "Delay",
+      "Ignore",
+      "Question"
     ],
     "correctRoast": "Correct. Verification survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -3739,27 +3739,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What should urgent migration posts trigger first?",
         "correct": "Verification",
         "wrong": [
-          "Clicking",
-          "Signing",
-          "Sending"
+          "Delay",
+          "Ignore",
+          "Question"
         ]
       },
       "fr": {
         "prompt": "Que doivent déclencher d'abord les annonces de migration urgente ?",
         "correct": "Vérification",
         "wrong": [
-          "Cliquer",
-          "Signer",
-          "Envoyer"
+          "Délai",
+          "Ignorer",
+          "Question"
         ]
       },
       "es": {
         "prompt": "¿Qué deben provocar primero los anuncios de migración urgente?",
         "correct": "Verificación",
         "wrong": [
-          "Clic",
-          "Firmar",
-          "Enviar"
+          "Demora",
+          "Ignorar",
+          "Pregunta"
         ]
       }
     }
@@ -3771,9 +3771,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What public tool checks purchase status independently?",
     "correct": "Explorer",
     "wrong": [
-      "Discord",
+      "Receipt",
       "Wallet",
-      "Twitter"
+      "Market"
     ],
     "correctRoast": "Correct. Explorer survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -3783,27 +3783,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What public tool checks purchase status independently?",
         "correct": "Explorer",
         "wrong": [
-          "Discord",
+          "Receipt",
           "Wallet",
-          "Twitter"
+          "Market"
         ]
       },
       "fr": {
         "prompt": "Quel outil public vérifie indépendamment le statut d'achat ?",
         "correct": "Explorer",
         "wrong": [
-          "Discord",
+          "Reçu",
           "Wallet",
-          "Twitter"
+          "Marché"
         ]
       },
       "es": {
         "prompt": "¿Qué herramienta pública verifica independientemente el estado de compra?",
         "correct": "Explorer",
         "wrong": [
-          "Discord",
+          "Recibo",
           "Wallet",
-          "Twitter"
+          "Mercado"
         ]
       }
     }
@@ -3815,9 +3815,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What should be checked when new art is not visible yet?",
     "correct": "Ownership",
     "wrong": [
-      "Refresh",
-      "Panic",
-      "Transfer"
+      "Metadata",
+      "Cache",
+      "Listing"
     ],
     "correctRoast": "Correct. Ownership survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -3827,27 +3827,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What should be checked when new art is not visible yet?",
         "correct": "Ownership",
         "wrong": [
-          "Refresh",
-          "Panic",
-          "Transfer"
+          "Metadata",
+          "Cache",
+          "Listing"
         ]
       },
       "fr": {
         "prompt": "Que faut-il vérifier quand le nouvel art n'est pas encore visible ?",
         "correct": "Propriété",
         "wrong": [
-          "Rafraîchir",
-          "Panique",
-          "Transfert"
+          "Métadonnées",
+          "Cache",
+          "Listing"
         ]
       },
       "es": {
         "prompt": "¿Qué se debe revisar cuando el arte nuevo aún no aparece?",
         "correct": "Propiedad",
         "wrong": [
-          "Refrescar",
-          "Pánico",
-          "Transferir"
+          "Metadatos",
+          "Cache",
+          "Listing"
         ]
       }
     }
@@ -3859,9 +3859,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What cancels an unwanted sale order?",
     "correct": "Delist",
     "wrong": [
-      "Hide",
-      "Delete",
-      "Yell"
+      "Cancel",
+      "Revoke",
+      "Hide"
     ],
     "correctRoast": "Correct. Delist survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -3871,27 +3871,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What cancels an unwanted sale order?",
         "correct": "Delist",
         "wrong": [
-          "Hide",
-          "Delete",
-          "Yell"
+          "Cancel",
+          "Revoke",
+          "Hide"
         ]
       },
       "fr": {
         "prompt": "Qu'est-ce qui annule un ordre de vente non désiré ?",
         "correct": "Delister",
         "wrong": [
-          "Cacher",
-          "Supprimer",
-          "Crier"
+          "Annuler",
+          "Révoquer",
+          "Cacher"
         ]
       },
       "es": {
         "prompt": "¿Qué cancela una orden de venta no deseada?",
         "correct": "Delistar",
         "wrong": [
-          "Ocultar",
-          "Borrar",
-          "Gritar"
+          "Cancelar",
+          "Revocar",
+          "Ocultar"
         ]
       }
     }
@@ -3903,9 +3903,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What can old wrapped bids still do while active?",
     "correct": "Execute",
     "wrong": [
-      "Evaporate",
-      "Sleep",
-      "Apologize"
+      "Display",
+      "Index",
+      "Notify"
     ],
     "correctRoast": "Correct. Execute survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -3915,27 +3915,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What can old wrapped bids still do while active?",
         "correct": "Execute",
         "wrong": [
-          "Evaporate",
-          "Sleep",
-          "Apologize"
+          "Display",
+          "Index",
+          "Notify"
         ]
       },
       "fr": {
         "prompt": "Que peuvent encore faire d'anciennes offres emballées actives ?",
         "correct": "Exécuter",
         "wrong": [
-          "Évaporer",
-          "Dormir",
-          "Excuser"
+          "Afficher",
+          "Indexer",
+          "Notifier"
         ]
       },
       "es": {
         "prompt": "¿Qué pueden hacer ofertas envueltas viejas mientras siguen activas?",
         "correct": "Ejecutar",
         "wrong": [
-          "Evaporar",
-          "Dormir",
-          "Disculpar"
+          "Mostrar",
+          "Indexar",
+          "Notificar"
         ]
       }
     }
@@ -3947,9 +3947,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What must be backed up before device loss?",
     "correct": "Seed",
     "wrong": [
-      "Theme",
-      "Avatar",
-      "History"
+      "Password",
+      "Device",
+      "Email"
     ],
     "correctRoast": "Correct. Seed survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -3959,27 +3959,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What must be backed up before device loss?",
         "correct": "Seed",
         "wrong": [
-          "Theme",
-          "Avatar",
-          "History"
+          "Password",
+          "Device",
+          "Email"
         ]
       },
       "fr": {
         "prompt": "Que faut-il sauvegarder avant la perte d'un appareil ?",
         "correct": "Seed",
         "wrong": [
-          "Thème",
-          "Avatar",
-          "Historique"
+          "Passe",
+          "Appareil",
+          "Email"
         ]
       },
       "es": {
         "prompt": "¿Qué debe respaldarse antes de perder un dispositivo?",
         "correct": "Semilla",
         "wrong": [
-          "Tema",
-          "Avatar",
-          "Historial"
+          "Clave",
+          "Dispositivo",
+          "Email"
         ]
       }
     }
@@ -3991,9 +3991,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What separates public identity from vault storage?",
     "correct": "Wallets",
     "wrong": [
-      "Traits",
-      "Fees",
-      "Stickers"
+      "Accounts",
+      "Profiles",
+      "Vaults"
     ],
     "correctRoast": "Correct. Wallets survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -4003,27 +4003,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What separates public identity from vault storage?",
         "correct": "Wallets",
         "wrong": [
-          "Traits",
-          "Fees",
-          "Stickers"
+          "Accounts",
+          "Profiles",
+          "Vaults"
         ]
       },
       "fr": {
         "prompt": "Qu'est-ce qui sépare l'identité publique du stockage coffre ?",
         "correct": "Wallets",
         "wrong": [
-          "Traits",
-          "Frais",
-          "Stickers"
+          "Comptes",
+          "Profils",
+          "Coffres"
         ]
       },
       "es": {
         "prompt": "¿Qué separa identidad pública del almacenamiento bóveda?",
         "correct": "Wallets",
         "wrong": [
-          "Rasgos",
-          "Tarifas",
-          "Stickers"
+          "Cuentas",
+          "Perfiles",
+          "Bóvedas"
         ]
       }
     }
@@ -4035,9 +4035,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What is this onboarding game instead of financial advice?",
     "correct": "Education",
     "wrong": [
-      "Profit",
+      "Tutorial",
       "Signal",
-      "Alpha"
+      "Advice"
     ],
     "correctRoast": "Correct. Education survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -4047,27 +4047,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What is this onboarding game instead of financial advice?",
         "correct": "Education",
         "wrong": [
-          "Profit",
+          "Tutorial",
           "Signal",
-          "Alpha"
+          "Advice"
         ]
       },
       "fr": {
         "prompt": "Qu'est-ce que ce jeu d'onboarding au lieu d'un conseil financier ?",
         "correct": "Éducation",
         "wrong": [
-          "Profit",
+          "Tutoriel",
           "Signal",
-          "Alpha"
+          "Conseil"
         ]
       },
       "es": {
         "prompt": "¿Qué es este juego de onboarding en vez de consejo financiero?",
         "correct": "Educación",
         "wrong": [
-          "Ganancia",
+          "Tutorial",
           "Señal",
-          "Alpha"
+          "Consejo"
         ]
       }
     }
@@ -4076,42 +4076,42 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-impossible-019",
     "tier": 5,
     "category": "Final Pause",
-    "prompt": "What should interrupt final-second buying pressure?",
+    "prompt": "What first action should interrupt final-second buying pressure?",
     "correct": "Pause",
     "wrong": [
-      "Speed",
-      "Pride",
-      "Noise"
+      "Review",
+      "Verify",
+      "Wait"
     ],
     "correctRoast": "Correct. Pause survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
     "explanation": "A final pause helps catch wrong sites, contracts, networks, amounts, and permissions.",
     "i18n": {
       "en": {
-        "prompt": "What should interrupt final-second buying pressure?",
+        "prompt": "What first action should interrupt final-second buying pressure?",
         "correct": "Pause",
         "wrong": [
-          "Speed",
-          "Pride",
-          "Noise"
+          "Review",
+          "Verify",
+          "Wait"
         ]
       },
       "fr": {
-        "prompt": "Qu'est-ce qui doit interrompre la pression d'achat finale ?",
+        "prompt": "Quelle première action doit interrompre la pression d'achat finale ?",
         "correct": "Pause",
         "wrong": [
-          "Vitesse",
-          "Fierté",
-          "Bruit"
+          "Revoir",
+          "Vérifier",
+          "Attendre"
         ]
       },
       "es": {
-        "prompt": "¿Qué debe interrumpir la presión final de compra?",
+        "prompt": "¿Qué primera acción debe interrumpir la presión final de compra?",
         "correct": "Pausa",
         "wrong": [
-          "Velocidad",
-          "Orgullo",
-          "Ruido"
+          "Revisar",
+          "Verificar",
+          "Esperar"
         ]
       }
     }
@@ -4123,9 +4123,9 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "prompt": "What best describes responsible Squig buying?",
     "correct": "Safety",
     "wrong": [
-      "Luck",
-      "Volume",
-      "Hype"
+      "Research",
+      "Caution",
+      "Planning"
     ],
     "correctRoast": "Correct. Safety survives the Ugly Labs clipboard.",
     "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
@@ -4135,27 +4135,27 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
         "prompt": "What best describes responsible Squig buying?",
         "correct": "Safety",
         "wrong": [
-          "Luck",
-          "Volume",
-          "Hype"
+          "Research",
+          "Caution",
+          "Planning"
         ]
       },
       "fr": {
         "prompt": "Qu'est-ce qui décrit le mieux un achat Squig responsable ?",
         "correct": "Sécurité",
         "wrong": [
-          "Chance",
-          "Volume",
-          "Hype"
+          "Recherche",
+          "Prudence",
+          "Planifier"
         ]
       },
       "es": {
         "prompt": "¿Qué describe mejor una compra Squig responsable?",
         "correct": "Seguridad",
         "wrong": [
-          "Suerte",
-          "Volumen",
-          "Hype"
+          "Investigación",
+          "Cautela",
+          "Planear"
         ]
       }
     }
