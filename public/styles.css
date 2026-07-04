@@ -1134,6 +1134,9 @@ input {
     left: 8px;
     right: 8px;
     padding: 0 2px 7px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
   }
 
   .stage-hud .hud-chip:first-child {
@@ -1141,11 +1144,36 @@ input {
   }
 
   .hud-chip {
+    justify-content: center;
+    min-width: 0;
     min-height: 29px;
     padding: 5px 8px;
     border-width: 2px;
     box-shadow: 2px 2px 0 var(--ugly-black);
     font-size: 0.62rem;
+  }
+
+  [data-view="question"] .stage-hud .hud-chip:nth-child(1),
+  [data-view="question"] .stage-hud .hud-chip:nth-child(2),
+  [data-view="question"] .stage-hud .hud-chip:nth-child(5),
+  [data-view="feedback"] .stage-hud .hud-chip:nth-child(1),
+  [data-view="feedback"] .stage-hud .hud-chip:nth-child(2),
+  [data-view="feedback"] .stage-hud .hud-chip:nth-child(5) {
+    display: none;
+  }
+
+  [data-view="question"] .stage-hud,
+  [data-view="feedback"] .stage-hud {
+    top: 42px;
+  }
+
+  [data-view="question"] .hud-chip span,
+  [data-view="question"] .hud-chip strong,
+  [data-view="feedback"] .hud-chip span,
+  [data-view="feedback"] .hud-chip strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .stage-desk-console {
