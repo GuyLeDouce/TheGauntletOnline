@@ -15,6 +15,7 @@ const {
   getWalletTitle,
   questionMap,
   rewardForProgress,
+  rewardForTimedProgress,
   sanitizeQuestion
 } = require("./server/game-engine");
 const { QUESTIONS, validateQuestions } = require("./server/interview-questions");
@@ -354,7 +355,8 @@ async function handleChoice(res, body) {
     return;
   }
 
-  const timedOut = Boolean(run.questionExpiresAt && Date.now() > Date.parse(run.questionExpiresAt));
+  const answeredAt = new Date();
+  const timedOut = Boolean(run.questionExpiresAt && answeredAt.getTime() > Date.parse(run.questionExpiresAt));
   const optionExists = question.options.some((option) => option.id === selectedOptionId);
   if (!timedOut && !optionExists) {
     sendJson(res, 400, { error: "Invalid answer option" });
@@ -363,7 +365,7 @@ async function handleChoice(res, body) {
 
   const progressNumber = run.currentIndex + 1;
   const wasCorrect = !timedOut && selectedOptionId === question.correctOptionId;
-  const rewardAdded = wasCorrect ? rewardForProgress(progressNumber, config) : 0;
+  const rewardAdded = wasCorrect ? rewardForTimedProgress(progressNumber, run, answeredAt, config) : 0;
   const dignityLost = wasCorrect ? 0 : 1;
   const charmStack = run.charmStack + rewardAdded;
   const dignityRemaining = Math.max(0, run.dignityRemaining - dignityLost);

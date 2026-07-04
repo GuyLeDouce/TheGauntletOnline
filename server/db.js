@@ -636,6 +636,7 @@ async function updatePayoutStatus(payoutId, status, adminNote) {
 }
 
 async function updateLeaderboard(run) {
+  if (run.mode !== "reward") return;
   const bestQuestionReached = Math.min(run.interviewLength, run.currentIndex + (run.status === "completed" ? 0 : 1));
   const fullClear = run.status === "completed" ? 1 : 0;
   const perfectClear = run.status === "completed" && run.wrongCount === 0 ? 1 : 0;
@@ -733,6 +734,7 @@ async function getLeaderboard(period = "all-time", limit = 100, clientId = null)
   const cappedLimit = Math.max(1, Math.min(100, Number(limit) || 100));
   if (!pool) {
     const entries = [...memory.leaderboard.values()]
+      .filter((entry) => entry.rewardRunsTotal > 0)
       .sort((a, b) =>
         b.fullClears - a.fullClears ||
         b.bestCharmEver - a.bestCharmEver ||

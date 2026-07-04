@@ -6,15 +6,15 @@
     <title>InSquignito's Ugly Interview</title>
     <meta name="description" content="A Squigs Reloaded survival interview. Get hired, get roasted, stay ugly.">
     <link rel="preconnect" href="https://i.imgur.com">
+    <link rel="preload" as="image" href="/squigs-reloaded-logo.png">
     <link rel="preload" as="image" href="https://i.imgur.com/8U7n401.png">
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body data-view="menu">
     <div class="app-shell" id="app">
       <header class="topbar">
-        <a class="brand" href="/" aria-label="InSquignito's Ugly Interview">
-          <span class="brand-mark">UGLY LABS</span>
-          <span>Interview Office</span>
+        <a class="brand" href="https://Squigs.io" data-nav="squigs" aria-label="Squigs Reloaded">
+          <img class="brand-logo" src="/squigs-reloaded-logo.png" alt="Squigs Reloaded" data-no-translate>
         </a>
         <nav class="top-actions" aria-label="Primary">
           <label class="language-control" for="languageSelect">
@@ -25,6 +25,7 @@
               <option value="es">Español</option>
             </select>
           </label>
+          <button type="button" class="text-button" data-action="go-home" data-i18n="home">Home</button>
           <button type="button" class="text-button" data-open="how" data-i18n="howItWorks">How It Works</button>
           <button type="button" class="text-button" data-open="leaderboard" data-i18n="leaderboard">Leaderboard</button>
           <button type="button" class="text-button" data-open="claims" data-i18n="myClaims">My $CHARM Claims</button>
@@ -41,7 +42,7 @@
             loading="eager"
           >
           <div class="stage-vignette"></div>
-          <div class="stage-badge" id="sceneBadge">Ugly Labs HR</div>
+          <div class="stage-badge" id="sceneBadge">Interview Office</div>
           <div class="stage-hud" id="stageHud" aria-live="polite"></div>
           <div class="stage-desk-console" id="stageDeskConsole" aria-live="polite">
             <section class="desk-card desk-card--menu ugly-paper fallback-menu">
@@ -106,6 +107,19 @@
           <button type="button" class="stamp-button" data-close="scan" aria-label="Close" data-i18n="close">Close</button>
         </div>
         <div id="scanDetails" class="scan-details"></div>
+      </div>
+    </dialog>
+
+    <dialog class="paper-modal" id="leaveDialog">
+      <div class="paper-modal__body">
+        <div class="paper-modal__heading">
+          <h2 data-i18n="leaveTitle">Leave interview?</h2>
+        </div>
+        <p class="microcopy" data-i18n="leaveWarning">Your current interview progress will be lost if you continue.</p>
+        <div class="action-row">
+          <button type="button" class="primary-action" data-action="confirm-leave" data-i18n="continue">Continue</button>
+          <button type="button" class="secondary-action" data-action="cancel-leave" data-i18n="cancel">Cancel</button>
+        </div>
       </div>
     </dialog>
 
@@ -319,7 +333,7 @@
         }
 
         function fallbackMenu(message) {
-          setScene("hero", "Ugly Labs HR");
+          setScene("hero", "Interview Office");
           setConsole(
             '<section class="desk-card desk-card--menu ugly-paper fallback-menu">' +
               '<p class="sticker">' + html(ft("safetyConsole")) + '</p>' +
@@ -371,7 +385,7 @@
               '<h2>' + html(question.prompt) + '</h2>' +
               '<div class="answers">' +
                 question.options.map(function (option) {
-                  return '<button type="button" class="answer-button" data-action="fallback-answer" data-option-id="' + html(option.id) + '"><span>' + html(option.id) + '</span>' + html(option.text) + '</button>';
+                  return '<button type="button" class="answer-button" data-action="fallback-answer" data-option-id="' + html(option.id) + '"><span data-no-translate>' + html(option.id) + '</span>' + html(option.text) + '</button>';
                 }).join("") +
               '</div>' +
             '</section>'

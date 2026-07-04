@@ -78,24 +78,19 @@ a {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
   color: var(--ugly-white);
   font-weight: 950;
   letter-spacing: 0;
   text-decoration: none;
-  text-transform: uppercase;
-  text-shadow: 2px 2px 0 var(--ugly-black);
 }
 
-.brand-mark {
-  display: inline-flex;
-  padding: 7px 10px;
-  border: 3px solid var(--ugly-black);
-  border-radius: 999px;
-  background: var(--ugly-yellow);
-  color: var(--ugly-black);
-  box-shadow: 3px 3px 0 var(--ugly-black);
-  text-shadow: none;
+.brand-logo {
+  display: block;
+  width: clamp(132px, 16vw, 230px);
+  height: auto;
+  max-height: 76px;
+  object-fit: contain;
+  filter: drop-shadow(3px 3px 0 var(--ugly-black));
 }
 
 .top-actions {
@@ -1040,13 +1035,12 @@ input {
   }
 
   .brand {
-    font-size: 0.9rem;
+    flex: 0 0 auto;
   }
 
-  .brand-mark {
-    padding: 6px 9px;
-    border-width: 2px;
-    box-shadow: 2px 2px 0 var(--ugly-black);
+  .brand-logo {
+    width: clamp(118px, 38vw, 172px);
+    max-height: 58px;
   }
 
   .top-actions {
@@ -1336,15 +1330,11 @@ input {
   }
 
   .brand {
-    gap: 7px;
-    font-size: 0.78rem;
+    max-width: 44vw;
   }
 
-  .brand > span:last-child {
-    max-width: 44vw;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  .brand-logo {
+    width: min(42vw, 150px);
   }
 
   .language-control > span {

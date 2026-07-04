@@ -21,11 +21,11 @@ const TIER_LABELS = {
   5: "Impossible Ugly Final"
 };
 const TIER_TIMER_SECONDS = {
-  1: null,
-  2: 30,
-  3: 24,
-  4: 18,
-  5: 12
+  1: 60,
+  2: 60,
+  3: 60,
+  4: 60,
+  5: 60
 };
 
 function getGameConfig() {
@@ -68,6 +68,23 @@ function getInterviewRank(correctCount, wrongCount) {
 function rewardForProgress(progressNumber, config = getGameConfig()) {
   const base = DEFAULT_REWARD_TABLE[Math.max(0, progressNumber - 1)] || 0;
   return Math.floor(base * config.rewardMultiplier);
+}
+
+function rewardForTimedProgress(progressNumber, runState = {}, answeredAt = new Date(), config = getGameConfig()) {
+  const baseReward = rewardForProgress(progressNumber, config);
+  if (!baseReward || !runState.questionStartedAt || !runState.questionExpiresAt) return baseReward;
+
+  const startedAt = Date.parse(runState.questionStartedAt);
+  const expiresAt = Date.parse(runState.questionExpiresAt);
+  const answeredAtMs = answeredAt instanceof Date ? answeredAt.getTime() : Date.parse(answeredAt);
+  if (![startedAt, expiresAt, answeredAtMs].every(Number.isFinite) || expiresAt <= startedAt) {
+    return baseReward;
+  }
+
+  const remainingMs = Math.max(0, expiresAt - answeredAtMs);
+  if (remainingMs <= 0) return 0;
+  const totalMs = expiresAt - startedAt;
+  return Math.max(1, Math.floor(baseReward * (remainingMs / totalMs)));
 }
 
 function timerForTier(tier, config = getGameConfig()) {
@@ -142,6 +159,7 @@ module.exports = {
   getWalletTitle,
   questionMap,
   rewardForProgress,
+  rewardForTimedProgress,
   sanitizeQuestion,
   timerForTier
 };

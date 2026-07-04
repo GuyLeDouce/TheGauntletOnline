@@ -52,7 +52,8 @@ const els = {
   claimsDialog: document.getElementById("claimsDialog"),
   claimRows: document.getElementById("claimRows"),
   scanDialog: document.getElementById("scanDialog"),
-  scanDetails: document.getElementById("scanDetails")
+  scanDetails: document.getElementById("scanDetails"),
+  leaveDialog: document.getElementById("leaveDialog")
 };
 
 els.languageSelect = document.getElementById("languageSelect");
@@ -72,6 +73,7 @@ const state = {
   pendingFinalData: null,
   lastFeedbackData: null,
   lastFinalData: null,
+  pendingLeaveAction: null,
   eventsWired: false,
   bootError: "",
   language: "en",
@@ -279,7 +281,7 @@ function setStageMode(mode) {
 function setStageScene(key, options = {}) {
   const nextKey = OFFICE_IMAGES[key] ? key : "hero";
   const asset = getOfficeImage(nextKey);
-  els.sceneBadge.textContent = options.badge || asset.badge || "Ugly Labs HR";
+  els.sceneBadge.textContent = options.badge || asset.badge || "Interview Office";
   els.interviewStage.dataset.scene = nextKey;
 
   if (state.currentSceneKey === nextKey && els.sceneImage.src === asset.url) {
@@ -370,6 +372,74 @@ function noTranslateAttr(value) {
   return translationGlossary.shouldSkipMachineTranslation(String(value ?? "")) ? " data-no-translate" : "";
 }
 
+function isInterviewInProgress() {
+  return state.run?.status === "active";
+}
+
+function closeAllDialogs() {
+  [els.howDialog, els.leaderboardDialog, els.claimsDialog, els.scanDialog, els.leaveDialog].forEach((dialog) => {
+    if (dialog?.open) dialog.close();
+  });
+}
+
+function requestLeaveConfirmation(action) {
+  state.pendingLeaveAction = action;
+  if (els.leaveDialog) localizeStaticText(els.leaveDialog);
+  if (els.leaveDialog?.showModal) {
+    els.leaveDialog.showModal();
+  } else if (window.confirm(t("leaveWarning"))) {
+    confirmLeave();
+  }
+}
+
+async function abandonCurrentRun() {
+  if (!isInterviewInProgress()) return;
+  const runId = state.run?.runId;
+  state.run = null;
+  clearInterval(state.timerHandle);
+  if (!runId) return;
+  await apiFetch("/api/run/advance", {
+    method: "POST",
+    body: JSON.stringify({ clientId: state.clientId, runId, action: "abandon" }),
+    timeoutMs: 5000
+  }).catch(() => {});
+}
+
+async function goHome({ force = false } = {}) {
+  if (!force && isInterviewInProgress()) {
+    requestLeaveConfirmation({ type: "home" });
+    return;
+  }
+  await abandonCurrentRun();
+  closeAllDialogs();
+  state.pendingFinalData = null;
+  state.lastFeedbackData = null;
+  state.lastFinalData = null;
+  await loadProfile().catch(() => {});
+  renderMenuScene();
+}
+
+async function leaveForUrl(url, { force = false } = {}) {
+  if (!force && isInterviewInProgress()) {
+    requestLeaveConfirmation({ type: "external", url });
+    return;
+  }
+  await abandonCurrentRun();
+  window.location.href = url;
+}
+
+async function confirmLeave() {
+  const action = state.pendingLeaveAction;
+  state.pendingLeaveAction = null;
+  if (els.leaveDialog?.open) els.leaveDialog.close();
+  if (!action) return;
+  if (action.type === "external") {
+    await leaveForUrl(action.url, { force: true });
+    return;
+  }
+  await goHome({ force: true });
+}
+
 function cooldownText(cooldown) {
   if (!cooldown?.nextAvailableAt) return "";
   return `Reward run available ${formatDate(cooldown.nextAvailableAt)}. Practice mode is open.`;
@@ -423,15 +493,32 @@ function renderRunHud(run) {
 function startTimer(question) {
   clearInterval(state.timerHandle);
   const timerEl = document.getElementById("hudTimer");
+  const rewardEl = document.getElementById("questionReward");
   if (!timerEl) return;
   timerEl.classList.remove("timer-low");
+
+  const rewardAtCurrentTime = () => {
+    const baseReward = Number(question?.reward || 0);
+    if (!baseReward || !question?.expiresAt || !question?.timerSeconds) return baseReward;
+    const expiresAt = Date.parse(question.expiresAt);
+    const startedAt = Date.parse(question.startedAt);
+    const totalMs = Number.isFinite(startedAt) && expiresAt > startedAt
+      ? expiresAt - startedAt
+      : question.timerSeconds * 1000;
+    const remainingMs = Math.max(0, expiresAt - Date.now());
+    if (!Number.isFinite(expiresAt) || !Number.isFinite(totalMs) || totalMs <= 0 || remainingMs <= 0) return 0;
+    return Math.max(1, Math.floor(baseReward * (remainingMs / totalMs)));
+  };
+
   if (!question?.expiresAt || !question.timerSeconds) {
     timerEl.textContent = "--";
+    if (rewardEl) rewardEl.textContent = `+${rewardAtCurrentTime()} $CHARM`;
     return;
   }
   const tick = () => {
     const remaining = Math.max(0, Math.ceil((Date.parse(question.expiresAt) - Date.now()) / 1000));
     timerEl.textContent = `${remaining}s`;
+    if (rewardEl) rewardEl.textContent = `+${rewardAtCurrentTime()} $CHARM`;
     timerEl.classList.toggle("timer-low", remaining <= 5);
     if (remaining <= 0) clearInterval(state.timerHandle);
   };
@@ -655,26 +742,26 @@ function renderQuestionScene(run) {
   const tierKey = TIER_IMAGE_KEYS[question.tier] || question.imageKey || "activeInterview";
   setStageScene(tierKey, { badge: question.tierLabel || "Active Interview" });
   renderRunHud(run);
-  startTimer(question);
   els.stageDeskConsole.innerHTML = `
     <section class="desk-card desk-card--question ugly-paper">
       <div class="console-heading">
         <p class="tier-sticker">${escapeHtml(question.tierLabel || "Interview")}</p>
         <p class="category">${escapeHtml(question.category)}</p>
-        <p class="reward-chip">+${question.reward} $CHARM</p>
+        <p class="reward-chip" id="questionReward" data-no-translate>+${question.reward} $CHARM</p>
       </div>
       <h2>${escapeHtml(question.prompt)}</h2>
       <p class="flavor">${escapeHtml(question.flavorText || "InSquignito taps the clipboard. It leaves a stain.")}</p>
       <div class="answers">
         ${question.options.map((option) => `
           <button type="button" class="answer-button" data-action="answer" data-option-id="${escapeHtml(option.id)}">
-            <span>${escapeHtml(option.id)}</span>
+            <span data-no-translate>${escapeHtml(option.id)}</span>
             ${escapeHtml(option.text)}
           </button>
         `).join("")}
       </div>
     </section>
   `;
+  startTimer(question);
   queueTranslate(els.stageDeskConsole);
 }
 
@@ -729,6 +816,7 @@ function finalImageKey(run) {
 function renderFinalScene(data) {
   state.lastFinalData = data;
   const run = data.run;
+  state.run = run;
   const payout = run.payout;
   const claimDisplay = payout?.claimCode || (run.mode === "practice" ? t("practice") : t("none"));
   state.lastClaimCode = payout?.claimCode || "";
@@ -1099,6 +1187,13 @@ function wireEvents() {
   state.eventsWired = true;
   window.__uglyAppReady = true;
   document.addEventListener("click", async (event) => {
+    const navLink = event.target.closest("[data-nav='squigs']");
+    if (navLink) {
+      event.preventDefault();
+      await leaveForUrl(navLink.href || "https://Squigs.io");
+      return;
+    }
+
     const openButton = event.target.closest("[data-open]");
     if (openButton) {
       openModal(openButton.dataset.open);
@@ -1139,6 +1234,19 @@ function wireEvents() {
     const action = actionEl.dataset.action;
 
     try {
+      if (action === "go-home") {
+        await goHome();
+        return;
+      }
+      if (action === "confirm-leave") {
+        await confirmLeave();
+        return;
+      }
+      if (action === "cancel-leave") {
+        state.pendingLeaveAction = null;
+        els.leaveDialog?.close();
+        return;
+      }
       if (action === "begin-reward") {
         if (!isRewardReady()) {
           renderApplicantScene({ sceneKey: chooseApplicantScene(), context: state.scan?.squigCount === 0 ? "reward-blocked" : "applicant" });
@@ -1192,6 +1300,12 @@ function wireEvents() {
         restoreSceneAfterModal();
       }
     });
+  });
+
+  els.leaveDialog?.addEventListener("close", () => {
+    if (state.pendingLeaveAction && !els.leaveDialog.open) {
+      state.pendingLeaveAction = null;
+    }
   });
 
   els.languageSelect.addEventListener("change", (event) => {

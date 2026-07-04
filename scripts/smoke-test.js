@@ -1,8 +1,10 @@
 const { spawn } = require("child_process");
+const { QUESTIONS } = require("../server/interview-questions");
 
 const PORT = String(process.env.SMOKE_PORT || 3199);
 const BASE_URL = `http://127.0.0.1:${PORT}`;
 const CLIENT_ID = `smoke_${Date.now()}`;
+const QUESTIONS_BY_ID = new Map(QUESTIONS.map((question) => [question.id, question]));
 
 function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -83,7 +85,24 @@ async function main() {
     if (!run.data.run?.question?.options?.length) {
       throw new Error("Practice run did not return a playable question");
     }
-    await fetchJson(`/api/leaderboard?period=weekly&limit=10&clientId=${encodeURIComponent(CLIENT_ID)}`);
+    const smokeQuestion = QUESTIONS_BY_ID.get(run.data.run.question.id);
+    const wrongOption = run.data.run.question.options.find((option) => option.id !== smokeQuestion.correctOptionId);
+    const finishedPractice = await fetchJson("/api/run/choice", {
+      method: "POST",
+      body: JSON.stringify({
+        clientId: CLIENT_ID,
+        runId: run.data.run.runId,
+        questionId: run.data.run.question.id,
+        selectedOptionId: wrongOption.id
+      })
+    });
+    if (!finishedPractice.data.final) {
+      throw new Error("Practice run did not finish after dignity was exhausted");
+    }
+    const leaderboard = await fetchJson(`/api/leaderboard?period=weekly&limit=10&clientId=${encodeURIComponent(CLIENT_ID)}`);
+    if (leaderboard.data.currentPlayer || leaderboard.data.entries.some((entry) => entry.clientId === CLIENT_ID)) {
+      throw new Error("Practice run was counted on the leaderboard");
+    }
     await fetchJson(`/api/payouts?clientId=${encodeURIComponent(CLIENT_ID)}`);
     console.log("Smoke test passed.");
   } finally {
