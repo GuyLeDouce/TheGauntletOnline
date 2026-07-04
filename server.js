@@ -21,6 +21,11 @@ const { QUESTIONS, validateQuestions } = require("./server/interview-questions")
 const { createPendingPayoutForRun } = require("./server/rewards");
 const { getCacheMinutes, isAlchemyConfigured, scanWallet } = require("./server/wallet-scan");
 const { isValidClientId, isValidEthereumAddress, normalizeText, normalizeWallet } = require("./server/validators");
+const {
+  protectTermsForTranslation,
+  restoreProtectedTerms,
+  shouldSkipMachineTranslation
+} = require("./public/translation-glossary");
 
 const HOST = "0.0.0.0";
 const PORT = Number(process.env.PORT || 3000);
@@ -92,9 +97,10 @@ function parseRequestBody(req) {
 
 async function translateOneText(text, language) {
   const cleanText = String(text || "").slice(0, 1000);
-  if (!cleanText || language === "en") return cleanText;
+  if (!cleanText || language === "en" || shouldSkipMachineTranslation(cleanText)) return cleanText;
   const cacheKey = `${language}:${cleanText}`;
   if (translationCache.has(cacheKey)) return translationCache.get(cacheKey);
+  const protectedInput = protectTermsForTranslation(cleanText);
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 7000);
@@ -104,13 +110,14 @@ async function translateOneText(text, language) {
     url.searchParams.set("sl", "en");
     url.searchParams.set("tl", language);
     url.searchParams.set("dt", "t");
-    url.searchParams.set("q", cleanText);
+    url.searchParams.set("q", protectedInput.text);
     const response = await fetch(url, { signal: controller.signal });
     if (!response.ok) throw new Error(`Translation failed (${response.status})`);
     const data = await response.json();
-    const translated = Array.isArray(data?.[0])
+    const rawTranslated = Array.isArray(data?.[0])
       ? data[0].map((part) => Array.isArray(part) ? part[0] : "").join("")
       : cleanText;
+    const translated = restoreProtectedTerms(rawTranslated, protectedInput.replacements);
     translationCache.set(cacheKey, translated || cleanText);
     return translated || cleanText;
   } catch {

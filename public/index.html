@@ -21,8 +21,8 @@
             <span data-i18n="languageLabel">Language</span>
             <select id="languageSelect" aria-label="Language">
               <option value="en">English</option>
-              <option value="fr">Francais</option>
-              <option value="es">Espanol</option>
+              <option value="fr">Français</option>
+              <option value="es">Español</option>
             </select>
           </label>
           <button type="button" class="text-button" data-open="how" data-i18n="howItWorks">How It Works</button>
@@ -48,10 +48,10 @@
               <p class="sticker">A Squigs Reloaded Survival Interview</p>
               <h1>InSquignito's Ugly Interview</h1>
               <p class="subtitle" data-i18n="subtitle">Get Hired. Get Roasted. Stay Ugly.</p>
-              <p class="tagline" data-i18n="tagline">Discord in. Wallet scanned. Dignity calculated.</p>
+              <p class="tagline" data-i18n="tagline">Connect Discord. Scan wallet. Start interview.</p>
               <div class="action-row">
-                <button type="button" class="primary-action" data-action="begin-reward" data-i18n="beginInterview">Begin Interview</button>
-                <button type="button" class="secondary-action" data-action="connect-discord" data-i18n="connectDiscord">Connect Discord</button>
+                <button type="button" class="primary-action" data-action="connect-discord" data-i18n="connectDiscord">Connect Discord</button>
+                <button type="button" class="secondary-action" data-action="begin-reward" data-i18n="beginInterview">Begin Interview</button>
                 <button type="button" class="secondary-action" data-action="practice" data-i18n="practiceInterview">Practice Interview</button>
                 <button type="button" class="secondary-action" data-open="how" data-i18n="howItWorks">How It Works</button>
               </div>
@@ -109,10 +109,107 @@
       </div>
     </dialog>
 
+    <script src="/translation-glossary.js"></script>
     <script>
       (function () {
         var clientKey = "insquignito-client-id";
+        var languageKey = "insquignito-language";
         var run = null;
+        var fallbackCopy = {
+          en: {
+            subtitle: "Get Hired. Get Roasted. Stay Ugly.",
+            tagline: "Connect Discord, scan a wallet, then start the reward interview.",
+            safetyConsole: "Ugly Labs Safety Console",
+            practiceInterview: "Practice Interview",
+            startInterview: "Start Interview",
+            connectDiscord: "Connect Discord",
+            howItWorks: "How It Works",
+            retryConsole: "Retry Console",
+            applicantFile: "Ugly Applicant File",
+            rewardSetup: "Reward Setup",
+            connectFirst: "Connect Discord first.",
+            rewardOrder: "Reward interview order: connect Discord first, paste and scan your wallet second, then start the interview. Practice mode works without either.",
+            how1Title: "Connect Discord",
+            how1Copy: "Discord identifies the reward applicant.",
+            how2Title: "Paste And Scan Wallet",
+            how2Copy: "Address only. No signing.",
+            how3Title: "Start Interview",
+            how3Copy: "Practice works without Discord or wallet scan.",
+            leaderboardFallback: "Backup console is online. Full leaderboard loads when the main console boots.",
+            claimsFallback: "No claim drawer loaded in backup mode. Refresh after the main console boots.",
+            discordRedirect: "Discord Redirect",
+            processing: "Processing",
+            openingPractice: "Opening practice interview...",
+            continue: "Continue",
+            correct: "Correct",
+            wrong: "Wrong",
+            tooSlow: "Too Slow",
+            viewResult: "View Result",
+            bootSlow: "Backup console active. The main console did not finish booting yet."
+          },
+          fr: {
+            subtitle: "Fais-toi embaucher. Fais-toi vanner. Reste laid.",
+            tagline: "Connecte Discord, scanne un wallet, puis lance l’entretien récompensé.",
+            safetyConsole: "Console de secours Ugly Labs",
+            practiceInterview: "Entretien d’entraînement",
+            startInterview: "Lancer l’entretien",
+            connectDiscord: "Connecter Discord",
+            howItWorks: "Comment ça marche",
+            retryConsole: "Réessayer la console",
+            applicantFile: "Dossier du candidat Ugly",
+            rewardSetup: "Configuration des récompenses",
+            connectFirst: "Connecter Discord d’abord.",
+            rewardOrder: "Ordre de l’entretien récompensé : connecte Discord d’abord, colle et scanne ton wallet ensuite, puis lance l’entretien. Le mode entraînement fonctionne sans les deux.",
+            how1Title: "Connecter Discord",
+            how1Copy: "Discord identifie le candidat aux récompenses.",
+            how2Title: "Coller et scanner le wallet",
+            how2Copy: "Adresse seulement. Aucune signature.",
+            how3Title: "Lancer l’entretien",
+            how3Copy: "L’entraînement fonctionne sans Discord ni scan de wallet.",
+            leaderboardFallback: "La console de secours est en ligne. Le classement complet se charge avec la console principale.",
+            claimsFallback: "Aucun tiroir de demandes chargé en mode secours. Actualise après le démarrage de la console principale.",
+            discordRedirect: "Redirection Discord",
+            processing: "Traitement",
+            openingPractice: "Ouverture de l’entretien d’entraînement…",
+            continue: "Continuer",
+            correct: "Bonne réponse",
+            wrong: "Mauvaise réponse",
+            tooSlow: "Trop lent",
+            viewResult: "Voir le résultat",
+            bootSlow: "Console de secours active. La console principale n’a pas encore fini de démarrer."
+          },
+          es: {
+            subtitle: "Consigue el puesto. Recibe tu roast. Sigue feo.",
+            tagline: "Conecta Discord, escanea un wallet y luego inicia la entrevista con recompensa.",
+            safetyConsole: "Consola de emergencia de Ugly Labs",
+            practiceInterview: "Entrevista de práctica",
+            startInterview: "Iniciar entrevista",
+            connectDiscord: "Conectar Discord",
+            howItWorks: "Cómo funciona",
+            retryConsole: "Intentar consola de nuevo",
+            applicantFile: "Expediente del candidato Ugly",
+            rewardSetup: "Configuración de recompensas",
+            connectFirst: "Conecta Discord primero.",
+            rewardOrder: "Orden de la entrevista con recompensa: conecta Discord primero, pega y escanea tu wallet después, y luego inicia la entrevista. El modo práctica funciona sin ambos.",
+            how1Title: "Conectar Discord",
+            how1Copy: "Discord identifica al candidato para recompensas.",
+            how2Title: "Pegar y escanear wallet",
+            how2Copy: "Solo dirección. Sin firma.",
+            how3Title: "Iniciar entrevista",
+            how3Copy: "La práctica funciona sin Discord ni escaneo de wallet.",
+            leaderboardFallback: "La consola de emergencia está en línea. La clasificación completa carga cuando arranca la consola principal.",
+            claimsFallback: "No hay cajón de reclamos cargado en modo de emergencia. Actualiza después de que arranque la consola principal.",
+            discordRedirect: "Redirección de Discord",
+            processing: "Procesando",
+            openingPractice: "Abriendo entrevista de práctica…",
+            continue: "Continuar",
+            correct: "Respuesta correcta",
+            wrong: "Respuesta incorrecta",
+            tooSlow: "Demasiado lento",
+            viewResult: "Ver resultado",
+            bootSlow: "Consola de emergencia activa. La consola principal aún no terminó de arrancar."
+          }
+        };
         var images = {
           hero: "https://i.imgur.com/8U7n401.png",
           gate: "https://i.imgur.com/XPpBV3d.png",
@@ -128,6 +225,20 @@
           dignityLost: "https://i.imgur.com/HCWJXdG.png",
           howItWorks: "https://i.imgur.com/YuceW7s.png"
         };
+
+        function fallbackLanguage() {
+          try {
+            var saved = localStorage.getItem(languageKey);
+            return fallbackCopy[saved] ? saved : "en";
+          } catch (error) {
+            return "en";
+          }
+        }
+
+        function ft(key) {
+          var lang = fallbackLanguage();
+          return (fallbackCopy[lang] && fallbackCopy[lang][key]) || fallbackCopy.en[key] || key;
+        }
         var tierImages = {
           1: "tierEasy",
           2: "tierCertified",
@@ -211,16 +322,16 @@
           setScene("hero", "Ugly Labs HR");
           setConsole(
             '<section class="desk-card desk-card--menu ugly-paper fallback-menu">' +
-              '<p class="sticker">Ugly Labs Safety Console</p>' +
+              '<p class="sticker">' + html(ft("safetyConsole")) + '</p>' +
               "<h1>InSquignito's Ugly Interview</h1>" +
-              '<p class="subtitle">Get Hired. Get Roasted. Stay Ugly.</p>' +
-              (message ? '<p class="cooldown">' + html(message) + '</p>' : '<p class="tagline">The backup console is active.</p>') +
+              '<p class="subtitle">' + html(ft("subtitle")) + '</p>' +
+              (message ? '<p class="cooldown">' + html(message) + '</p>' : '<p class="tagline">' + html(ft("tagline")) + '</p>') +
               '<div class="action-row">' +
-                '<button type="button" class="primary-action" data-action="practice">Practice Interview</button>' +
-                '<button type="button" class="secondary-action" data-action="begin-reward">Start Interview</button>' +
-                '<button type="button" class="secondary-action" data-action="connect-discord">Connect Discord</button>' +
-                '<button type="button" class="secondary-action" data-open="how">How It Works</button>' +
-                '<button type="button" class="secondary-action" data-action="fallback-retry">Retry Console</button>' +
+                '<button type="button" class="primary-action" data-action="practice">' + html(ft("practiceInterview")) + '</button>' +
+                '<button type="button" class="secondary-action" data-action="begin-reward">' + html(ft("startInterview")) + '</button>' +
+                '<button type="button" class="secondary-action" data-action="connect-discord">' + html(ft("connectDiscord")) + '</button>' +
+                '<button type="button" class="secondary-action" data-open="how">' + html(ft("howItWorks")) + '</button>' +
+                '<button type="button" class="secondary-action" data-action="fallback-retry">' + html(ft("retryConsole")) + '</button>' +
               '</div>' +
             '</section>'
           );
@@ -230,13 +341,13 @@
           setScene("gate", "Discord + Wallet Gate");
           setConsole(
             '<section class="desk-card desk-card--applicant ugly-paper fallback-menu">' +
-              '<div class="console-heading"><p class="file-tab">Ugly Applicant File</p><p class="category">Reward Setup</p></div>' +
-              '<h2>Connect Discord first.</h2>' +
-              '<p class="microcopy">' + html(message || "Reward interviews require Discord login and a wallet scan. Practice mode works without either.") + '</p>' +
+              '<div class="console-heading"><p class="file-tab">' + html(ft("applicantFile")) + '</p><p class="category">' + html(ft("rewardSetup")) + '</p></div>' +
+              '<h2>' + html(ft("connectFirst")) + '</h2>' +
+              '<p class="microcopy">' + html(message || ft("rewardOrder")) + '</p>' +
               '<div class="file-actions">' +
-                '<button type="button" class="primary-action" data-action="connect-discord">Connect Discord</button>' +
-                '<button type="button" class="secondary-action" data-action="practice">Practice Interview</button>' +
-                '<button type="button" class="secondary-action" data-open="how">How It Works</button>' +
+                '<button type="button" class="primary-action" data-action="connect-discord">' + html(ft("connectDiscord")) + '</button>' +
+                '<button type="button" class="secondary-action" data-action="practice">' + html(ft("practiceInterview")) + '</button>' +
+                '<button type="button" class="secondary-action" data-open="how">' + html(ft("howItWorks")) + '</button>' +
               '</div>' +
             '</section>'
           );
@@ -272,11 +383,11 @@
           setScene(feedback.wasCorrect ? "correct" : feedback.dignityLost > 0 ? "dignityLost" : "wrong", feedback.wasCorrect ? "Ugly Verified" : "Pretty Energy Detected");
           setConsole(
             '<section class="desk-card desk-card--feedback ugly-paper">' +
-              '<p class="stamp-label ' + (feedback.wasCorrect ? "stamp-label--good" : "stamp-label--bad") + '">' + html(feedback.wasCorrect ? "Correct" : feedback.timedOut ? "Too Slow" : "Wrong") + '</p>' +
+              '<p class="stamp-label ' + (feedback.wasCorrect ? "stamp-label--good" : "stamp-label--bad") + '">' + html(feedback.wasCorrect ? ft("correct") : feedback.timedOut ? ft("tooSlow") : ft("wrong")) + '</p>' +
               '<h2>' + html(feedback.roast || "InSquignito has notes.") + '</h2>' +
               '<p class="microcopy">' + html(feedback.explanation || "") + '</p>' +
               '<div class="action-row">' +
-                (data.final ? '<button type="button" class="primary-action" data-action="fallback-final">View Result</button>' : '<button type="button" class="primary-action" data-action="fallback-continue">Continue</button>') +
+                (data.final ? '<button type="button" class="primary-action" data-action="fallback-final">' + html(ft("viewResult")) + '</button>' : '<button type="button" class="primary-action" data-action="fallback-continue">' + html(ft("continue")) + '</button>') +
               '</div>' +
             '</section>'
           );
@@ -289,9 +400,9 @@
           var dialog = document.getElementById("howDialog");
           if (howCopy) {
             howCopy.innerHTML =
-              '<article class="step-card"><span>1</span><div><strong>Discord In</strong><p>Connect Discord for reward files.</p></div></article>' +
-              '<article class="step-card"><span>2</span><div><strong>Wallet Scanned</strong><p>Paste a wallet. No signing.</p></div></article>' +
-              '<article class="step-card"><span>3</span><div><strong>Survive Interview</strong><p>Practice works even if optional services are grumpy.</p></div></article>';
+              '<article class="step-card"><span>1</span><div><strong>' + html(ft("how1Title")) + '</strong><p>' + html(ft("how1Copy")) + '</p></div></article>' +
+              '<article class="step-card"><span>2</span><div><strong>' + html(ft("how2Title")) + '</strong><p>' + html(ft("how2Copy")) + '</p></div></article>' +
+              '<article class="step-card"><span>3</span><div><strong>' + html(ft("how3Title")) + '</strong><p>' + html(ft("how3Copy")) + '</p></div></article>';
           }
           if (dialog && dialog.showModal) dialog.showModal();
         }
@@ -315,13 +426,13 @@
             if (open.dataset.open === "leaderboard") {
               var leaderboardDialog = document.getElementById("leaderboardDialog");
               var rows = document.getElementById("leaderboardRows");
-              if (rows) rows.innerHTML = '<div class="empty-state">Backup console is online. Full leaderboard loads when the main console boots.</div>';
+              if (rows) rows.innerHTML = '<div class="empty-state">' + html(ft("leaderboardFallback")) + '</div>';
               if (leaderboardDialog && leaderboardDialog.showModal) leaderboardDialog.showModal();
             }
             if (open.dataset.open === "claims") {
               var claimsDialog = document.getElementById("claimsDialog");
               var claimRows = document.getElementById("claimRows");
-              if (claimRows) claimRows.innerHTML = '<div class="empty-state">No claim drawer loaded in backup mode. Refresh after the main console boots.</div>';
+              if (claimRows) claimRows.innerHTML = '<div class="empty-state">' + html(ft("claimsFallback")) + '</div>';
               if (claimsDialog && claimsDialog.showModal) claimsDialog.showModal();
             }
             return;
@@ -329,15 +440,15 @@
 
           var action = actionEl.dataset.action;
           if (action === "begin-reward") {
-            fallbackApplicant("Reward interviews need Discord and a wallet scan. Connect Discord here, then scan your wallet when the main console loads.");
+            fallbackApplicant(ft("rewardOrder"));
           }
           if (action === "connect-discord") {
-            setScene("loading", "Discord Redirect");
+            setScene("loading", ft("discordRedirect"));
             window.location.href = "/api/auth/discord/start?clientId=" + encodeURIComponent(getClientId());
           }
           if (action === "practice" || action === "fallback-retry") {
             setScene("practice", "Practice Interview");
-            setConsole('<section class="desk-card desk-card--feedback ugly-paper"><p class="stamp-label">Processing</p><h2>Opening practice interview...</h2></section>');
+            setConsole('<section class="desk-card desk-card--feedback ugly-paper"><p class="stamp-label">' + html(ft("processing")) + '</p><h2>' + html(ft("openingPractice")) + '</h2></section>');
             api("/api/run/start", {
               method: "POST",
               body: JSON.stringify({ clientId: getClientId(), mode: "practice" })
@@ -366,7 +477,7 @@
         });
 
         setTimeout(function () {
-          if (!window.__uglyAppReady) fallbackMenu("Backup console active. The main console did not finish booting yet.");
+          if (!window.__uglyAppReady) fallbackMenu(ft("bootSlow"));
         }, 1800);
       }());
     </script>

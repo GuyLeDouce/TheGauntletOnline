@@ -50,4 +50,6 @@ for (const file of publicHtmlFiles) {
   }
 }
 
+run(process.execPath, [join(__dirname, "translation-check.js")]);
+
 console.log(`Checked ${commonJsFiles.length + publicJsFiles.length} JavaScript files and ${inlineScriptCount} inline script(s).`);

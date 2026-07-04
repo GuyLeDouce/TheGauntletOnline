@@ -4,6 +4,15 @@ A Squigs Reloaded survival interview game.
 
 Players connect Discord, type a wallet address, scan Squigs Reloaded holdings through Alchemy, receive server-calculated Interview Dignity, then survive a 15-question roast interview with InSquignito. Reward runs create pending `$CHARM` claim records for review/DRIP handling. The app never auto-sends tokens and does not connect or sign wallets.
 
+## Player Start Order
+
+1. Connect Discord.
+2. Paste an Ethereum wallet address.
+3. Scan the wallet so the server can count Squigs and calculate Interview Dignity.
+4. Start the reward interview.
+
+Practice mode can start without Discord or a wallet scan. Reward mode requires Discord plus a completed wallet scan. The wallet step is address-only; players are not asked to connect a wallet extension, sign a message, or send tokens.
+
 ## Local Setup
 
 ```bash

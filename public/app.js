@@ -17,12 +17,18 @@ const STORAGE_KEYS = {
   language: "insquignito-language"
 };
 
+const translationGlossary = window.UglyTranslationGlossary || {
+  shouldSkipMachineTranslation() { return false; }
+};
+
 const API_TIMEOUT_MS = 8000;
 const DEFAULT_CONFIG = {
   appName: "InSquignito's Ugly Interview",
   rewardCooldownHours: 24,
   scanCacheMinutes: 15,
   allowZeroSquigReward: false,
+  alchemyConfigured: true,
+  discordConfigured: true,
   discordInviteUrl: "https://squigs.io/discord",
   dripProfileUrl: "",
   dripClaimHelpUrl: "",
@@ -179,10 +185,22 @@ function localizeStaticText(root = document) {
 function shouldTranslateText(text) {
   const trimmed = String(text || "").trim();
   if (!trimmed) return false;
+  if (translationGlossary.shouldSkipMachineTranslation(trimmed)) return false;
   if (/^[$#]?[0-9,.]+$/.test(trimmed)) return false;
   if (/^0x[a-fA-F0-9]{6,}/.test(trimmed)) return false;
   if (/^[A-Z0-9]{4,}-[A-Z0-9]{4,}$/.test(trimmed)) return false;
   return /[A-Za-z]/.test(trimmed);
+}
+
+function splitWhitespace(value) {
+  const text = String(value || "");
+  const leading = text.match(/^\s*/)?.[0] || "";
+  const trailing = text.match(/\s*$/)?.[0] || "";
+  return {
+    leading,
+    core: text.slice(leading.length, text.length - trailing.length),
+    trailing
+  };
 }
 
 function textNodesForTranslation(root) {
@@ -191,7 +209,7 @@ function textNodesForTranslation(root) {
     acceptNode(node) {
       const parent = node.parentElement;
       if (!parent) return NodeFilter.FILTER_REJECT;
-      if (parent.closest("script, style, input, textarea, select, [data-no-translate], .build-marker, .avatar-fallback")) {
+      if (parent.closest("script, style, input, textarea, select, code, pre, [data-no-translate], .build-marker, .avatar-fallback")) {
         return NodeFilter.FILTER_REJECT;
       }
       return shouldTranslateText(node.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
@@ -207,7 +225,7 @@ function textNodesForTranslation(root) {
 
 async function translateTexts(texts) {
   if (state.language === "en") return texts;
-  const unique = [...new Set(texts.map((text) => text.trim()).filter(shouldTranslateText))];
+  const unique = [...new Set(texts.filter(shouldTranslateText))];
   const missing = unique.filter((text) => !state.translationCache.has(`${state.language}:${text}`));
   if (missing.length) {
     const data = await apiFetch("/api/translate", {
@@ -220,7 +238,7 @@ async function translateTexts(texts) {
       state.translationCache.set(`${state.language}:${text}`, translations[index] || text);
     });
   }
-  return texts.map((text) => state.translationCache.get(`${state.language}:${text.trim()}`) || text);
+  return texts.map((text) => state.translationCache.get(`${state.language}:${text}`) || text);
 }
 
 function queueTranslate(root = document.body) {
@@ -228,12 +246,15 @@ function queueTranslate(root = document.body) {
   if (state.language === "en") return;
   const languageAtRequest = state.language;
   const nodes = textNodesForTranslation(root);
-  const originals = nodes.map((node) => node.nodeValue.trim());
-  if (!originals.length) return;
-  translateTexts(originals).then((translations) => {
+  const parts = nodes.map((node) => splitWhitespace(node.nodeValue));
+  const cores = parts.map((part) => part.core);
+  if (!cores.length) return;
+  translateTexts(cores).then((translations) => {
     if (languageAtRequest !== state.language) return;
     nodes.forEach((node, index) => {
-      if (node.parentElement && translations[index]) node.nodeValue = translations[index];
+      if (node.parentElement && translations[index]) {
+        node.nodeValue = `${parts[index].leading}${translations[index]}${parts[index].trailing}`;
+      }
     });
   }).catch(() => {});
 }
@@ -299,12 +320,17 @@ function showToast(message) {
   toast.className = "toast";
   toast.textContent = message;
   els.toastStack.appendChild(toast);
+  if (state.language !== "en" && shouldTranslateText(message)) {
+    translateTexts([String(message)]).then((translations) => {
+      if (toast.isConnected && translations[0]) toast.textContent = translations[0];
+    }).catch(() => {});
+  }
   setTimeout(() => toast.remove(), 3200);
 }
 
 function renderFallbackMenu(message, action = "retry-connection") {
   setStageMode("menu");
-  setStageScene("hero", { badge: "Offline Ugly Mode" });
+  setStageScene("hero", { badge: t("offlineMode") });
   renderStatusHud();
   els.stageDeskConsole.innerHTML = `
     <section class="desk-card desk-card--menu ugly-paper">
@@ -336,8 +362,12 @@ function formatDate(value) {
 }
 
 function formatShortWallet(wallet) {
-  if (!wallet) return "No wallet";
+  if (!wallet) return t("noWallet");
   return `${wallet.slice(0, 6)}...${wallet.slice(-4)}`;
+}
+
+function noTranslateAttr(value) {
+  return translationGlossary.shouldSkipMachineTranslation(String(value ?? "")) ? " data-no-translate" : "";
 }
 
 function cooldownText(cooldown) {
@@ -361,18 +391,18 @@ function statusChips() {
   const scan = state.scan;
   const rewardReady = isRewardReady();
   return [
-    ["Discord", profile.discordUserId ? "Connected" : "Needed"],
-    ["Wallet", profile.walletAddress ? formatShortWallet(profile.walletAddress) : "Missing"],
+    ["Discord", profile.discordUserId ? t("connected") : t("needed")],
+    [t("wallet"), profile.walletAddress ? formatShortWallet(profile.walletAddress) : t("missing")],
     ["Squigs", String(scan?.squigCount || 0)],
-    ["Dignity", String(scan?.dignityGranted || 1)],
-    ["Mode", rewardReady ? "Reward" : "Practice"]
+    [t("dignity"), String(scan?.dignityGranted || 1)],
+    ["Mode", rewardReady ? t("reward") : t("practice")]
   ];
 }
 
 function renderStatusHud() {
   clearInterval(state.timerHandle);
   els.stageHud.innerHTML = statusChips().map(([label, value]) => `
-    <div class="hud-chip"><span>${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>
+    <div class="hud-chip"><span>${escapeHtml(label)}</span><strong${noTranslateAttr(value)}>${escapeHtml(value)}</strong></div>
   `).join("");
   queueTranslate(els.stageHud);
 }
@@ -380,12 +410,12 @@ function renderStatusHud() {
 function renderRunHud(run) {
   const question = run.question;
   els.stageHud.innerHTML = `
-    <div class="hud-chip"><span>Question</span><strong>${question ? `${question.progressNumber}/${question.interviewLength}` : `${Math.min(run.currentIndex + 1, run.interviewLength)}/${run.interviewLength}`}</strong></div>
-    <div class="hud-chip hud-chip--wide"><span>Tier</span><strong>${escapeHtml(question?.tierLabel || "Interview")}</strong></div>
-    <div class="hud-chip"><span>Dignity</span><strong>${run.dignityRemaining}</strong></div>
+    <div class="hud-chip"><span>${escapeHtml(t("question"))}</span><strong data-no-translate>${question ? `${question.progressNumber}/${question.interviewLength}` : `${Math.min(run.currentIndex + 1, run.interviewLength)}/${run.interviewLength}`}</strong></div>
+    <div class="hud-chip hud-chip--wide"><span>${escapeHtml(t("tier"))}</span><strong>${escapeHtml(question?.tierLabel || "Interview")}</strong></div>
+    <div class="hud-chip"><span>${escapeHtml(t("dignity"))}</span><strong data-no-translate>${run.dignityRemaining}</strong></div>
     <div class="hud-chip"><span>$CHARM</span><strong>${run.charmStack}</strong></div>
     <div class="hud-chip"><span>Squigs</span><strong>${run.squigCount}</strong></div>
-    <div class="hud-chip"><span>Timer</span><strong id="hudTimer">--</strong></div>
+    <div class="hud-chip"><span>${escapeHtml(t("timer"))}</span><strong id="hudTimer" data-no-translate>--</strong></div>
   `;
   queueTranslate(els.stageHud);
 }
@@ -427,8 +457,8 @@ function applicantSummary() {
   const scan = state.scan;
   const rewardReady = isRewardReady();
   return {
-    discordName: profile.discordGlobalName || profile.discordHandle || profile.discordUserId || "Discord not connected",
-    discordMeta: profile.discordUserId ? "Connected for reward files" : "Required for reward runs",
+    discordName: profile.discordGlobalName || profile.discordHandle || profile.discordUserId || t("disconnected"),
+    discordMeta: profile.discordUserId ? t("connected") : t("required"),
     discordAvatar: profile.discordAvatar || "",
     walletAddress: profile.walletAddress || "",
     squigCount: scan?.squigCount || 0,
@@ -437,8 +467,67 @@ function applicantSummary() {
     mode: rewardReady ? "Reward" : "Practice",
     gateSummary: scan
       ? `Wallet scanned. ${scan.squigCount} Squigs found. ${scan.walletTitle || "Stay Ugly"}.`
-      : "Connect Discord, paste a wallet, and let the scanner insult it."
+      : "Setup order: connect Discord, paste and scan your wallet, then begin the reward interview."
   };
+}
+
+function rewardSetupState(summary) {
+  const discordReady = Boolean(state.profile?.discordUserId);
+  const walletSaved = Boolean(summary.walletAddress);
+  const walletScanned = Boolean(state.scan);
+  if (!discordReady) {
+    return {
+      primaryAction: "connect-discord",
+      primaryLabel: t("connectDiscord"),
+      status: state.config.discordConfigured === false ? t("discordNeedsSetup") : t("connectDiscordFirst")
+    };
+  }
+  if (!walletSaved) {
+    return {
+      primaryAction: "show-applicant",
+      primaryLabel: t("addWallet"),
+      status: t("nextPasteWallet")
+    };
+  }
+  if (!walletScanned) {
+    return {
+      primaryAction: "scan-wallet",
+      primaryLabel: t("scanWalletNow"),
+      status: state.config.alchemyConfigured === false ? t("walletScanNeedsSetup") : t("nextScanWallet")
+    };
+  }
+  if (!isRewardReady()) {
+    return {
+      primaryAction: "show-applicant",
+      primaryLabel: t("reviewSetup"),
+      status: state.cooldown?.nextAvailableAt ? t("rewardCoolingDown") : t("rewardNotReady")
+    };
+  }
+  return {
+    primaryAction: "begin-reward",
+    primaryLabel: t("beginInterview"),
+    status: t("readyStartReward")
+  };
+}
+
+function setupChecklistHtml(summary) {
+  const steps = [
+    ["1", t("connectDiscord"), state.profile?.discordUserId ? t("connected") : state.config.discordConfigured === false ? t("notConfigured") : t("required"), Boolean(state.profile?.discordUserId)],
+    ["2", t("pasteWallet"), summary.walletAddress ? formatShortWallet(summary.walletAddress) : t("required"), Boolean(summary.walletAddress)],
+    ["3", t("scanWallet"), state.scan ? `${summary.squigCount} ${t("squigsFound")}` : state.config.alchemyConfigured === false ? t("notConfigured") : t("required"), Boolean(state.scan)],
+    ["4", t("startInterview"), isRewardReady() ? t("ready") : t("locked"), isRewardReady()]
+  ];
+  return `
+    <div class="setup-checklist" aria-label="Reward interview setup order">
+      ${steps.map(([number, label, detail, done]) => `
+        <div class="setup-step ${done ? "is-done" : ""}">
+          <span>${escapeHtml(number)}</span>
+          <strong>${escapeHtml(label)}</strong>
+          <small${noTranslateAttr(detail)}>${escapeHtml(detail)}</small>
+        </div>
+      `).join("")}
+    </div>
+  `;
 }
 
 function applicantNextActionsHtml(summary) {
@@ -469,12 +558,14 @@ function applicantFormHtml(summary, context = "applicant") {
       <div class="identity-row">
         <div class="avatar-fallback"${summary.discordAvatar ? ` style="background-image:url('${escapeHtml(summary.discordAvatar)}')"` : ""}>${summary.discordAvatar ? "" : "?"}</div>
         <div>
-          <strong>${escapeHtml(summary.discordName)}</strong>
+          <strong data-no-translate>${escapeHtml(summary.discordName)}</strong>
           <span>${escapeHtml(summary.discordMeta)}</span>
         </div>
       </div>
 
-      <label for="walletAddress">Wallet address</label>
+      ${setupChecklistHtml(summary)}
+
+      <label for="walletAddress">${escapeHtml(t("walletAddress"))}</label>
       <div class="input-row">
         <input id="walletAddress" name="walletAddress" type="text" placeholder="0x..." value="${escapeHtml(summary.walletAddress)}" autocomplete="off">
         <button type="submit" class="secondary-action">${escapeHtml(t("saveWallet"))}</button>
@@ -487,10 +578,10 @@ function applicantFormHtml(summary, context = "applicant") {
       </div>
 
       <div class="stat-grid">
-        <div><span>Squigs Detected</span><strong>${summary.squigCount}</strong></div>
-        <div><span>Revive Pill</span><strong>${escapeHtml(summary.revivePill)}</strong></div>
-        <div><span>Dignity Granted</span><strong>${summary.dignity}</strong></div>
-        <div><span>Mode Available</span><strong>${escapeHtml(summary.mode)}</strong></div>
+        <div><span>${escapeHtml(t("squigsDetected"))}</span><strong data-no-translate>${summary.squigCount}</strong></div>
+        <div><span>${escapeHtml(t("revivePill"))}</span><strong>${escapeHtml(summary.revivePill)}</strong></div>
+        <div><span>${escapeHtml(t("dignityGranted"))}</span><strong data-no-translate>${summary.dignity}</strong></div>
+        <div><span>${escapeHtml(t("modeAvailable"))}</span><strong>${escapeHtml(summary.mode === "Reward" ? t("reward") : t("practice"))}</strong></div>
       </div>
 
       <p class="fine-print">${escapeHtml(APP_COPY.walletNote)}</p>
@@ -503,25 +594,26 @@ function applicantFormHtml(summary, context = "applicant") {
 
 function renderMenuScene() {
   setStageMode("menu");
-  setStageScene("hero", { badge: "Main Menu" });
+  setStageScene("hero", { badge: t("mainMenu") });
   renderStatusHud();
   const summary = applicantSummary();
+  const setup = rewardSetupState(summary);
   els.stageDeskConsole.innerHTML = `
     <section class="desk-card desk-card--menu ugly-paper">
       <p class="sticker">A Squigs Reloaded Survival Interview</p>
-      <h1>InSquignito's Ugly Interview</h1>
-      <p class="subtitle">Get Hired. Get Roasted. Stay Ugly.</p>
-      <p class="tagline">Discord in. Wallet scanned. Dignity calculated.</p>
+      <h1>${escapeHtml(t("title"))}</h1>
+      <p class="subtitle">${escapeHtml(t("subtitle"))}</p>
+      <p class="tagline">${escapeHtml(t("tagline"))}</p>
+      ${setupChecklistHtml(summary)}
       <div class="action-row">
-        <button type="button" class="primary-action" data-action="begin-reward">${escapeHtml(t("beginInterview"))}</button>
-        ${state.profile?.discordUserId ? "" : `<button type="button" class="secondary-action" data-action="connect-discord">${escapeHtml(t("connectDiscord"))}</button>`}
+        <button type="button" class="primary-action" data-action="${escapeHtml(setup.primaryAction)}">${escapeHtml(setup.primaryLabel)}</button>
         <button type="button" class="secondary-action" data-action="show-applicant">${escapeHtml(t("applicantFile"))}</button>
         <button type="button" class="secondary-action" data-action="practice">${escapeHtml(t("practiceWithoutPay"))}</button>
         <button type="button" class="secondary-action" data-open="how">${escapeHtml(t("howItWorks"))}</button>
       </div>
       <button type="button" class="status-strip" data-action="show-applicant">
-        <span>Applicant Status</span>
-        <strong>${escapeHtml(summary.mode)} Mode</strong>
+        <span>${escapeHtml(t("applicantStatus"))}</span>
+        <strong>${escapeHtml(setup.status)}</strong>
         <small>${escapeHtml(summary.gateSummary)}</small>
       </button>
       <p class="build-marker">Build ${escapeHtml(state.config.buildId || state.config.appVersion || "local")}</p>
@@ -533,7 +625,7 @@ function renderMenuScene() {
 function renderApplicantScene({ sceneKey = chooseApplicantScene(), context = "applicant" } = {}) {
   setStageMode(context === "scanning" ? "scanning" : "applicant");
   setStageScene(sceneKey, {
-    badge: sceneKey === "loading" ? "Processing Ugly" : "Ugly Applicant File"
+    badge: sceneKey === "loading" ? t("processingUgly") : t("applicantFile")
   });
   renderStatusHud();
   const summary = applicantSummary();
@@ -602,22 +694,22 @@ function renderFeedbackScene(data) {
   });
   renderRunHud(data.run);
   clearInterval(state.timerHandle);
-  const resultLabel = feedback.wasCorrect ? "Correct" : feedback.timedOut ? "Too Slow" : "Wrong";
+  const resultLabel = feedback.wasCorrect ? t("correctAnswer") : feedback.timedOut ? t("tooSlow") : t("wrongAnswer");
   state.pendingFinalData = data.final ? data : null;
   els.stageDeskConsole.innerHTML = `
     <section class="desk-card desk-card--feedback ugly-paper">
       <p class="stamp-label ${feedback.wasCorrect ? "stamp-label--good" : "stamp-label--bad"}">${escapeHtml(resultLabel)}</p>
       <h2>${escapeHtml(feedback.roast)}</h2>
       <p class="microcopy">${escapeHtml(feedback.explanation)}</p>
-      <p class="correct-answer"><span>Correct answer:</span> ${escapeHtml(feedback.correctAnswerText)}</p>
+      <p class="correct-answer"><span>${escapeHtml(t("correctAnswer"))}:</span> ${escapeHtml(feedback.correctAnswerText)}</p>
       <div class="delta-row">
         ${feedback.rewardAdded ? `<strong>+$CHARM ${feedback.rewardAdded}</strong>` : ""}
-        ${feedback.dignityLost ? `<strong>-${feedback.dignityLost} Dignity</strong>` : ""}
+        ${feedback.dignityLost ? `<strong>-${feedback.dignityLost} ${escapeHtml(t("dignity"))}</strong>` : ""}
       </div>
       <div class="action-row">
         ${data.final
           ? `<button type="button" class="primary-action" data-action="view-final">View Stamped File</button>`
-          : `<button type="button" class="primary-action" data-action="continue">Continue</button>`}
+          : `<button type="button" class="primary-action" data-action="continue">${escapeHtml(t("continue"))}</button>`}
         ${data.cashoutAvailable ? `<button type="button" class="secondary-action" data-action="cashout">Leave With Your Ugly Little Bag</button>` : ""}
       </div>
     </section>
@@ -638,6 +730,7 @@ function renderFinalScene(data) {
   state.lastFinalData = data;
   const run = data.run;
   const payout = run.payout;
+  const claimDisplay = payout?.claimCode || (run.mode === "practice" ? t("practice") : t("none"));
   state.lastClaimCode = payout?.claimCode || "";
   setStageMode("final");
   setStageScene(finalImageKey(run), {
@@ -651,16 +744,16 @@ function renderFinalScene(data) {
       <h2>${escapeHtml(run.rankTitle)}</h2>
       <p class="microcopy">${escapeHtml(data.endCopy || "InSquignito is disappointed, but not surprised. Stay Ugly.")}</p>
       <div class="final-stats">
-        <div><span>Final $CHARM</span><strong>${run.charmFinal || 0}</strong></div>
-        <div><span>Claim Code</span><strong>${escapeHtml(payout?.claimCode || (run.mode === "practice" ? "Practice run" : "No claim"))}</strong></div>
-        <div><span>Payout Status</span><strong>${payout ? "pending" : "No payout"}</strong></div>
+        <div><span>Final $CHARM</span><strong data-no-translate>${run.charmFinal || 0}</strong></div>
+        <div><span>${escapeHtml(t("claimCode"))}</span><strong${payout?.claimCode ? " data-no-translate" : ""}>${escapeHtml(claimDisplay)}</strong></div>
+        <div><span>${escapeHtml(t("payoutStatus"))}</span><strong>${payout ? "pending" : "No payout"}</strong></div>
       </div>
       <p class="fine-print">${escapeHtml(payout ? APP_COPY.drip : "Practice runs and zero-value results do not create $CHARM payouts.")}</p>
       <div class="action-row">
-        <button type="button" class="primary-action" data-action="copy-claim" ${payout?.claimCode ? "" : "disabled"}>Copy Claim Code</button>
-        <a class="secondary-action link-action" href="${escapeHtml(state.config.discordInviteUrl || "https://squigs.io/discord")}" target="_blank" rel="noreferrer">Open Discord</a>
-        <button type="button" class="secondary-action" data-action="return-menu">Return To Menu</button>
-        <button type="button" class="secondary-action" data-action="practice">Practice Again</button>
+        <button type="button" class="primary-action" data-action="copy-claim" ${payout?.claimCode ? "" : "disabled"}>${escapeHtml(t("copyClaimCode"))}</button>
+        <a class="secondary-action link-action" href="${escapeHtml(state.config.discordInviteUrl || "https://squigs.io/discord")}" target="_blank" rel="noreferrer">${escapeHtml(t("openDiscord"))}</a>
+        <button type="button" class="secondary-action" data-action="return-menu">${escapeHtml(t("returnToMenu"))}</button>
+        <button type="button" class="secondary-action" data-action="practice">${escapeHtml(t("practiceAgain"))}</button>
       </div>
     </section>
   `;
@@ -722,12 +815,12 @@ async function scanWallet(forceRefresh = false) {
 async function startRun(mode) {
   setStageMode("question");
   setStageScene(mode === "practice" ? "practice" : "loading", {
-    badge: mode === "practice" ? "Practice Interview" : "Processing Ugly"
+    badge: mode === "practice" ? t("practiceInterviewBadge") : t("processingUgly")
   });
   els.stageHud.innerHTML = "";
   els.stageDeskConsole.innerHTML = `
     <section class="desk-card desk-card--feedback ugly-paper">
-      <p class="stamp-label">Processing</p>
+      <p class="stamp-label">${escapeHtml(t("processing"))}</p>
       <h2>${mode === "practice" ? "Practice file opened. No payout drawer." : "InSquignito is pulling your reward file."}</h2>
       <p class="microcopy">Please keep your ugliness inside the marked area.</p>
     </section>
@@ -803,8 +896,8 @@ function renderHowModal() {
     <article class="step-card">
       <span>${escapeHtml(item.step)}</span>
       <div>
-        <strong>${escapeHtml(item.title)}</strong>
-        <p>${escapeHtml(item.copy)}</p>
+        <strong>${escapeHtml(t(`howStep${item.step}Title`) || item.title)}</strong>
+        <p>${escapeHtml(t(`howStep${item.step}Copy`) || item.copy)}</p>
       </div>
     </article>
   `).join("");
@@ -828,18 +921,18 @@ async function renderLeaderboardModal(period = "weekly") {
         <strong class="placement">#${entry.placement}</strong>
         <div class="mini-avatar"${entry.discordAvatar ? ` style="background-image:url('${escapeHtml(entry.discordAvatar)}')"` : ""}></div>
         <div>
-          <b>${escapeHtml(entry.displayName || "Ugly Applicant")}</b>
+          <b data-no-translate>${escapeHtml(entry.displayName || "Ugly Applicant")}</b>
           <span>${escapeHtml(entry.lastRankTitle || "Applicant")} · ${entry.lastSquigCount || 0} Squigs ${entry.lastHasRevivePill ? "· Revive Pill" : ""}</span>
           ${entry.placement <= 3 ? `<em>UGLIEST ${entry.placement}</em>` : ""}
         </div>
-        <div><b>${entry.bestCharmEver || 0}</b><span>Best $CHARM</span></div>
-        <div><b>${entry.totalCharmEarned || 0}</b><span>Total</span></div>
-        <div><b>${entry.fullClears || 0}</b><span>Full Clears</span></div>
-        <div><b>${entry.bestQuestionReached || 0}</b><span>Best Q</span></div>
+        <div><b data-no-translate>${entry.bestCharmEver || 0}</b><span>${escapeHtml(t("bestCharm"))}</span></div>
+        <div><b data-no-translate>${entry.totalCharmEarned || 0}</b><span>${escapeHtml(t("total"))}</span></div>
+        <div><b data-no-translate>${entry.fullClears || 0}</b><span>${escapeHtml(t("fullClears"))}</span></div>
+        <div><b data-no-translate>${entry.bestQuestionReached || 0}</b><span>${escapeHtml(t("bestQuestion"))}</span></div>
       </div>
     `).join("") + (current ? `
       <div class="current-player-row">
-        Your placement: #${current.placement} · Best ${current.bestCharmEver || 0} $CHARM · ${current.fullClears || 0} full clears · Best question ${current.bestQuestionReached || 0}
+        ${escapeHtml(t("placement"))}: <span data-no-translate>#${current.placement}</span> · ${escapeHtml(t("bestCharm"))} <span data-no-translate>${current.bestCharmEver || 0}</span> · ${escapeHtml(t("fullClears"))} <span data-no-translate>${current.fullClears || 0}</span> · ${escapeHtml(t("bestQuestion"))} <span data-no-translate>${current.bestQuestionReached || 0}</span>
       </div>
     ` : "");
     queueTranslate(els.leaderboardRows);
@@ -870,13 +963,13 @@ async function renderClaimsModal() {
     els.claimRows.innerHTML = payouts.map((payout) => `
       <div class="claim-row" data-status="${escapeHtml(payout.status)}">
         <div>
-          <b>${escapeHtml(payout.claimCode)}</b>
+          <b data-no-translate>${escapeHtml(payout.claimCode)}</b>
           <span>${escapeHtml(CLAIM_STATUS_COPY[payout.status] || payout.status)}</span>
         </div>
-        <div><b>${payout.amount}</b><span>$CHARM</span></div>
+        <div><b data-no-translate>${payout.amount}</b><span>$CHARM</span></div>
         <div><b>${escapeHtml(payout.status)}</b><span>${formatDate(payout.createdAt)}</span></div>
-        <div><b>${formatShortWallet(payout.walletAddress)}</b><span>${escapeHtml(payout.runId)}</span></div>
-        <button type="button" class="secondary-action copy-claim" data-code="${escapeHtml(payout.claimCode)}">Copy</button>
+        <div><b data-no-translate>${formatShortWallet(payout.walletAddress)}</b><span data-no-translate>${escapeHtml(payout.runId)}</span></div>
+        <button type="button" class="secondary-action copy-claim" data-code="${escapeHtml(payout.claimCode)}">${escapeHtml(t("copyClaimCode"))}</button>
       </div>
     `).join("");
     queueTranslate(els.claimRows);
@@ -899,33 +992,36 @@ function renderScanDetails() {
     return;
   }
   const traitRows = Object.entries(scan.traitSummary || {}).slice(0, 24).map(([trait, values]) => {
-    const summary = Object.entries(values).slice(0, 6).map(([value, count]) => `${escapeHtml(value)} (${count})`).join(", ");
-    return `<dt>${escapeHtml(trait)}</dt><dd>${summary}</dd>`;
+    const summary = Object.entries(values).slice(0, 6)
+      .map(([value, count]) => `<span data-no-translate>${escapeHtml(value)} (${count})</span>`)
+      .join(", ");
+    return `<dt data-no-translate>${escapeHtml(trait)}</dt><dd>${summary}</dd>`;
   }).join("");
+  const revivePillTokenText = (scan.revivePillTokenIds || []).join(", ");
   els.scanDetails.innerHTML = `
     <div class="stat-grid">
-      <div><span>Wallet</span><strong>${formatShortWallet(scan.walletAddress)}</strong></div>
-      <div><span>Squigs</span><strong>${scan.squigCount}</strong></div>
-      <div><span>Revive Pill Tokens</span><strong>${escapeHtml((scan.revivePillTokenIds || []).join(", ") || "None")}</strong></div>
-      <div><span>Fetched</span><strong>${formatDate(scan.fetchedAt)}</strong></div>
+      <div><span>${escapeHtml(t("wallet"))}</span><strong data-no-translate>${formatShortWallet(scan.walletAddress)}</strong></div>
+      <div><span>Squigs</span><strong data-no-translate>${scan.squigCount}</strong></div>
+      <div><span>Revive Pill Tokens</span><strong${revivePillTokenText ? " data-no-translate" : ""}>${escapeHtml(revivePillTokenText || t("none"))}</strong></div>
+      <div><span>${escapeHtml(t("fetched"))}</span><strong data-no-translate>${formatDate(scan.fetchedAt)}</strong></div>
     </div>
-    <h3>Trait Summary</h3>
-    <dl>${traitRows || "<dt>None</dt><dd>No traits reported.</dd>"}</dl>
+    <h3>${escapeHtml(t("traitSummary"))}</h3>
+    <dl>${traitRows || `<dt>${escapeHtml(t("none"))}</dt><dd>${escapeHtml(t("noTraitsReported"))}</dd>`}</dl>
   `;
   queueTranslate(els.scanDetails);
 }
 
 function restoreSceneAfterModal() {
   if (state.currentMode === "question" && state.run?.question) {
-    setStageScene(TIER_IMAGE_KEYS[state.run.question.tier] || "activeInterview", { badge: state.run.question.tierLabel || "Active Interview" });
+    setStageScene(TIER_IMAGE_KEYS[state.run.question.tier] || "activeInterview", { badge: state.run.question.tierLabel || t("activeInterview") });
     return;
   }
   if (state.currentMode === "applicant" || state.currentMode === "scanning") {
-    setStageScene(chooseApplicantScene(), { badge: "Ugly Applicant File" });
+    setStageScene(chooseApplicantScene(), { badge: t("applicantFile") });
     return;
   }
   if (state.currentMode === "final") return;
-  setStageScene("hero", { badge: "Main Menu" });
+  setStageScene("hero", { badge: t("mainMenu") });
 }
 
 function rerenderCurrentView() {
@@ -952,22 +1048,22 @@ function openModal(name) {
   state.modeBeforeModal = state.currentMode;
   setStageMode("modal");
   if (name === "how") {
-    setStageScene("howItWorks", { badge: "How It Works" });
+    setStageScene("howItWorks", { badge: t("howItWorks") });
     renderHowModal();
     els.howDialog.showModal();
   }
   if (name === "leaderboard") {
-    setStageScene("leaderboard", { badge: "Leaderboard" });
+    setStageScene("leaderboard", { badge: t("leaderboard") });
     renderLeaderboardModal("weekly");
     els.leaderboardDialog.showModal();
   }
   if (name === "claims") {
-    setStageScene("claims", { badge: "My $CHARM Claims" });
+    setStageScene("claims", { badge: t("myClaims") });
     renderClaimsModal();
     els.claimsDialog.showModal();
   }
   if (name === "scan") {
-    setStageScene(state.scan?.hasRevivePill ? "revivePillDetected" : state.scan?.squigCount > 0 ? "walletScan" : "gate", { badge: "Wallet Scan Details" });
+    setStageScene(state.scan?.hasRevivePill ? "revivePillDetected" : state.scan?.squigCount > 0 ? "walletScan" : "gate", { badge: t("walletScanDetails") });
     renderScanDetails();
     els.scanDialog.showModal();
   }
@@ -986,7 +1082,7 @@ function closeModal(name) {
 }
 
 async function retryConnection() {
-  setStageScene("loading", { badge: "Retrying Connection" });
+  setStageScene("loading", { badge: t("retryingConnection") });
   try {
     await loadConfig();
     await loadProfile();
@@ -1054,7 +1150,7 @@ function wireEvents() {
       if (action === "show-applicant") renderApplicantScene();
       if (action === "retry-connection") await retryConnection();
       if (action === "connect-discord") {
-        setStageScene("loading", { badge: "Discord Redirect" });
+        setStageScene("loading", { badge: t("discordRedirect") });
         window.location.href = `/api/auth/discord/start?clientId=${encodeURIComponent(state.clientId)}`;
       }
       if (action === "scan-wallet") await scanWallet(false);
@@ -1115,7 +1211,8 @@ async function init() {
 
     const params = new URLSearchParams(window.location.search);
     const discordConnected = params.get("discord") === "connected";
-    const discordFailed = params.get("discord") && !discordConnected;
+    const discordStatus = params.get("discord");
+    const discordFailed = discordStatus && !discordConnected;
 
     try {
       await loadConfig();
@@ -1140,7 +1237,9 @@ async function init() {
       return;
     }
     if (discordFailed) {
-      showToast("Discord login did not finish. The paperwork hissed.");
+      showToast(discordStatus === "not_configured"
+        ? "Discord login is not configured yet. Ask the team to set the Discord OAuth variables."
+        : "Discord login did not finish. The paperwork hissed.");
       history.replaceState({}, "", "/");
     }
 
