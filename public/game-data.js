@@ -1,15 +1,15 @@
 export const APP_COPY = {
-  title: "InSquignito's Ugly Interview",
-  subtitle: "Get Hired. Get Roasted. Stay Ugly.",
-  tagline: "Connect Discord. Scan wallet. Start interview.",
+  title: "InSquignito's Squigchain Onboarding",
+  subtitle: "Learn Web3. Get Roasted. Buy Ugly Carefully.",
+  tagline: "Discord in. Wallet scanned. Squig wisdom unlocked.",
   lobby:
-    "InSquignito calmly studies each applicant in order: connect Discord, paste and scan an Ethereum wallet, then begin the reward interview.",
+    "InSquignito is trying to understand web3 so he can safely find his Squig friends. Help him learn wallets, exchanges, gas, NFTs, scams, and marketplace verification.",
   walletNote:
-    "Reward order: 1. Connect Discord. 2. Paste your Ethereum wallet and scan it. 3. Start the reward interview. No wallet signature or token transfer is requested.",
+    "This app only scans a public Ethereum wallet address for Squigs/Dignity. It does not request wallet signatures or token transfers.",
   zeroSquig:
-    "You may interview for free, but InSquignito refuses to pay non-holders. Get ugly first.",
+    "You may practice for free, but pending rewards require eligible Squig/Dignity holdings. Learn ugly first.",
   drip:
-    "Your $CHARM has been logged as a pending Ugly Interview claim. Make sure your Discord and wallet are linked wherever $CHARM/DRIP claims are handled. Save this claim code and open a ticket if needed."
+    "Your $CHARM has been logged as a pending Squigchain Onboarding claim. Make sure your Discord and wallet are linked wherever $CHARM/DRIP claims are handled. Save this claim code and open a ticket if needed."
 };
 
 export const SUPPORTED_LANGUAGES = {
@@ -20,7 +20,7 @@ export const SUPPORTED_LANGUAGES = {
 
 export const UI_TRANSLATIONS = {
   en: {
-    title: "InSquignito’s Ugly Interview",
+    title: "InSquignito's Squigchain Onboarding",
     home: "Home",
     languageLabel: "Language",
     howItWorks: "How It Works",
@@ -32,15 +32,15 @@ export const UI_TRANSLATIONS = {
     allTime: "All-Time",
     loading: "Loading...",
     walletScanDetails: "Wallet Scan Details",
-    subtitle: "Get Hired. Get Roasted. Stay Ugly.",
-    tagline: "Connect Discord. Scan wallet. Start interview.",
-    mobileLoreTitle: "Ugly Labs Field Brief",
-    mobileLoreCopy: "InSquignito is studying human habits from the Ugly Labs desk. Your job is to look normal, answer strange interview questions, and keep enough Dignity to walk out with $CHARM paperwork.",
-    mobileLoreStep1: "Connect Discord so the office knows which human is applying.",
-    mobileLoreStep2: "Scan a wallet so Squigs and Revive Pill clues can shape your file.",
-    mobileLoreStep3: "Open the Applicant File when you are ready to be judged calmly.",
+    subtitle: "Learn Web3. Get Roasted. Buy Ugly Carefully.",
+    tagline: "Discord in. Wallet scanned. Squig wisdom unlocked.",
+    mobileLoreTitle: "Squigchain Onboarding Brief",
+    mobileLoreCopy: "InSquignito is trying to understand web3 so he can safely find his Squig friends. Help him learn wallets, exchanges, gas, NFTs, scams, and marketplace verification without inhaling pretty-energy hype.",
+    mobileLoreStep1: "Connect Discord so the office knows which helper is on the onboarding file.",
+    mobileLoreStep2: "Scan a public Ethereum wallet address so Squigs and Dignity clues can shape your file. No signature is requested.",
+    mobileLoreStep3: "Open the Applicant File when you are ready for the onboarding roast.",
     openApplicantFile: "Open Applicant File",
-    beginInterview: "Begin Interview",
+    beginInterview: "Begin Onboarding",
     connectDiscord: "Connect Discord",
     disconnect: "Disconnect",
     disconnectTitle: "Disconnect Discord and wallet?",
@@ -48,11 +48,11 @@ export const UI_TRANSLATIONS = {
     disconnectConfirm: "Disconnect",
     disconnectDone: "Discord and wallet hidden here.",
     nothingConnected: "No Discord or wallet is connected.",
-    practiceInterview: "Practice Interview",
+    practiceInterview: "Practice Onboarding",
     applicantFile: "Applicant File",
     practiceWithoutPay: "Practice Without Pay",
     playPracticeNow: "Play Practice Now",
-    playRewardInterview: "Play Reward Interview",
+    playRewardInterview: "Play Reward Onboarding",
     scanWalletNow: "Scan Wallet Now",
     finishRewardSetup: "Finish Reward Setup",
     pasteWalletFromClipboard: "Paste Wallet",
@@ -80,9 +80,9 @@ export const UI_TRANSLATIONS = {
     reviewSetup: "Review Setup",
     rewardCoolingDown: "Reward interview is cooling down",
     rewardNotReady: "Reward interview is not ready",
-    readyStartReward: "Ready: start the reward interview",
+    readyStartReward: "Ready: start the reward onboarding",
     pasteWallet: "Paste Wallet",
-    startInterview: "Start Interview",
+    startInterview: "Start Onboarding",
     required: "Required",
     notConfigured: "Not configured",
     locked: "Locked",
@@ -126,18 +126,18 @@ export const UI_TRANSLATIONS = {
     activeInterview: "Active Interview",
     retryingConnection: "Retrying Connection",
     discordRedirect: "Discord Redirect",
-    practiceInterviewBadge: "Practice Interview",
+    practiceInterviewBadge: "Practice Onboarding",
     processingUgly: "Processing Ugly",
     howStep1Title: "Connect Discord",
-    howStep1Copy: "Start here. Discord identifies the applicant for reward claims.",
+    howStep1Copy: "Start here. Discord identifies the player for reward claims and Ugly Labs paperwork.",
     howStep2Title: "Paste And Scan Wallet",
-    howStep2Copy: "Enter an Ethereum wallet address. The server scans Squigs holdings and calculates Interview Dignity. No signature is requested.",
-    howStep3Title: "Start Interview",
-    howStep3Copy: "Begin the 15-question reward interview after Discord and wallet scan are ready.",
+    howStep2Copy: "Enter a public Ethereum wallet address. The server scans Squigs holdings and Dignity clues; it does not request a wallet signature or token transfer.",
+    howStep3Title: "Start Onboarding",
+    howStep3Copy: "Begin the 15-question onboarding roast after Discord and wallet scan are ready.",
     howStep4Title: "Earn Pending $CHARM",
     howStep4Copy: "Reward runs create pending claim records for review and DRIP handling.",
     howStep5Title: "Practice Anytime",
-    howStep5Copy: "Practice mode works without Discord or a wallet scan."
+    howStep5Copy: "Practice mode teaches the same web3 basics without Discord or a wallet scan."
   },
   fr: {
     title: "InSquignito’s Ugly Interview",
@@ -384,7 +384,7 @@ export const UI_TRANSLATIONS = {
 export const OFFICE_IMAGES = {
   hero: {
     url: "https://i.imgur.com/8U7n401.png",
-    alt: "InSquignito at the Ugly Labs interview desk for the main menu"
+    alt: "InSquignito at the Ugly Labs onboarding desk for the main menu"
   },
   gate: {
     url: "https://i.imgur.com/XPpBV3d.png",
@@ -396,31 +396,31 @@ export const OFFICE_IMAGES = {
   },
   applicantFile: {
     url: "https://i.imgur.com/jedGL52.png",
-    alt: "Ugly Applicant File being reviewed by InSquignito"
+    alt: "Ugly onboarding file being reviewed by InSquignito"
   },
   activeInterview: {
     url: "https://i.imgur.com/SLMvqtN.png",
-    alt: "Active interview question scene with InSquignito"
+    alt: "Active onboarding question scene with InSquignito"
   },
   tierEasy: {
     url: "https://i.imgur.com/hWGERfA.png",
-    alt: "Easy Ugly HR interview tier"
+    alt: "Easy Ugly HR onboarding tier"
   },
   tierCertified: {
     url: "https://i.imgur.com/TnGpThq.png",
-    alt: "Certified Ugly Applicant interview tier"
+    alt: "Certified Ugly Applicant onboarding tier"
   },
   tierDeep: {
     url: "https://i.imgur.com/1m0ULcv.png",
-    alt: "Deep Ugly Department interview tier"
+    alt: "Deep Ugly Department onboarding tier"
   },
   tierInternal: {
     url: "https://i.imgur.com/0HK1Az6.png",
-    alt: "Ugly Labs Internal interview tier"
+    alt: "Ugly Labs Internal onboarding tier"
   },
   tierImpossible: {
     url: "https://i.imgur.com/hw7jbda.png",
-    alt: "Impossible Ugly Final interview tier"
+    alt: "Impossible Ugly Final onboarding tier"
   },
   correct: {
     url: "https://i.imgur.com/0iCy6UZ.png",
@@ -432,7 +432,7 @@ export const OFFICE_IMAGES = {
   },
   dignityLost: {
     url: "https://i.imgur.com/HCWJXdG.png",
-    alt: "Dignity lost in the interview"
+    alt: "Dignity lost in onboarding"
   },
   revivePillBonus: {
     url: "https://i.imgur.com/JhNdJYl.png",
@@ -476,7 +476,7 @@ export const OFFICE_IMAGES = {
   },
   howItWorks: {
     url: "https://i.imgur.com/YuceW7s.png",
-    alt: "How It Works: Discord, wallet scan, interview"
+    alt: "How It Works: Discord, wallet scan, onboarding"
   },
   loading: {
     url: "https://i.imgur.com/act5Z2A.png",
@@ -484,7 +484,7 @@ export const OFFICE_IMAGES = {
   },
   practice: {
     url: "https://i.imgur.com/aUvymLk.png",
-    alt: "Practice only interview mode"
+    alt: "Practice only onboarding mode"
   },
   cooldown: {
     url: "https://i.imgur.com/8xSckxD.png",
@@ -531,9 +531,9 @@ export const CLAIM_STATUS_IMAGE_KEYS = {
 };
 
 export const HOW_IT_WORKS = [
-  { step: "1", title: "Connect Discord", copy: "Start here. Discord identifies the applicant for reward claims." },
-  { step: "2", title: "Paste And Scan Wallet", copy: "Enter an Ethereum wallet address. The server scans Squigs holdings and calculates Interview Dignity. No signature is requested." },
-  { step: "3", title: "Start Interview", copy: "Begin the 15-question reward interview after Discord and wallet scan are ready." },
+  { step: "1", title: "Connect Discord", copy: "Start here. Discord identifies the player for reward claims and Ugly Labs paperwork." },
+  { step: "2", title: "Paste And Scan Wallet", copy: "Enter a public Ethereum wallet address. The server scans Squigs holdings and Dignity clues; it does not request a wallet signature or token transfer." },
+  { step: "3", title: "Start Onboarding", copy: "Begin the 15-question onboarding roast after Discord and wallet scan are ready." },
   { step: "4", title: "Earn Pending $CHARM", copy: "Reward runs create pending claim records for review and DRIP handling." },
-  { step: "5", title: "Practice Anytime", copy: "Practice mode works without Discord or a wallet scan." }
+  { step: "5", title: "Practice Anytime", copy: "Practice mode teaches the same web3 basics without Discord or a wallet scan." }
 ];

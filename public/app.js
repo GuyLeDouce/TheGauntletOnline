@@ -892,7 +892,7 @@ function renderFinalScene(data) {
       <div class="final-stats">
         <div><span>Final $CHARM</span><strong data-no-translate>${run.charmFinal || 0}</strong></div>
         <div><span>${escapeHtml(t("claimCode"))}</span><strong${payout?.claimCode ? " data-no-translate" : ""}>${escapeHtml(claimDisplay)}</strong></div>
-        <div><span>${escapeHtml(t("payoutStatus"))}</span><strong>${payout ? "pending" : "No payout"}</strong></div>
+        <div><span>${escapeHtml(t("payoutStatus"))}</span><strong>${payout ? escapeHtml(payout.status || "pending") : "No payout"}</strong></div>
       </div>
       <p class="fine-print">${escapeHtml(payout ? APP_COPY.drip : "Practice runs and zero-value results do not create $CHARM payouts.")}</p>
       <div class="action-row">

@@ -72,6 +72,10 @@ PGSSL=true
 NODE_ENV=production
 DISCORD_INVITE_URL=https://squigs.io/discord
 DISCORD_PAYOUT_WEBHOOK_URL=<Discord webhook URL for payout alerts>
+GAUNTLET_DISCORD_REWARD_WEBHOOK_URL=https://<discord-bot-domain>/webhooks/gauntlet-online/reward
+GAUNTLET_DISCORD_REWARD_WEBHOOK_SECRET=<same shared secret as the Discord bot ONLINE_REWARD_WEBHOOK_SECRET>
+GAUNTLET_DISCORD_REWARD_WEBHOOK_TIMEOUT_MS=8000
+GAUNTLET_DISCORD_REWARD_WEBHOOK_ENABLED=true
 ADMIN_SECRET=<long random secret for admin payout routes>
 DRIP_PROFILE_URL=<DRIP profile/account-link URL shown to users>
 DRIP_CLAIM_HELP_URL=<optional claim help URL>
@@ -119,9 +123,9 @@ with `owner`, `contractAddresses[]`, `withMetadata=true`, and guarded pagination
 
 Use the environment variable as the source of truth.
 
-## DRIP / $CHARM Pending Payouts
+## DRIP / $CHARM Payouts
 
-Reward runs do not send tokens. Completed, cashed-out, or out-of-dignity reward runs create pending payout records only when:
+Completed, cashed-out, or out-of-dignity reward runs create local payout records only when:
 
 - Discord is connected
 - Wallet scan exists
@@ -129,9 +133,20 @@ Reward runs do not send tokens. Completed, cashed-out, or out-of-dignity reward 
 - Cooldown allows the run
 - Final `$CHARM` is greater than zero
 
-Players see a claim code like `UGLY-7H2K9`, pending status, and generic DRIP/account-linking instructions. Use `DRIP_PROFILE_URL`, `DRIP_CLAIM_HELP_URL`, and `DISCORD_INVITE_URL` to point users at the right claim process.
+Players see a claim code like `UGLY-7H2K9`, payout status, and generic DRIP/account-linking instructions. Use `DRIP_PROFILE_URL`, `DRIP_CLAIM_HELP_URL`, and `DISCORD_INVITE_URL` to point users at the right claim process.
 
-If `DISCORD_PAYOUT_WEBHOOK_URL` is set, new pending claims are posted to Discord. Webhook failure is logged and does not break the player result.
+`DISCORD_PAYOUT_WEBHOOK_URL` is alert-only. If it is set, new payout records are posted to a Discord webhook as an embed for visibility. It is not the Discord bot payment endpoint.
+
+To ask the deployed The-Gauntlet Discord bot to pay `$CHARM`, set:
+
+```txt
+GAUNTLET_DISCORD_REWARD_WEBHOOK_URL=https://<discord-bot-domain>/webhooks/gauntlet-online/reward
+GAUNTLET_DISCORD_REWARD_WEBHOOK_SECRET=<same value as ONLINE_REWARD_WEBHOOK_SECRET in the Discord bot>
+GAUNTLET_DISCORD_REWARD_WEBHOOK_TIMEOUT_MS=8000
+GAUNTLET_DISCORD_REWARD_WEBHOOK_ENABLED=true
+```
+
+Online signs the exact JSON body with HMAC-SHA256 and sends it server-to-server. If the bot responds with `{ "ok": true, "paid": true }`, Online marks the local payout as `paid`. If the reward webhook is disabled, missing, unsigned, times out, fails, or returns a non-paid response, the local payout remains `pending` for admin review. Reward webhook failure is logged and does not break the player result.
 
 ## Admin Payout Workflow
 
@@ -212,7 +227,7 @@ Do not insult protected traits, race, gender, religion, sexuality, disability, h
 - Practice run starts without payout
 - Server response never includes `correctOptionId` before answering
 - Timed-out questions are wrong server-side
-- Cashout creates pending payout only for reward mode
+- Cashout creates a payout only for reward mode; optional bot auto-pay can mark it paid
 - Out-of-dignity halves stack by default
 - Full clear adds configured bonus
 - Weekly, monthly, and all-time leaderboard views load
