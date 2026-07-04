@@ -59,6 +59,10 @@ a {
   display: none !important;
 }
 
+.mobile-only {
+  display: none !important;
+}
+
 .app-shell {
   width: 100%;
   min-height: 100vh;
@@ -1062,6 +1066,14 @@ input {
 
   .top-actions > * {
     flex: 0 0 auto;
+  }
+
+  .mobile-hidden {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: inline-flex !important;
   }
 
   .language-control {

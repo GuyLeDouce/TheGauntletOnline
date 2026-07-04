@@ -675,7 +675,7 @@ function applicantNextActionsHtml(summary) {
       <div class="next-actions">
       <button type="button" class="primary-action" data-action="${escapeHtml(primaryAction)}">${escapeHtml(rewardCopy)}</button>
       <button type="button" class="secondary-action" data-action="practice">${escapeHtml(t("playPracticeNow"))}</button>
-      <button type="button" class="secondary-action" data-open="how">${escapeHtml(t("howItWorks"))}</button>
+      <button type="button" class="secondary-action mobile-hidden" data-open="how">${escapeHtml(t("howItWorks"))}</button>
     </div>
   `;
 }
@@ -704,6 +704,9 @@ function applicantFormHtml(summary, context = "applicant") {
         <button type="button" class="secondary-action" data-action="connect-discord">${escapeHtml(t("connectDiscord"))}</button>
         <button type="button" class="primary-action" data-action="scan-wallet">${escapeHtml(t("scanWallet"))}</button>
         <button type="button" class="secondary-action" data-action="refresh-scan">${escapeHtml(t("refreshScan"))}</button>
+        <button type="button" class="secondary-action" data-action="disconnect">${escapeHtml(t("disconnect"))}</button>
+        <button type="button" class="secondary-action mobile-only" data-open="claims">${escapeHtml(t("myClaims"))}</button>
+        <button type="button" class="secondary-action mobile-only" data-open="how">${escapeHtml(t("howItWorks"))}</button>
       </div>
 
       <div class="stat-grid">
