@@ -63,6 +63,11 @@ a {
   display: none !important;
 }
 
+.mobile-only-block,
+.mobile-only-flex {
+  display: none !important;
+}
+
 .app-shell {
   width: 100%;
   min-height: 100vh;
@@ -549,6 +554,35 @@ input:focus-visible {
 .status-strip small {
   color: #342b43;
   font-weight: 750;
+}
+
+.mobile-home-brief {
+  margin-top: 14px;
+  padding: 12px;
+  border: 3px solid var(--ugly-black);
+  border-radius: 14px;
+  background: rgba(255, 247, 230, 0.68);
+  box-shadow: 3px 3px 0 var(--ugly-black);
+}
+
+.mobile-home-brief h2 {
+  font-size: 1rem;
+}
+
+.mobile-home-brief p {
+  margin: 8px 0 0;
+  color: #342b43;
+  font-weight: 780;
+  line-height: 1.42;
+}
+
+.mobile-home-brief ol {
+  display: grid;
+  gap: 6px;
+  margin: 10px 0 0;
+  padding-left: 22px;
+  color: #2d2439;
+  font-weight: 850;
 }
 
 .setup-checklist {
@@ -1076,6 +1110,14 @@ input {
     display: inline-flex !important;
   }
 
+  .mobile-only-block {
+    display: block !important;
+  }
+
+  .mobile-only-flex {
+    display: flex !important;
+  }
+
   .language-control {
     padding: 5px 7px;
     border-width: 2px;
@@ -1216,6 +1258,14 @@ input {
   .desk-card h2,
   .desk-card--question h2 {
     font-size: clamp(1.08rem, 5.4vw, 1.58rem);
+  }
+
+  .desk-card--menu .setup-checklist {
+    display: none;
+  }
+
+  .mobile-home-brief h2 {
+    font-size: 0.98rem;
   }
 
   .subtitle {

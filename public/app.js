@@ -736,12 +736,25 @@ function renderMenuScene() {
       <h1>${escapeHtml(t("title"))}</h1>
       <p class="subtitle">${escapeHtml(t("subtitle"))}</p>
       <p class="tagline">${escapeHtml(t("tagline"))}</p>
+      <div class="mobile-home-brief mobile-only-block">
+        <h2>${escapeHtml(t("mobileLoreTitle"))}</h2>
+        <p>${escapeHtml(t("mobileLoreCopy"))}</p>
+        <ol>
+          <li>${escapeHtml(t("mobileLoreStep1"))}</li>
+          <li>${escapeHtml(t("mobileLoreStep2"))}</li>
+          <li>${escapeHtml(t("mobileLoreStep3"))}</li>
+        </ol>
+      </div>
       ${setupChecklistHtml(summary)}
-      <div class="action-row">
+      <div class="action-row mobile-hidden">
         <button type="button" class="primary-action" data-action="${escapeHtml(setup.primaryAction)}">${escapeHtml(setup.primaryLabel)}</button>
         <button type="button" class="secondary-action" data-action="show-applicant">${escapeHtml(t("applicantFile"))}</button>
         <button type="button" class="secondary-action" data-action="practice">${escapeHtml(t("practiceWithoutPay"))}</button>
         <button type="button" class="secondary-action" data-open="how">${escapeHtml(t("howItWorks"))}</button>
+      </div>
+      <div class="action-row mobile-only-flex">
+        <button type="button" class="primary-action" data-action="show-applicant">${escapeHtml(t("openApplicantFile"))}</button>
+        <button type="button" class="secondary-action" data-action="practice">${escapeHtml(t("practiceInterview"))}</button>
       </div>
       <button type="button" class="status-strip" data-action="show-applicant">
         <span>${escapeHtml(t("applicantStatus"))}</span>
