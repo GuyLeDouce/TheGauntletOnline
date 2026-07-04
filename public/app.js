@@ -654,7 +654,8 @@ function applicantFormHtml(summary, context = "applicant") {
 
       <label for="walletAddress">${escapeHtml(t("walletAddress"))}</label>
       <div class="input-row">
-        <input id="walletAddress" name="walletAddress" type="text" placeholder="0x..." value="${escapeHtml(summary.walletAddress)}" autocomplete="off">
+        <input id="walletAddress" name="walletAddress" type="text" inputmode="text" placeholder="0x..." value="${escapeHtml(summary.walletAddress)}" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false">
+        <button type="button" class="secondary-action" data-action="paste-wallet">${escapeHtml(t("pasteWalletFromClipboard"))}</button>
         <button type="submit" class="secondary-action">${escapeHtml(t("saveWallet"))}</button>
       </div>
 
@@ -873,6 +874,25 @@ async function saveWallet(form) {
   state.profile = data.profile || state.profile;
   renderApplicantScene({ sceneKey: "applicantFile" });
   showToast("Wallet saved. It smells wrong already.");
+}
+
+async function pasteWalletFromClipboard() {
+  const input = document.getElementById("walletAddress");
+  if (!input) return;
+  if (!navigator.clipboard?.readText) {
+    input.focus();
+    showToast("Clipboard paste is not available here. Tap the wallet field and use Paste.");
+    return;
+  }
+  const text = String(await navigator.clipboard.readText() || "").trim();
+  if (!text) {
+    input.focus();
+    showToast("Clipboard is empty.");
+    return;
+  }
+  input.value = text;
+  input.dispatchEvent(new Event("input", { bubbles: true }));
+  input.focus();
 }
 
 async function scanWallet(forceRefresh = false) {
@@ -1257,6 +1277,7 @@ function wireEvents() {
       if (action === "practice") await startRun("practice");
       if (action === "show-applicant") renderApplicantScene();
       if (action === "retry-connection") await retryConnection();
+      if (action === "paste-wallet") await pasteWalletFromClipboard();
       if (action === "connect-discord") {
         setStageScene("loading", { badge: t("discordRedirect") });
         window.location.href = `/api/auth/discord/start?clientId=${encodeURIComponent(state.clientId)}`;

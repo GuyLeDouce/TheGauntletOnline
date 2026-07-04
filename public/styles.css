@@ -661,7 +661,12 @@ input {
   background: var(--ugly-white);
   color: var(--ugly-black);
   box-shadow: 3px 3px 0 var(--ugly-black);
+  font-size: 16px;
   font-weight: 750;
+  line-height: 1.2;
+  touch-action: manipulation;
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 .input-row {
@@ -1172,6 +1177,10 @@ input {
     align-items: stretch;
     flex-direction: column;
     display: flex;
+  }
+
+  .input-row input {
+    flex: 0 0 auto;
   }
 
   .primary-action,
