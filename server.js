@@ -388,13 +388,15 @@ async function handleChoice(res, body) {
     dignityAfter: dignityRemaining
   });
 
+  const correctOption = question.options.find((option) => option.id === question.correctOptionId);
   const feedback = {
     wasCorrect,
     timedOut,
     roast: timedOut ? "Too slow. That pause had pretty energy." : wasCorrect ? question.correctRoast : question.wrongRoast,
     explanation: question.explanation,
     correctOptionId: question.correctOptionId,
-    correctAnswerText: question.options.find((option) => option.id === question.correctOptionId)?.text || "",
+    correctAnswerText: correctOption?.text || "",
+    correctAnswerLabel: correctOption?.label || null,
     rewardAdded,
     dignityLost
   };

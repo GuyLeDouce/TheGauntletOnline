@@ -131,7 +131,7 @@ function sanitizeQuestion(question, progressNumber, runState = {}, config = getG
     category: question.category,
     imageKey: question.imageKey || "interviewDesk",
     prompt: question.prompt,
-    options: question.options.map((option) => ({ id: option.id, text: option.text })),
+    options: question.options.map((option) => ({ id: option.id, text: option.text, label: option.label })),
     reward: rewardForProgress(progressNumber, config),
     timerSeconds: window.timerSeconds,
     startedAt: runState.questionStartedAt || window.questionStartedAt.toISOString(),

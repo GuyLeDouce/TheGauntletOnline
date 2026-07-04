@@ -779,7 +779,7 @@ input {
   line-height: 1.2;
 }
 
-.answer-button span {
+.answer-button .answer-key {
   flex: 0 0 auto;
   display: inline-grid;
   place-items: center;
@@ -1422,7 +1422,7 @@ input {
     margin-bottom: 10px;
   }
 
-  .answer-button span {
+  .answer-button .answer-key {
     width: 28px;
     height: 28px;
     margin-right: 8px;

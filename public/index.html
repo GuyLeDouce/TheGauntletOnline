@@ -267,6 +267,14 @@
           var lang = fallbackLanguage();
           return (fallbackCopy[lang] && fallbackCopy[lang][key]) || fallbackCopy.en[key] || key;
         }
+
+        function localizedValue(value) {
+          var lang = fallbackLanguage();
+          if (value && typeof value === "object") {
+            return value[lang] || value.en || Object.keys(value).map(function (key) { return value[key]; }).filter(Boolean)[0] || "";
+          }
+          return String(value == null ? "" : value);
+        }
         var tierImages = {
           1: "tierEasy",
           2: "tierCertified",
@@ -389,6 +397,7 @@
             return;
           }
           setScene(tierImages[question.tier] || "practice", question.tierLabel || "Active Interview");
+          var prompt = localizedValue(question.prompt);
           setConsole(
             '<section class="desk-card desk-card--question ugly-paper">' +
               '<div class="console-heading">' +
@@ -396,10 +405,10 @@
                 '<p class="category">' + html(question.category || "Ugly Logic") + '</p>' +
                 '<p class="reward-chip">+' + html(question.reward || 0) + ' $CHARM</p>' +
               '</div>' +
-              '<h2>' + html(question.prompt) + '</h2>' +
+              '<h2 data-no-translate>' + html(prompt) + '</h2>' +
               '<div class="answers">' +
                 question.options.map(function (option) {
-                  return '<button type="button" class="answer-button" data-action="fallback-answer" data-option-id="' + html(option.id) + '"><span data-no-translate>' + html(option.id) + '</span>' + html(option.text) + '</button>';
+                  return '<button type="button" class="answer-button" data-action="fallback-answer" data-option-id="' + html(option.id) + '"><span class="answer-key" data-no-translate>' + html(option.id) + '</span><b class="answer-label" data-no-translate>' + html(localizedValue(option.label || option.text)) + '</b></button>';
                 }).join("") +
               '</div>' +
             '</section>'
@@ -408,12 +417,14 @@
 
         function renderFeedback(data) {
           var feedback = data.feedback || {};
+          var correctAnswer = localizedValue(feedback.correctAnswerLabel || feedback.correctAnswerText || "");
           setScene(feedback.wasCorrect ? "correct" : feedback.dignityLost > 0 ? "dignityLost" : "wrong", feedback.wasCorrect ? "Ugly Verified" : "Pretty Energy Detected");
           setConsole(
             '<section class="desk-card desk-card--feedback ugly-paper">' +
               '<p class="stamp-label ' + (feedback.wasCorrect ? "stamp-label--good" : "stamp-label--bad") + '">' + html(feedback.wasCorrect ? ft("correct") : feedback.timedOut ? ft("tooSlow") : ft("wrong")) + '</p>' +
               '<h2>' + html(feedback.roast || "InSquignito has notes.") + '</h2>' +
               '<p class="microcopy">' + html(feedback.explanation || "") + '</p>' +
+              (correctAnswer ? '<p class="correct-answer"><span>' + html(ft("correct")) + ':</span> <span data-no-translate>' + html(correctAnswer) + '</span></p>' : '') +
               '<div class="action-row">' +
                 (data.final ? '<button type="button" class="primary-action" data-action="fallback-final">' + html(ft("viewResult")) + '</button>' : '<button type="button" class="primary-action" data-action="fallback-continue">' + html(ft("continue")) + '</button>') +
               '</div>' +

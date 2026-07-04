@@ -172,6 +172,13 @@ function t(key) {
   return UI_TRANSLATIONS[state.language]?.[key] || UI_TRANSLATIONS.en[key] || key;
 }
 
+function localizedText(value) {
+  if (value && typeof value === "object") {
+    return value[state.language] || value.en || Object.values(value).find(Boolean) || "";
+  }
+  return String(value ?? "");
+}
+
 function setLanguage(lang, { rerender = true } = {}) {
   state.language = SUPPORTED_LANGUAGES[lang] ? lang : "en";
   localStorage.setItem(STORAGE_KEYS.language, state.language);
@@ -796,6 +803,7 @@ function renderQuestionScene(run) {
   state.run = run;
   const question = run.question;
   if (!question) return;
+  const prompt = localizedText(question.prompt);
   setStageMode("question");
   const tierKey = TIER_IMAGE_KEYS[question.tier] || question.imageKey || "activeInterview";
   setStageScene(tierKey, { badge: question.tierLabel || "Active Interview" });
@@ -807,13 +815,13 @@ function renderQuestionScene(run) {
         <p class="category">${escapeHtml(question.category)}</p>
         <p class="reward-chip" id="questionReward" data-no-translate>+${question.reward} $CHARM</p>
       </div>
-      <h2>${escapeHtml(question.prompt)}</h2>
+      <h2 data-no-translate>${escapeHtml(prompt)}</h2>
       <p class="flavor">${escapeHtml(question.flavorText || "InSquignito taps the clipboard. It leaves a stain.")}</p>
       <div class="answers">
         ${question.options.map((option) => `
           <button type="button" class="answer-button" data-action="answer" data-option-id="${escapeHtml(option.id)}">
-            <span data-no-translate>${escapeHtml(option.id)}</span>
-            ${escapeHtml(option.text)}
+            <span class="answer-key" data-no-translate>${escapeHtml(option.id)}</span>
+            <b class="answer-label" data-no-translate>${escapeHtml(localizedText(option.label || option.text))}</b>
           </button>
         `).join("")}
       </div>
@@ -840,13 +848,14 @@ function renderFeedbackScene(data) {
   renderRunHud(data.run);
   clearInterval(state.timerHandle);
   const resultLabel = feedback.wasCorrect ? t("correctAnswer") : feedback.timedOut ? t("tooSlow") : t("wrongAnswer");
+  const correctAnswerText = localizedText(feedback.correctAnswerLabel || feedback.correctAnswerText);
   state.pendingFinalData = data.final ? data : null;
   els.stageDeskConsole.innerHTML = `
     <section class="desk-card desk-card--feedback ugly-paper">
       <p class="stamp-label ${feedback.wasCorrect ? "stamp-label--good" : "stamp-label--bad"}">${escapeHtml(resultLabel)}</p>
       <h2>${escapeHtml(feedback.roast)}</h2>
       <p class="microcopy">${escapeHtml(feedback.explanation)}</p>
-      <p class="correct-answer"><span>${escapeHtml(t("correctAnswer"))}:</span> ${escapeHtml(feedback.correctAnswerText)}</p>
+      <p class="correct-answer"><span>${escapeHtml(t("correctAnswer"))}:</span> <span data-no-translate>${escapeHtml(correctAnswerText)}</span></p>
       <div class="delta-row">
         ${feedback.rewardAdded ? `<strong>+$CHARM ${feedback.rewardAdded}</strong>` : ""}
         ${feedback.dignityLost ? `<strong>-${feedback.dignityLost} ${escapeHtml(t("dignity"))}</strong>` : ""}

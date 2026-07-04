@@ -1,8 +1,10 @@
 const assert = require("assert");
 
+const { QUESTIONS, validateQuestions } = require("../server/interview-questions");
 const {
   rewardForProgress,
   rewardForTimedProgress,
+  sanitizeQuestion,
   timerForTier
 } = require("../server/game-engine");
 
@@ -44,5 +46,16 @@ assert.strictEqual(
 for (let tier = 1; tier <= 5; tier += 1) {
   assert.strictEqual(timerForTier(tier, config), 60, `Tier ${tier} should have a 60-second timer`);
 }
+
+validateQuestions(QUESTIONS);
+const sanitized = sanitizeQuestion(QUESTIONS[0], 1, { interviewLength: 15 }, config);
+assert.strictEqual(typeof sanitized.prompt.en, "string", "Sanitized question should include English prompt display text");
+assert.strictEqual(typeof sanitized.prompt.fr, "string", "Sanitized question should include French prompt display text");
+assert.strictEqual(typeof sanitized.prompt.es, "string", "Sanitized question should include Spanish prompt display text");
+assert.strictEqual(typeof sanitized.options[0].label.fr, "string", "Sanitized options should include localized labels");
+assert.strictEqual(sanitized.correct, undefined, "Sanitized question must not expose raw correct text");
+assert.strictEqual(sanitized.wrong, undefined, "Sanitized question must not expose raw wrong text");
+assert.strictEqual(sanitized.i18n, undefined, "Sanitized question must not expose raw i18n correctness groups");
+assert.strictEqual(sanitized.correctOptionId, undefined, "Sanitized question must not expose correct option before answering");
 
 console.log("Game logic checks passed.");
