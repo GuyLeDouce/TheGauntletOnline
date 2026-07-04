@@ -2,6 +2,7 @@ const assert = require("assert");
 
 const { QUESTIONS, validateQuestions } = require("../server/interview-questions");
 const {
+  CHARM_DECAY_GRACE_SECONDS,
   rewardForProgress,
   rewardForTimedProgress,
   sanitizeQuestion,
@@ -28,9 +29,19 @@ assert.strictEqual(
   "Full reward should apply at the start of the timer"
 );
 assert.strictEqual(
+  rewardForTimedProgress(4, timedRun, new Date(startedAt.getTime() + CHARM_DECAY_GRACE_SECONDS * 1000), config),
+  baseReward,
+  "Full reward should apply through the reading grace period"
+);
+assert.strictEqual(
   rewardForTimedProgress(4, timedRun, new Date(startedAt.getTime() + 15_000), config),
+  30,
+  "Reward should decay only after the grace period"
+);
+assert.strictEqual(
+  rewardForTimedProgress(4, timedRun, new Date(startedAt.getTime() + 20_000), config),
   20,
-  "Half the timer should pay half the reward"
+  "Half the decay window should pay half the reward"
 );
 assert.strictEqual(
   rewardForTimedProgress(4, timedRun, expiresAt, config),
@@ -53,6 +64,7 @@ assert.strictEqual(typeof sanitized.prompt.en, "string", "Sanitized question sho
 assert.strictEqual(typeof sanitized.prompt.fr, "string", "Sanitized question should include French prompt display text");
 assert.strictEqual(typeof sanitized.prompt.es, "string", "Sanitized question should include Spanish prompt display text");
 assert.strictEqual(typeof sanitized.options[0].label.fr, "string", "Sanitized options should include localized labels");
+assert.strictEqual(sanitized.rewardGraceSeconds, CHARM_DECAY_GRACE_SECONDS, "Sanitized question should expose reward grace seconds for display");
 assert.strictEqual(sanitized.correct, undefined, "Sanitized question must not expose raw correct text");
 assert.strictEqual(sanitized.wrong, undefined, "Sanitized question must not expose raw wrong text");
 assert.strictEqual(sanitized.i18n, undefined, "Sanitized question must not expose raw i18n correctness groups");

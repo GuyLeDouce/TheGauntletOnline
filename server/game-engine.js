@@ -13,6 +13,7 @@ const DEFAULT_REWARD_TABLE = [
   10, 15, 25, 40, 60, 90, 140, 200, 275, 375, 500, 650, 850, 1200, 1600
 ];
 const CASHOUT_CHECKPOINTS = new Set([5, 8, 10, 12, 13, 14]);
+const CHARM_DECAY_GRACE_SECONDS = 10;
 const TIER_LABELS = {
   1: "Easy Ugly HR",
   2: "Certified Ugly Applicant",
@@ -81,9 +82,13 @@ function rewardForTimedProgress(progressNumber, runState = {}, answeredAt = new 
     return baseReward;
   }
 
+  const decayStartsAt = startedAt + CHARM_DECAY_GRACE_SECONDS * 1000;
+  if (answeredAtMs <= decayStartsAt) return baseReward;
+
   const remainingMs = Math.max(0, expiresAt - answeredAtMs);
   if (remainingMs <= 0) return 0;
-  const totalMs = expiresAt - startedAt;
+  const totalMs = expiresAt - decayStartsAt;
+  if (totalMs <= 0) return baseReward;
   return Math.max(1, Math.floor(baseReward * (remainingMs / totalMs)));
 }
 
@@ -133,6 +138,7 @@ function sanitizeQuestion(question, progressNumber, runState = {}, config = getG
     prompt: question.prompt,
     options: question.options.map((option) => ({ id: option.id, text: option.text, label: option.label })),
     reward: rewardForProgress(progressNumber, config),
+    rewardGraceSeconds: CHARM_DECAY_GRACE_SECONDS,
     timerSeconds: window.timerSeconds,
     startedAt: runState.questionStartedAt || window.questionStartedAt.toISOString(),
     expiresAt: runState.questionExpiresAt || (window.questionExpiresAt ? window.questionExpiresAt.toISOString() : null),
@@ -146,6 +152,7 @@ function questionMap(questions) {
 
 module.exports = {
   CASHOUT_CHECKPOINTS,
+  CHARM_DECAY_GRACE_SECONDS,
   DEFAULT_REWARD_TABLE,
   DIGNITY_BASE,
   DIGNITY_BONUS_TIERS,

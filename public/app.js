@@ -550,12 +550,18 @@ function startTimer(question) {
     if (!baseReward || !question?.expiresAt || !question?.timerSeconds) return baseReward;
     const expiresAt = Date.parse(question.expiresAt);
     const startedAt = Date.parse(question.startedAt);
-    const totalMs = Number.isFinite(startedAt) && expiresAt > startedAt
+    const totalMs = Number.isFinite(startedAt) && Number.isFinite(expiresAt) && expiresAt > startedAt
       ? expiresAt - startedAt
       : question.timerSeconds * 1000;
-    const remainingMs = Math.max(0, expiresAt - Date.now());
+    const effectiveStartedAt = Number.isFinite(startedAt) ? startedAt : expiresAt - totalMs;
+    const graceMs = Math.max(0, Number(question.rewardGraceSeconds || 0) * 1000);
+    const decayStartsAt = effectiveStartedAt + graceMs;
+    const now = Date.now();
+    if (now <= decayStartsAt) return baseReward;
+    const remainingMs = Math.max(0, expiresAt - now);
     if (!Number.isFinite(expiresAt) || !Number.isFinite(totalMs) || totalMs <= 0 || remainingMs <= 0) return 0;
-    return Math.max(1, Math.floor(baseReward * (remainingMs / totalMs)));
+    const decayMs = Math.max(1, expiresAt - decayStartsAt);
+    return Math.max(1, Math.floor(baseReward * (remainingMs / decayMs)));
   };
 
   if (!question?.expiresAt || !question.timerSeconds) {

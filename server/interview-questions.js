@@ -83,35 +83,35 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-easy-001",
     "tier": 1,
-    "category": "Web3 Basics",
-    "prompt": "InSquignito squints at the chain and asks, 'What is web3, and why is everyone acting like the internet grew pockets?'",
-    "correct": "Web3",
+    "category": "Fiat Basics",
+    "prompt": "What do people usually start with before using a crypto on-ramp?",
+    "correct": "Fiat",
     "wrong": [
-      "Pretty font"
+      "Gas"
     ],
-    "correctRoast": "Correct. The internet did grow pockets. Ugly, tiny, cryptographic pockets.",
-    "wrongRoast": "Wrong. A prettier font is web2 wearing a fake mustache.",
-    "explanation": "Web3 usually refers to internet services that use blockchains, wallets, and tokens for ownership, identity, or access.",
+    "correctRoast": "Correct. Fiat survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Fiat money is government-issued currency, often used first before buying crypto.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito squints at the chain and asks, 'What is web3, and why is everyone acting like the internet grew pockets?'",
-        "correct": "Web3",
+        "prompt": "What do people usually start with before using a crypto on-ramp?",
+        "correct": "Fiat",
         "wrong": [
-          "Pretty font"
+          "Gas"
         ]
       },
       "fr": {
-        "prompt": "InSquignito plisse les yeux devant la chaîne et demande : 'C'est quoi le web3, et pourquoi Internet a soudain des poches ?'",
-        "correct": "Web3",
+        "prompt": "Avec quoi commence-t-on généralement avant d'utiliser une rampe crypto ?",
+        "correct": "Fiat",
         "wrong": [
-          "Fonte jolie"
+          "Gas"
         ]
       },
       "es": {
-        "prompt": "InSquignito entrecierra los ojos ante la cadena y pregunta: '¿Qué es web3, y por qué Internet de pronto tiene bolsillos?'",
-        "correct": "Web3",
+        "prompt": "¿Con qué suele empezar alguien antes de usar una rampa cripto?",
+        "correct": "Fiat",
         "wrong": [
-          "Fuente bonita"
+          "Gas"
         ]
       }
     }
@@ -119,35 +119,35 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-easy-002",
     "tier": 1,
-    "category": "Blockchain",
-    "prompt": "InSquignito asks, 'What is a blockchain, besides a very dramatic spreadsheet with fans?'",
-    "correct": "Public ledger",
+    "category": "Exchanges",
+    "prompt": "Which service commonly turns regular money into crypto?",
+    "correct": "Exchange",
     "wrong": [
-      "Private notebook"
+      "Explorer"
     ],
-    "correctRoast": "Correct. A spreadsheet with witnesses. Ugly Labs respects the witnesses.",
-    "wrongRoast": "Wrong. One private notebook is just an office secret with extra steps.",
-    "explanation": "A blockchain is a distributed ledger: many computers verify and keep the same record.",
+    "correctRoast": "Correct. Exchange survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "A centralized exchange is a common beginner on-ramp from fiat into crypto.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is a blockchain, besides a very dramatic spreadsheet with fans?'",
-        "correct": "Public ledger",
+        "prompt": "Which service commonly turns regular money into crypto?",
+        "correct": "Exchange",
         "wrong": [
-          "Private notebook"
+          "Explorer"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'C'est quoi une blockchain, à part un tableur dramatique avec des fans ?'",
-        "correct": "Registre public",
+        "prompt": "Quel service transforme souvent l'argent classique en crypto ?",
+        "correct": "Exchange",
         "wrong": [
-          "Carnet privé"
+          "Explorer"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué es una blockchain, además de una hoja dramática con fans?'",
-        "correct": "Libro público",
+        "prompt": "¿Qué servicio suele convertir dinero normal en cripto?",
+        "correct": "Exchange",
         "wrong": [
-          "Cuaderno privado"
+          "Explorer"
         ]
       }
     }
@@ -155,35 +155,35 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-easy-003",
     "tier": 1,
-    "category": "Wallets",
-    "prompt": "InSquignito opens an empty drawer and asks, 'Is this my crypto wallet?'",
-    "correct": "Wallet",
+    "category": "Ethereum",
+    "prompt": "Which asset usually pays transaction fees on Ethereum?",
+    "correct": "ETH",
     "wrong": [
-      "Drawer"
+      "NFT"
     ],
-    "correctRoast": "Correct. The drawer has vibes, but no private keys.",
-    "wrongRoast": "Wrong. Whispering Ethereum at furniture remains unsupported.",
-    "explanation": "Wallets do not literally store coins like a pocket; they manage keys that control assets on a blockchain.",
+    "correctRoast": "Correct. ETH survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "ETH is used to pay Ethereum network fees and often NFT purchase prices.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito opens an empty drawer and asks, 'Is this my crypto wallet?'",
-        "correct": "Wallet",
+        "prompt": "Which asset usually pays transaction fees on Ethereum?",
+        "correct": "ETH",
         "wrong": [
-          "Drawer"
+          "NFT"
         ]
       },
       "fr": {
-        "prompt": "InSquignito ouvre un tiroir vide et demande : 'C'est mon wallet crypto ?'",
-        "correct": "Wallet",
+        "prompt": "Quel actif paie généralement les frais de transaction sur Ethereum ?",
+        "correct": "ETH",
         "wrong": [
-          "Tiroir"
+          "NFT"
         ]
       },
       "es": {
-        "prompt": "InSquignito abre un cajón vacío y pregunta: '¿Este es mi wallet cripto?'",
-        "correct": "Wallet",
+        "prompt": "¿Qué activo suele pagar las tarifas de transacción en Ethereum?",
+        "correct": "ETH",
         "wrong": [
-          "Cajón"
+          "NFT"
         ]
       }
     }
@@ -191,35 +191,35 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-easy-004",
     "tier": 1,
-    "category": "Private Keys",
-    "prompt": "InSquignito finds a secret phrase and asks, 'Should I show this to a marketplace goblin for friendship?'",
-    "correct": "Seed phrase",
+    "category": "Wallets",
+    "prompt": "What tool controls blockchain assets with keys?",
+    "correct": "Wallet",
     "wrong": [
-      "Share it"
+      "Browser"
     ],
-    "correctRoast": "Correct. The seed phrase stays in the basement vault with the suspicious chair.",
-    "wrongRoast": "Wrong. That goblin now owns the chair, the vault, and probably the snacks.",
-    "explanation": "Anyone with a seed phrase or private key can often move the wallet's assets, so it should never be shared.",
+    "correctRoast": "Correct. Wallet survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "A wallet manages keys and lets the holder control on-chain assets.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito finds a secret phrase and asks, 'Should I show this to a marketplace goblin for friendship?'",
-        "correct": "Seed phrase",
+        "prompt": "What tool controls blockchain assets with keys?",
+        "correct": "Wallet",
         "wrong": [
-          "Share it"
+          "Browser"
         ]
       },
       "fr": {
-        "prompt": "InSquignito trouve une phrase secrète et demande : 'Je la montre à un gobelin de marketplace pour devenir amis ?'",
-        "correct": "Phrase seed",
+        "prompt": "Quel outil contrôle les actifs blockchain avec des clés ?",
+        "correct": "Wallet",
         "wrong": [
-          "Partager"
+          "Navigateur"
         ]
       },
       "es": {
-        "prompt": "InSquignito encuentra una frase secreta y pregunta: '¿Se la enseño a un duende de marketplace para hacer amistad?'",
-        "correct": "Frase semilla",
+        "prompt": "¿Qué herramienta controla activos blockchain con llaves?",
+        "correct": "Wallet",
         "wrong": [
-          "Compartirla"
+          "Navegador"
         ]
       }
     }
@@ -227,35 +227,35 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-easy-005",
     "tier": 1,
-    "category": "Public Address",
-    "prompt": "InSquignito asks, 'Can I show my public wallet address, or will the chain sneeze?'",
-    "correct": "Public address",
+    "category": "Secrets",
+    "prompt": "Which wallet item must stay private forever?",
+    "correct": "Seed",
     "wrong": [
-      "Seed leak"
+      "Address"
     ],
-    "correctRoast": "Correct. Public address: mailbox. Seed phrase: forbidden basement map.",
-    "wrongRoast": "Wrong. The address is public; the danger goblin lives in the private keys.",
-    "explanation": "A public address is meant to be shared, while private keys and seed phrases must stay secret.",
+    "correctRoast": "Correct. Seed survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "A seed phrase can restore and control a wallet, so it should never be shared.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Can I show my public wallet address, or will the chain sneeze?'",
-        "correct": "Public address",
+        "prompt": "Which wallet item must stay private forever?",
+        "correct": "Seed",
         "wrong": [
-          "Seed leak"
+          "Address"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Je peux montrer mon adresse publique, ou la chaîne va éternuer ?'",
-        "correct": "Adresse publique",
+        "prompt": "Quel élément du wallet doit rester privé pour toujours ?",
+        "correct": "Seed",
         "wrong": [
-          "Fuite seed"
+          "Adresse"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Puedo mostrar mi dirección pública, o la cadena estornuda?'",
-        "correct": "Dirección pública",
+        "prompt": "¿Qué elemento del wallet debe quedar privado para siempre?",
+        "correct": "Semilla",
         "wrong": [
-          "Fuga semilla"
+          "Dirección"
         ]
       }
     }
@@ -263,35 +263,35 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-easy-006",
     "tier": 1,
-    "category": "Crypto",
-    "prompt": "InSquignito asks, 'What is crypto supposed to be in this ugly onboarding ritual?'",
-    "correct": "Digital assets",
+    "category": "Addresses",
+    "prompt": "Which wallet item can be shared to receive assets?",
+    "correct": "Address",
     "wrong": [
-      "Treasure soup"
+      "Seed"
     ],
-    "correctRoast": "Correct. Useful, risky, volatile, and deeply weird. Approved.",
-    "wrongRoast": "Wrong. Guaranteed treasure soup is how the pretty scammers season the trap.",
-    "explanation": "Crypto assets can have different uses and risks; they are not guaranteed to increase in value.",
+    "correctRoast": "Correct. Address survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "A public address can receive assets; private recovery secrets must stay hidden.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is crypto supposed to be in this ugly onboarding ritual?'",
-        "correct": "Digital assets",
+        "prompt": "Which wallet item can be shared to receive assets?",
+        "correct": "Address",
         "wrong": [
-          "Treasure soup"
+          "Seed"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'La crypto, c'est censé être quoi dans ce rituel d'onboarding laid ?'",
-        "correct": "Actifs numériques",
+        "prompt": "Quel élément du wallet peut être partagé pour recevoir des actifs ?",
+        "correct": "Adresse",
         "wrong": [
-          "Soupe trésor"
+          "Seed"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué se supone que es la cripto en este ritual feo de onboarding?'",
-        "correct": "Activos digitales",
+        "prompt": "¿Qué elemento del wallet puede compartirse para recibir activos?",
+        "correct": "Dirección",
         "wrong": [
-          "Sopa tesoro"
+          "Semilla"
         ]
       }
     }
@@ -299,35 +299,35 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-easy-007",
     "tier": 1,
-    "category": "Ethereum",
-    "prompt": "InSquignito points at ETH and asks, 'Why does this coin keep standing near the Squigs door?'",
-    "correct": "ETH",
+    "category": "Fees",
+    "prompt": "What pays validators to process an Ethereum transaction?",
+    "correct": "Gas",
     "wrong": [
-      "Gas coupon"
+      "Royalty"
     ],
-    "correctRoast": "Correct. ETH pays the toll troll. The toll troll is not cute.",
-    "wrongRoast": "Wrong. The toll troll heard coupon and became more expensive.",
-    "explanation": "On Ethereum, ETH is used to pay network fees and often to buy NFTs listed in ETH.",
+    "correctRoast": "Correct. Gas survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Gas is the network fee paid to process activity on Ethereum.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito points at ETH and asks, 'Why does this coin keep standing near the Squigs door?'",
-        "correct": "ETH",
+        "prompt": "What pays validators to process an Ethereum transaction?",
+        "correct": "Gas",
         "wrong": [
-          "Gas coupon"
+          "Royalty"
         ]
       },
       "fr": {
-        "prompt": "InSquignito pointe l'ETH et demande : 'Pourquoi cette pièce traîne près de la porte des Squigs ?'",
-        "correct": "ETH",
+        "prompt": "Qu'est-ce qui paie les validateurs pour traiter une transaction Ethereum ?",
+        "correct": "Gas",
         "wrong": [
-          "Coupon gas"
+          "Royalty"
         ]
       },
       "es": {
-        "prompt": "InSquignito señala ETH y pregunta: '¿Por qué esta moneda se queda junto a la puerta de los Squigs?'",
-        "correct": "ETH",
+        "prompt": "¿Qué paga a validadores por procesar una transacción de Ethereum?",
+        "correct": "Gas",
         "wrong": [
-          "Cupón gas"
+          "Regalía"
         ]
       }
     }
@@ -335,35 +335,35 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-easy-008",
     "tier": 1,
-    "category": "Gas Fees",
-    "prompt": "InSquignito asks, 'What is gas? Did the blockchain eat beans?'",
-    "correct": "Gas fees",
+    "category": "Networks",
+    "prompt": "Which Ethereum environment holds real assets and real fees?",
+    "correct": "Mainnet",
     "wrong": [
-      "Smell trait"
+      "Testnet"
     ],
-    "correctRoast": "Correct. Fee fumes. Horrible name. Functional concept.",
-    "wrongRoast": "Wrong. A smell trait would be ugly, but the chain wants fees, not perfume.",
-    "explanation": "Blockchain transactions require fees, commonly called gas on Ethereum, to pay for computation and validation.",
+    "correctRoast": "Correct. Mainnet survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Mainnet is the live network where real assets and fees exist.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is gas? Did the blockchain eat beans?'",
-        "correct": "Gas fees",
+        "prompt": "Which Ethereum environment holds real assets and real fees?",
+        "correct": "Mainnet",
         "wrong": [
-          "Smell trait"
+          "Testnet"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'C'est quoi le gas ? La blockchain a mangé des haricots ?'",
-        "correct": "Frais gas",
+        "prompt": "Quel environnement Ethereum contient de vrais actifs et de vrais frais ?",
+        "correct": "Mainnet",
         "wrong": [
-          "Trait odeur"
+          "Testnet"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué es el gas? ¿La blockchain comió frijoles?'",
-        "correct": "Tarifa gas",
+        "prompt": "¿Qué entorno de Ethereum tiene activos y tarifas reales?",
+        "correct": "Mainnet",
         "wrong": [
-          "Rasgo olor"
+          "Testnet"
         ]
       }
     }
@@ -372,34 +372,34 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-easy-009",
     "tier": 1,
     "category": "NFTs",
-    "prompt": "InSquignito asks, 'What is an NFT, and can it be my Squig friend certificate?'",
-    "correct": "Unique token",
+    "prompt": "What unique on-chain item can represent a collectible?",
+    "correct": "NFT",
     "wrong": [
-      "Crown screenshot"
+      "JPEG"
     ],
-    "correctRoast": "Correct. The token is the receipt goblin. The image is only part of the mess.",
-    "wrongRoast": "Wrong. Screenshots can look, but they cannot prove token ownership.",
-    "explanation": "NFT ownership is tracked by a token on-chain; media and metadata are associated with that token.",
+    "correctRoast": "Correct. NFT survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "An NFT is a unique token that can represent ownership or access for a collectible.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is an NFT, and can it be my Squig friend certificate?'",
-        "correct": "Unique token",
+        "prompt": "What unique on-chain item can represent a collectible?",
+        "correct": "NFT",
         "wrong": [
-          "Crown screenshot"
+          "JPEG"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'C'est quoi un NFT, et ça peut être mon certificat d'ami Squig ?'",
-        "correct": "Jeton unique",
+        "prompt": "Quel élément unique on-chain peut représenter un collectible ?",
+        "correct": "NFT",
         "wrong": [
-          "Capture royale"
+          "JPEG"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué es un NFT, y puede ser mi certificado de amigo Squig?'",
-        "correct": "Token único",
+        "prompt": "¿Qué elemento único on-chain puede representar un coleccionable?",
+        "correct": "NFT",
         "wrong": [
-          "Captura real"
+          "JPEG"
         ]
       }
     }
@@ -407,35 +407,35 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-easy-010",
     "tier": 1,
-    "category": "Collections",
-    "prompt": "InSquignito asks, 'What is an NFT collection?'",
-    "correct": "NFT collection",
+    "category": "Blockchain",
+    "prompt": "What shared record stores verified transactions?",
+    "correct": "Blockchain",
     "wrong": [
-      "Couch pile"
+      "Spreadsheet"
     ],
-    "correctRoast": "Correct. A family of ugly little tokens, not couch lint.",
-    "wrongRoast": "Wrong. Couch-lint images are not a collection unless the contract says so.",
-    "explanation": "Collections usually group related tokens, often with a shared smart contract and theme.",
+    "correctRoast": "Correct. Blockchain survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "A blockchain is a shared ledger maintained and verified by a network.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is an NFT collection?'",
-        "correct": "NFT collection",
+        "prompt": "What shared record stores verified transactions?",
+        "correct": "Blockchain",
         "wrong": [
-          "Couch pile"
+          "Spreadsheet"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'C'est quoi une collection NFT ?'",
-        "correct": "Collection NFT",
+        "prompt": "Quel registre partagé stocke les transactions vérifiées ?",
+        "correct": "Blockchain",
         "wrong": [
-          "Tas canapé"
+          "Tableur"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué es una colección NFT?'",
-        "correct": "Colección NFT",
+        "prompt": "¿Qué registro compartido guarda transacciones verificadas?",
+        "correct": "Blockchain",
         "wrong": [
-          "Montón sofá"
+          "Planilla"
         ]
       }
     }
@@ -444,34 +444,34 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-easy-011",
     "tier": 1,
     "category": "Marketplaces",
-    "prompt": "InSquignito asks, 'Where do humans usually browse NFTs for sale without licking the contract directly?'",
+    "prompt": "Where do buyers usually browse listed collectibles?",
     "correct": "Marketplace",
     "wrong": [
-      "Panic sheet"
+      "Notepad"
     ],
-    "correctRoast": "Correct. Marketplaces are the shop windows. Still check the address behind the glass.",
-    "wrongRoast": "Wrong. Spreadsheets can be useful, but this one smells like panic.",
-    "explanation": "NFT marketplaces provide interfaces for browsing and trading NFTs, but buyers still need to verify what they are buying.",
+    "correctRoast": "Correct. Marketplace survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "NFT marketplaces show collections, listings, offers, and purchase flows.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Where do humans usually browse NFTs for sale without licking the contract directly?'",
+        "prompt": "Where do buyers usually browse listed collectibles?",
         "correct": "Marketplace",
         "wrong": [
-          "Panic sheet"
+          "Notepad"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Où les humains regardent des NFT à vendre sans lécher le contrat directement ?'",
+        "prompt": "Où les acheteurs consultent-ils généralement les collectibles listés ?",
         "correct": "Marketplace",
         "wrong": [
-          "Tableur panique"
+          "Blocnote"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Dónde miran los humanos NFT en venta sin lamer el contrato directamente?'",
+        "prompt": "¿Dónde suelen mirar los compradores coleccionables listados?",
         "correct": "Marketplace",
         "wrong": [
-          "Hoja pánico"
+          "Bloc"
         ]
       }
     }
@@ -479,35 +479,35 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-easy-012",
     "tier": 1,
-    "category": "Exchanges",
-    "prompt": "InSquignito asks, 'What is a crypto exchange in beginner words?'",
-    "correct": "Exchange",
+    "category": "Verification",
+    "prompt": "What on-chain identifier is harder to fake than a collection name?",
+    "correct": "Contract",
     "wrong": [
-      "Hat swap"
+      "Logo"
     ],
-    "correctRoast": "Correct. Money goes in, crypto may come out, paperwork lurks nearby.",
-    "wrongRoast": "Wrong. Hat swaps are culture. Exchanges are custody and trading rails.",
-    "explanation": "Centralized exchanges often let users buy crypto with fiat currency, but they may hold assets for the user until withdrawal.",
+    "correctRoast": "Correct. Contract survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "A contract address identifies the real on-chain collection more reliably than a copied name.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is a crypto exchange in beginner words?'",
-        "correct": "Exchange",
+        "prompt": "What on-chain identifier is harder to fake than a collection name?",
+        "correct": "Contract",
         "wrong": [
-          "Hat swap"
+          "Logo"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'C'est quoi un exchange crypto, en mots de débutant ?'",
-        "correct": "Exchange",
+        "prompt": "Quel identifiant on-chain est plus difficile à copier qu'un nom de collection ?",
+        "correct": "Contrat",
         "wrong": [
-          "Échange chapeaux"
+          "Logo"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué es un exchange cripto, en palabras de principiante?'",
-        "correct": "Exchange",
+        "prompt": "¿Qué identificador on-chain es más difícil de copiar que un nombre de colección?",
+        "correct": "Contrato",
         "wrong": [
-          "Cambio sombreros"
+          "Logo"
         ]
       }
     }
@@ -515,35 +515,35 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-easy-013",
     "tier": 1,
-    "category": "Fiat Onboarding",
-    "prompt": "InSquignito asks, 'What does fiat mean? Is it a tiny car for ETH?'",
-    "correct": "Fiat money",
+    "category": "Learning",
+    "prompt": "What should happen before spending real money?",
+    "correct": "Learn",
     "wrong": [
-      "Free gas"
+      "FOMO"
     ],
-    "correctRoast": "Correct. Dollars, euros, regular money. The tiny car may leave.",
-    "wrongRoast": "Wrong. No spell has made gas free. Ugly Labs checked twice.",
-    "explanation": "Fiat refers to traditional government currency, which many exchanges accept for buying crypto.",
+    "correctRoast": "Correct. Learn survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Beginners should understand wallets, fees, verification, and risk before buying.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What does fiat mean? Is it a tiny car for ETH?'",
-        "correct": "Fiat money",
+        "prompt": "What should happen before spending real money?",
+        "correct": "Learn",
         "wrong": [
-          "Free gas"
+          "FOMO"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Fiat, ça veut dire quoi ? Une petite voiture pour ETH ?'",
-        "correct": "Monnaie fiat",
+        "prompt": "Que faut-il faire avant de dépenser de l'argent réel ?",
+        "correct": "Apprendre",
         "wrong": [
-          "Gas gratuit"
+          "FOMO"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué significa fiat? ¿Un cochecito para ETH?'",
-        "correct": "Dinero fiat",
+        "prompt": "¿Qué debería pasar antes de gastar dinero real?",
+        "correct": "Aprender",
         "wrong": [
-          "Gas gratis"
+          "FOMO"
         ]
       }
     }
@@ -551,35 +551,35 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-easy-014",
     "tier": 1,
-    "category": "Self Custody",
-    "prompt": "InSquignito asks, 'What does self-custody mean, and why does it sound like homework?'",
-    "correct": "Self-custody",
+    "category": "Transfers",
+    "prompt": "What must match before sending funds away from an exchange?",
+    "correct": "Network",
     "wrong": [
-      "Forever promise"
+      "Color"
     ],
-    "correctRoast": "Correct. Freedom plus responsibility. The ugliest combo platter.",
-    "wrongRoast": "Wrong. Forever promises age like unrefrigerated soup.",
-    "explanation": "Self-custody gives the holder control, but losing keys can mean losing access.",
+    "correctRoast": "Correct. Network survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "The destination network must match what the wallet and app support.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What does self-custody mean, and why does it sound like homework?'",
-        "correct": "Self-custody",
+        "prompt": "What must match before sending funds away from an exchange?",
+        "correct": "Network",
         "wrong": [
-          "Forever promise"
+          "Color"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'L'auto-garde, c'est quoi, et pourquoi ça sent les devoirs ?'",
-        "correct": "Auto-garde",
+        "prompt": "Que doit correspondre avant d'envoyer des fonds depuis un exchange ?",
+        "correct": "Réseau",
         "wrong": [
-          "Promesse éternelle"
+          "Couleur"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué es la autocustodia, y por qué suena a tarea?'",
-        "correct": "Autocustodia",
+        "prompt": "¿Qué debe coincidir antes de enviar fondos desde un exchange?",
+        "correct": "Red",
         "wrong": [
-          "Promesa eterna"
+          "Color"
         ]
       }
     }
@@ -587,35 +587,35 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-easy-015",
     "tier": 1,
-    "category": "Custodial Accounts",
-    "prompt": "InSquignito asks, 'If my crypto stays on an exchange, who usually controls the keys?'",
-    "correct": "Exchange keys",
+    "category": "Explorers",
+    "prompt": "Where can public transaction status be inspected?",
+    "correct": "Explorer",
     "wrong": [
-      "Cereal box"
+      "Discord"
     ],
-    "correctRoast": "Correct. Not your keys, not your full control. The cereal box is decorative.",
-    "wrongRoast": "Wrong. The cereal box failed compliance and snack security.",
-    "explanation": "In custodial exchange accounts, the platform controls private keys and credits the user internally.",
+    "correctRoast": "Correct. Explorer survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "A block explorer lets anyone inspect public blockchain data.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'If my crypto stays on an exchange, who usually controls the keys?'",
-        "correct": "Exchange keys",
+        "prompt": "Where can public transaction status be inspected?",
+        "correct": "Explorer",
         "wrong": [
-          "Cereal box"
+          "Discord"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Si ma crypto reste sur un exchange, qui contrôle normalement les clés ?'",
-        "correct": "Clés exchange",
+        "prompt": "Où peut-on inspecter le statut public d'une transaction ?",
+        "correct": "Explorer",
         "wrong": [
-          "Boîte céréales"
+          "Discord"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Si mi cripto queda en un exchange, ¿quién suele controlar las llaves?'",
-        "correct": "Llaves exchange",
+        "prompt": "¿Dónde se puede inspeccionar el estado público de una transacción?",
+        "correct": "Explorer",
         "wrong": [
-          "Caja cereal"
+          "Discord"
         ]
       }
     }
@@ -623,35 +623,35 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-easy-016",
     "tier": 1,
-    "category": "Transactions",
-    "prompt": "InSquignito asks, 'What is a transaction on-chain?'",
-    "correct": "Transaction",
+    "category": "Signatures",
+    "prompt": "What may prove wallet control without sending tokens?",
+    "correct": "Signature",
     "wrong": [
-      "Discord rumor"
+      "Password"
     ],
-    "correctRoast": "Correct. The chain records actions, not vibes shouted into the goblin hall.",
-    "wrongRoast": "Wrong. Discord rumors create panic, not settlement.",
-    "explanation": "Blockchain transactions are signed and submitted actions that can change balances or permissions.",
+    "correctRoast": "Correct. Signature survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Some signatures prove wallet control, but users still need to read what they sign.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is a transaction on-chain?'",
-        "correct": "Transaction",
+        "prompt": "What may prove wallet control without sending tokens?",
+        "correct": "Signature",
         "wrong": [
-          "Discord rumor"
+          "Password"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'C'est quoi une transaction on-chain ?'",
-        "correct": "Transaction",
+        "prompt": "Qu'est-ce qui peut prouver le contrôle d'un wallet sans envoyer de tokens ?",
+        "correct": "Signature",
         "wrong": [
-          "Rumeur Discord"
+          "Passe"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué es una transacción on-chain?'",
-        "correct": "Transacción",
+        "prompt": "¿Qué puede probar control del wallet sin enviar tokens?",
+        "correct": "Firma",
         "wrong": [
-          "Rumor Discord"
+          "Clave"
         ]
       }
     }
@@ -659,35 +659,35 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-easy-017",
     "tier": 1,
-    "category": "Signatures",
-    "prompt": "InSquignito asks, 'When a wallet asks me to sign, is it always safe because the button is shiny?'",
-    "correct": "Read signature",
+    "category": "Wallet Prompts",
+    "prompt": "What should be read before confirming a wallet action?",
+    "correct": "Prompt",
     "wrong": [
-      "Shiny safe"
+      "Mascot"
     ],
-    "correctRoast": "Correct. The shiny button has been placed under suspicion.",
-    "wrongRoast": "Wrong. Shiny buttons are how traps moisturize.",
-    "explanation": "Wallet signatures can be harmless logins or powerful approvals, so users should review them carefully.",
+    "correctRoast": "Correct. Prompt survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Wallet prompts describe the action or permission being requested.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'When a wallet asks me to sign, is it always safe because the button is shiny?'",
-        "correct": "Read signature",
+        "prompt": "What should be read before confirming a wallet action?",
+        "correct": "Prompt",
         "wrong": [
-          "Shiny safe"
+          "Mascot"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Quand un wallet me demande de signer, c'est toujours sûr parce que le bouton brille ?'",
-        "correct": "Lire signature",
+        "prompt": "Que faut-il lire avant de confirmer une action wallet ?",
+        "correct": "Popup",
         "wrong": [
-          "Bouton brillant"
+          "Mascotte"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Cuando un wallet me pide firmar, ¿siempre es seguro porque el botón brilla?'",
-        "correct": "Leer firma",
+        "prompt": "¿Qué se debe leer antes de confirmar una acción del wallet?",
+        "correct": "Popup",
         "wrong": [
-          "Botón brillante"
+          "Mascota"
         ]
       }
     }
@@ -695,35 +695,35 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-easy-018",
     "tier": 1,
-    "category": "Networks",
-    "prompt": "InSquignito asks, 'Why does everyone keep saying mainnet? Is there a side quest net?'",
-    "correct": "Mainnet",
+    "category": "Names",
+    "prompt": "What can map a readable name to a wallet destination?",
+    "correct": "ENS",
     "wrong": [
-      "Squig ranking"
+      "PDF"
     ],
-    "correctRoast": "Correct. Mainnet is the real road. Testnets are practice parking lots.",
-    "wrongRoast": "Wrong. Friendship rankings remain off-chain and emotionally unstable.",
-    "explanation": "Mainnets handle real value; testnets are usually for testing without real funds.",
+    "correctRoast": "Correct. ENS survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Name services can resolve readable names to wallet addresses, but the result should be checked.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why does everyone keep saying mainnet? Is there a side quest net?'",
-        "correct": "Mainnet",
+        "prompt": "What can map a readable name to a wallet destination?",
+        "correct": "ENS",
         "wrong": [
-          "Squig ranking"
+          "PDF"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi tout le monde dit mainnet ? Il y a un filet de quête secondaire ?'",
-        "correct": "Mainnet",
+        "prompt": "Qu'est-ce qui peut lier un nom lisible à une destination wallet ?",
+        "correct": "ENS",
         "wrong": [
-          "Classement Squig"
+          "PDF"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué todos dicen mainnet? ¿Hay una red de misión secundaria?'",
-        "correct": "Mainnet",
+        "prompt": "¿Qué puede vincular un nombre legible con un destino wallet?",
+        "correct": "ENS",
         "wrong": [
-          "Ranking Squig"
+          "PDF"
         ]
       }
     }
@@ -731,35 +731,35 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-easy-019",
     "tier": 1,
-    "category": "NFT Ownership",
-    "prompt": "InSquignito asks, 'If I buy a Squig NFT, what does my wallet actually hold?'",
-    "correct": "Token ownership",
+    "category": "Ownership",
+    "prompt": "What proves a wallet owns a specific collectible?",
+    "correct": "Token",
     "wrong": [
-      "Image laundry"
+      "Screenshot"
     ],
-    "correctRoast": "Correct. Token ownership, not a laundry-stuffed internet.",
-    "wrongRoast": "Wrong. Wallets do not swallow images. They already have enough anxiety.",
-    "explanation": "A wallet owns tokens on-chain; images and metadata are referenced separately.",
+    "correctRoast": "Correct. Token survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "On-chain token ownership is the ownership record; screenshots are not proof.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'If I buy a Squig NFT, what does my wallet actually hold?'",
-        "correct": "Token ownership",
+        "prompt": "What proves a wallet owns a specific collectible?",
+        "correct": "Token",
         "wrong": [
-          "Image laundry"
+          "Screenshot"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Si j'achète un NFT Squig, mon wallet détient quoi exactement ?'",
-        "correct": "Propriété token",
+        "prompt": "Qu'est-ce qui prouve qu'un wallet possède un collectible précis ?",
+        "correct": "Token",
         "wrong": [
-          "Lessive image"
+          "Capture"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Si compro un NFT Squig, ¿qué tiene mi wallet exactamente?'",
-        "correct": "Propiedad token",
+        "prompt": "¿Qué prueba que un wallet posee un coleccionable específico?",
+        "correct": "Token",
         "wrong": [
-          "Lavado imagen"
+          "Captura"
         ]
       }
     }
@@ -767,35 +767,35 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-easy-020",
     "tier": 1,
-    "category": "Beginner Summary",
-    "prompt": "InSquignito asks, 'What is the first ugly rule before I chase Squig friends?'",
-    "correct": "Learn first",
+    "category": "Mindset",
+    "prompt": "What protects beginners from hype and ugly mistakes?",
+    "correct": "Caution",
     "wrong": [
-      "Click fast"
+      "Panic"
     ],
-    "correctRoast": "Correct. Slow ugly learning beats fast pretty panic.",
-    "wrongRoast": "Wrong. The fastest button is usually bait with good lighting.",
-    "explanation": "A beginner should understand the basics and risks before making NFT purchases.",
+    "correctRoast": "Correct. Caution survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "A careful pace beats rushed clicks, hype, and scam pressure.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is the first ugly rule before I chase Squig friends?'",
-        "correct": "Learn first",
+        "prompt": "What protects beginners from hype and ugly mistakes?",
+        "correct": "Caution",
         "wrong": [
-          "Click fast"
+          "Panic"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Quelle est la première règle laide avant de courir après des amis Squigs ?'",
-        "correct": "Apprendre d'abord",
+        "prompt": "Qu'est-ce qui protège les débutants du hype et des erreurs laides ?",
+        "correct": "Prudence",
         "wrong": [
-          "Cliquer vite"
+          "Panique"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Cuál es la primera regla fea antes de perseguir amigos Squig?'",
-        "correct": "Aprender primero",
+        "prompt": "¿Qué protege a principiantes del hype y errores feos?",
+        "correct": "Cautela",
         "wrong": [
-          "Clic rápido"
+          "Pánico"
         ]
       }
     }
@@ -803,39 +803,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-certified-001",
     "tier": 2,
-    "category": "Exchange Accounts",
-    "prompt": "InSquignito asks, 'Why might a new human use an exchange before buying a Squig?'",
-    "correct": "On-ramp",
+    "category": "Exchange Security",
+    "prompt": "What should protect an exchange login?",
+    "correct": "2FA",
     "wrong": [
-      "Mint password",
-      "Freeze prices"
+      "Theme",
+      "Avatar"
     ],
-    "correctRoast": "Correct. The exchange is the fiat-to-crypto mudslide entrance.",
-    "wrongRoast": "Wrong. Exchanges do many things, but they do not domesticate prices.",
-    "explanation": "Many beginners use centralized exchanges as an on-ramp from fiat currency into crypto.",
+    "correctRoast": "Correct. 2FA survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Two-factor authentication helps protect exchange accounts from password-only failure.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why might a new human use an exchange before buying a Squig?'",
-        "correct": "On-ramp",
+        "prompt": "What should protect an exchange login?",
+        "correct": "2FA",
         "wrong": [
-          "Mint password",
-          "Freeze prices"
+          "Theme",
+          "Avatar"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi un nouvel humain utiliserait un exchange avant d'acheter un Squig ?'",
-        "correct": "Rampe entrée",
+        "prompt": "Qu'est-ce qui doit protéger une connexion exchange ?",
+        "correct": "2FA",
         "wrong": [
-          "Minter passe",
-          "Prix figés"
+          "Thème",
+          "Avatar"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué un humano nuevo usaría un exchange antes de comprar un Squig?'",
-        "correct": "Rampa entrada",
+        "prompt": "¿Qué debe proteger un inicio de sesión en exchange?",
+        "correct": "2FA",
         "wrong": [
-          "Mint contraseña",
-          "Precios fijos"
+          "Tema",
+          "Avatar"
         ]
       }
     }
@@ -843,39 +843,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-certified-002",
     "tier": 2,
-    "category": "KYC",
-    "prompt": "InSquignito asks, 'Why does an exchange ask for identity checks before letting me buy crypto?'",
-    "correct": "Compliance",
+    "category": "Compliance",
+    "prompt": "What identity check may a regulated exchange require?",
+    "correct": "KYC",
     "wrong": [
-      "Hair rating",
-      "Selfie chain"
+      "Lore",
+      "Rarity"
     ],
-    "correctRoast": "Correct. Compliance goblins require paperwork.",
-    "wrongRoast": "Wrong. The hairstyle rating is internal Ugly Labs business only.",
-    "explanation": "Centralized exchanges often require Know Your Customer checks before allowing deposits, purchases, or withdrawals.",
+    "correctRoast": "Correct. KYC survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Many centralized exchanges require identity checks before deposits, trades, or withdrawals.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why does an exchange ask for identity checks before letting me buy crypto?'",
-        "correct": "Compliance",
+        "prompt": "What identity check may a regulated exchange require?",
+        "correct": "KYC",
         "wrong": [
-          "Hair rating",
-          "Selfie chain"
+          "Lore",
+          "Rarity"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi un exchange demande mon identité avant de me laisser acheter de la crypto ?'",
-        "correct": "Conformité",
+        "prompt": "Quel contrôle d'identité un exchange régulé peut-il demander ?",
+        "correct": "KYC",
         "wrong": [
-          "Note coiffure",
-          "Selfie chaîne"
+          "Lore",
+          "Rareté"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué un exchange pide identidad antes de dejarme comprar cripto?'",
-        "correct": "Cumplimiento",
+        "prompt": "¿Qué verificación de identidad puede pedir un exchange regulado?",
+        "correct": "KYC",
         "wrong": [
-          "Peinado nota",
-          "Selfie cadena"
+          "Lore",
+          "Rareza"
         ]
       }
     }
@@ -884,38 +884,38 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-certified-003",
     "tier": 2,
     "category": "Deposits",
-    "prompt": "InSquignito asks, 'If I deposit fiat to an exchange, what should I check before buying ETH?'",
-    "correct": "Fees limits",
+    "prompt": "What should be checked before depositing regular money?",
+    "correct": "Fees",
     "wrong": [
-      "Moon mood",
-      "Lobby slime"
+      "Stickers",
+      "Mascot"
     ],
-    "correctRoast": "Correct. Fees and limits first, moon poetry later.",
-    "wrongRoast": "Wrong. Button color is not a risk model, even when ugly.",
-    "explanation": "Exchange fees, holds, limits, and withdrawal rules can affect how quickly and cheaply a user can move funds.",
+    "correctRoast": "Correct. Fees survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Deposit methods, fees, limits, and holds can affect the final amount and timing.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'If I deposit fiat to an exchange, what should I check before buying ETH?'",
-        "correct": "Fees limits",
+        "prompt": "What should be checked before depositing regular money?",
+        "correct": "Fees",
         "wrong": [
-          "Moon mood",
-          "Lobby slime"
+          "Stickers",
+          "Mascot"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Si je dépose du fiat sur un exchange, que vérifier avant d'acheter ETH ?'",
-        "correct": "Frais limites",
+        "prompt": "Que faut-il vérifier avant de déposer de l'argent classique ?",
+        "correct": "Frais",
         "wrong": [
-          "Humeur lune",
-          "Slime hall"
+          "Stickers",
+          "Mascotte"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Si deposito fiat en un exchange, ¿qué reviso antes de comprar ETH?'",
-        "correct": "Tarifas límites",
+        "prompt": "¿Qué se debe revisar antes de depositar dinero normal?",
+        "correct": "Tarifas",
         "wrong": [
-          "Humor luna",
-          "Slime lobby"
+          "Stickers",
+          "Mascota"
         ]
       }
     }
@@ -923,39 +923,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-certified-004",
     "tier": 2,
-    "category": "Buying ETH",
-    "prompt": "InSquignito asks, 'Why would I buy ETH before shopping for Ethereum NFTs?'",
-    "correct": "Buy ETH",
+    "category": "Buying Crypto",
+    "prompt": "Which balance is normally needed for Ethereum collectible shopping?",
+    "correct": "ETH",
     "wrong": [
-      "Free mint",
-      "Skip verify"
+      "BTC",
+      "DOGE"
     ],
-    "correctRoast": "Correct. ETH is the toll coin and often the price coin.",
-    "wrongRoast": "Wrong. ETH cannot protect you from a fake collection with a pretty smile.",
-    "explanation": "Ethereum NFT purchases commonly require ETH for payment and transaction fees.",
+    "correctRoast": "Correct. ETH survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Ethereum NFT purchases usually require ETH for the price and gas.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why would I buy ETH before shopping for Ethereum NFTs?'",
-        "correct": "Buy ETH",
+        "prompt": "Which balance is normally needed for Ethereum collectible shopping?",
+        "correct": "ETH",
         "wrong": [
-          "Free mint",
-          "Skip verify"
+          "BTC",
+          "DOGE"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi acheter ETH avant de faire les boutiques de NFT Ethereum ?'",
-        "correct": "Acheter ETH",
+        "prompt": "Quel solde faut-il généralement pour acheter des collectibles Ethereum ?",
+        "correct": "ETH",
         "wrong": [
-          "Mint gratuit",
-          "Saut vérif"
+          "BTC",
+          "DOGE"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué comprar ETH antes de buscar NFT de Ethereum?'",
-        "correct": "Comprar ETH",
+        "prompt": "¿Qué saldo suele hacer falta para comprar coleccionables Ethereum?",
+        "correct": "ETH",
         "wrong": [
-          "Mint gratis",
-          "Saltar verificación"
+          "BTC",
+          "DOGE"
         ]
       }
     }
@@ -964,38 +964,38 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-certified-005",
     "tier": 2,
     "category": "Withdrawals",
-    "prompt": "InSquignito asks, 'I bought ETH on an exchange. What is the careful next step if I want it in my wallet?'",
-    "correct": "Careful withdrawal",
+    "prompt": "What should be confirmed before withdrawing from an exchange?",
+    "correct": "Address",
     "wrong": [
-      "Confident address",
-      "Seed search"
+      "Banner",
+      "Emoji"
     ],
-    "correctRoast": "Correct. Address, network, amount. Then breathe through the ugly.",
-    "wrongRoast": "Wrong. Emotional confidence is not checksumming.",
-    "explanation": "Crypto transfers are hard to reverse, so the address and network must be checked carefully before withdrawal.",
+    "correctRoast": "Correct. Address survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Crypto transfers are hard to reverse, so the destination must be checked carefully.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'I bought ETH on an exchange. What is the careful next step if I want it in my wallet?'",
-        "correct": "Careful withdrawal",
+        "prompt": "What should be confirmed before withdrawing from an exchange?",
+        "correct": "Address",
         "wrong": [
-          "Confident address",
-          "Seed search"
+          "Banner",
+          "Emoji"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'J'ai acheté ETH sur un exchange. Quelle étape prudente si je le veux dans mon wallet ?'",
-        "correct": "Retrait prudent",
+        "prompt": "Que faut-il confirmer avant un retrait depuis un exchange ?",
+        "correct": "Adresse",
         "wrong": [
-          "Adresse confiante",
-          "Recherche seed"
+          "Bannière",
+          "Emoji"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Compré ETH en un exchange. ¿Cuál es el paso cuidadoso para llevarlo a mi wallet?'",
-        "correct": "Retiro cuidadoso",
+        "prompt": "¿Qué se debe confirmar antes de retirar desde un exchange?",
+        "correct": "Dirección",
         "wrong": [
-          "Dirección confiada",
-          "Búsqueda semilla"
+          "Banner",
+          "Emoji"
         ]
       }
     }
@@ -1004,38 +1004,38 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-certified-006",
     "tier": 2,
     "category": "Network Choice",
-    "prompt": "InSquignito asks, 'Why is the withdrawal network choice so dangerous-looking?'",
-    "correct": "Wrong network",
+    "prompt": "Which withdrawal choice must match the destination wallet and app?",
+    "correct": "Network",
     "wrong": [
-      "Apology refund",
-      "Same chain"
+      "Logo",
+      "Ranking"
     ],
-    "correctRoast": "Correct. Same-looking hallways can lead to different basements.",
-    "wrongRoast": "Wrong. The apology refund goblin is fictional and underfunded.",
-    "explanation": "Different networks are separate systems; assets sent to an unsupported network may not appear where expected.",
+    "correctRoast": "Correct. Network survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Wrong-network transfers can make funds hard or impossible to access.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why is the withdrawal network choice so dangerous-looking?'",
-        "correct": "Wrong network",
+        "prompt": "Which withdrawal choice must match the destination wallet and app?",
+        "correct": "Network",
         "wrong": [
-          "Apology refund",
-          "Same chain"
+          "Logo",
+          "Ranking"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi le choix du réseau de retrait a l'air si dangereux ?'",
-        "correct": "Mauvais réseau",
+        "prompt": "Quel choix de retrait doit correspondre au wallet et à l'app destination ?",
+        "correct": "Réseau",
         "wrong": [
-          "Remboursement pardon",
-          "Même chaîne"
+          "Logo",
+          "Classement"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué elegir la red de retiro se ve tan peligroso?'",
-        "correct": "Red incorrecta",
+        "prompt": "¿Qué opción de retiro debe coincidir con el wallet y la app destino?",
+        "correct": "Red",
         "wrong": [
-          "Reembolso perdón",
-          "Misma cadena"
+          "Logo",
+          "Ranking"
         ]
       }
     }
@@ -1044,38 +1044,38 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-certified-007",
     "tier": 2,
     "category": "Test Transfers",
-    "prompt": "InSquignito asks, 'Why do cautious humans sometimes send a small test transfer first?'",
-    "correct": "Test transfer",
+    "prompt": "What reduces risk before sending a large amount?",
+    "correct": "Test",
     "wrong": [
-      "Train ETH",
-      "Wallet appetizer"
+      "Prayer",
+      "Speed"
     ],
-    "correctRoast": "Correct. Tiny test goblin goes first into the fog.",
-    "wrongRoast": "Wrong. Wallet appetizers are a beautiful lie.",
-    "explanation": "A small test transfer can reduce risk before sending a larger amount, though it may add extra fees.",
+    "correctRoast": "Correct. Test survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "A small test transfer can confirm the address and network before moving more value.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why do cautious humans sometimes send a small test transfer first?'",
-        "correct": "Test transfer",
+        "prompt": "What reduces risk before sending a large amount?",
+        "correct": "Test",
         "wrong": [
-          "Train ETH",
-          "Wallet appetizer"
+          "Prayer",
+          "Speed"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi les humains prudents envoient parfois un petit test d'abord ?'",
-        "correct": "Test transfert",
+        "prompt": "Qu'est-ce qui réduit le risque avant d'envoyer un gros montant ?",
+        "correct": "Test",
         "wrong": [
-          "Dresser ETH",
-          "Apéro wallet"
+          "Prière",
+          "Vitesse"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué los humanos cautos a veces hacen una transferencia pequeña primero?'",
-        "correct": "Transferencia prueba",
+        "prompt": "¿Qué reduce el riesgo antes de enviar una cantidad grande?",
+        "correct": "Prueba",
         "wrong": [
-          "Entrenar ETH",
-          "Aperitivo wallet"
+          "Rezo",
+          "Velocidad"
         ]
       }
     }
@@ -1083,39 +1083,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-certified-008",
     "tier": 2,
-    "category": "Wallet Connection",
-    "prompt": "InSquignito asks, 'What does connecting my wallet to a site usually do first?'",
-    "correct": "Public address",
+    "category": "Backups",
+    "prompt": "What should be stored offline during wallet setup?",
+    "correct": "Backup",
     "wrong": [
-      "Instant ownership",
-      "Upload seed"
+      "Selfie",
+      "Screenshot"
     ],
-    "correctRoast": "Correct. Connection is a handshake. Signing is where the weird paperwork begins.",
-    "wrongRoast": "Wrong. If connecting alone gave away everything, the internet would be soup.",
-    "explanation": "Connecting a wallet typically shares a public address; transactions or approvals require separate user confirmation.",
+    "correctRoast": "Correct. Backup survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Secure offline backups help prevent permanent wallet loss.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What does connecting my wallet to a site usually do first?'",
-        "correct": "Public address",
+        "prompt": "What should be stored offline during wallet setup?",
+        "correct": "Backup",
         "wrong": [
-          "Instant ownership",
-          "Upload seed"
+          "Selfie",
+          "Screenshot"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Connecter mon wallet à un site fait quoi au départ ?'",
-        "correct": "Adresse publique",
+        "prompt": "Que faut-il garder offline pendant la configuration du wallet ?",
+        "correct": "Sauvegarde",
         "wrong": [
-          "Propriété instant",
-          "Upload seed"
+          "Selfie",
+          "Capture"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué hace primero conectar mi wallet a un sitio?'",
-        "correct": "Dirección pública",
+        "prompt": "¿Qué debe guardarse offline al configurar el wallet?",
+        "correct": "Respaldo",
         "wrong": [
-          "Propiedad instant",
-          "Subir semilla"
+          "Selfie",
+          "Captura"
         ]
       }
     }
@@ -1123,39 +1123,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-certified-009",
     "tier": 2,
-    "category": "Read The Prompt",
-    "prompt": "InSquignito asks, 'A wallet popup appears. What should my tiny ugly eyes inspect?'",
-    "correct": "Read popup",
+    "category": "Secret Storage",
+    "prompt": "What should never be saved in cloud screenshots?",
+    "correct": "Seed",
     "wrong": [
-      "Friendly button",
-      "Desk aesthetic"
+      "Address",
+      "Avatar"
     ],
-    "correctRoast": "Correct. Read the paperwork before the paperwork reads you.",
-    "wrongRoast": "Wrong. Friendly buttons have betrayed entire snack drawers.",
-    "explanation": "Wallet prompts can request different permissions or transactions, so users should review details before approving.",
+    "correctRoast": "Correct. Seed survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Cloud screenshots can leak recovery secrets to attackers.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'A wallet popup appears. What should my tiny ugly eyes inspect?'",
-        "correct": "Read popup",
+        "prompt": "What should never be saved in cloud screenshots?",
+        "correct": "Seed",
         "wrong": [
-          "Friendly button",
-          "Desk aesthetic"
+          "Address",
+          "Avatar"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Une fenêtre wallet apparaît. Que doivent inspecter mes petits yeux laids ?'",
-        "correct": "Lire popup",
+        "prompt": "Qu'est-ce qui ne doit jamais être sauvegardé en captures cloud ?",
+        "correct": "Seed",
         "wrong": [
-          "Bouton sympa",
-          "Style bureau"
+          "Adresse",
+          "Avatar"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Aparece un popup del wallet. ¿Qué deben inspeccionar mis ojitos feos?'",
-        "correct": "Leer popup",
+        "prompt": "¿Qué nunca debe guardarse en capturas de la nube?",
+        "correct": "Semilla",
         "wrong": [
-          "Botón amable",
-          "Estética escritorio"
+          "Dirección",
+          "Avatar"
         ]
       }
     }
@@ -1163,39 +1163,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-certified-010",
     "tier": 2,
-    "category": "Custody Choice",
-    "prompt": "InSquignito asks, 'What is the tradeoff between exchange custody and self-custody?'",
-    "correct": "Tradeoff",
+    "category": "Custody",
+    "prompt": "What describes assets held by a company account?",
+    "correct": "Custody",
     "wrong": [
-      "Zero risk",
-      "Support recovery"
+      "Freedom",
+      "Rarity"
     ],
-    "correctRoast": "Correct. Convenience on one side, key responsibility on the other.",
-    "wrongRoast": "Wrong. Zero risk is a pretty phrase wearing clown shoes.",
-    "explanation": "Custodial services and self-custody have different risks, responsibilities, and recovery options.",
+    "correctRoast": "Correct. Custody survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Custodial platforms hold keys and credit users internally.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is the tradeoff between exchange custody and self-custody?'",
-        "correct": "Tradeoff",
+        "prompt": "What describes assets held by a company account?",
+        "correct": "Custody",
         "wrong": [
-          "Zero risk",
-          "Support recovery"
+          "Freedom",
+          "Rarity"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Quel est le compromis entre garde par exchange et auto-garde ?'",
-        "correct": "Compromis",
+        "prompt": "Quel mot décrit des actifs gardés par un compte d'entreprise ?",
+        "correct": "Custodie",
         "wrong": [
-          "Risque zéro",
-          "Support récup"
+          "Liberté",
+          "Rareté"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Cuál es el equilibrio entre custodia del exchange y autocustodia?'",
-        "correct": "Equilibrio",
+        "prompt": "¿Qué describe activos guardados por una cuenta de empresa?",
+        "correct": "Custodia",
         "wrong": [
-          "Riesgo cero",
-          "Soporte recupera"
+          "Libertad",
+          "Rareza"
         ]
       }
     }
@@ -1203,39 +1203,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-certified-011",
     "tier": 2,
-    "category": "Stablecoins",
-    "prompt": "InSquignito asks, 'What is a stablecoin supposed to do?'",
-    "correct": "Stablecoin",
+    "category": "Self Control",
+    "prompt": "What gives direct control after withdrawing from a platform?",
+    "correct": "Wallet",
     "wrong": [
-      "Polite NFT",
-      "Calm gas"
+      "Exchange",
+      "Browser"
     ],
-    "correctRoast": "Correct. Supposed to track value. Still read the fine slime.",
-    "wrongRoast": "Wrong. Gas fees do not attend therapy.",
-    "explanation": "Stablecoins are designed to maintain a peg, but they still carry issuer, smart contract, and market risks.",
+    "correctRoast": "Correct. Wallet survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "A self-custody wallet gives control and responsibility to the holder.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is a stablecoin supposed to do?'",
-        "correct": "Stablecoin",
+        "prompt": "What gives direct control after withdrawing from a platform?",
+        "correct": "Wallet",
         "wrong": [
-          "Polite NFT",
-          "Calm gas"
+          "Exchange",
+          "Browser"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Un stablecoin est censé faire quoi ?'",
-        "correct": "Stablecoin",
+        "prompt": "Qu'est-ce qui donne un contrôle direct après retrait d'une plateforme ?",
+        "correct": "Wallet",
         "wrong": [
-          "NFT poli",
-          "Gas calme"
+          "Exchange",
+          "Navigateur"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué se supone que hace una stablecoin?'",
-        "correct": "Stablecoin",
+        "prompt": "¿Qué da control directo tras retirar desde una plataforma?",
+        "correct": "Wallet",
         "wrong": [
-          "NFT educado",
-          "Gas calmado"
+          "Exchange",
+          "Navegador"
         ]
       }
     }
@@ -1243,39 +1243,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-certified-012",
     "tier": 2,
-    "category": "Volatility",
-    "prompt": "InSquignito asks, 'Why should I not treat crypto prices like a calm pond?'",
-    "correct": "Volatility",
+    "category": "Prices",
+    "prompt": "What should be compared before buying crypto?",
+    "correct": "Price",
     "wrong": [
-      "Pond ban",
-      "Blink prices"
+      "Mood",
+      "Confetti"
     ],
-    "correctRoast": "Correct. Volatility is the pond monster under the lily pad.",
-    "wrongRoast": "Wrong. InSquignito blinked. The chart did not apologize.",
-    "explanation": "Crypto and NFTs can be highly volatile, so purchases should be approached carefully.",
+    "correctRoast": "Correct. Price survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Displayed quotes can vary by fee, spread, and payment method.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why should I not treat crypto prices like a calm pond?'",
-        "correct": "Volatility",
+        "prompt": "What should be compared before buying crypto?",
+        "correct": "Price",
         "wrong": [
-          "Pond ban",
-          "Blink prices"
+          "Mood",
+          "Confetti"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi ne pas traiter les prix crypto comme un étang calme ?'",
-        "correct": "Volatilité",
+        "prompt": "Que faut-il comparer avant d'acheter de la crypto ?",
+        "correct": "Prix",
         "wrong": [
-          "Étang interdit",
-          "Prix clignés"
+          "Humeur",
+          "Confetti"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué no tratar los precios cripto como un estanque tranquilo?'",
-        "correct": "Volatilidad",
+        "prompt": "¿Qué conviene comparar antes de comprar cripto?",
+        "correct": "Precio",
         "wrong": [
-          "Estanque prohibido",
-          "Precios parpadeo"
+          "Humor",
+          "Confeti"
         ]
       }
     }
@@ -1283,39 +1283,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-certified-013",
     "tier": 2,
-    "category": "Exchange Fees",
-    "prompt": "InSquignito asks, 'Why did my exchange total look smaller after buying or withdrawing?'",
-    "correct": "Fees spreads",
+    "category": "Trading Costs",
+    "prompt": "What hidden trading cost can reduce the received amount?",
+    "correct": "Spread",
     "wrong": [
-      "Snack tax",
-      "Bored chain"
+      "Trait",
+      "Crown"
     ],
-    "correctRoast": "Correct. Fees and spreads: the small bites in the sandwich.",
-    "wrongRoast": "Wrong. Squigs prefer official snack paperwork.",
-    "explanation": "Exchanges may charge trading fees, include spreads, or deduct withdrawal fees.",
+    "correctRoast": "Correct. Spread survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "A spread is the difference between quoted buy and sell prices.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why did my exchange total look smaller after buying or withdrawing?'",
-        "correct": "Fees spreads",
+        "prompt": "What hidden trading cost can reduce the received amount?",
+        "correct": "Spread",
         "wrong": [
-          "Snack tax",
-          "Bored chain"
+          "Trait",
+          "Crown"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi mon total exchange est plus petit après achat ou retrait ?'",
-        "correct": "Frais spreads",
+        "prompt": "Quel coût de trading caché peut réduire le montant reçu ?",
+        "correct": "Spread",
         "wrong": [
-          "Taxe snacks",
-          "Chaîne blasée"
+          "Trait",
+          "Couronne"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué mi total del exchange quedó menor tras comprar o retirar?'",
-        "correct": "Tarifas spreads",
+        "prompt": "¿Qué coste oculto de trading puede reducir lo recibido?",
+        "correct": "Spread",
         "wrong": [
-          "Impuesto snacks",
-          "Cadena aburrida"
+          "Rasgo",
+          "Corona"
         ]
       }
     }
@@ -1323,39 +1323,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-certified-014",
     "tier": 2,
-    "category": "Address Format",
-    "prompt": "InSquignito asks, 'What does an Ethereum address usually look like?'",
-    "correct": "0x address",
+    "category": "Readable Names",
+    "prompt": "What must be verified when using a readable wallet name?",
+    "correct": "Address",
     "wrong": [
-      "Cute nickname",
-      "Whisper password"
+      "Sticker",
+      "Hat"
     ],
-    "correctRoast": "Correct. Long 0x noodle. Public, but still verify it.",
-    "wrongRoast": "Wrong. Nicknames can exist through naming services, but raw addresses are not passwords.",
-    "explanation": "Ethereum addresses are public identifiers, commonly shown as hexadecimal strings beginning with 0x.",
+    "correctRoast": "Correct. Address survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Readable names are convenient, but the resolved destination should still be confirmed.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What does an Ethereum address usually look like?'",
-        "correct": "0x address",
+        "prompt": "What must be verified when using a readable wallet name?",
+        "correct": "Address",
         "wrong": [
-          "Cute nickname",
-          "Whisper password"
+          "Sticker",
+          "Hat"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'À quoi ressemble généralement une adresse Ethereum ?'",
-        "correct": "Adresse 0x",
+        "prompt": "Que faut-il vérifier avec un nom wallet lisible ?",
+        "correct": "Adresse",
         "wrong": [
-          "Surnom mignon",
-          "Mot chuchoté"
+          "Sticker",
+          "Chapeau"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Cómo suele verse una dirección de Ethereum?'",
-        "correct": "Dirección 0x",
+        "prompt": "¿Qué debe verificarse al usar un nombre legible de wallet?",
+        "correct": "Dirección",
         "wrong": [
-          "Apodo lindo",
-          "Clave susurrada"
+          "Sticker",
+          "Sombrero"
         ]
       }
     }
@@ -1363,39 +1363,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-certified-015",
     "tier": 2,
-    "category": "ENS And Names",
-    "prompt": "InSquignito asks, 'If a wallet uses a name instead of a long address, what should I do?'",
-    "correct": "Verify name",
+    "category": "Pending Transfers",
+    "prompt": "What status means a transfer is not final yet?",
+    "correct": "Pending",
     "wrong": [
-      "Cute name",
-      "Extra ETH"
+      "Paid",
+      "Minted"
     ],
-    "correctRoast": "Correct. Names are helpful. Verification is uglier and better.",
-    "wrongRoast": "Wrong. Cute names are how mistakes put on perfume.",
-    "explanation": "Human-readable names can map to addresses, but users should confirm the resolved address before sending assets.",
+    "correctRoast": "Correct. Pending survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Pending transactions may still be waiting for confirmation.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'If a wallet uses a name instead of a long address, what should I do?'",
-        "correct": "Verify name",
+        "prompt": "What status means a transfer is not final yet?",
+        "correct": "Pending",
         "wrong": [
-          "Cute name",
-          "Extra ETH"
+          "Paid",
+          "Minted"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Si un wallet utilise un nom au lieu d'une longue adresse, je fais quoi ?'",
-        "correct": "Vérifier nom",
+        "prompt": "Quel statut indique qu'un transfert n'est pas encore final ?",
+        "correct": "Pending",
         "wrong": [
-          "Nom mignon",
-          "ETH extra"
+          "Payé",
+          "Minté"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Si un wallet usa un nombre en vez de una dirección larga, ¿qué hago?'",
-        "correct": "Verificar nombre",
+        "prompt": "¿Qué estado indica que una transferencia aún no es final?",
+        "correct": "Pendiente",
         "wrong": [
-          "Nombre lindo",
-          "ETH extra"
+          "Pagado",
+          "Minteado"
         ]
       }
     }
@@ -1403,39 +1403,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-certified-016",
     "tier": 2,
-    "category": "Confirmations",
-    "prompt": "InSquignito asks, 'After I send ETH, why might I wait before shopping?'",
-    "correct": "Confirmations",
+    "category": "Support Scams",
+    "prompt": "What should be avoided when support asks for secrets?",
+    "correct": "Sharing",
     "wrong": [
-      "ETH pants",
-      "Dramatic pause"
+      "Verifying",
+      "Waiting"
     ],
-    "correctRoast": "Correct. Confirmation first, pants later.",
-    "wrongRoast": "Wrong. ETH has no pants. Only block confirmations.",
-    "explanation": "Transactions can remain pending until validators include them in blocks and the network confirms them.",
+    "correctRoast": "Correct. Sharing survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Legitimate support should not need a seed phrase or private key.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'After I send ETH, why might I wait before shopping?'",
-        "correct": "Confirmations",
+        "prompt": "What should be avoided when support asks for secrets?",
+        "correct": "Sharing",
         "wrong": [
-          "ETH pants",
-          "Dramatic pause"
+          "Verifying",
+          "Waiting"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Après avoir envoyé ETH, pourquoi attendre avant de magasiner ?'",
-        "correct": "Confirmations",
+        "prompt": "Que faut-il éviter si le support demande des secrets ?",
+        "correct": "Partager",
         "wrong": [
-          "Pantalon ETH",
-          "Pause dramatique"
+          "Vérifier",
+          "Attendre"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Después de enviar ETH, ¿por qué podría esperar antes de comprar?'",
-        "correct": "Confirmaciones",
+        "prompt": "¿Qué se debe evitar si soporte pide secretos?",
+        "correct": "Compartir",
         "wrong": [
-          "Pantalón ETH",
-          "Pausa dramática"
+          "Verificar",
+          "Esperar"
         ]
       }
     }
@@ -1443,39 +1443,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-certified-017",
     "tier": 2,
-    "category": "Security Setup",
-    "prompt": "InSquignito asks, 'Before funding a wallet, what security ritual is least embarrassing?'",
-    "correct": "Offline backup",
+    "category": "Official Links",
+    "prompt": "What should official project links become?",
+    "correct": "Bookmarks",
     "wrong": [
-      "Public phrase",
-      "Bad password"
+      "Rumors",
+      "Popups"
     ],
-    "correctRoast": "Correct. Offline backups: boring, ugly, essential.",
-    "wrongRoast": "Wrong. Publicly private is still public, basement scholar.",
-    "explanation": "Basic security includes protecting seed phrases, using strong passwords, and avoiding cloud or screenshot exposure.",
+    "correctRoast": "Correct. Bookmarks survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Bookmarks reduce the risk of phishing links from ads, DMs, and search results.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Before funding a wallet, what security ritual is least embarrassing?'",
-        "correct": "Offline backup",
+        "prompt": "What should official project links become?",
+        "correct": "Bookmarks",
         "wrong": [
-          "Public phrase",
-          "Bad password"
+          "Rumors",
+          "Popups"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Avant de financer un wallet, quel rituel sécurité est le moins embarrassant ?'",
-        "correct": "Sauvegarde offline",
+        "prompt": "Que devraient devenir les liens officiels du projet ?",
+        "correct": "Favoris",
         "wrong": [
-          "Phrase publique",
-          "Mot faible"
+          "Rumeurs",
+          "Popups"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Antes de financiar un wallet, ¿qué ritual de seguridad da menos vergüenza?'",
-        "correct": "Copia offline",
+        "prompt": "¿En qué deberían convertirse los enlaces oficiales del proyecto?",
+        "correct": "Marcadores",
         "wrong": [
-          "Frase pública",
-          "Clave mala"
+          "Rumores",
+          "Popups"
         ]
       }
     }
@@ -1483,39 +1483,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-certified-018",
     "tier": 2,
-    "category": "Scams",
-    "prompt": "InSquignito asks, 'A stranger says they can double my ETH for Squig friendship. What is this smell?'",
-    "correct": "Scam",
+    "category": "DM Safety",
+    "prompt": "What signal in messages should make a beginner slow down?",
+    "correct": "Urgency",
     "wrong": [
-      "Guaranteed bonus",
-      "Normal handshake"
+      "Help",
+      "Grammar"
     ],
-    "correctRoast": "Correct. Scam fumes detected. Evacuate the pretty promise.",
-    "wrongRoast": "Wrong. Guaranteed doubling is bait wearing a little tuxedo.",
-    "explanation": "Common crypto scams promise guaranteed returns or ask for secrets, funds, or urgent actions.",
+    "correctRoast": "Correct. Urgency survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Scammers often use urgency to push unsafe clicks and signatures.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'A stranger says they can double my ETH for Squig friendship. What is this smell?'",
-        "correct": "Scam",
+        "prompt": "What signal in messages should make a beginner slow down?",
+        "correct": "Urgency",
         "wrong": [
-          "Guaranteed bonus",
-          "Normal handshake"
+          "Help",
+          "Grammar"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Un inconnu promet de doubler mon ETH pour l'amitié Squig. Quelle est cette odeur ?'",
-        "correct": "Arnaque",
+        "prompt": "Quel signal dans les messages doit faire ralentir un débutant ?",
+        "correct": "Urgence",
         "wrong": [
-          "Bonus garanti",
-          "Poignée normale"
+          "Aide",
+          "Grammaire"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Un extraño promete duplicar mi ETH por amistad Squig. ¿Qué olor es ese?'",
-        "correct": "Estafa",
+        "prompt": "¿Qué señal en mensajes debería hacer frenar a un principiante?",
+        "correct": "Urgencia",
         "wrong": [
-          "Bono garantizado",
-          "Saludo normal"
+          "Ayuda",
+          "Gramática"
         ]
       }
     }
@@ -1523,39 +1523,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-certified-019",
     "tier": 2,
-    "category": "Official Links",
-    "prompt": "InSquignito asks, 'Where should I find the real Squigs links before connecting a wallet?'",
-    "correct": "Official links",
+    "category": "Risk",
+    "prompt": "What should limit a beginner's first purchases?",
+    "correct": "Budget",
     "wrong": [
-      "Sponsored confetti",
-      "Urgent mint"
+      "Rent",
+      "Loan"
     ],
-    "correctRoast": "Correct. Official links first. Confetti later, maybe never.",
-    "wrongRoast": "Wrong. Urgent confetti is how wallets get haunted.",
-    "explanation": "Phishing often uses fake links, ads, and DMs, so users should verify official sources before connecting.",
+    "correctRoast": "Correct. Budget survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Only risk money that can be lost without damaging real life.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Where should I find the real Squigs links before connecting a wallet?'",
-        "correct": "Official links",
+        "prompt": "What should limit a beginner's first purchases?",
+        "correct": "Budget",
         "wrong": [
-          "Sponsored confetti",
-          "Urgent mint"
+          "Rent",
+          "Loan"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Où trouver les vrais liens Squigs avant de connecter un wallet ?'",
-        "correct": "Liens officiels",
+        "prompt": "Qu'est-ce qui doit limiter les premiers achats d'un débutant ?",
+        "correct": "Budget",
         "wrong": [
-          "Confettis sponsor",
-          "Mint urgent"
+          "Loyer",
+          "Prêt"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Dónde encuentro los enlaces reales de Squigs antes de conectar un wallet?'",
-        "correct": "Enlaces oficiales",
+        "prompt": "¿Qué debería limitar las primeras compras de un principiante?",
+        "correct": "Presupuesto",
         "wrong": [
-          "Confeti patrocinado",
-          "Mint urgente"
+          "Renta",
+          "Préstamo"
         ]
       }
     }
@@ -1563,39 +1563,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-certified-020",
     "tier": 2,
-    "category": "Onboarding Summary",
-    "prompt": "InSquignito asks, 'What is the cleanest ugly path from normal money toward Squig shopping?'",
-    "correct": "Cautious path",
+    "category": "Preparation",
+    "prompt": "What comes before shopping for collectibles?",
+    "correct": "Security",
     "wrong": [
-      "Floor prayer",
-      "Random sends"
+      "Flexing",
+      "Bidding"
     ],
-    "correctRoast": "Correct. A cautious path is ugly enough to survive onboarding.",
-    "wrongRoast": "Wrong. Prayer to the floor is not an operational plan.",
-    "explanation": "A beginner flow should prioritize security, correct networks, verified sources, and risk awareness.",
+    "correctRoast": "Correct. Security survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Basic wallet security should come before marketplace activity.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is the cleanest ugly path from normal money toward Squig shopping?'",
-        "correct": "Cautious path",
+        "prompt": "What comes before shopping for collectibles?",
+        "correct": "Security",
         "wrong": [
-          "Floor prayer",
-          "Random sends"
+          "Flexing",
+          "Bidding"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Quel est le chemin laid le plus propre de l'argent normal vers l'achat de Squigs ?'",
-        "correct": "Chemin prudent",
+        "prompt": "Qu'est-ce qui vient avant d'acheter des collectibles ?",
+        "correct": "Sécurité",
         "wrong": [
-          "Prière floor",
-          "Envois hasard"
+          "Flex",
+          "Offre"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Cuál es la ruta fea más limpia desde dinero normal hasta comprar Squigs?'",
-        "correct": "Ruta cuidadosa",
+        "prompt": "¿Qué viene antes de comprar coleccionables?",
+        "correct": "Seguridad",
         "wrong": [
-          "Rezo floor",
-          "Envíos azar"
+          "Flex",
+          "Oferta"
         ]
       }
     }
@@ -1603,39 +1603,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-deep-001",
     "tier": 3,
-    "category": "NFT Marketplaces",
-    "prompt": "InSquignito asks, 'When I open a marketplace, what should I search before I buy a Squig friend?'",
-    "correct": "Verified collection",
+    "category": "Marketplaces",
+    "prompt": "Which platform do many buyers use to browse Ethereum collectible listings?",
+    "correct": "OpenSea",
     "wrong": [
-      "Skull emoji",
-      "First result"
+      "Etherscan",
+      "Uniswap"
     ],
-    "correctRoast": "Correct. Verification before affection. Ugly but necessary.",
-    "wrongRoast": "Wrong. Search results are a swamp with thumbnails.",
-    "explanation": "NFT projects can have impersonators, so buyers should verify the official collection or contract.",
+    "correctRoast": "Correct. OpenSea survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "OpenSea is a common marketplace for browsing and buying Ethereum NFTs.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'When I open a marketplace, what should I search before I buy a Squig friend?'",
-        "correct": "Verified collection",
+        "prompt": "Which platform do many buyers use to browse Ethereum collectible listings?",
+        "correct": "OpenSea",
         "wrong": [
-          "Skull emoji",
-          "First result"
+          "Etherscan",
+          "Uniswap"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Quand j'ouvre une marketplace, que chercher avant d'acheter un ami Squig ?'",
-        "correct": "Collection vérifiée",
+        "prompt": "Quelle plateforme beaucoup d'acheteurs utilisent-ils pour voir des listings Ethereum ?",
+        "correct": "OpenSea",
         "wrong": [
-          "Emoji crâne",
-          "Premier résultat"
+          "Etherscan",
+          "Uniswap"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Cuando abro una marketplace, ¿qué busco antes de comprar un amigo Squig?'",
-        "correct": "Colección verificada",
+        "prompt": "¿Qué plataforma usan muchos compradores para ver listings de Ethereum?",
+        "correct": "OpenSea",
         "wrong": [
-          "Emoji calavera",
-          "Primer resultado"
+          "Etherscan",
+          "Uniswap"
         ]
       }
     }
@@ -1643,39 +1643,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-deep-002",
     "tier": 3,
-    "category": "Contract Address",
-    "prompt": "InSquignito asks, 'Why does the contract address matter more than a cute collection name?'",
-    "correct": "Contract address",
+    "category": "Collection Search",
+    "prompt": "What should be found through official project links?",
+    "correct": "Collection",
     "wrong": [
-      "Cute vibes",
-      "Dev pain"
+      "Influencer",
+      "Advertisement"
     ],
-    "correctRoast": "Correct. Names wear costumes. Contracts leave fingerprints.",
-    "wrongRoast": "Wrong. Vibes have lost every audit they ever entered.",
-    "explanation": "Checking the contract address helps distinguish the real collection from fake lookalikes.",
+    "correctRoast": "Correct. Collection survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Official links help buyers find the real collection instead of a copycat.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why does the contract address matter more than a cute collection name?'",
-        "correct": "Contract address",
+        "prompt": "What should be found through official project links?",
+        "correct": "Collection",
         "wrong": [
-          "Cute vibes",
-          "Dev pain"
+          "Influencer",
+          "Advertisement"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi l'adresse du contrat compte plus qu'un nom de collection mignon ?'",
-        "correct": "Adresse contrat",
+        "prompt": "Que faut-il trouver via les liens officiels du projet ?",
+        "correct": "Collection",
         "wrong": [
-          "Vibes mignonnes",
-          "Douleur dev"
+          "Influenceur",
+          "Publicité"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué la dirección del contrato importa más que un nombre bonito?'",
-        "correct": "Dirección contrato",
+        "prompt": "¿Qué debe encontrarse mediante enlaces oficiales del proyecto?",
+        "correct": "Colección",
         "wrong": [
-          "Vibras lindas",
-          "Dolor dev"
+          "Influencer",
+          "Anuncio"
         ]
       }
     }
@@ -1683,39 +1683,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-deep-003",
     "tier": 3,
-    "category": "Token ID",
-    "prompt": "InSquignito asks, 'What is a token ID when I inspect a Squig?'",
-    "correct": "Token ID",
+    "category": "Contracts",
+    "prompt": "What identifies the real set on-chain?",
+    "correct": "Contract",
     "wrong": [
-      "Shoe size",
-      "Handsome rank"
+      "Banner",
+      "Volume"
     ],
-    "correctRoast": "Correct. Token ID: tiny serial number, maximum goblin energy.",
-    "wrongRoast": "Wrong. Handsome rankings are banned for being too pretty.",
-    "explanation": "NFTs in a collection are commonly identified by contract address plus token ID.",
+    "correctRoast": "Correct. Contract survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "The official contract is the core identifier for a real NFT collection.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is a token ID when I inspect a Squig?'",
-        "correct": "Token ID",
+        "prompt": "What identifies the real set on-chain?",
+        "correct": "Contract",
         "wrong": [
-          "Shoe size",
-          "Handsome rank"
+          "Banner",
+          "Volume"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'C'est quoi un token ID quand j'inspecte un Squig ?'",
-        "correct": "ID token",
+        "prompt": "Qu'est-ce qui identifie le vrai set on-chain ?",
+        "correct": "Contrat",
         "wrong": [
-          "Pointure Squig",
-          "Classement beau"
+          "Bannière",
+          "Volume"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué es un token ID cuando inspecciono un Squig?'",
-        "correct": "ID token",
+        "prompt": "¿Qué identifica el conjunto real on-chain?",
+        "correct": "Contrato",
         "wrong": [
-          "Talla Squig",
-          "Ranking guapo"
+          "Banner",
+          "Volumen"
         ]
       }
     }
@@ -1723,39 +1723,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-deep-004",
     "tier": 3,
-    "category": "Metadata",
-    "prompt": "InSquignito asks, 'What is NFT metadata?'",
-    "correct": "Metadata",
+    "category": "Token IDs",
+    "prompt": "What number identifies one item inside a collection contract?",
+    "correct": "Token",
     "wrong": [
-      "Gas coupon",
-      "Mood ring"
+      "Price",
+      "Rank"
     ],
-    "correctRoast": "Correct. Metadata is the token's little file folder.",
-    "wrongRoast": "Wrong. Mood rings are poor analysts and worse accountants.",
-    "explanation": "Metadata describes or points to the media and attributes associated with an NFT.",
+    "correctRoast": "Correct. Token survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "A token ID identifies a specific NFT within its contract.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is NFT metadata?'",
-        "correct": "Metadata",
+        "prompt": "What number identifies one item inside a collection contract?",
+        "correct": "Token",
         "wrong": [
-          "Gas coupon",
-          "Mood ring"
+          "Price",
+          "Rank"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'C'est quoi les métadonnées NFT ?'",
-        "correct": "Métadonnées",
+        "prompt": "Quel numéro identifie un item dans un contrat de collection ?",
+        "correct": "Token",
         "wrong": [
-          "Coupon gas",
-          "Bague humeur"
+          "Prix",
+          "Rang"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué son los metadatos de un NFT?'",
-        "correct": "Metadatos",
+        "prompt": "¿Qué número identifica un ítem dentro de un contrato de colección?",
+        "correct": "Token",
         "wrong": [
-          "Cupón gas",
-          "Anillo ánimo"
+          "Precio",
+          "Rango"
         ]
       }
     }
@@ -1763,39 +1763,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-deep-005",
     "tier": 3,
-    "category": "Traits",
-    "prompt": "InSquignito asks, 'Why do collectors stare at traits like they are soup ingredients?'",
-    "correct": "Traits",
+    "category": "Metadata",
+    "prompt": "What describes the media and attributes of a collectible?",
+    "correct": "Metadata",
     "wrong": [
-      "Profit promise",
-      "Wallet size"
+      "Gas",
+      "Seed"
     ],
-    "correctRoast": "Correct. Traits create flavor. They do not create guarantees.",
-    "wrongRoast": "Wrong. Profit guarantees are pretty-energy poison.",
-    "explanation": "Traits can affect how collectors value NFTs, but they do not guarantee future value.",
+    "correctRoast": "Correct. Metadata survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Metadata points to information such as image, name, description, and traits.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why do collectors stare at traits like they are soup ingredients?'",
-        "correct": "Traits",
+        "prompt": "What describes the media and attributes of a collectible?",
+        "correct": "Metadata",
         "wrong": [
-          "Profit promise",
-          "Wallet size"
+          "Gas",
+          "Seed"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi les collectionneurs fixent les traits comme des ingrédients de soupe ?'",
-        "correct": "Traits",
+        "prompt": "Qu'est-ce qui décrit le média et les attributs d'un collectible ?",
+        "correct": "Métadonnées",
         "wrong": [
-          "Profit promis",
-          "Taille wallet"
+          "Gas",
+          "Seed"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué los coleccionistas miran rasgos como ingredientes de sopa?'",
-        "correct": "Rasgos",
+        "prompt": "¿Qué describe el medio y los atributos de un coleccionable?",
+        "correct": "Metadatos",
         "wrong": [
-          "Beneficio prometido",
-          "Tamaño wallet"
+          "Gas",
+          "Semilla"
         ]
       }
     }
@@ -1803,39 +1803,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-deep-006",
     "tier": 3,
-    "category": "Rarity",
-    "prompt": "InSquignito asks, 'If a Squig has a rare trait, what does that actually mean?'",
-    "correct": "Less common",
+    "category": "Traits",
+    "prompt": "What visual properties can affect collector preference?",
+    "correct": "Traits",
     "wrong": [
-      "Forever price",
-      "Validator snacks"
+      "Fees",
+      "Password"
     ],
-    "correctRoast": "Correct. Rare means less common, not magically rich.",
-    "wrongRoast": "Wrong. Validators do not distribute snacks by hat rarity.",
-    "explanation": "Rarity measures scarcity of traits within a collection, but market value also depends on demand and context.",
+    "correctRoast": "Correct. Traits survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Traits can affect rarity and preference, but they do not guarantee value.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'If a Squig has a rare trait, what does that actually mean?'",
-        "correct": "Less common",
+        "prompt": "What visual properties can affect collector preference?",
+        "correct": "Traits",
         "wrong": [
-          "Forever price",
-          "Validator snacks"
+          "Fees",
+          "Password"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Si un Squig a un trait rare, ça veut dire quoi vraiment ?'",
-        "correct": "Moins commun",
+        "prompt": "Quelles propriétés visuelles peuvent influencer les préférences des collectionneurs ?",
+        "correct": "Traits",
         "wrong": [
-          "Prix éternel",
-          "Snacks validateurs"
+          "Frais",
+          "Passe"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Si un Squig tiene un rasgo raro, ¿qué significa realmente?'",
-        "correct": "Menos común",
+        "prompt": "¿Qué propiedades visuales pueden influir en preferencias de coleccionistas?",
+        "correct": "Rasgos",
         "wrong": [
-          "Precio eterno",
-          "Snacks validadores"
+          "Tarifas",
+          "Clave"
         ]
       }
     }
@@ -1844,38 +1844,38 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-deep-007",
     "tier": 3,
     "category": "Floor Price",
-    "prompt": "InSquignito asks, 'What is the floor price everyone keeps stepping on?'",
-    "correct": "Lowest listing",
+    "prompt": "What means the lowest current listed price?",
+    "correct": "Floor",
     "wrong": [
-      "Mandatory price",
-      "Nap floor"
+      "Ceiling",
+      "Profit"
     ],
-    "correctRoast": "Correct. Lowest listing, not destiny.",
-    "wrongRoast": "Wrong. NFTs do not nap on floors. They brood in wallets.",
-    "explanation": "Floor price is a marketplace snapshot of the cheapest active listing, not a guaranteed value.",
+    "correctRoast": "Correct. Floor survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Floor price is a current listing snapshot, not a guaranteed sale price.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is the floor price everyone keeps stepping on?'",
-        "correct": "Lowest listing",
+        "prompt": "What means the lowest current listed price?",
+        "correct": "Floor",
         "wrong": [
-          "Mandatory price",
-          "Nap floor"
+          "Ceiling",
+          "Profit"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'C'est quoi le floor price que tout le monde piétine ?'",
-        "correct": "Listing bas",
+        "prompt": "Qu'est-ce qui signifie le prix listé le plus bas actuellement ?",
+        "correct": "Floor",
         "wrong": [
-          "Prix obligatoire",
-          "Sieste sol"
+          "Plafond",
+          "Profit"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué es el floor price que todos pisan?'",
-        "correct": "Listing bajo",
+        "prompt": "¿Qué significa el precio listado más bajo actual?",
+        "correct": "Floor",
         "wrong": [
-          "Precio obligatorio",
-          "Siesta suelo"
+          "Techo",
+          "Ganancia"
         ]
       }
     }
@@ -1884,38 +1884,38 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-deep-008",
     "tier": 3,
     "category": "Listings",
-    "prompt": "InSquignito asks, 'What does it mean when a Squig is listed?'",
-    "correct": "Sale listing",
+    "prompt": "What means an owner has offered an item for sale?",
+    "correct": "Listing",
     "wrong": [
-      "Boarding school",
-      "Forced move"
+      "Airdrop",
+      "Approval"
     ],
-    "correctRoast": "Correct. Listed means offered, not emotionally abandoned.",
-    "wrongRoast": "Wrong. Boarding school for Squigs has terrible reviews.",
-    "explanation": "A listing is a sale offer; the NFT remains with the owner until a transaction completes.",
+    "correctRoast": "Correct. Listing survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "A listing is a sale order that can remain active until filled or canceled.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What does it mean when a Squig is listed?'",
-        "correct": "Sale listing",
+        "prompt": "What means an owner has offered an item for sale?",
+        "correct": "Listing",
         "wrong": [
-          "Boarding school",
-          "Forced move"
+          "Airdrop",
+          "Approval"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Ça veut dire quoi quand un Squig est listé ?'",
-        "correct": "Mise vente",
+        "prompt": "Qu'est-ce qui signifie qu'un propriétaire propose un item à la vente ?",
+        "correct": "Listing",
         "wrong": [
-          "Pensionnat",
-          "Sortie forcée"
+          "Airdrop",
+          "Approbation"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué significa que un Squig esté listado?'",
-        "correct": "En venta",
+        "prompt": "¿Qué significa que un dueño ofrece un ítem en venta?",
+        "correct": "Listing",
         "wrong": [
-          "Internado",
-          "Salida forzada"
+          "Airdrop",
+          "Aprobación"
         ]
       }
     }
@@ -1924,38 +1924,38 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-deep-009",
     "tier": 3,
     "category": "Offers",
-    "prompt": "InSquignito asks, 'What is an offer on an NFT?'",
-    "correct": "Bid",
+    "prompt": "What is a buyer's bid on an item called?",
+    "correct": "Offer",
     "wrong": [
-      "Buyer command",
-      "Free gift"
+      "Fee",
+      "Trait"
     ],
-    "correctRoast": "Correct. Offers ask. They do not command the Squig.",
-    "wrongRoast": "Wrong. Buyer goblins have no monarchy here.",
-    "explanation": "NFT owners usually choose whether to accept offers, and offers can have expiration times or conditions.",
+    "correctRoast": "Correct. Offer survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "An offer is a bid that the owner can accept or ignore.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is an offer on an NFT?'",
-        "correct": "Bid",
+        "prompt": "What is a buyer's bid on an item called?",
+        "correct": "Offer",
         "wrong": [
-          "Buyer command",
-          "Free gift"
+          "Fee",
+          "Trait"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'C'est quoi une offre sur un NFT ?'",
+        "prompt": "Comment appelle-t-on l'enchère d'un acheteur sur un item ?",
         "correct": "Offre",
         "wrong": [
-          "Ordre acheteur",
-          "Cadeau gratuit"
+          "Frais",
+          "Trait"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué es una oferta sobre un NFT?'",
+        "prompt": "¿Cómo se llama la puja de un comprador por un ítem?",
         "correct": "Oferta",
         "wrong": [
-          "Orden comprador",
-          "Regalo gratis"
+          "Tarifa",
+          "Rasgo"
         ]
       }
     }
@@ -1963,39 +1963,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-deep-010",
     "tier": 3,
-    "category": "Buy Now",
-    "prompt": "InSquignito asks, 'If I hit buy now on a real listing, what should happen?'",
-    "correct": "Wallet purchase",
+    "category": "Checkout",
+    "prompt": "What must be inspected before using a buy button?",
+    "correct": "Price",
     "wrong": [
-      "Seed phrase",
-      "Before gas"
+      "Confetti",
+      "Banner"
     ],
-    "correctRoast": "Correct. Price, gas, wallet confirmation. Then the chain decides.",
-    "wrongRoast": "Wrong. Seed phrase requests are trapdoors with glitter.",
-    "explanation": "A legitimate purchase should be confirmed through the wallet without revealing the seed phrase.",
+    "correctRoast": "Correct. Price survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "The price, fees, token, network, and action should match the buyer's intention.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'If I hit buy now on a real listing, what should happen?'",
-        "correct": "Wallet purchase",
+        "prompt": "What must be inspected before using a buy button?",
+        "correct": "Price",
         "wrong": [
-          "Seed phrase",
-          "Before gas"
+          "Confetti",
+          "Banner"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Si je clique acheter maintenant sur un vrai listing, que devrait-il arriver ?'",
-        "correct": "Achat wallet",
+        "prompt": "Que faut-il inspecter avant d'utiliser le bouton d'achat ?",
+        "correct": "Prix",
         "wrong": [
-          "Phrase seed",
-          "Avant gas"
+          "Confetti",
+          "Bannière"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Si pulso comprar ahora en un listing real, ¿qué debería pasar?'",
-        "correct": "Compra wallet",
+        "prompt": "¿Qué debe inspeccionarse antes de usar el botón de compra?",
+        "correct": "Precio",
         "wrong": [
-          "Frase semilla",
-          "Antes gas"
+          "Confeti",
+          "Banner"
         ]
       }
     }
@@ -2003,39 +2003,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-deep-011",
     "tier": 3,
-    "category": "Gas Spikes",
-    "prompt": "InSquignito asks, 'Why did gas suddenly become more expensive while I was emotionally choosing a Squig?'",
-    "correct": "Network demand",
+    "category": "Offer Currency",
+    "prompt": "Which wrapped asset may be needed for bids?",
+    "correct": "WETH",
     "wrong": [
-      "Squig toll",
-      "Hesitation fee"
+      "Fiat",
+      "JPEG"
     ],
-    "correctRoast": "Correct. Network congestion: the ugly traffic jam.",
-    "wrongRoast": "Wrong. The Squig cannot smell hesitation through the mempool. Probably.",
-    "explanation": "Gas fees fluctuate with network demand and transaction complexity.",
+    "correctRoast": "Correct. WETH survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Some marketplaces use WETH for offers because contracts can handle it as a token.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why did gas suddenly become more expensive while I was emotionally choosing a Squig?'",
-        "correct": "Network demand",
+        "prompt": "Which wrapped asset may be needed for bids?",
+        "correct": "WETH",
         "wrong": [
-          "Squig toll",
-          "Hesitation fee"
+          "Fiat",
+          "JPEG"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi le gas est devenu plus cher pendant que je choisissais un Squig avec émotion ?'",
-        "correct": "Demande réseau",
+        "prompt": "Quel actif emballé peut être nécessaire pour les offres ?",
+        "correct": "WETH",
         "wrong": [
-          "Péage Squig",
-          "Frais hésitation"
+          "Fiat",
+          "JPEG"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué el gas subió mientras elegía un Squig con emoción?'",
-        "correct": "Demanda red",
+        "prompt": "¿Qué activo envuelto puede hacer falta para ofertas?",
+        "correct": "WETH",
         "wrong": [
-          "Peaje Squig",
-          "Tarifa duda"
+          "Fiat",
+          "JPEG"
         ]
       }
     }
@@ -2043,39 +2043,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-deep-012",
     "tier": 3,
-    "category": "Slippage",
-    "prompt": "InSquignito asks, 'Is slippage a disease from standing too close to exchanges?'",
-    "correct": "Slippage",
+    "category": "Congestion",
+    "prompt": "What can rise when network traffic gets heavy?",
+    "correct": "Gas",
     "wrong": [
-      "Image cure",
-      "Slippery trait"
+      "Rarity",
+      "Seed"
     ],
-    "correctRoast": "Correct. Slippage belongs mostly in swap goblin math.",
-    "wrongRoast": "Wrong. Refreshing images has never healed finance.",
-    "explanation": "Slippage is common in decentralized token swaps; fixed-price NFT buys usually focus more on listing price and gas.",
+    "correctRoast": "Correct. Gas survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Network congestion can make transaction fees more expensive.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Is slippage a disease from standing too close to exchanges?'",
-        "correct": "Slippage",
+        "prompt": "What can rise when network traffic gets heavy?",
+        "correct": "Gas",
         "wrong": [
-          "Image cure",
-          "Slippery trait"
+          "Rarity",
+          "Seed"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Le slippage est une maladie d'être trop près des exchanges ?'",
-        "correct": "Slippage",
+        "prompt": "Qu'est-ce qui peut augmenter quand le trafic réseau est fort ?",
+        "correct": "Gas",
         "wrong": [
-          "Soin image",
-          "Trait glissant"
+          "Rareté",
+          "Seed"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿El slippage es una enfermedad por pararse cerca de los exchanges?'",
-        "correct": "Slippage",
+        "prompt": "¿Qué puede subir cuando el tráfico de red es alto?",
+        "correct": "Gas",
         "wrong": [
-          "Cura imagen",
-          "Rasgo resbaloso"
+          "Rareza",
+          "Semilla"
         ]
       }
     }
@@ -2083,39 +2083,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-deep-013",
     "tier": 3,
-    "category": "Royalties",
-    "prompt": "InSquignito asks, 'What are creator royalties in NFT land?'",
-    "correct": "Royalties",
+    "category": "Copies",
+    "prompt": "What is a likely sign of a copied collection?",
+    "correct": "Impersonation",
     "wrong": [
-      "Crown tax",
-      "Forever fee"
+      "Metadata",
+      "Royalty"
     ],
-    "correctRoast": "Correct. Royalties may exist, but marketplace rules matter.",
-    "wrongRoast": "Wrong. Crowns do not create accounting departments.",
-    "explanation": "NFT royalties can vary by marketplace and enforcement model, so they should not be assumed to work identically everywhere.",
+    "correctRoast": "Correct. Impersonation survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Impersonation copies names, images, and pages to trick buyers.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What are creator royalties in NFT land?'",
-        "correct": "Royalties",
+        "prompt": "What is a likely sign of a copied collection?",
+        "correct": "Impersonation",
         "wrong": [
-          "Crown tax",
-          "Forever fee"
+          "Metadata",
+          "Royalty"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'C'est quoi les royalties créateur au pays des NFT ?'",
-        "correct": "Royalties",
+        "prompt": "Quel est un signe probable d'une collection copiée ?",
+        "correct": "Usurpation",
         "wrong": [
-          "Taxe couronne",
-          "Frais éternels"
+          "Métadonnées",
+          "Royalty"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué son las regalías de creador en tierra NFT?'",
-        "correct": "Regalías",
+        "prompt": "¿Cuál es una señal probable de una colección copiada?",
+        "correct": "Suplantación",
         "wrong": [
-          "Impuesto corona",
-          "Tarifa eterna"
+          "Metadatos",
+          "Regalía"
         ]
       }
     }
@@ -2123,39 +2123,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-deep-014",
     "tier": 3,
-    "category": "Hidden NFTs",
-    "prompt": "InSquignito asks, 'A random NFT appeared in my wallet. Is it a new friend?'",
-    "correct": "Phishing bait",
+    "category": "Airdrops",
+    "prompt": "What should unknown wallet gifts trigger?",
+    "correct": "Suspicion",
     "wrong": [
-      "Friendship egg",
-      "Click links"
+      "Gratitude",
+      "FOMO"
     ],
-    "correctRoast": "Correct. Surprise friend may be trap slug. Do not pet the trap slug.",
-    "wrongRoast": "Wrong. Friendship eggs are how phishing learned to hatch.",
-    "explanation": "Scammers may send unwanted NFTs with malicious links or prompts; unknown assets should be treated cautiously.",
+    "correctRoast": "Correct. Suspicion survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Unexpected NFTs can be spam or phishing bait.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'A random NFT appeared in my wallet. Is it a new friend?'",
-        "correct": "Phishing bait",
+        "prompt": "What should unknown wallet gifts trigger?",
+        "correct": "Suspicion",
         "wrong": [
-          "Friendship egg",
-          "Click links"
+          "Gratitude",
+          "FOMO"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Un NFT aléatoire est apparu dans mon wallet. C'est un nouvel ami ?'",
-        "correct": "Piège phishing",
+        "prompt": "Que doivent déclencher des cadeaux inconnus dans un wallet ?",
+        "correct": "Suspicion",
         "wrong": [
-          "Œuf ami",
-          "Cliquer liens"
+          "Gratitude",
+          "FOMO"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Apareció un NFT aleatorio en mi wallet. ¿Es un nuevo amigo?'",
-        "correct": "Trampa phishing",
+        "prompt": "¿Qué deberían provocar regalos desconocidos en un wallet?",
+        "correct": "Sospecha",
         "wrong": [
-          "Huevo amigo",
-          "Abrir enlaces"
+          "Gratitud",
+          "FOMO"
         ]
       }
     }
@@ -2164,38 +2164,38 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-deep-015",
     "tier": 3,
     "category": "Approvals",
-    "prompt": "InSquignito asks, 'Why does a marketplace ask for approval before selling an NFT?'",
-    "correct": "Transfer approval",
+    "prompt": "What permission lets a marketplace move an item during sale?",
+    "correct": "Approval",
     "wrong": [
-      "Compliment",
-      "Profile pic"
+      "Tribute",
+      "Screenshot"
     ],
-    "correctRoast": "Correct. Approval is permission, not praise.",
-    "wrongRoast": "Wrong. Compliments do not move tokens. Thank goodness.",
-    "explanation": "NFT approvals grant smart contracts permission to transfer NFTs under certain conditions, so they should be understood before signing.",
+    "correctRoast": "Correct. Approval survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Approvals allow contracts to transfer assets under specific conditions.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why does a marketplace ask for approval before selling an NFT?'",
-        "correct": "Transfer approval",
+        "prompt": "What permission lets a marketplace move an item during sale?",
+        "correct": "Approval",
         "wrong": [
-          "Compliment",
-          "Profile pic"
+          "Tribute",
+          "Screenshot"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi une marketplace demande une approbation avant de vendre un NFT ?'",
-        "correct": "Approbation transfert",
+        "prompt": "Quelle permission permet à une marketplace de déplacer un item pendant une vente ?",
+        "correct": "Approbation",
         "wrong": [
-          "Compliment",
-          "Photo profil"
+          "Tribut",
+          "Capture"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué una marketplace pide aprobación antes de vender un NFT?'",
-        "correct": "Aprobación transferencia",
+        "prompt": "¿Qué permiso deja que una marketplace mueva un ítem durante la venta?",
+        "correct": "Aprobación",
         "wrong": [
-          "Cumplido",
-          "Foto perfil"
+          "Tributo",
+          "Captura"
         ]
       }
     }
@@ -2203,39 +2203,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-deep-016",
     "tier": 3,
-    "category": "Revoking",
-    "prompt": "InSquignito asks, 'What does revoking an approval do?'",
-    "correct": "Revoke permission",
+    "category": "Revokes",
+    "prompt": "What removes an old marketplace permission?",
+    "correct": "Revoke",
     "wrong": [
-      "Delete NFT",
-      "Gas apology"
+      "Refresh",
+      "Rename"
     ],
-    "correctRoast": "Correct. Permission removed. The goblin key goes back on the hook.",
-    "wrongRoast": "Wrong. Gas fees have never apologized, only multiplied.",
-    "explanation": "Revoking approvals can reduce risk by removing old or unnecessary permissions.",
+    "correctRoast": "Correct. Revoke survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Revoking old approvals reduces permission exposure.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What does revoking an approval do?'",
-        "correct": "Revoke permission",
+        "prompt": "What removes an old marketplace permission?",
+        "correct": "Revoke",
         "wrong": [
-          "Delete NFT",
-          "Gas apology"
+          "Refresh",
+          "Rename"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Révoquer une approbation, ça fait quoi ?'",
-        "correct": "Révoquer permission",
+        "prompt": "Qu'est-ce qui retire une ancienne permission de marketplace ?",
+        "correct": "Révoquer",
         "wrong": [
-          "Supprimer NFT",
-          "Excuse gas"
+          "Rafraîchir",
+          "Renommer"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué hace revocar una aprobación?'",
-        "correct": "Revocar permiso",
+        "prompt": "¿Qué quita un permiso viejo de marketplace?",
+        "correct": "Revocar",
         "wrong": [
-          "Borrar NFT",
-          "Disculpa gas"
+          "Refrescar",
+          "Renombrar"
         ]
       }
     }
@@ -2243,39 +2243,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-deep-017",
     "tier": 3,
-    "category": "Portfolio View",
-    "prompt": "InSquignito asks, 'Why might a wallet scan show Squigs but not ask for a signature?'",
-    "correct": "Public data",
+    "category": "Ownership Checks",
+    "prompt": "What shows independent ownership data?",
+    "correct": "Explorer",
     "wrong": [
-      "Guessed seed",
-      "Magic login"
+      "Trailer",
+      "Chat"
     ],
-    "correctRoast": "Correct. Public chain data is readable. No signature needed for looking.",
-    "wrongRoast": "Wrong. Secret guessing belongs in scam fan fiction.",
-    "explanation": "Wallet holdings can often be queried publicly by address without requiring the owner to sign.",
+    "correctRoast": "Correct. Explorer survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Block explorers show public ownership and transaction data.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why might a wallet scan show Squigs but not ask for a signature?'",
-        "correct": "Public data",
+        "prompt": "What shows independent ownership data?",
+        "correct": "Explorer",
         "wrong": [
-          "Guessed seed",
-          "Magic login"
+          "Trailer",
+          "Chat"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi un scan wallet peut montrer des Squigs sans demander de signature ?'",
-        "correct": "Données publiques",
+        "prompt": "Qu'est-ce qui montre des données de propriété indépendantes ?",
+        "correct": "Explorer",
         "wrong": [
-          "Seed devinée",
-          "Login magique"
+          "Bande",
+          "Chat"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué un escaneo de wallet puede mostrar Squigs sin pedir firma?'",
-        "correct": "Datos públicos",
+        "prompt": "¿Qué muestra datos independientes de propiedad?",
+        "correct": "Explorer",
         "wrong": [
-          "Semilla adivinada",
-          "Login mágico"
+          "Tráiler",
+          "Chat"
         ]
       }
     }
@@ -2283,39 +2283,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-deep-018",
     "tier": 3,
-    "category": "Pending Transactions",
-    "prompt": "InSquignito asks, 'My buy transaction is pending. What should I do before smashing buttons?'",
-    "correct": "Check status",
+    "category": "Pending Buys",
+    "prompt": "What should be avoided while a purchase is pending?",
+    "correct": "Duplicates",
     "wrong": [
-      "Buy five",
-      "Share seed"
+      "Patience",
+      "Status"
     ],
-    "correctRoast": "Correct. Panic clicks are pretty. Patience is ugly.",
-    "wrongRoast": "Wrong. Duplicate panic is how the mempool learns comedy.",
-    "explanation": "Pending transactions may take time; duplicate or rushed actions can cause mistakes or extra fees.",
+    "correctRoast": "Correct. Duplicates survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Duplicate panic clicks can create extra transactions or confusion.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'My buy transaction is pending. What should I do before smashing buttons?'",
-        "correct": "Check status",
+        "prompt": "What should be avoided while a purchase is pending?",
+        "correct": "Duplicates",
         "wrong": [
-          "Buy five",
-          "Share seed"
+          "Patience",
+          "Status"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Ma transaction d'achat est pending. Que faire avant de marteler les boutons ?'",
-        "correct": "Vérifier statut",
+        "prompt": "Que faut-il éviter pendant qu'un achat est pending ?",
+        "correct": "Doublons",
         "wrong": [
-          "Acheter cinq",
-          "Partager seed"
+          "Patience",
+          "Statut"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Mi compra está pendiente. ¿Qué hago antes de aplastar botones?'",
-        "correct": "Verificar estado",
+        "prompt": "¿Qué se debe evitar mientras una compra está pendiente?",
+        "correct": "Duplicados",
         "wrong": [
-          "Comprar cinco",
-          "Compartir semilla"
+          "Paciencia",
+          "Estado"
         ]
       }
     }
@@ -2323,39 +2323,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-deep-019",
     "tier": 3,
-    "category": "Ownership Check",
-    "prompt": "InSquignito asks, 'After buying, how do I know the Squig friend is mine?'",
-    "correct": "Check ownership",
+    "category": "Display Delays",
+    "prompt": "What can delay an image after purchase?",
+    "correct": "Indexing",
     "wrong": [
-      "Thank email",
-      "Legal confetti"
+      "Theft",
+      "Burning"
     ],
-    "correctRoast": "Correct. Wallet or explorer first, confetti second.",
-    "wrongRoast": "Wrong. Confetti is not a settlement layer.",
-    "explanation": "On-chain ownership can be checked through wallets, marketplaces, or block explorers.",
+    "correctRoast": "Correct. Indexing survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Wallets and marketplaces may need time to index metadata.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'After buying, how do I know the Squig friend is mine?'",
-        "correct": "Check ownership",
+        "prompt": "What can delay an image after purchase?",
+        "correct": "Indexing",
         "wrong": [
-          "Thank email",
-          "Legal confetti"
+          "Theft",
+          "Burning"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Après l'achat, comment savoir si l'ami Squig est à moi ?'",
-        "correct": "Vérifier propriété",
+        "prompt": "Qu'est-ce qui peut retarder une image après achat ?",
+        "correct": "Indexation",
         "wrong": [
-          "Email merci",
-          "Confetti légal"
+          "Vol",
+          "Brûlage"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Después de comprar, ¿cómo sé que el amigo Squig es mío?'",
-        "correct": "Verificar propiedad",
+        "prompt": "¿Qué puede retrasar una imagen después de comprar?",
+        "correct": "Indexación",
         "wrong": [
-          "Correo gracias",
-          "Confeti legal"
+          "Robo",
+          "Quema"
         ]
       }
     }
@@ -2363,39 +2363,39 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-deep-020",
     "tier": 3,
-    "category": "Marketplace Summary",
-    "prompt": "InSquignito asks, 'What is the ugly marketplace checklist before buying?'",
-    "correct": "Buying checklist",
+    "category": "Confirmation",
+    "prompt": "What should the final wallet action match?",
+    "correct": "Intent",
     "wrong": [
-      "Trust thumbnail",
-      "Fake alpha"
+      "Hype",
+      "Color"
     ],
-    "correctRoast": "Correct. Checklist completed. The desk slime nods approvingly.",
-    "wrongRoast": "Wrong. Slam-confirm energy is too pretty to survive.",
-    "explanation": "Buying NFTs safely requires verification, cost review, and careful wallet confirmation.",
+    "correctRoast": "Correct. Intent survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "The wallet prompt should match what the buyer intends to do.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is the ugly marketplace checklist before buying?'",
-        "correct": "Buying checklist",
+        "prompt": "What should the final wallet action match?",
+        "correct": "Intent",
         "wrong": [
-          "Trust thumbnail",
-          "Fake alpha"
+          "Hype",
+          "Color"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Quelle est la checklist marketplace laide avant d'acheter ?'",
-        "correct": "Checklist achat",
+        "prompt": "À quoi l'action finale du wallet doit-elle correspondre ?",
+        "correct": "Intention",
         "wrong": [
-          "Confiance miniature",
-          "Faux alpha"
+          "Hype",
+          "Couleur"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Cuál es la checklist fea de marketplace antes de comprar?'",
-        "correct": "Checklist compra",
+        "prompt": "¿Con qué debe coincidir la acción final del wallet?",
+        "correct": "Intención",
         "wrong": [
-          "Confiar miniatura",
-          "Falso alpha"
+          "Hype",
+          "Color"
         ]
       }
     }
@@ -2404,42 +2404,42 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
     "id": "squig-internal-001",
     "tier": 4,
     "category": "Phishing",
-    "prompt": "InSquignito asks, 'A fake site looks exactly like the real Squigs page. What protects me?'",
-    "correct": "Official links",
+    "prompt": "What attack copies real project pages?",
+    "correct": "Phishing",
     "wrong": [
-      "Polite site",
-      "Crisp logo",
-      "Connect first"
+      "Indexing",
+      "Bridging",
+      "Minting"
     ],
-    "correctRoast": "Correct. Pretty clones hate bookmarks and attention.",
-    "wrongRoast": "Wrong. Crisp logos have committed unspeakable wallet crimes.",
-    "explanation": "Phishing sites imitate real projects, so link verification is a core wallet safety habit.",
+    "correctRoast": "Correct. Phishing survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Phishing pages imitate real sites to steal signatures, approvals, or secrets.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'A fake site looks exactly like the real Squigs page. What protects me?'",
-        "correct": "Official links",
+        "prompt": "What attack copies real project pages?",
+        "correct": "Phishing",
         "wrong": [
-          "Polite site",
-          "Crisp logo",
-          "Connect first"
+          "Indexing",
+          "Bridging",
+          "Minting"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Un faux site ressemble exactement à la vraie page Squigs. Qu'est-ce qui me protège ?'",
-        "correct": "Liens officiels",
+        "prompt": "Quelle attaque copie les vraies pages d'un projet ?",
+        "correct": "Phishing",
         "wrong": [
-          "Site poli",
-          "Logo net",
-          "Connecter avant"
+          "Indexation",
+          "Bridge",
+          "Mint"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Un sitio falso se ve igual que la página real de Squigs. ¿Qué me protege?'",
-        "correct": "Enlaces oficiales",
+        "prompt": "¿Qué ataque copia páginas reales de un proyecto?",
+        "correct": "Phishing",
         "wrong": [
-          "Sitio amable",
-          "Logo nítido",
-          "Conectar primero"
+          "Indexación",
+          "Bridge",
+          "Mint"
         ]
       }
     }
@@ -2447,43 +2447,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-internal-002",
     "tier": 4,
-    "category": "Blind Signing",
-    "prompt": "InSquignito asks, 'What is blind signing, and why does it sound like eating soup in a dark room?'",
-    "correct": "Blind signing",
+    "category": "Signing",
+    "prompt": "Which signing risk means approving data you cannot understand?",
+    "correct": "Blind",
     "wrong": [
-      "Low brightness",
-      "Mint dance",
-      "Expert shortcut"
+      "Bright",
+      "Public",
+      "Cached"
     ],
-    "correctRoast": "Correct. Darkness plus permission equals danger soup.",
-    "wrongRoast": "Wrong. Low brightness is an eyesight problem, not the full security problem.",
-    "explanation": "Blind signing can be risky because the user may approve harmful permissions or transactions without knowing it.",
+    "correctRoast": "Correct. Blind survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Blind signing can hide dangerous actions behind unreadable data.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is blind signing, and why does it sound like eating soup in a dark room?'",
-        "correct": "Blind signing",
+        "prompt": "Which signing risk means approving data you cannot understand?",
+        "correct": "Blind",
         "wrong": [
-          "Low brightness",
-          "Mint dance",
-          "Expert shortcut"
+          "Bright",
+          "Public",
+          "Cached"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'C'est quoi signer à l'aveugle, et pourquoi ça ressemble à manger de la soupe dans le noir ?'",
-        "correct": "Signature aveugle",
+        "prompt": "Quel risque de signature signifie approuver des données incomprises ?",
+        "correct": "Aveugle",
         "wrong": [
-          "Luminosité basse",
-          "Danse mint",
-          "Raccourci expert"
+          "Brillant",
+          "Public",
+          "Cache"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué es firmar a ciegas, y por qué suena a comer sopa a oscuras?'",
-        "correct": "Firma ciega",
+        "prompt": "¿Qué riesgo de firma significa aprobar datos que no entiendes?",
+        "correct": "Ciega",
         "wrong": [
-          "Brillo bajo",
-          "Baile mint",
-          "Atajo experto"
+          "Brillante",
+          "Pública",
+          "Caché"
         ]
       }
     }
@@ -2491,43 +2491,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-internal-003",
     "tier": 4,
-    "category": "Hardware Wallets",
-    "prompt": "InSquignito asks, 'Why do collectors use hardware wallets for prized Squig friends?'",
-    "correct": "Hardware wallet",
+    "category": "Hardware",
+    "prompt": "What device type keeps private keys offline?",
+    "correct": "Hardware",
     "wrong": [
-      "Heavy rarity",
-      "Scam immunity",
-      "Battery Squig"
+      "Exchange",
+      "Browser",
+      "Marketplace"
     ],
-    "correctRoast": "Correct. Offline key goblin, physical button, calmer vault.",
-    "wrongRoast": "Wrong. Hardware wallets reduce risk, not all human mistakes.",
-    "explanation": "Hardware wallets can improve security by isolating private keys, but users still need safe signing habits.",
+    "correctRoast": "Correct. Hardware survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Hardware wallets isolate keys and require physical confirmation.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why do collectors use hardware wallets for prized Squig friends?'",
-        "correct": "Hardware wallet",
+        "prompt": "What device type keeps private keys offline?",
+        "correct": "Hardware",
         "wrong": [
-          "Heavy rarity",
-          "Scam immunity",
-          "Battery Squig"
+          "Exchange",
+          "Browser",
+          "Marketplace"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi les collectionneurs utilisent des hardware wallets pour des Squigs précieux ?'",
-        "correct": "Wallet matériel",
+        "prompt": "Quel type d'appareil garde les clés privées offline ?",
+        "correct": "Matériel",
         "wrong": [
-          "Rareté lourde",
-          "Immunité scams",
-          "Batterie Squig"
+          "Exchange",
+          "Navigateur",
+          "Marketplace"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué los coleccionistas usan hardware wallets para Squigs valiosos?'",
-        "correct": "Wallet físico",
+        "prompt": "¿Qué tipo de dispositivo mantiene llaves privadas offline?",
+        "correct": "Hardware",
         "wrong": [
-          "Rareza pesada",
-          "Inmunidad scams",
-          "Batería Squig"
+          "Exchange",
+          "Navegador",
+          "Marketplace"
         ]
       }
     }
@@ -2535,43 +2535,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-internal-004",
     "tier": 4,
-    "category": "Burner Wallets",
-    "prompt": "InSquignito asks, 'What is a burner wallet useful for?'",
-    "correct": "Burner wallet",
+    "category": "Burners",
+    "prompt": "What kind of wallet tests risky sites with little value?",
+    "correct": "Burner",
     "wrong": [
-      "Actual fire",
-      "Main storage",
-      "Spicy name"
+      "Vault",
+      "Mainnet",
+      "Exchange"
     ],
-    "correctRoast": "Correct. Tiny disposable wallet enters the suspicious hallway first.",
-    "wrongRoast": "Wrong. Fire does not interact with ERC-721s, sadly.",
-    "explanation": "A separate low-value wallet can reduce exposure when interacting with unknown apps.",
+    "correctRoast": "Correct. Burner survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Burner wallets limit exposure when trying unfamiliar apps.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is a burner wallet useful for?'",
-        "correct": "Burner wallet",
+        "prompt": "What kind of wallet tests risky sites with little value?",
+        "correct": "Burner",
         "wrong": [
-          "Actual fire",
-          "Main storage",
-          "Spicy name"
+          "Vault",
+          "Mainnet",
+          "Exchange"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Un burner wallet sert à quoi ?'",
-        "correct": "Wallet jetable",
+        "prompt": "Quel genre de wallet teste les sites risqués avec peu de valeur ?",
+        "correct": "Burner",
         "wrong": [
-          "Feu réel",
-          "Stockage principal",
-          "Nom piquant"
+          "Coffre",
+          "Mainnet",
+          "Exchange"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Para qué sirve un burner wallet?'",
-        "correct": "Wallet burner",
+        "prompt": "¿Qué tipo de wallet prueba sitios riesgosos con poco valor?",
+        "correct": "Burner",
         "wrong": [
-          "Fuego real",
-          "Almacén principal",
-          "Nombre picante"
+          "Bóveda",
+          "Mainnet",
+          "Exchange"
         ]
       }
     }
@@ -2579,43 +2579,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-internal-005",
     "tier": 4,
-    "category": "Token Standards",
-    "prompt": "InSquignito asks, 'Why do people say ERC-721 or ERC-1155 around NFTs?'",
-    "correct": "Token standards",
+    "category": "Vaults",
+    "prompt": "What kind of wallet stores valuables with minimal clicking?",
+    "correct": "Vault",
     "wrong": [
-      "Ugly ranking",
-      "Support tickets",
-      "Gas coupons"
+      "Burner",
+      "Browser",
+      "Exchange"
     ],
-    "correctRoast": "Correct. Standards: boring words that make tokens interoperable.",
-    "wrongRoast": "Wrong. Ugly rankings are spiritual, not ERC-compliant.",
-    "explanation": "Token standards help wallets, marketplaces, and contracts interact with NFTs in predictable ways.",
+    "correctRoast": "Correct. Vault survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Vault wallets should avoid routine risky interactions.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why do people say ERC-721 or ERC-1155 around NFTs?'",
-        "correct": "Token standards",
+        "prompt": "What kind of wallet stores valuables with minimal clicking?",
+        "correct": "Vault",
         "wrong": [
-          "Ugly ranking",
-          "Support tickets",
-          "Gas coupons"
+          "Burner",
+          "Browser",
+          "Exchange"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi les gens disent ERC-721 ou ERC-1155 autour des NFT ?'",
-        "correct": "Standards token",
+        "prompt": "Quel genre de wallet garde les objets précieux avec peu de clics ?",
+        "correct": "Coffre",
         "wrong": [
-          "Classement laid",
-          "Tickets support",
-          "Coupons gas"
+          "Burner",
+          "Navigateur",
+          "Exchange"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué la gente dice ERC-721 o ERC-1155 cerca de los NFT?'",
-        "correct": "Estándares token",
+        "prompt": "¿Qué tipo de wallet guarda objetos valiosos con pocos clics?",
+        "correct": "Bóveda",
         "wrong": [
-          "Ranking feo",
-          "Tickets soporte",
-          "Cupones gas"
+          "Burner",
+          "Navegador",
+          "Exchange"
         ]
       }
     }
@@ -2623,43 +2623,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-internal-006",
     "tier": 4,
-    "category": "Smart Contracts",
-    "prompt": "InSquignito asks, 'What is a smart contract?'",
-    "correct": "Blockchain code",
+    "category": "Approval Scope",
+    "prompt": "Which permission scope is most dangerous?",
+    "correct": "Unlimited",
     "wrong": [
-      "Smart student",
-      "Wallet PDF",
-      "Price bot"
+      "Limited",
+      "Revoked",
+      "Expired"
     ],
-    "correctRoast": "Correct. Code rules with chain teeth.",
-    "wrongRoast": "Wrong. Straight A contracts still cannot deploy themselves.",
-    "explanation": "Smart contracts are programs stored and executed on blockchains.",
+    "correctRoast": "Correct. Unlimited survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Unlimited approvals can expose many assets if a contract is malicious or compromised.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is a smart contract?'",
-        "correct": "Blockchain code",
+        "prompt": "Which permission scope is most dangerous?",
+        "correct": "Unlimited",
         "wrong": [
-          "Smart student",
-          "Wallet PDF",
-          "Price bot"
+          "Limited",
+          "Revoked",
+          "Expired"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'C'est quoi un smart contract ?'",
-        "correct": "Code blockchain",
+        "prompt": "Quelle portée de permission est la plus dangereuse ?",
+        "correct": "Illimité",
         "wrong": [
-          "Bon élève",
-          "PDF wallet",
-          "Bot prix"
+          "Limité",
+          "Révoqué",
+          "Expiré"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué es un smart contract?'",
-        "correct": "Código blockchain",
+        "prompt": "¿Qué alcance de permiso es más peligroso?",
+        "correct": "Ilimitado",
         "wrong": [
-          "Alumno listo",
-          "PDF wallet",
-          "Bot precios"
+          "Limitado",
+          "Revocado",
+          "Expirado"
         ]
       }
     }
@@ -2667,43 +2667,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-internal-007",
     "tier": 4,
-    "category": "Immutable Records",
-    "prompt": "InSquignito asks, 'Why do people say on-chain actions are hard to undo?'",
-    "correct": "Permanent-ish",
+    "category": "Permission Hygiene",
+    "prompt": "What should happen to old unused permissions?",
+    "correct": "Revoked",
     "wrong": [
-      "Tuesday amnesia",
-      "Undo button",
-      "Free rewind"
+      "Listed",
+      "Minted",
+      "Bridged"
     ],
-    "correctRoast": "Correct. The chain remembers like a petty filing cabinet.",
-    "wrongRoast": "Wrong. Complaints are not a consensus mechanism.",
-    "explanation": "Confirmed blockchain transactions are designed to be tamper-resistant and are usually not reversible by a central support desk.",
+    "correctRoast": "Correct. Revoked survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Old approvals can remain active until revoked.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why do people say on-chain actions are hard to undo?'",
-        "correct": "Permanent-ish",
+        "prompt": "What should happen to old unused permissions?",
+        "correct": "Revoked",
         "wrong": [
-          "Tuesday amnesia",
-          "Undo button",
-          "Free rewind"
+          "Listed",
+          "Minted",
+          "Bridged"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi dit-on que les actions on-chain sont difficiles à annuler ?'",
-        "correct": "Quasi permanent",
+        "prompt": "Que faut-il faire aux anciennes permissions inutilisées ?",
+        "correct": "Révoqué",
         "wrong": [
-          "Oubli mardi",
-          "Bouton annuler",
-          "Retour gratuit"
+          "Listé",
+          "Minté",
+          "Bridgé"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué dicen que las acciones on-chain son difíciles de deshacer?'",
-        "correct": "Casi permanente",
+        "prompt": "¿Qué debería pasar con permisos viejos sin uso?",
+        "correct": "Revocado",
         "wrong": [
-          "Olvido martes",
-          "Botón deshacer",
-          "Rebobinado gratis"
+          "Listado",
+          "Minteado",
+          "Bridgeado"
         ]
       }
     }
@@ -2711,43 +2711,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-internal-008",
     "tier": 4,
-    "category": "Wrapped ETH",
-    "prompt": "InSquignito asks, 'What is WETH, and why did ETH put on a wrapper?'",
-    "correct": "Wrapped ETH",
+    "category": "Address Poisoning",
+    "prompt": "What scam uses tiny lookalike transfers?",
+    "correct": "Poisoning",
     "wrong": [
-      "Birthday wrap",
-      "Cheaper ETH",
-      "Always scam"
+      "Slippage",
+      "Royalty",
+      "Metadata"
     ],
-    "correctRoast": "Correct. ETH wore a standardized jacket for contract business.",
-    "wrongRoast": "Wrong. Birthday wrapping does not pass token standards.",
-    "explanation": "WETH exists because some decentralized apps need ETH in ERC-20 token form.",
+    "correctRoast": "Correct. Poisoning survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Address poisoning tries to trick users into copying the wrong destination.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is WETH, and why did ETH put on a wrapper?'",
-        "correct": "Wrapped ETH",
+        "prompt": "What scam uses tiny lookalike transfers?",
+        "correct": "Poisoning",
         "wrong": [
-          "Birthday wrap",
-          "Cheaper ETH",
-          "Always scam"
+          "Slippage",
+          "Royalty",
+          "Metadata"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'C'est quoi WETH, et pourquoi ETH a mis un emballage ?'",
-        "correct": "ETH emballé",
+        "prompt": "Quelle arnaque utilise de petits transferts ressemblants ?",
+        "correct": "Poisoning",
         "wrong": [
-          "Cadeau Squig",
-          "ETH moinscher",
-          "Toujours arnaque"
+          "Slippage",
+          "Royalty",
+          "Métadonnées"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué es WETH, y por qué ETH se puso envoltorio?'",
-        "correct": "ETH envuelto",
+        "prompt": "¿Qué estafa usa transferencias pequeñas parecidas?",
+        "correct": "Poisoning",
         "wrong": [
-          "Regalo Squig",
-          "ETH barato",
-          "Siempre estafa"
+          "Slippage",
+          "Regalía",
+          "Metadatos"
         ]
       }
     }
@@ -2755,43 +2755,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-internal-009",
     "tier": 4,
-    "category": "Bids And WETH",
-    "prompt": "InSquignito asks, 'Why might making an NFT offer require WETH instead of plain ETH?'",
-    "correct": "WETH offers",
+    "category": "Name Resolution",
+    "prompt": "What readable-name service must resolve correctly before sending?",
+    "correct": "ENS",
     "wrong": [
-      "Damp vibes",
-      "Shy ETH",
-      "Festive coins"
+      "IPFS",
+      "WETH",
+      "KYC"
     ],
-    "correctRoast": "Correct. Contract mechanics, not damp aesthetics.",
-    "wrongRoast": "Wrong. Damp paperwork is a culture, not a settlement method.",
-    "explanation": "Offers often need tokenized funds that smart contracts can handle according to marketplace rules.",
+    "correctRoast": "Correct. ENS survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "ENS names should resolve to the intended wallet before funds are sent.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why might making an NFT offer require WETH instead of plain ETH?'",
-        "correct": "WETH offers",
+        "prompt": "What readable-name service must resolve correctly before sending?",
+        "correct": "ENS",
         "wrong": [
-          "Damp vibes",
-          "Shy ETH",
-          "Festive coins"
+          "IPFS",
+          "WETH",
+          "KYC"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi faire une offre NFT peut demander du WETH au lieu d'ETH simple ?'",
-        "correct": "Offres WETH",
+        "prompt": "Quel service de nom lisible doit résoudre correctement avant envoi ?",
+        "correct": "ENS",
         "wrong": [
-          "Vibes humides",
-          "ETH timide",
-          "Pièces festives"
+          "IPFS",
+          "WETH",
+          "KYC"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué hacer una oferta NFT puede requerir WETH en vez de ETH normal?'",
-        "correct": "Ofertas WETH",
+        "prompt": "¿Qué servicio de nombre legible debe resolver bien antes de enviar?",
+        "correct": "ENS",
         "wrong": [
-          "Vibras húmedas",
-          "ETH tímido",
-          "Monedas festivas"
+          "IPFS",
+          "WETH",
+          "KYC"
         ]
       }
     }
@@ -2799,43 +2799,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-internal-010",
     "tier": 4,
-    "category": "Liquidity",
-    "prompt": "InSquignito asks, 'Why is an NFT harder to sell than swapping a common token sometimes?'",
-    "correct": "Matching buyer",
+    "category": "Wrapped Assets",
+    "prompt": "What tokenized asset is often used for marketplace bids?",
+    "correct": "WETH",
     "wrong": [
-      "Embarrassed NFT",
-      "Floor buyer",
-      "Instant sale"
+      "USDC",
+      "BTC",
+      "SOL"
     ],
-    "correctRoast": "Correct. Unique assets need matching collectors.",
-    "wrongRoast": "Wrong. The floor buyer is a myth with very dusty shoes.",
-    "explanation": "NFT liquidity varies by collection, demand, price, and individual token appeal.",
+    "correctRoast": "Correct. WETH survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "WETH lets contracts handle ETH-like value in token form.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why is an NFT harder to sell than swapping a common token sometimes?'",
-        "correct": "Matching buyer",
+        "prompt": "What tokenized asset is often used for marketplace bids?",
+        "correct": "WETH",
         "wrong": [
-          "Embarrassed NFT",
-          "Floor buyer",
-          "Instant sale"
+          "USDC",
+          "BTC",
+          "SOL"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi un NFT est parfois plus dur à vendre qu'un token courant ?'",
-        "correct": "Acheteur trouvé",
+        "prompt": "Quel actif tokenisé est souvent utilisé pour les offres marketplace ?",
+        "correct": "WETH",
         "wrong": [
-          "NFT gêné",
-          "Acheteur sol",
-          "Vente instant"
+          "USDC",
+          "BTC",
+          "SOL"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué a veces un NFT es más difícil de vender que cambiar un token común?'",
-        "correct": "Comprador correcto",
+        "prompt": "¿Qué activo tokenizado se usa a menudo para ofertas de marketplace?",
+        "correct": "WETH",
         "wrong": [
-          "NFT avergonzado",
-          "Comprador suelo",
-          "Venta instantánea"
+          "USDC",
+          "BTC",
+          "SOL"
         ]
       }
     }
@@ -2843,43 +2843,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-internal-011",
     "tier": 4,
-    "category": "Price Discovery",
-    "prompt": "InSquignito asks, 'Why do two Squigs in the same collection sell for different prices?'",
-    "correct": "Market factors",
+    "category": "Swaps",
+    "prompt": "What problem means final trade price differs from the quote?",
+    "correct": "Slippage",
     "wrong": [
-      "Personality tax",
-      "Legal price",
-      "Blue punishment"
+      "Rarity",
+      "Royalty",
+      "Floor"
     ],
-    "correctRoast": "Correct. Value is a stew, and the spoon is weird.",
-    "wrongRoast": "Wrong. One legal price would make collecting far less chaotic.",
-    "explanation": "NFT prices depend on multiple factors and are set by market participants, not a single official number.",
+    "correctRoast": "Correct. Slippage survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Slippage is common in swaps and can affect token trades.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why do two Squigs in the same collection sell for different prices?'",
-        "correct": "Market factors",
+        "prompt": "What problem means final trade price differs from the quote?",
+        "correct": "Slippage",
         "wrong": [
-          "Personality tax",
-          "Legal price",
-          "Blue punishment"
+          "Rarity",
+          "Royalty",
+          "Floor"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi deux Squigs de la même collection se vendent à des prix différents ?'",
-        "correct": "Facteurs marché",
+        "prompt": "Quel problème signifie que le prix final diffère du devis ?",
+        "correct": "Slippage",
         "wrong": [
-          "Taxe personnalité",
-          "Prix légal",
-          "Punition bleue"
+          "Rareté",
+          "Royalty",
+          "Floor"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué dos Squigs de la misma colección se venden a precios distintos?'",
-        "correct": "Factores mercado",
+        "prompt": "¿Qué problema significa que el precio final difiere de la cotización?",
+        "correct": "Slippage",
         "wrong": [
-          "Impuesto personalidad",
-          "Precio legal",
-          "Castigo azul"
+          "Rareza",
+          "Regalía",
+          "Floor"
         ]
       }
     }
@@ -2887,43 +2887,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-internal-012",
     "tier": 4,
-    "category": "Taxes",
-    "prompt": "InSquignito asks, 'Why do responsible humans keep records of NFT purchases and sales?'",
-    "correct": "Tax records",
+    "category": "Selling",
+    "prompt": "What makes collectibles harder to sell quickly?",
+    "correct": "Liquidity",
     "wrong": [
-      "Tall wallet",
-      "Web2 only",
-      "Stamp cancel"
+      "Metadata",
+      "ENS",
+      "Backup"
     ],
-    "correctRoast": "Correct. The paperwork goblin follows across chains.",
-    "wrongRoast": "Wrong. Web3 did not delete the tax goblin. It gave it analytics.",
-    "explanation": "Users should keep records and consult qualified guidance for tax obligations in their jurisdiction.",
+    "correctRoast": "Correct. Liquidity survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "NFT liquidity depends on buyers, demand, price, and individual item appeal.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why do responsible humans keep records of NFT purchases and sales?'",
-        "correct": "Tax records",
+        "prompt": "What makes collectibles harder to sell quickly?",
+        "correct": "Liquidity",
         "wrong": [
-          "Tall wallet",
-          "Web2 only",
-          "Stamp cancel"
+          "Metadata",
+          "ENS",
+          "Backup"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi les humains responsables gardent des traces d'achats et ventes NFT ?'",
-        "correct": "Registres fiscaux",
+        "prompt": "Qu'est-ce qui rend les collectibles plus difficiles à vendre vite ?",
+        "correct": "Liquidité",
         "wrong": [
-          "Wallet grand",
-          "Web2 seulement",
-          "Tampon annule"
+          "Métadonnées",
+          "ENS",
+          "Sauvegarde"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué los humanos responsables guardan registros de compras y ventas NFT?'",
-        "correct": "Registros fiscales",
+        "prompt": "¿Qué hace que coleccionables sean más difíciles de vender rápido?",
+        "correct": "Liquidez",
         "wrong": [
-          "Wallet alto",
-          "Solo web2",
-          "Sello cancela"
+          "Metadatos",
+          "ENS",
+          "Respaldo"
         ]
       }
     }
@@ -2931,43 +2931,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-internal-013",
     "tier": 4,
-    "category": "Risk Budget",
-    "prompt": "InSquignito asks, 'How much should a beginner risk while learning NFTs?'",
-    "correct": "Risk budget",
+    "category": "Records",
+    "prompt": "What records may matter after purchases and sales?",
+    "correct": "Taxes",
     "wrong": [
-      "Everything",
-      "Borrowed funds",
-      "Influencer whisper"
+      "Traits",
+      "Confetti",
+      "PFP"
     ],
-    "correctRoast": "Correct. Survival budget. Ugly and boring, the strongest combo.",
-    "wrongRoast": "Wrong. Financial drama is a pretty villain wearing chart cologne.",
-    "explanation": "NFT purchases are risky and speculative, so beginners should limit exposure.",
+    "correctRoast": "Correct. Taxes survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Crypto and NFT activity may have tax consequences depending on location.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'How much should a beginner risk while learning NFTs?'",
-        "correct": "Risk budget",
+        "prompt": "What records may matter after purchases and sales?",
+        "correct": "Taxes",
         "wrong": [
-          "Everything",
-          "Borrowed funds",
-          "Influencer whisper"
+          "Traits",
+          "Confetti",
+          "PFP"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Combien un débutant devrait risquer en apprenant les NFT ?'",
-        "correct": "Budget risque",
+        "prompt": "Quels registres peuvent compter après achats et ventes ?",
+        "correct": "Taxes",
         "wrong": [
-          "Tout",
-          "Argent emprunté",
-          "Murmure influenceur"
+          "Traits",
+          "Confetti",
+          "PFP"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Cuánto debería arriesgar un principiante al aprender NFT?'",
-        "correct": "Presupuesto riesgo",
+        "prompt": "¿Qué registros pueden importar después de compras y ventas?",
+        "correct": "Impuestos",
         "wrong": [
-          "Todo",
-          "Fondos prestados",
-          "Susurro influencer"
+          "Rasgos",
+          "Confeti",
+          "PFP"
         ]
       }
     }
@@ -2975,43 +2975,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-internal-014",
     "tier": 4,
-    "category": "Influencers",
-    "prompt": "InSquignito asks, 'A famous account says a collection will moon. What should I do?'",
-    "correct": "Research",
+    "category": "Cross-Chain",
+    "prompt": "What route between chains adds extra risk?",
+    "correct": "Bridge",
     "wrong": [
-      "Follower count",
-      "Send seed",
-      "Moon contract"
+      "Bookmark",
+      "Listing",
+      "Trait"
     ],
-    "correctRoast": "Correct. Followers are not a risk control.",
-    "wrongRoast": "Wrong. Follower count is not a due diligence certificate.",
-    "explanation": "Influencer posts may be biased, sponsored, or wrong; investment decisions should not rely on hype alone.",
+    "correctRoast": "Correct. Bridge survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Bridges add contract, network, and operational complexity.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'A famous account says a collection will moon. What should I do?'",
-        "correct": "Research",
+        "prompt": "What route between chains adds extra risk?",
+        "correct": "Bridge",
         "wrong": [
-          "Follower count",
-          "Send seed",
-          "Moon contract"
+          "Bookmark",
+          "Listing",
+          "Trait"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Un compte célèbre dit qu'une collection va moon. Je fais quoi ?'",
-        "correct": "Recherche",
+        "prompt": "Quelle route entre chaînes ajoute un risque supplémentaire ?",
+        "correct": "Bridge",
         "wrong": [
-          "Abonnés",
-          "Phrase seed",
-          "Lune contrat"
+          "Favori",
+          "Listing",
+          "Trait"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Una cuenta famosa dice que una colección va a moon. ¿Qué hago?'",
-        "correct": "Investigar",
+        "prompt": "¿Qué ruta entre cadenas añade riesgo extra?",
+        "correct": "Bridge",
         "wrong": [
-          "Seguidores",
-          "Enviar semilla",
-          "Luna contrato"
+          "Marcador",
+          "Listing",
+          "Rasgo"
         ]
       }
     }
@@ -3019,43 +3019,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-internal-015",
     "tier": 4,
-    "category": "Official Contract From Config",
-    "prompt": "InSquignito asks, 'If the game scans Squigs from an official contract, what should code use as the source of truth?'",
-    "correct": "Config source",
+    "category": "Influencers",
+    "prompt": "What should public hype claims be treated as?",
+    "correct": "Marketing",
     "wrong": [
-      "Chat address",
-      "Cute contract",
-      "Sneeze address"
+      "Audits",
+      "Guarantees",
+      "Receipts"
     ],
-    "correctRoast": "Correct. Config is the filing cabinet. Chat is the swamp.",
-    "wrongRoast": "Wrong. Cute thumbnails have never passed address verification.",
-    "explanation": "Apps should use trusted configuration or official sources for contract addresses, especially when scanning holdings.",
+    "correctRoast": "Correct. Marketing survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Influencer posts can be biased, sponsored, or wrong.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'If the game scans Squigs from an official contract, what should code use as the source of truth?'",
-        "correct": "Config source",
+        "prompt": "What should public hype claims be treated as?",
+        "correct": "Marketing",
         "wrong": [
-          "Chat address",
-          "Cute contract",
-          "Sneeze address"
+          "Audits",
+          "Guarantees",
+          "Receipts"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Si le jeu scanne des Squigs depuis un contrat officiel, quelle source de vérité doit utiliser le code ?'",
-        "correct": "Source config",
+        "prompt": "Comme quoi faut-il traiter les affirmations hype publiques ?",
+        "correct": "Marketing",
         "wrong": [
-          "Adresse chat",
-          "Contrat mignon",
-          "Adresse éternuée"
+          "Audits",
+          "Garanties",
+          "Reçus"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Si el juego escanea Squigs desde un contrato oficial, ¿qué fuente de verdad debe usar el código?'",
-        "correct": "Fuente config",
+        "prompt": "¿Cómo deben tratarse las afirmaciones públicas de hype?",
+        "correct": "Marketing",
         "wrong": [
-          "Dirección chat",
-          "Contrato lindo",
-          "Dirección estornudo"
+          "Auditorías",
+          "Garantías",
+          "Recibos"
         ]
       }
     }
@@ -3063,43 +3063,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-internal-016",
     "tier": 4,
-    "category": "No Signature Scans",
-    "prompt": "InSquignito asks, 'Why is a wallet scan safer when it only asks for an address and not a signature?'",
-    "correct": "Public read",
+    "category": "Scam Signals",
+    "prompt": "Which promise is a classic scam signal?",
+    "correct": "Guaranteed",
     "wrong": [
-      "Pretty signatures",
-      "Address passwords",
-      "Secret scans"
+      "Verified",
+      "Official",
+      "Cached"
     ],
-    "correctRoast": "Correct. Looking at public data needs no handshake of doom.",
-    "wrongRoast": "Wrong. Addresses are public identifiers, not password burritos.",
-    "explanation": "Public blockchain data can be queried by address; signatures should not be needed just to display holdings.",
+    "correctRoast": "Correct. Guaranteed survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Guaranteed profit language is a common red flag.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why is a wallet scan safer when it only asks for an address and not a signature?'",
-        "correct": "Public read",
+        "prompt": "Which promise is a classic scam signal?",
+        "correct": "Guaranteed",
         "wrong": [
-          "Pretty signatures",
-          "Address passwords",
-          "Secret scans"
+          "Verified",
+          "Official",
+          "Cached"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi un scan wallet est plus sûr quand il demande seulement une adresse, pas une signature ?'",
-        "correct": "Lecture publique",
+        "prompt": "Quelle promesse est un signal classique d'arnaque ?",
+        "correct": "Garanti",
         "wrong": [
-          "Signatures jolies",
-          "Adresses mots",
-          "Scans secrets"
+          "Vérifié",
+          "Officiel",
+          "Caché"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué un escaneo de wallet es más seguro si solo pide dirección y no firma?'",
-        "correct": "Lectura pública",
+        "prompt": "¿Qué promesa es una señal clásica de estafa?",
+        "correct": "Garantizado",
         "wrong": [
-          "Firmas lindas",
-          "Direcciones claves",
-          "Escaneos secretos"
+          "Verificado",
+          "Oficial",
+          "Cacheado"
         ]
       }
     }
@@ -3107,43 +3107,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-internal-017",
     "tier": 4,
-    "category": "Claim Records",
-    "prompt": "InSquignito asks, 'If an app says rewards are pending claims, what does that mean?'",
-    "correct": "Pending claim",
+    "category": "Privacy",
+    "prompt": "What helps separate public identity from storage?",
+    "correct": "Privacy",
     "wrong": [
-      "Token teleport",
-      "Private key",
-      "Paid twice"
+      "Volume",
+      "Ranking",
+      "Confetti"
     ],
-    "correctRoast": "Correct. Pending paperwork, not instant token soup.",
-    "wrongRoast": "Wrong. Claim codes are paperwork labels, not magic withdrawal roots.",
-    "explanation": "A pending claim record can track eligibility without automatically sending tokens.",
+    "correctRoast": "Correct. Privacy survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Wallet separation can reduce privacy leakage and risk concentration.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'If an app says rewards are pending claims, what does that mean?'",
-        "correct": "Pending claim",
+        "prompt": "What helps separate public identity from storage?",
+        "correct": "Privacy",
         "wrong": [
-          "Token teleport",
-          "Private key",
-          "Paid twice"
+          "Volume",
+          "Ranking",
+          "Confetti"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Si une app dit que des récompenses sont des claims pending, ça veut dire quoi ?'",
-        "correct": "Demande attente",
+        "prompt": "Qu'est-ce qui aide à séparer identité publique et stockage ?",
+        "correct": "Vieprivée",
         "wrong": [
-          "Téléport token",
-          "Clé privée",
-          "Payé deuxfois"
+          "Volume",
+          "Classement",
+          "Confetti"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Si una app dice que las recompensas son claims pendientes, ¿qué significa?'",
-        "correct": "Reclamo pendiente",
+        "prompt": "¿Qué ayuda a separar identidad pública y almacenamiento?",
+        "correct": "Privacidad",
         "wrong": [
-          "Teletransporte token",
-          "Clave privada",
-          "Pagado doble"
+          "Volumen",
+          "Ranking",
+          "Confeti"
         ]
       }
     }
@@ -3151,43 +3151,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-internal-018",
     "tier": 4,
-    "category": "Revoke Routine",
-    "prompt": "InSquignito asks, 'After using marketplaces for months, why review old approvals?'",
-    "correct": "Review approvals",
+    "category": "Devices",
+    "prompt": "How should shared computers be treated for wallet use?",
+    "correct": "Risky",
     "wrong": [
-      "Dust NFTs",
-      "More rarity",
-      "Lonely markets"
+      "Safer",
+      "Empty",
+      "Verified"
     ],
-    "correctRoast": "Correct. Clean old permissions like moldy fridge soup.",
-    "wrongRoast": "Wrong. Revoking does not change rarity. It changes permission exposure.",
-    "explanation": "Approvals can remain active until revoked, so periodic review can help limit risk.",
+    "correctRoast": "Correct. Risky survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Shared devices can expose sessions, screens, extensions, or secrets.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'After using marketplaces for months, why review old approvals?'",
-        "correct": "Review approvals",
+        "prompt": "How should shared computers be treated for wallet use?",
+        "correct": "Risky",
         "wrong": [
-          "Dust NFTs",
-          "More rarity",
-          "Lonely markets"
+          "Safer",
+          "Empty",
+          "Verified"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Après des mois de marketplaces, pourquoi revoir les anciennes approbations ?'",
-        "correct": "Revoir approbations",
+        "prompt": "Comment traiter les ordinateurs partagés pour l'usage wallet ?",
+        "correct": "Risque",
         "wrong": [
-          "NFT poussière",
-          "Plus rareté",
-          "Marchés seuls"
+          "Sûr",
+          "Vide",
+          "Vérifié"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Tras meses usando marketplaces, ¿por qué revisar permisos viejos?'",
-        "correct": "Revisar permisos",
+        "prompt": "¿Cómo tratar computadores compartidos para usar wallets?",
+        "correct": "Riesgo",
         "wrong": [
-          "NFT polvo",
-          "Más rareza",
-          "Mercados solos"
+          "Seguro",
+          "Vacío",
+          "Verificado"
         ]
       }
     }
@@ -3195,43 +3195,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-internal-019",
     "tier": 4,
-    "category": "Bridge Caution",
-    "prompt": "InSquignito asks, 'Why should a beginner be careful with bridges between chains?'",
-    "correct": "Bridge risk",
+    "category": "Persistent Orders",
+    "prompt": "What can remain active until canceled or expired?",
+    "correct": "Offer",
     "wrong": [
-      "Decoration",
-      "Safer bridge",
-      "Squig twin"
+      "Trait",
+      "Image",
+      "Username"
     ],
-    "correctRoast": "Correct. Bridges are advanced hallways with trapdoor potential.",
-    "wrongRoast": "Wrong. Decorative furniture does not custody assets. Usually.",
-    "explanation": "Cross-chain bridges can introduce additional technical and security risks.",
+    "correctRoast": "Correct. Offer survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Offers and listings can persist according to marketplace rules.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why should a beginner be careful with bridges between chains?'",
-        "correct": "Bridge risk",
+        "prompt": "What can remain active until canceled or expired?",
+        "correct": "Offer",
         "wrong": [
-          "Decoration",
-          "Safer bridge",
-          "Squig twin"
+          "Trait",
+          "Image",
+          "Username"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi un débutant doit être prudent avec les bridges entre chaînes ?'",
-        "correct": "Risque bridge",
+        "prompt": "Qu'est-ce qui peut rester actif jusqu'à annulation ou expiration ?",
+        "correct": "Offre",
         "wrong": [
-          "Décoration",
-          "Bridge sûr",
-          "Jumeau Squig"
+          "Trait",
+          "Image",
+          "Pseudo"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué un principiante debe tener cuidado con bridges entre cadenas?'",
-        "correct": "Riesgo bridge",
+        "prompt": "¿Qué puede seguir activo hasta cancelarse o expirar?",
+        "correct": "Oferta",
         "wrong": [
-          "Decoración",
-          "Bridge seguro",
-          "Gemelo Squig"
+          "Rasgo",
+          "Imagen",
+          "Usuario"
         ]
       }
     }
@@ -3239,43 +3239,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-internal-020",
     "tier": 4,
-    "category": "Security Summary",
-    "prompt": "InSquignito asks, 'What is the Ugly Labs internal security doctrine?'",
-    "correct": "Security routine",
+    "category": "Configuration",
+    "prompt": "What should app code use for the official collection identifier?",
+    "correct": "Config",
     "wrong": [
-      "Trust urgency",
-      "One wallet",
-      "DM cart"
+      "Chat",
+      "Logo",
+      "Rumor"
     ],
-    "correctRoast": "Correct. Ugly doctrine approved. The filing cabinet salutes.",
-    "wrongRoast": "Wrong. Hope beautifully is how wallets become folklore.",
-    "explanation": "A strong NFT safety routine combines source verification, key protection, cautious signing, and permission hygiene.",
+    "correctRoast": "Correct. Config survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Configuration or official sources should be the source of truth, not lore text or chat.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is the Ugly Labs internal security doctrine?'",
-        "correct": "Security routine",
+        "prompt": "What should app code use for the official collection identifier?",
+        "correct": "Config",
         "wrong": [
-          "Trust urgency",
-          "One wallet",
-          "DM cart"
+          "Chat",
+          "Logo",
+          "Rumor"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Quelle est la doctrine sécurité interne d'Ugly Labs ?'",
-        "correct": "Routine sécurité",
+        "prompt": "Que doit utiliser le code app pour l'identifiant officiel de collection ?",
+        "correct": "Config",
         "wrong": [
-          "Urgence fiable",
-          "Wallet unique",
-          "Panier DM"
+          "Chat",
+          "Logo",
+          "Rumeur"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Cuál es la doctrina interna de seguridad de Ugly Labs?'",
-        "correct": "Rutina seguridad",
+        "prompt": "¿Qué debe usar el código para el identificador oficial de colección?",
+        "correct": "Config",
         "wrong": [
-          "Urgencia fiable",
-          "Wallet único",
-          "Carrito DM"
+          "Chat",
+          "Logo",
+          "Rumor"
         ]
       }
     }
@@ -3283,43 +3283,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-001",
     "tier": 5,
-    "category": "End To End Flow",
-    "prompt": "InSquignito asks, 'Put the whole beginner path in order so I can buy a Squig friend without becoming soup.'",
-    "correct": "Safe order",
+    "category": "Full Flow",
+    "prompt": "What should be completed before shopping for a Squig?",
+    "correct": "Setup",
     "wrong": [
-      "Buy first",
-      "Paste seed",
-      "Loud ads"
+      "FOMO",
+      "Flex",
+      "Guess"
     ],
-    "correctRoast": "Correct. The path is ugly, cautious, and not soup.",
-    "wrongRoast": "Wrong. Soup has been achieved, but not onboarding.",
-    "explanation": "An end-to-end NFT purchase flow should prioritize education, security, correct funding, verification, and careful confirmation.",
+    "correctRoast": "Correct. Setup survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "A safe path includes wallet setup, funding, verification, and risk awareness.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Put the whole beginner path in order so I can buy a Squig friend without becoming soup.'",
-        "correct": "Safe order",
+        "prompt": "What should be completed before shopping for a Squig?",
+        "correct": "Setup",
         "wrong": [
-          "Buy first",
-          "Paste seed",
-          "Loud ads"
+          "FOMO",
+          "Flex",
+          "Guess"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Mets tout le chemin débutant dans l'ordre pour acheter un ami Squig sans devenir soupe.'",
-        "correct": "Ordre sûr",
+        "prompt": "Que faut-il compléter avant d'acheter un Squig ?",
+        "correct": "Setup",
         "wrong": [
-          "Acheter avant",
-          "Coller seed",
-          "Pubs fortes"
+          "FOMO",
+          "Flex",
+          "Hasard"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Ordena todo el camino principiante para comprar un amigo Squig sin volverse sopa.'",
-        "correct": "Orden seguro",
+        "prompt": "¿Qué debe completarse antes de comprar un Squig?",
+        "correct": "Setup",
         "wrong": [
-          "Comprar primero",
-          "Pegar semilla",
-          "Anuncios fuertes"
+          "FOMO",
+          "Flex",
+          "Azar"
         ]
       }
     }
@@ -3327,43 +3327,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-002",
     "tier": 5,
-    "category": "Official Collection",
-    "prompt": "InSquignito asks, 'How do I avoid buying a fake Squig wearing a stolen mustache?'",
-    "correct": "Verify collection",
+    "category": "Withdrawals",
+    "prompt": "What must match before moving ETH from an exchange?",
+    "correct": "Network",
     "wrong": [
-      "Any Squig",
-      "Cheapest fake",
-      "Random DM"
+      "Hairstyle",
+      "Banner",
+      "Rarity"
     ],
-    "correctRoast": "Correct. Mustache theft denied.",
-    "wrongRoast": "Wrong. The stolen mustache just opened a marketplace account.",
-    "explanation": "Fake collections can copy names and images, so official links and contract verification are essential.",
+    "correctRoast": "Correct. Network survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Network mismatch can trap assets away from the intended app or wallet.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'How do I avoid buying a fake Squig wearing a stolen mustache?'",
-        "correct": "Verify collection",
+        "prompt": "What must match before moving ETH from an exchange?",
+        "correct": "Network",
         "wrong": [
-          "Any Squig",
-          "Cheapest fake",
-          "Random DM"
+          "Hairstyle",
+          "Banner",
+          "Rarity"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Comment éviter d'acheter un faux Squig avec moustache volée ?'",
-        "correct": "Vérifier collection",
+        "prompt": "Que doit correspondre avant de déplacer ETH depuis un exchange ?",
+        "correct": "Réseau",
         "wrong": [
-          "Tout Squig",
-          "Faux moinscher",
-          "DM hasard"
+          "Coiffure",
+          "Bannière",
+          "Rareté"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Cómo evito comprar un Squig falso con bigote robado?'",
-        "correct": "Verificar colección",
+        "prompt": "¿Qué debe coincidir antes de mover ETH desde un exchange?",
+        "correct": "Red",
         "wrong": [
-          "Cualquier Squig",
-          "Falso barato",
-          "DM azar"
+          "Peinado",
+          "Banner",
+          "Rareza"
         ]
       }
     }
@@ -3371,43 +3371,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-003",
     "tier": 5,
-    "category": "Final Wallet Prompt",
-    "prompt": "InSquignito asks, 'Right before confirming a Squig purchase, what should match my intention?'",
-    "correct": "Match details",
+    "category": "Final Checks",
+    "prompt": "Which final wallet detail helps avoid fake collections?",
+    "correct": "Contract",
     "wrong": [
-      "Button color",
-      "Rocket count",
-      "Cursor mood"
+      "Color",
+      "Emoji",
+      "Volume"
     ],
-    "correctRoast": "Correct. Every detail gets inspected by the ugly microscope.",
-    "wrongRoast": "Wrong. Cursor confidence has drained many wallets.",
-    "explanation": "Final confirmation should include reviewing all transaction details before signing.",
+    "correctRoast": "Correct. Contract survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "The contract in the final prompt should match the verified collection.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Right before confirming a Squig purchase, what should match my intention?'",
-        "correct": "Match details",
+        "prompt": "Which final wallet detail helps avoid fake collections?",
+        "correct": "Contract",
         "wrong": [
-          "Button color",
-          "Rocket count",
-          "Cursor mood"
+          "Color",
+          "Emoji",
+          "Volume"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Juste avant de confirmer un achat Squig, qu'est-ce qui doit correspondre à mon intention ?'",
-        "correct": "Détails bons",
+        "prompt": "Quel détail final du wallet aide à éviter les fausses collections ?",
+        "correct": "Contrat",
         "wrong": [
-          "Couleur bouton",
-          "Nombre fusées",
-          "Humeur curseur"
+          "Couleur",
+          "Emoji",
+          "Volume"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Justo antes de confirmar una compra Squig, ¿qué debe coincidir con mi intención?'",
-        "correct": "Detalles correctos",
+        "prompt": "¿Qué detalle final del wallet ayuda a evitar colecciones falsas?",
+        "correct": "Contrato",
         "wrong": [
-          "Color botón",
-          "Cuenta cohetes",
-          "Humor cursor"
+          "Color",
+          "Emoji",
+          "Volumen"
         ]
       }
     }
@@ -3415,43 +3415,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-004",
     "tier": 5,
-    "category": "Seed Phrase Disaster",
-    "prompt": "InSquignito asks, 'Support asks for my seed phrase to help recover a failed NFT buy. What do I do?'",
-    "correct": "Refuse",
+    "category": "Support",
+    "prompt": "What should be refused when anyone offers recovery help?",
+    "correct": "Seed",
     "wrong": [
-      "Send fast",
-      "Half safe",
-      "Spoiler tags"
+      "Ticket",
+      "Link",
+      "Status"
     ],
-    "correctRoast": "Correct. The phrase stays buried. Support can survive without it.",
-    "wrongRoast": "Wrong. Half a disaster is still a disaster wearing shorts.",
-    "explanation": "Seed phrases and private keys should never be shared with support staff, websites, or community members.",
+    "correctRoast": "Correct. Seed survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Recovery help should never require wallet recovery secrets.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Support asks for my seed phrase to help recover a failed NFT buy. What do I do?'",
-        "correct": "Refuse",
+        "prompt": "What should be refused when anyone offers recovery help?",
+        "correct": "Seed",
         "wrong": [
-          "Send fast",
-          "Half safe",
-          "Spoiler tags"
+          "Ticket",
+          "Link",
+          "Status"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Le support demande ma phrase seed pour récupérer un achat NFT raté. Je fais quoi ?'",
-        "correct": "Refuser",
+        "prompt": "Que faut-il refuser si quelqu'un propose de l'aide de récupération ?",
+        "correct": "Seed",
         "wrong": [
-          "Envoyer vite",
-          "Moitié sûre",
-          "Tags spoiler"
+          "Ticket",
+          "Lien",
+          "Statut"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Soporte pide mi frase semilla para recuperar una compra NFT fallida. ¿Qué hago?'",
-        "correct": "Rechazar",
+        "prompt": "¿Qué debe rechazarse si alguien ofrece ayuda de recuperación?",
+        "correct": "Semilla",
         "wrong": [
-          "Enviar rápido",
-          "Media segura",
-          "Etiquetas spoiler"
+          "Ticket",
+          "Enlace",
+          "Estado"
         ]
       }
     }
@@ -3459,43 +3459,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-005",
     "tier": 5,
-    "category": "Exchange To Wallet Error",
-    "prompt": "InSquignito asks, 'I withdrew ETH but picked the wrong network. What lesson should I learn?'",
-    "correct": "Network lesson",
+    "category": "Lost Funds",
+    "prompt": "Which mismatch can make withdrawn assets hard to access?",
+    "correct": "Network",
     "wrong": [
-      "Decorative labels",
-      "Lunch forward",
-      "Free practice"
+      "Floor",
+      "Trait",
+      "Metadata"
     ],
-    "correctRoast": "Correct. Chain hallways are separate. Read the door before entering.",
-    "wrongRoast": "Wrong. The chain does not forward mail because you looked sad.",
-    "explanation": "Using the wrong network can cause funds to be inaccessible in the intended wallet or app.",
+    "correctRoast": "Correct. Network survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Sending on the wrong network can make assets difficult or impossible to recover.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'I withdrew ETH but picked the wrong network. What lesson should I learn?'",
-        "correct": "Network lesson",
+        "prompt": "Which mismatch can make withdrawn assets hard to access?",
+        "correct": "Network",
         "wrong": [
-          "Decorative labels",
-          "Lunch forward",
-          "Free practice"
+          "Floor",
+          "Trait",
+          "Metadata"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'J'ai retiré ETH mais choisi le mauvais réseau. Quelle leçon apprendre ?'",
-        "correct": "Leçon réseau",
+        "prompt": "Quelle incompatibilité peut rendre des actifs retirés difficiles d'accès ?",
+        "correct": "Réseau",
         "wrong": [
-          "Étiquettes déco",
-          "Transfert midi",
-          "Pratique gratuite"
+          "Floor",
+          "Trait",
+          "Métadonnées"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Retiré ETH pero elegí la red incorrecta. ¿Qué lección aprendo?'",
-        "correct": "Lección red",
+        "prompt": "¿Qué incompatibilidad puede dificultar acceso a activos retirados?",
+        "correct": "Red",
         "wrong": [
-          "Etiquetas decorativas",
-          "Reenvío almuerzo",
-          "Práctica gratis"
+          "Floor",
+          "Rasgo",
+          "Metadatos"
         ]
       }
     }
@@ -3503,43 +3503,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-006",
     "tier": 5,
-    "category": "Marketplace Offer Risk",
-    "prompt": "InSquignito asks, 'I received an offer that looks huge. What should I check before accepting?'",
-    "correct": "Offer terms",
+    "category": "Collection Authenticity",
+    "prompt": "What confirms a marketplace page belongs to the real project?",
+    "correct": "Verification",
     "wrong": [
-      "Big numbers",
-      "Always ETH",
-      "Compliment sale"
+      "Discount",
+      "Confetti",
+      "Ranking"
     ],
-    "correctRoast": "Correct. Big numbers still report to the inspection goblin.",
-    "wrongRoast": "Wrong. Big numbers can be bait with commas.",
-    "explanation": "Offers can vary by currency and terms, so owners should verify details before accepting.",
+    "correctRoast": "Correct. Verification survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Verification through official links and contract checks helps avoid impostors.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'I received an offer that looks huge. What should I check before accepting?'",
-        "correct": "Offer terms",
+        "prompt": "What confirms a marketplace page belongs to the real project?",
+        "correct": "Verification",
         "wrong": [
-          "Big numbers",
-          "Always ETH",
-          "Compliment sale"
+          "Discount",
+          "Confetti",
+          "Ranking"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'J'ai reçu une offre énorme. Que vérifier avant d'accepter ?'",
-        "correct": "Termes offre",
+        "prompt": "Qu'est-ce qui confirme qu'une page marketplace appartient au vrai projet ?",
+        "correct": "Vérification",
         "wrong": [
-          "Gros nombres",
-          "Toujours ETH",
-          "Vente compliment"
+          "Promo",
+          "Confetti",
+          "Classement"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Recibí una oferta enorme. ¿Qué reviso antes de aceptarla?'",
-        "correct": "Términos oferta",
+        "prompt": "¿Qué confirma que una página de marketplace pertenece al proyecto real?",
+        "correct": "Verificación",
         "wrong": [
-          "Números grandes",
-          "Siempre ETH",
-          "Venta cumplido"
+          "Descuento",
+          "Confeti",
+          "Ranking"
         ]
       }
     }
@@ -3547,43 +3547,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-007",
     "tier": 5,
-    "category": "Approval Attack",
-    "prompt": "InSquignito asks, 'A site asks for unlimited approval to move all my NFTs. What is the cautious response?'",
-    "correct": "Limit approval",
+    "category": "Offer Review",
+    "prompt": "What should be reviewed before accepting a large bid?",
+    "correct": "Currency",
     "wrong": [
-      "Unlimited friendship",
-      "Approve twice",
-      "Image viewing"
+      "Compliment",
+      "Thumbnail",
+      "Floor"
     ],
-    "correctRoast": "Correct. Unlimited permission is a very large door.",
-    "wrongRoast": "Wrong. Unlimited friendship is how the door stole the hinges.",
-    "explanation": "Broad approvals can be dangerous because compromised or malicious contracts may move assets.",
+    "correctRoast": "Correct. Currency survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Large offers can use unexpected currencies, terms, or expiration rules.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'A site asks for unlimited approval to move all my NFTs. What is the cautious response?'",
-        "correct": "Limit approval",
+        "prompt": "What should be reviewed before accepting a large bid?",
+        "correct": "Currency",
         "wrong": [
-          "Unlimited friendship",
-          "Approve twice",
-          "Image viewing"
+          "Compliment",
+          "Thumbnail",
+          "Floor"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Un site demande une approbation illimitée pour déplacer tous mes NFT. Réponse prudente ?'",
-        "correct": "Limiter approbation",
+        "prompt": "Que faut-il vérifier avant d'accepter une grosse offre ?",
+        "correct": "Devise",
         "wrong": [
-          "Amitié illimitée",
-          "Approuver deux",
-          "Voir images"
+          "Compliment",
+          "Miniature",
+          "Floor"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Un sitio pide aprobación ilimitada para mover todos mis NFT. ¿Respuesta cauta?'",
-        "correct": "Limitar aprobación",
+        "prompt": "¿Qué debe revisarse antes de aceptar una oferta grande?",
+        "correct": "Moneda",
         "wrong": [
-          "Amistad ilimitada",
-          "Aprobar doble",
-          "Ver imágenes"
+          "Cumplido",
+          "Miniatura",
+          "Floor"
         ]
       }
     }
@@ -3591,43 +3591,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-008",
     "tier": 5,
-    "category": "Cold Storage",
-    "prompt": "InSquignito asks, 'After buying a valuable Squig, where might a cautious collector keep it?'",
-    "correct": "Vault wallet",
+    "category": "Permission Attacks",
+    "prompt": "What can a malicious broad permission move?",
+    "correct": "Assets",
     "wrong": [
-      "Exchange wait",
-      "Suspicious wallet",
-      "Screenshot folder"
+      "Stickers",
+      "Profiles",
+      "Names"
     ],
-    "correctRoast": "Correct. Vault wallet vibes: less clicking, more guarding.",
-    "wrongRoast": "Wrong. Screenshot folders own pixels, not tokens.",
-    "explanation": "Collectors often separate valuable assets from hot wallets used for frequent interactions.",
+    "correctRoast": "Correct. Assets survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Broad approvals can expose valuable wallet assets.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'After buying a valuable Squig, where might a cautious collector keep it?'",
-        "correct": "Vault wallet",
+        "prompt": "What can a malicious broad permission move?",
+        "correct": "Assets",
         "wrong": [
-          "Exchange wait",
-          "Suspicious wallet",
-          "Screenshot folder"
+          "Stickers",
+          "Profiles",
+          "Names"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Après avoir acheté un Squig précieux, où un collectionneur prudent pourrait-il le garder ?'",
-        "correct": "Wallet coffre",
+        "prompt": "Que peut déplacer une permission large et malveillante ?",
+        "correct": "Actifs",
         "wrong": [
-          "Attente exchange",
-          "Wallet suspect",
-          "Dossier capture"
+          "Stickers",
+          "Profils",
+          "Noms"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Tras comprar un Squig valioso, ¿dónde lo guardaría un coleccionista cauto?'",
-        "correct": "Wallet bóveda",
+        "prompt": "¿Qué puede mover un permiso amplio y malicioso?",
+        "correct": "Activos",
         "wrong": [
-          "Espera exchange",
-          "Wallet sospechoso",
-          "Carpeta captura"
+          "Stickers",
+          "Perfiles",
+          "Nombres"
         ]
       }
     }
@@ -3635,43 +3635,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-009",
     "tier": 5,
-    "category": "Floor Price Trap",
-    "prompt": "InSquignito asks, 'Why should I not assume the floor price is what I can always sell for?'",
-    "correct": "Floor snapshot",
+    "category": "Storage",
+    "prompt": "What should protect valuable Squigs after purchase?",
+    "correct": "Vault",
     "wrong": [
-      "Guaranteed exit",
-      "Mat buyer",
-      "Instant liquidity"
+      "Browser",
+      "DM",
+      "Tab"
     ],
-    "correctRoast": "Correct. The floor is a snapshot, not a rescue helicopter.",
-    "wrongRoast": "Wrong. The buyer under the mat was lint.",
-    "explanation": "NFT liquidity and prices can change quickly, and listings do not guarantee sales.",
+    "correctRoast": "Correct. Vault survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "A low-interaction vault wallet reduces exposure for valuable assets.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why should I not assume the floor price is what I can always sell for?'",
-        "correct": "Floor snapshot",
+        "prompt": "What should protect valuable Squigs after purchase?",
+        "correct": "Vault",
         "wrong": [
-          "Guaranteed exit",
-          "Mat buyer",
-          "Instant liquidity"
+          "Browser",
+          "DM",
+          "Tab"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi ne pas supposer que le floor price est toujours mon prix de sortie ?'",
-        "correct": "Snapshot floor",
+        "prompt": "Qu'est-ce qui doit protéger les Squigs précieux après achat ?",
+        "correct": "Coffre",
         "wrong": [
-          "Sortie garantie",
-          "Acheteur paillasson",
-          "Liquidité instant"
+          "Navigateur",
+          "DM",
+          "Onglet"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué no asumir que el floor price siempre es mi precio de venta?'",
-        "correct": "Foto floor",
+        "prompt": "¿Qué debería proteger Squigs valiosos después de comprar?",
+        "correct": "Bóveda",
         "wrong": [
-          "Salida garantizada",
-          "Comprador alfombra",
-          "Liquidez instant"
+          "Navegador",
+          "DM",
+          "Pestaña"
         ]
       }
     }
@@ -3679,43 +3679,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-010",
     "tier": 5,
-    "category": "Community Verification",
-    "prompt": "InSquignito asks, 'A Discord announcement says urgent migration. What should I verify?'",
-    "correct": "Verify announcement",
+    "category": "Exit Risk",
+    "prompt": "What can vanish before a seller finds a fair price?",
+    "correct": "Buyers",
     "wrong": [
-      "Urgent safe",
-      "Seed migration",
-      "Siren truth"
+      "Traits",
+      "Contract",
+      "Token"
     ],
-    "correctRoast": "Correct. Urgency goes into the suspicious bucket.",
-    "wrongRoast": "Wrong. Siren emojis are not a security audit.",
-    "explanation": "Scammers often use urgency and fake announcements to push unsafe wallet actions.",
+    "correctRoast": "Correct. Buyers survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "NFT liquidity can change quickly; buyers are not guaranteed.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'A Discord announcement says urgent migration. What should I verify?'",
-        "correct": "Verify announcement",
+        "prompt": "What can vanish before a seller finds a fair price?",
+        "correct": "Buyers",
         "wrong": [
-          "Urgent safe",
-          "Seed migration",
-          "Siren truth"
+          "Traits",
+          "Contract",
+          "Token"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Une annonce Discord dit migration urgente. Que dois-je vérifier ?'",
-        "correct": "Vérifier annonce",
+        "prompt": "Qu'est-ce qui peut disparaître avant qu'un vendeur trouve un bon prix ?",
+        "correct": "Acheteurs",
         "wrong": [
-          "Urgent sûr",
-          "Migration seed",
-          "Sirènes vraies"
+          "Traits",
+          "Contrat",
+          "Token"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Un anuncio de Discord dice migración urgente. ¿Qué debo verificar?'",
-        "correct": "Verificar anuncio",
+        "prompt": "¿Qué puede desaparecer antes de que un vendedor encuentre buen precio?",
+        "correct": "Compradores",
         "wrong": [
-          "Urgente seguro",
-          "Migración semilla",
-          "Sirenas verdad"
+          "Rasgos",
+          "Contrato",
+          "Token"
         ]
       }
     }
@@ -3723,43 +3723,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-011",
     "tier": 5,
-    "category": "Block Explorer",
-    "prompt": "InSquignito asks, 'Why would I use a block explorer after buying or transferring?'",
-    "correct": "Explorer check",
+    "category": "Announcements",
+    "prompt": "What should urgent migration posts trigger first?",
+    "correct": "Verification",
     "wrong": [
-      "Stare faster",
-      "Support coupons",
-      "Edit transaction"
+      "Clicking",
+      "Signing",
+      "Sending"
     ],
-    "correctRoast": "Correct. Explorer: chain window, not chain steering wheel.",
-    "wrongRoast": "Wrong. Staring improves drama, not finality.",
-    "explanation": "Block explorers let users inspect public blockchain data, but they do not reverse or control transactions.",
+    "correctRoast": "Correct. Verification survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Urgent migration messages are common phishing bait and should be verified.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why would I use a block explorer after buying or transferring?'",
-        "correct": "Explorer check",
+        "prompt": "What should urgent migration posts trigger first?",
+        "correct": "Verification",
         "wrong": [
-          "Stare faster",
-          "Support coupons",
-          "Edit transaction"
+          "Clicking",
+          "Signing",
+          "Sending"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi utiliser un block explorer après achat ou transfert ?'",
-        "correct": "Vérifier explorer",
+        "prompt": "Que doivent déclencher d'abord les annonces de migration urgente ?",
+        "correct": "Vérification",
         "wrong": [
-          "Regarder vite",
-          "Coupons support",
-          "Modifier transaction"
+          "Cliquer",
+          "Signer",
+          "Envoyer"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué usar un block explorer después de comprar o transferir?'",
-        "correct": "Revisar explorer",
+        "prompt": "¿Qué deben provocar primero los anuncios de migración urgente?",
+        "correct": "Verificación",
         "wrong": [
-          "Mirar rápido",
-          "Cupones soporte",
-          "Editar transacción"
+          "Clic",
+          "Firmar",
+          "Enviar"
         ]
       }
     }
@@ -3767,43 +3767,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-012",
     "tier": 5,
-    "category": "Metadata Delay",
-    "prompt": "InSquignito asks, 'My new Squig image is not showing yet. Does that mean I lost it?'",
-    "correct": "Ownership check",
+    "category": "Status Checks",
+    "prompt": "What public tool checks purchase status independently?",
+    "correct": "Explorer",
     "wrong": [
-      "Token ran",
-      "Gas refunds",
-      "Wake transfer"
+      "Discord",
+      "Wallet",
+      "Twitter"
     ],
-    "correctRoast": "Correct. Display lag is not the same as ownership loss.",
-    "wrongRoast": "Wrong. Repeated self-sending is expensive alarm clock behavior.",
-    "explanation": "Wallets and marketplaces may need time to index or refresh NFT metadata.",
+    "correctRoast": "Correct. Explorer survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "A block explorer confirms public transaction and ownership state.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'My new Squig image is not showing yet. Does that mean I lost it?'",
-        "correct": "Ownership check",
+        "prompt": "What public tool checks purchase status independently?",
+        "correct": "Explorer",
         "wrong": [
-          "Token ran",
-          "Gas refunds",
-          "Wake transfer"
+          "Discord",
+          "Wallet",
+          "Twitter"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'L'image de mon nouveau Squig ne s'affiche pas encore. Ça veut dire que je l'ai perdu ?'",
-        "correct": "Vérifier propriété",
+        "prompt": "Quel outil public vérifie indépendamment le statut d'achat ?",
+        "correct": "Explorer",
         "wrong": [
-          "Token parti",
-          "Remboursements gas",
-          "Transfert réveil"
+          "Discord",
+          "Wallet",
+          "Twitter"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'La imagen de mi nuevo Squig aún no aparece. ¿Significa que lo perdí?'",
-        "correct": "Revisar propiedad",
+        "prompt": "¿Qué herramienta pública verifica independientemente el estado de compra?",
+        "correct": "Explorer",
         "wrong": [
-          "Token huyó",
-          "Reembolsos gas",
-          "Transferir despertar"
+          "Discord",
+          "Wallet",
+          "Twitter"
         ]
       }
     }
@@ -3811,43 +3811,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-013",
     "tier": 5,
-    "category": "Delisting",
-    "prompt": "InSquignito asks, 'If I list a Squig and change my mind, what should I do?'",
-    "correct": "Cancel listing",
+    "category": "Missing Images",
+    "prompt": "What should be checked when new art is not visible yet?",
+    "correct": "Ownership",
     "wrong": [
-      "Delete image",
-      "Discord yell",
-      "Hide NFT"
+      "Refresh",
+      "Panic",
+      "Transfer"
     ],
-    "correctRoast": "Correct. The listing order needs cancellation, not yelling.",
-    "wrongRoast": "Wrong. Discord yelling is not recognized by validators.",
-    "explanation": "Listings may remain active until cancelled according to marketplace rules.",
+    "correctRoast": "Correct. Ownership survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Display delays do not necessarily mean ownership failed.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'If I list a Squig and change my mind, what should I do?'",
-        "correct": "Cancel listing",
+        "prompt": "What should be checked when new art is not visible yet?",
+        "correct": "Ownership",
         "wrong": [
-          "Delete image",
-          "Discord yell",
-          "Hide NFT"
+          "Refresh",
+          "Panic",
+          "Transfer"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Si je liste un Squig puis change d'avis, que faire ?'",
-        "correct": "Annuler listing",
+        "prompt": "Que faut-il vérifier quand le nouvel art n'est pas encore visible ?",
+        "correct": "Propriété",
         "wrong": [
-          "Supprimer image",
-          "Crier Discord",
-          "Cacher NFT"
+          "Rafraîchir",
+          "Panique",
+          "Transfert"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Si listo un Squig y cambio de opinión, ¿qué hago?'",
-        "correct": "Cancelar listing",
+        "prompt": "¿Qué se debe revisar cuando el arte nuevo aún no aparece?",
+        "correct": "Propiedad",
         "wrong": [
-          "Borrar imagen",
-          "Gritar Discord",
-          "Ocultar NFT"
+          "Refrescar",
+          "Pánico",
+          "Transferir"
         ]
       }
     }
@@ -3855,43 +3855,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-014",
     "tier": 5,
-    "category": "Wrapped Offers",
-    "prompt": "InSquignito asks, 'Why can an old WETH offer still matter after I forget it exists?'",
-    "correct": "Active offers",
+    "category": "Delisting",
+    "prompt": "What cancels an unwanted sale order?",
+    "correct": "Delist",
     "wrong": [
-      "Forget cancels",
-      "WETH evaporates",
-      "Ignored harmless"
+      "Hide",
+      "Delete",
+      "Yell"
     ],
-    "correctRoast": "Correct. The chain does not honor forgetfulness as cancellation.",
-    "wrongRoast": "Wrong. Forgetting is a human feature, not a contract function.",
-    "explanation": "Users should monitor active offers, listings, and approvals because they can persist.",
+    "correctRoast": "Correct. Delist survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Listings may remain active until canceled through marketplace rules.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why can an old WETH offer still matter after I forget it exists?'",
-        "correct": "Active offers",
+        "prompt": "What cancels an unwanted sale order?",
+        "correct": "Delist",
         "wrong": [
-          "Forget cancels",
-          "WETH evaporates",
-          "Ignored harmless"
+          "Hide",
+          "Delete",
+          "Yell"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi une vieille offre WETH peut encore compter après que je l'ai oubliée ?'",
-        "correct": "Offres actives",
+        "prompt": "Qu'est-ce qui annule un ordre de vente non désiré ?",
+        "correct": "Delister",
         "wrong": [
-          "Oubli annule",
-          "WETH évapore",
-          "Ignoré inoffensif"
+          "Cacher",
+          "Supprimer",
+          "Crier"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué una vieja oferta WETH aún importa después de olvidarla?'",
-        "correct": "Ofertas activas",
+        "prompt": "¿Qué cancela una orden de venta no deseada?",
+        "correct": "Delistar",
         "wrong": [
-          "Olvido cancela",
-          "WETH evapora",
-          "Ignorado inocuo"
+          "Ocultar",
+          "Borrar",
+          "Gritar"
         ]
       }
     }
@@ -3899,43 +3899,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-015",
     "tier": 5,
-    "category": "Cross-Device Safety",
-    "prompt": "InSquignito asks, 'Why be careful when connecting wallets on public or shared devices?'",
-    "correct": "Shared risk",
+    "category": "Old Bids",
+    "prompt": "What can old wrapped bids still do while active?",
+    "correct": "Execute",
     "wrong": [
-      "Vibes protect",
-      "Invisible wallets",
-      "Auto forget"
+      "Evaporate",
+      "Sleep",
+      "Apologize"
     ],
-    "correctRoast": "Correct. Shared device equals suspicious desk with fingerprints.",
-    "wrongRoast": "Wrong. Vibes have no antivirus license.",
-    "explanation": "Using wallets on shared devices increases privacy and security risk.",
+    "correctRoast": "Correct. Execute survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Active offers can execute if their terms are met before cancellation or expiration.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why be careful when connecting wallets on public or shared devices?'",
-        "correct": "Shared risk",
+        "prompt": "What can old wrapped bids still do while active?",
+        "correct": "Execute",
         "wrong": [
-          "Vibes protect",
-          "Invisible wallets",
-          "Auto forget"
+          "Evaporate",
+          "Sleep",
+          "Apologize"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi être prudent en connectant des wallets sur des appareils publics ou partagés ?'",
-        "correct": "Risque partagé",
+        "prompt": "Que peuvent encore faire d'anciennes offres emballées actives ?",
+        "correct": "Exécuter",
         "wrong": [
-          "Vibes protègent",
-          "Wallets invisibles",
-          "Oubli auto"
+          "Évaporer",
+          "Dormir",
+          "Excuser"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué tener cuidado al conectar wallets en dispositivos públicos o compartidos?'",
-        "correct": "Riesgo compartido",
+        "prompt": "¿Qué pueden hacer ofertas envueltas viejas mientras siguen activas?",
+        "correct": "Ejecutar",
         "wrong": [
-          "Vibras protegen",
-          "Wallets invisibles",
-          "Olvido auto"
+          "Evaporar",
+          "Dormir",
+          "Disculpar"
         ]
       }
     }
@@ -3943,43 +3943,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-016",
     "tier": 5,
-    "category": "Recovery Reality",
-    "prompt": "InSquignito asks, 'If I lose my seed phrase and my device dies, what happens?'",
-    "correct": "Secure backup",
+    "category": "Recovery",
+    "prompt": "What must be backed up before device loss?",
+    "correct": "Seed",
     "wrong": [
-      "Vibe recovery",
-      "Sadness email",
-      "Mod restore"
+      "Theme",
+      "Avatar",
+      "History"
     ],
-    "correctRoast": "Correct. Backup or heartbreak. The chain is not a therapist.",
-    "wrongRoast": "Wrong. Sadness review is still pending since 2017.",
-    "explanation": "Self-custody requires secure backup because there may be no central recovery option.",
+    "correctRoast": "Correct. Seed survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Without a secure recovery backup, self-custody access can be permanently lost.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'If I lose my seed phrase and my device dies, what happens?'",
-        "correct": "Secure backup",
+        "prompt": "What must be backed up before device loss?",
+        "correct": "Seed",
         "wrong": [
-          "Vibe recovery",
-          "Sadness email",
-          "Mod restore"
+          "Theme",
+          "Avatar",
+          "History"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Si je perds ma phrase seed et que mon appareil meurt, que se passe-t-il ?'",
-        "correct": "Sauvegarde sûre",
+        "prompt": "Que faut-il sauvegarder avant la perte d'un appareil ?",
+        "correct": "Seed",
         "wrong": [
-          "Récup vibes",
-          "Email tristesse",
-          "Mod restaure"
+          "Thème",
+          "Avatar",
+          "Historique"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Si pierdo mi frase semilla y muere mi dispositivo, ¿qué pasa?'",
-        "correct": "Respaldo seguro",
+        "prompt": "¿Qué debe respaldarse antes de perder un dispositivo?",
+        "correct": "Semilla",
         "wrong": [
-          "Recuperación vibes",
-          "Correo tristeza",
-          "Mod restaura"
+          "Tema",
+          "Avatar",
+          "Historial"
         ]
       }
     }
@@ -3987,43 +3987,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-017",
     "tier": 5,
-    "category": "Portfolio Privacy",
-    "prompt": "InSquignito asks, 'Why might someone use separate wallets for public identity and vault storage?'",
-    "correct": "Wallet separation",
+    "category": "Wallet Separation",
+    "prompt": "What separates public identity from vault storage?",
+    "correct": "Wallets",
     "wrong": [
-      "Wallet jealousy",
-      "Gas points",
-      "No NFTs"
+      "Traits",
+      "Fees",
+      "Stickers"
     ],
-    "correctRoast": "Correct. Separation keeps the stage wallet away from the basement vault.",
-    "wrongRoast": "Wrong. Wallet jealousy remains unproven and extremely dramatic.",
-    "explanation": "Blockchain activity is public, so wallet separation can help manage privacy and exposure.",
+    "correctRoast": "Correct. Wallets survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Separate wallets can reduce privacy exposure and limit damage from risky activity.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'Why might someone use separate wallets for public identity and vault storage?'",
-        "correct": "Wallet separation",
+        "prompt": "What separates public identity from vault storage?",
+        "correct": "Wallets",
         "wrong": [
-          "Wallet jealousy",
-          "Gas points",
-          "No NFTs"
+          "Traits",
+          "Fees",
+          "Stickers"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Pourquoi utiliser des wallets séparés pour identité publique et stockage coffre ?'",
-        "correct": "Séparer wallets",
+        "prompt": "Qu'est-ce qui sépare l'identité publique du stockage coffre ?",
+        "correct": "Wallets",
         "wrong": [
-          "Jalousie wallet",
-          "Points gas",
-          "Aucun NFT"
+          "Traits",
+          "Frais",
+          "Stickers"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Por qué usar wallets separados para identidad pública y bóveda?'",
-        "correct": "Separar wallets",
+        "prompt": "¿Qué separa identidad pública del almacenamiento bóveda?",
+        "correct": "Wallets",
         "wrong": [
-          "Celos wallet",
-          "Puntos gas",
-          "Sin NFT"
+          "Rasgos",
+          "Tarifas",
+          "Stickers"
         ]
       }
     }
@@ -4031,43 +4031,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-018",
     "tier": 5,
-    "category": "Educational Not Financial",
-    "prompt": "InSquignito asks, 'What is this whole Squig onboarding interview not allowed to pretend?'",
-    "correct": "Education only",
+    "category": "Education",
+    "prompt": "What is this onboarding game instead of financial advice?",
+    "correct": "Education",
     "wrong": [
-      "Moon ladder",
-      "Ugly shield",
-      "Vibe advisor"
+      "Profit",
+      "Signal",
+      "Alpha"
     ],
-    "correctRoast": "Correct. Education, not moon prophecy.",
-    "wrongRoast": "Wrong. Ugly art is culture, not a risk shield.",
-    "explanation": "Games can teach concepts, but users still need their own judgment and should not treat content as financial advice.",
+    "correctRoast": "Correct. Education survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "The game teaches concepts and does not promise profit or provide financial advice.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What is this whole Squig onboarding interview not allowed to pretend?'",
-        "correct": "Education only",
+        "prompt": "What is this onboarding game instead of financial advice?",
+        "correct": "Education",
         "wrong": [
-          "Moon ladder",
-          "Ugly shield",
-          "Vibe advisor"
+          "Profit",
+          "Signal",
+          "Alpha"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Tout cet entretien d'onboarding Squig ne doit pas prétendre être quoi ?'",
-        "correct": "Éducation seule",
+        "prompt": "Qu'est-ce que ce jeu d'onboarding au lieu d'un conseil financier ?",
+        "correct": "Éducation",
         "wrong": [
-          "Échelle lune",
-          "Bouclier laid",
-          "Conseiller vibes"
+          "Profit",
+          "Signal",
+          "Alpha"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué no debe fingir ser toda esta entrevista de onboarding Squig?'",
-        "correct": "Solo educación",
+        "prompt": "¿Qué es este juego de onboarding en vez de consejo financiero?",
+        "correct": "Educación",
         "wrong": [
-          "Escalera luna",
-          "Escudo feo",
-          "Asesor vibes"
+          "Ganancia",
+          "Señal",
+          "Alpha"
         ]
       }
     }
@@ -4075,43 +4075,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-019",
     "tier": 5,
-    "category": "Buyer's Final Breath",
-    "prompt": "InSquignito asks, 'What should I do in the final ten seconds before confirming a Squig purchase?'",
-    "correct": "Pause verify",
+    "category": "Final Pause",
+    "prompt": "What should interrupt final-second buying pressure?",
+    "correct": "Pause",
     "wrong": [
-      "FOMO drives",
-      "Click fast",
-      "Fees imaginary"
+      "Speed",
+      "Pride",
+      "Noise"
     ],
-    "correctRoast": "Correct. Pause is the ugliest superpower.",
-    "wrongRoast": "Wrong. FOMO's tiny hands keep crashing into confirm.",
-    "explanation": "A final pause can prevent mistakes caused by urgency, hype, or confusion.",
+    "correctRoast": "Correct. Pause survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "A final pause helps catch wrong sites, contracts, networks, amounts, and permissions.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'What should I do in the final ten seconds before confirming a Squig purchase?'",
-        "correct": "Pause verify",
+        "prompt": "What should interrupt final-second buying pressure?",
+        "correct": "Pause",
         "wrong": [
-          "FOMO drives",
-          "Click fast",
-          "Fees imaginary"
+          "Speed",
+          "Pride",
+          "Noise"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Que faire dans les dix dernières secondes avant de confirmer un achat Squig ?'",
-        "correct": "Pause vérifier",
+        "prompt": "Qu'est-ce qui doit interrompre la pression d'achat finale ?",
+        "correct": "Pause",
         "wrong": [
-          "FOMO conduit",
-          "Cliquer vite",
-          "Frais imaginaires"
+          "Vitesse",
+          "Fierté",
+          "Bruit"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: '¿Qué hago en los últimos diez segundos antes de confirmar una compra Squig?'",
-        "correct": "Pausar verificar",
+        "prompt": "¿Qué debe interrumpir la presión final de compra?",
+        "correct": "Pausa",
         "wrong": [
-          "FOMO conduce",
-          "Clic rápido",
-          "Tarifas imaginarias"
+          "Velocidad",
+          "Orgullo",
+          "Ruido"
         ]
       }
     }
@@ -4119,43 +4119,43 @@ const RAW_QUESTIONS = JSON.parse(String.raw`[
   {
     "id": "squig-impossible-020",
     "tier": 5,
-    "category": "Graduation",
-    "prompt": "InSquignito asks, 'After all this, what does buying a Squig friend responsibly mean?'",
-    "correct": "Responsible buying",
+    "category": "Responsible Buying",
+    "prompt": "What best describes responsible Squig buying?",
+    "correct": "Safety",
     "wrong": [
-      "Scam immunity",
-      "Fee button",
-      "Loud timeline"
+      "Luck",
+      "Volume",
+      "Hype"
     ],
-    "correctRoast": "Correct. InSquignito is now ugly enough to read the wallet prompt.",
-    "wrongRoast": "Wrong. Scam immunity does not unlock at graduation. Keep your helmet on.",
-    "explanation": "Responsible NFT onboarding is a process of learning, verification, security, and risk management.",
+    "correctRoast": "Correct. Safety survives the Ugly Labs clipboard.",
+    "wrongRoast": "Wrong. That choice smells like shortcut paperwork.",
+    "explanation": "Responsible buying means verifying sources, understanding wallet prompts, and accepting risk.",
     "i18n": {
       "en": {
-        "prompt": "InSquignito asks, 'After all this, what does buying a Squig friend responsibly mean?'",
-        "correct": "Responsible buying",
+        "prompt": "What best describes responsible Squig buying?",
+        "correct": "Safety",
         "wrong": [
-          "Scam immunity",
-          "Fee button",
-          "Loud timeline"
+          "Luck",
+          "Volume",
+          "Hype"
         ]
       },
       "fr": {
-        "prompt": "InSquignito demande : 'Après tout ça, acheter un ami Squig de façon responsable veut dire quoi ?'",
-        "correct": "Achat responsable",
+        "prompt": "Qu'est-ce qui décrit le mieux un achat Squig responsable ?",
+        "correct": "Sécurité",
         "wrong": [
-          "Immunité scams",
-          "Bouton frais",
-          "Timeline forte"
+          "Chance",
+          "Volume",
+          "Hype"
         ]
       },
       "es": {
-        "prompt": "InSquignito pregunta: 'Después de todo esto, ¿qué significa comprar un amigo Squig responsablemente?'",
-        "correct": "Compra responsable",
+        "prompt": "¿Qué describe mejor una compra Squig responsable?",
+        "correct": "Seguridad",
         "wrong": [
-          "Inmunidad scams",
-          "Botón tarifas",
-          "Timeline ruidosa"
+          "Suerte",
+          "Volumen",
+          "Hype"
         ]
       }
     }
@@ -4172,6 +4172,15 @@ function answerWordCount(value) {
 
 function normalizeAnswerLabel(value) {
   return String(value || "").trim().toLocaleLowerCase("en-US").replace(/\s+/g, " ");
+}
+
+function promptIncludesAnswer(prompt, answer) {
+  const normalizedAnswer = normalizeAnswerLabel(answer);
+  if (!normalizedAnswer) return false;
+  const words = String(prompt || "")
+    .toLocaleLowerCase("en-US")
+    .match(/[\p{L}\p{N}$]+/gu) || [];
+  return words.includes(normalizedAnswer);
 }
 
 function validateQuestions(questions = QUESTIONS) {
@@ -4202,6 +4211,9 @@ function validateQuestions(questions = QUESTIONS) {
         }
         if (!String(localized.prompt || "").trim()) errors.push(`${question.id} i18n.${language}.prompt is missing`);
         if (!String(localized.correct || "").trim()) errors.push(`${question.id} i18n.${language}.correct is missing`);
+        if (promptIncludesAnswer(localized.prompt, localized.correct)) {
+          errors.push(`${question.id} i18n.${language}.prompt includes the correct answer "${localized.correct}"`);
+        }
         if (!Array.isArray(localized.wrong)) {
           errors.push(`${question.id} i18n.${language}.wrong must be an array`);
           continue;
@@ -4213,8 +4225,8 @@ function validateQuestions(questions = QUESTIONS) {
         const labels = [localized.correct, ...localized.wrong];
         for (const label of labels) {
           const wordCount = answerWordCount(label);
-          if (wordCount < 1 || wordCount > 2) {
-            errors.push(`${question.id} i18n.${language} answer "${label}" must be 1 or 2 words`);
+          if (wordCount !== 1) {
+            errors.push(`${question.id} i18n.${language} answer "${label}" must be exactly 1 word`);
           }
         }
 
