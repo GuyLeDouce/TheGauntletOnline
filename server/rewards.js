@@ -4,6 +4,8 @@ const { toBoolean, toNumber } = require("./validators");
 
 const CLAIM_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const DEFAULT_REWARD_WEBHOOK_TIMEOUT_MS = 8000;
+const REWARD_WEBHOOK_PATH = "/webhooks/gauntlet-online/reward";
+const SECRET_FINGERPRINT_PREFIX = "gauntlet-online-reward";
 
 function generateClaimCode() {
   let suffix = "";
@@ -94,6 +96,38 @@ function signRewardWebhookBody(body, secret) {
   };
 }
 
+function rewardWebhookSecretFingerprint(secret) {
+  const value = String(secret || "").trim();
+  if (!value) return "";
+  return crypto
+    .createHash("sha256")
+    .update(`${SECRET_FINGERPRINT_PREFIX}:${value}`)
+    .digest("hex")
+    .slice(0, 12);
+}
+
+function safeWebhookTarget(url) {
+  try {
+    const parsed = new URL(url);
+    return `${parsed.origin}${parsed.pathname}`;
+  } catch {
+    return "invalid-url";
+  }
+}
+
+function rewardWebhookFailureHint(status, responseText) {
+  if (status === 404 && /Application not found/i.test(responseText || "")) {
+    return "hosting/domain 404: GAUNTLET_DISCORD_REWARD_WEBHOOK_URL is not reaching The-Gauntlet bot";
+  }
+  if (status === 404) {
+    return `route 404: expected bot path ${REWARD_WEBHOOK_PATH}`;
+  }
+  if (status === 401 && /invalid_signature/i.test(responseText || "")) {
+    return "signature mismatch: compare Online secret fingerprint with bot sender/server fingerprint logs";
+  }
+  return "";
+}
+
 async function sendRewardToGauntletDiscordBot(run, payout) {
   const enabled = toBoolean(process.env.GAUNTLET_DISCORD_REWARD_WEBHOOK_ENABLED, true);
   const webhookUrl = String(process.env.GAUNTLET_DISCORD_REWARD_WEBHOOK_URL || "").trim();
@@ -113,6 +147,8 @@ async function sendRewardToGauntletDiscordBot(run, payout) {
   const payload = buildRewardWebhookPayload(run, payout);
   const body = JSON.stringify(payload);
   const signed = signRewardWebhookBody(body, secret);
+  const secretFingerprint = rewardWebhookSecretFingerprint(secret);
+  const target = safeWebhookTarget(webhookUrl);
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
@@ -123,6 +159,7 @@ async function sendRewardToGauntletDiscordBot(run, payout) {
         "content-type": "application/json",
         "x-gauntlet-timestamp": signed.timestamp,
         "x-gauntlet-signature": signed.signature,
+        "x-gauntlet-secret-fingerprint": secretFingerprint,
         "x-gauntlet-idempotency-key": payout.payoutId
       },
       body,
@@ -131,7 +168,8 @@ async function sendRewardToGauntletDiscordBot(run, payout) {
 
     if (!response.ok) {
       const responseText = typeof response.text === "function" ? await response.text().catch(() => "") : "";
-      console.error(`Gauntlet Discord reward webhook failed for payout ${payout.payoutId}: HTTP ${response.status}${responseText ? ` ${responseText.slice(0, 300)}` : ""}`);
+      const hint = rewardWebhookFailureHint(response.status, responseText);
+      console.error(`Gauntlet Discord reward webhook failed for payout ${payout.payoutId}: HTTP ${response.status} target=${target} secretFingerprint=${secretFingerprint}${hint ? ` hint=${hint}` : ""}${responseText ? ` ${responseText.slice(0, 300)}` : ""}`);
       return payout;
     }
 
@@ -144,7 +182,7 @@ async function sendRewardToGauntletDiscordBot(run, payout) {
     console.error(`Gauntlet Discord reward webhook did not auto-pay payout ${payout.payoutId}: ${result?.error || result?.message || JSON.stringify(result)}`);
   } catch (error) {
     const reason = error?.name === "AbortError" ? `timed out after ${timeoutMs}ms` : error?.message || error;
-    console.error(`Gauntlet Discord reward webhook failed for payout ${payout.payoutId}: ${reason}`);
+    console.error(`Gauntlet Discord reward webhook failed for payout ${payout.payoutId}: target=${target} secretFingerprint=${secretFingerprint} ${reason}`);
   } finally {
     clearTimeout(timeout);
   }
@@ -174,5 +212,6 @@ async function createPendingPayoutForRun(run) {
 module.exports = {
   createPendingPayoutForRun,
   generateClaimCode,
+  rewardWebhookSecretFingerprint,
   sendRewardToGauntletDiscordBot
 };

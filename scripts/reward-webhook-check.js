@@ -4,7 +4,10 @@ const crypto = require("crypto");
 process.env.DATABASE_URL_LEADERBOARD = "";
 delete process.env.DISCORD_PAYOUT_WEBHOOK_URL;
 
-const { createPendingPayoutForRun } = require("../server/rewards");
+const {
+  createPendingPayoutForRun,
+  rewardWebhookSecretFingerprint
+} = require("../server/rewards");
 
 const REWARD_ENV_KEYS = [
   "GAUNTLET_DISCORD_REWARD_WEBHOOK_URL",
@@ -134,6 +137,8 @@ async function assertSuccessfulWebhookMarksPaid() {
       assert.strictEqual(url, webhookUrl, "reward webhook URL should target the bot endpoint");
       assert.strictEqual(options.method, "POST");
       assert.strictEqual(options.headers["content-type"], "application/json");
+      assert.strictEqual(options.headers["x-gauntlet-secret-fingerprint"], rewardWebhookSecretFingerprint(secret));
+      assert.strictEqual(options.headers["x-gauntlet-secret-fingerprint"].length, 12);
 
       const body = options.body;
       const payload = JSON.parse(body);

@@ -148,6 +148,12 @@ GAUNTLET_DISCORD_REWARD_WEBHOOK_ENABLED=true
 
 Online signs the exact JSON body with HMAC-SHA256 and sends it server-to-server. If the bot responds with `{ "ok": true, "paid": true }`, Online marks the local payout as `paid`. If the reward webhook is disabled, missing, unsigned, times out, fails, or returns a non-paid response, the local payout remains `pending` for admin review. Reward webhook failure is logged and does not break the player result.
 
+Reward webhook troubleshooting:
+
+- Open `GAUNTLET_DISCORD_REWARD_WEBHOOK_URL` in a browser or run `curl` against it. The bot should return a JSON route probe with `"webhook":"gauntlet-online-reward"`. If the response is `Application not found`, the URL points at the wrong deployment/domain or the bot has no public HTTP route.
+- `HTTP 401 invalid_signature` means Online reached the bot, but the shared secrets do not match. Online logs `secretFingerprint=...`; the bot logs `senderSecretFingerprint=...` and `serverSecretFingerprints=...`. Those fingerprints must match.
+- After changing `GAUNTLET_DISCORD_REWARD_WEBHOOK_URL`, `GAUNTLET_DISCORD_REWARD_WEBHOOK_SECRET`, or the bot `ONLINE_REWARD_WEBHOOK_SECRET`, redeploy/restart both services.
+
 ## Admin Payout Workflow
 
 Set `ADMIN_SECRET` to enable protected payout routes.
