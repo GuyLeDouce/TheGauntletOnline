@@ -1,5 +1,5 @@
 export const APP_COPY = {
-  title: "InSquignito's Squigchain Onboarding",
+  title: "The InSquigniation",
   subtitle: "Learn Web3. Get Roasted. Buy Ugly Carefully.",
   tagline: "Discord in. Wallet scanned. Squig wisdom unlocked.",
   lobby:
@@ -20,7 +20,7 @@ export const SUPPORTED_LANGUAGES = {
 
 export const UI_TRANSLATIONS = {
   en: {
-    title: "InSquignito's Squigchain Onboarding",
+    title: "The InSquigniation",
     home: "Home",
     languageLabel: "Language",
     howItWorks: "How It Works",
@@ -140,7 +140,7 @@ export const UI_TRANSLATIONS = {
     howStep5Copy: "Practice mode teaches the same web3 basics without Discord or a wallet scan."
   },
   fr: {
-    title: "InSquignito’s Ugly Interview",
+    title: "The InSquigniation",
     home: "Accueil",
     languageLabel: "Langue",
     howItWorks: "Comment ça marche",
@@ -260,7 +260,7 @@ export const UI_TRANSLATIONS = {
     howStep5Copy: "Le mode entraînement fonctionne sans Discord ni scan de wallet."
   },
   es: {
-    title: "InSquignito’s Ugly Interview",
+    title: "The InSquigniation",
     home: "Inicio",
     languageLabel: "Idioma",
     howItWorks: "Cómo funciona",

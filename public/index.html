@@ -3,19 +3,33 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>InSquignito's Ugly Interview</title>
+    <title>The InSquigniation</title>
     <meta name="description" content="A Squigs Reloaded survival interview. Get hired, get roasted, stay ugly.">
     <link rel="preconnect" href="https://i.imgur.com">
     <link rel="preload" as="image" href="/squigs-reloaded-logo.png">
+    <link rel="preload" as="image" href="/assets/nav/home.png">
+    <link rel="preload" as="image" href="/assets/nav/profile.png">
+    <link rel="preload" as="image" href="/assets/nav/leaderboard.png">
     <link rel="preload" as="image" href="https://i.imgur.com/8U7n401.png">
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body data-view="menu">
     <div class="app-shell" id="app">
       <header class="topbar">
-        <a class="brand" href="https://Squigs.io" data-nav="squigs" aria-label="Squigs Reloaded">
-          <img class="brand-logo" src="/squigs-reloaded-logo.png" alt="Squigs Reloaded" data-no-translate>
-        </a>
+        <div class="brand-row">
+          <a class="brand" href="https://Squigs.io" data-nav="squigs" aria-label="Squigs Reloaded">
+            <img class="brand-logo" src="/squigs-reloaded-logo.png" alt="Squigs Reloaded" data-no-translate>
+          </a>
+          <button type="button" class="nav-image-button nav-image-button--home" data-action="go-home" aria-label="Home" title="Home">
+            <img src="/assets/nav/home.png" alt="Home" data-no-translate>
+          </button>
+          <button type="button" class="nav-image-button nav-image-button--profile" data-action="show-applicant" aria-label="Applicant File" title="Applicant File">
+            <img src="/assets/nav/profile.png" alt="Applicant File" data-no-translate>
+          </button>
+          <button type="button" class="nav-image-button nav-image-button--leaderboard" data-open="leaderboard" aria-label="Leaderboard" title="Leaderboard">
+            <img src="/assets/nav/leaderboard.png" alt="Leaderboard" data-no-translate>
+          </button>
+        </div>
         <nav class="top-actions" aria-label="Primary">
           <label class="language-control" for="languageSelect">
             <span data-i18n="languageLabel">Language</span>
@@ -25,10 +39,7 @@
               <option value="es">Español</option>
             </select>
           </label>
-          <button type="button" class="text-button" data-action="go-home" data-i18n="home">Home</button>
-          <button type="button" class="text-button" data-action="show-applicant" data-i18n="applicantFile">Applicant File</button>
           <button type="button" class="text-button mobile-hidden" data-open="how" data-i18n="howItWorks">How It Works</button>
-          <button type="button" class="text-button" data-open="leaderboard" data-i18n="leaderboard">Leaderboard</button>
           <button type="button" class="text-button mobile-hidden" data-open="claims" data-i18n="myClaims">My $CHARM Claims</button>
         </nav>
       </header>
@@ -48,7 +59,7 @@
           <div class="stage-desk-console" id="stageDeskConsole" aria-live="polite">
             <section class="desk-card desk-card--menu ugly-paper fallback-menu">
               <p class="sticker">A Squigs Reloaded Survival Interview</p>
-              <h1>InSquignito's Ugly Interview</h1>
+              <h1>The InSquigniation</h1>
               <p class="subtitle" data-i18n="subtitle">Get Hired. Get Roasted. Stay Ugly.</p>
               <p class="tagline" data-i18n="tagline">Connect Discord. Scan wallet. Start interview.</p>
               <div class="action-row">
@@ -359,7 +370,7 @@
           setConsole(
             '<section class="desk-card desk-card--menu ugly-paper fallback-menu">' +
               '<p class="sticker">' + html(ft("safetyConsole")) + '</p>' +
-              "<h1>InSquignito's Ugly Interview</h1>" +
+              "<h1>The InSquigniation</h1>" +
               '<p class="subtitle">' + html(ft("subtitle")) + '</p>' +
               (message ? '<p class="cooldown">' + html(message) + '</p>' : '<p class="tagline">' + html(ft("tagline")) + '</p>') +
               '<div class="action-row">' +

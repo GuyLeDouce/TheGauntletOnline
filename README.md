@@ -1,8 +1,10 @@
-# InSquignito's Ugly Interview
+# The InSquigniation
 
 A Squigs Reloaded survival interview game.
 
 Players connect Discord, type a wallet address, scan Squigs Reloaded holdings through Alchemy, receive server-calculated Interview Dignity, then survive a 15-question roast interview with InSquignito. Reward runs create pending `$CHARM` claim records for review/DRIP handling. The app never auto-sends tokens and does not connect or sign wallets.
+
+The default interview ramps through 2 Easy, 3 Medium, 5 Hard, 3 Extreme Hard, and 2 Almost Impossible questions.
 
 ## Player Start Order
 

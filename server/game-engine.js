@@ -14,12 +14,19 @@ const DEFAULT_REWARD_TABLE = [
 ];
 const CASHOUT_CHECKPOINTS = new Set([5, 8, 10, 12, 13, 14]);
 const CHARM_DECAY_GRACE_SECONDS = 10;
+const DEFAULT_TIER_PLAN = [
+  { tier: 1, count: 2 },
+  { tier: 2, count: 3 },
+  { tier: 3, count: 5 },
+  { tier: 4, count: 3 },
+  { tier: 5, count: 2 }
+];
 const TIER_LABELS = {
-  1: "Easy Ugly HR",
-  2: "Certified Ugly Applicant",
-  3: "Deep Ugly Department",
-  4: "Ugly Labs Internal",
-  5: "Impossible Ugly Final"
+  1: "Easy",
+  2: "Medium",
+  3: "Hard",
+  4: "Extreme Hard",
+  5: "Almost Impossible"
 };
 const TIER_TIMER_SECONDS = {
   1: 60,
@@ -118,9 +125,9 @@ function shuffle(items) {
 
 function buildRunPlan(questions, interviewLength = 15) {
   const plan = [];
-  for (let tier = 1; tier <= 5; tier += 1) {
+  for (const { tier, count } of DEFAULT_TIER_PLAN) {
     const tierQuestions = questions.filter((question) => question.tier === tier);
-    plan.push(...shuffle(tierQuestions).slice(0, 3));
+    plan.push(...shuffle(tierQuestions).slice(0, count));
   }
   return plan.slice(0, interviewLength).map((question) => question.id);
 }
@@ -153,6 +160,7 @@ function questionMap(questions) {
 module.exports = {
   CASHOUT_CHECKPOINTS,
   CHARM_DECAY_GRACE_SECONDS,
+  DEFAULT_TIER_PLAN,
   DEFAULT_REWARD_TABLE,
   DIGNITY_BASE,
   DIGNITY_BONUS_TIERS,

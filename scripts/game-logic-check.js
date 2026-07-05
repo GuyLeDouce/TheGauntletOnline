@@ -3,6 +3,8 @@ const assert = require("assert");
 const { QUESTIONS, validateQuestions } = require("../server/interview-questions");
 const {
   CHARM_DECAY_GRACE_SECONDS,
+  DEFAULT_TIER_PLAN,
+  buildRunPlan,
   rewardForProgress,
   rewardForTimedProgress,
   sanitizeQuestion,
@@ -59,6 +61,16 @@ for (let tier = 1; tier <= 5; tier += 1) {
 }
 
 validateQuestions(QUESTIONS);
+const plannedIds = buildRunPlan(QUESTIONS, 15);
+assert.strictEqual(plannedIds.length, 15, "Run plan should contain 15 questions");
+const plannedQuestions = plannedIds.map((id) => QUESTIONS.find((question) => question.id === id));
+for (const { tier, count } of DEFAULT_TIER_PLAN) {
+  assert.strictEqual(
+    plannedQuestions.filter((question) => question?.tier === tier).length,
+    count,
+    `Run plan should include ${count} tier ${tier} question(s)`
+  );
+}
 const sanitized = sanitizeQuestion(QUESTIONS[0], 1, { interviewLength: 15 }, config);
 assert.strictEqual(typeof sanitized.prompt.en, "string", "Sanitized question should include English prompt display text");
 assert.strictEqual(typeof sanitized.prompt.fr, "string", "Sanitized question should include French prompt display text");

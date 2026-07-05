@@ -23,7 +23,7 @@ const translationGlossary = window.UglyTranslationGlossary || {
 
 const API_TIMEOUT_MS = 8000;
 const DEFAULT_CONFIG = {
-  appName: "InSquignito's Ugly Interview",
+  appName: "The InSquigniation",
   rewardCooldownHours: 24,
   scanCacheMinutes: 15,
   allowZeroSquigReward: false,
@@ -315,7 +315,7 @@ function setStageScene(key, options = {}) {
     els.sceneImage.classList.remove("is-fading");
   };
   els.sceneImage.src = asset.url;
-  els.sceneImage.alt = asset.alt || "InSquignito's Ugly Interview scene";
+  els.sceneImage.alt = asset.alt || "The InSquigniation scene";
 }
 
 function preloadImages() {
@@ -347,7 +347,7 @@ function renderFallbackMenu(message, action = "retry-connection") {
   els.stageDeskConsole.innerHTML = `
     <section class="desk-card desk-card--menu ugly-paper">
       <p class="sticker">Ugly Labs Connection Notice</p>
-      <h1>InSquignito's Ugly Interview</h1>
+      <h1>The InSquigniation</h1>
       <p class="subtitle">Get Hired. Get Roasted. Stay Ugly.</p>
       <p class="cooldown">${escapeHtml(message || "The office connection failed. Practice mode still works.")}</p>
       <div class="action-row">
@@ -1478,7 +1478,7 @@ async function init() {
       document.body.innerHTML = `
         <main class="app-shell">
           <section class="ugly-paper desk-card">
-            <h1>InSquignito's Ugly Interview</h1>
+            <h1>The InSquigniation</h1>
             <p class="cooldown">The office failed to boot. Refresh and try again.</p>
           </section>
         </main>
