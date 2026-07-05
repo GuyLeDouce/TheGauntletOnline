@@ -18,6 +18,21 @@ export const SUPPORTED_LANGUAGES = {
   es: "Español"
 };
 
+export const MUSIC_TRACKS = [
+  {
+    title: "The InSquigniation",
+    url: "/assets/audio/the-insquigniation.mp3"
+  },
+  {
+    title: "The Charm Run",
+    url: "/assets/audio/the-charm-run.mp3"
+  },
+  {
+    title: "The InSquigniation 2",
+    url: "/assets/audio/the-insquigniation-2.mp3"
+  }
+];
+
 export const UI_TRANSLATIONS = {
   en: {
     title: "The InSquigniation",

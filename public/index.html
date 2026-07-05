@@ -31,6 +31,25 @@
           </button>
         </div>
         <nav class="top-actions" aria-label="Primary">
+          <div class="music-player" id="musicPlayer">
+            <button type="button" class="music-toggle" id="musicToggle" data-audio-action="toggle-panel" aria-label="Music player" aria-expanded="false" aria-controls="musicPanel" title="Music player">
+              <span aria-hidden="true">MIX</span>
+            </button>
+            <div class="music-panel" id="musicPanel" hidden>
+              <p class="music-track" id="musicTrackName" data-no-translate>Music loading</p>
+              <div class="music-controls">
+                <button type="button" class="music-control" data-audio-action="previous" aria-label="Previous track" title="Previous track">PREV</button>
+                <button type="button" class="music-control music-control--primary" id="musicPlayToggle" data-audio-action="play-toggle" aria-label="Play music" title="Play music">PLAY</button>
+                <button type="button" class="music-control" data-audio-action="next" aria-label="Next track" title="Next track">NEXT</button>
+                <button type="button" class="music-control" id="musicMuteToggle" data-audio-action="mute-toggle" aria-label="Mute music" title="Mute music">MUTE</button>
+              </div>
+              <label class="music-volume" for="musicVolume">
+                <span>VOL</span>
+                <input id="musicVolume" type="range" min="0" max="100" step="1" value="45" aria-label="Music volume">
+              </label>
+            </div>
+            <audio id="musicAudio" preload="auto"></audio>
+          </div>
           <label class="language-control" for="languageSelect">
             <span data-i18n="languageLabel">Language</span>
             <select id="languageSelect" aria-label="Language">

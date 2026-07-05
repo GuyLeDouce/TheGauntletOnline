@@ -3,6 +3,7 @@ import {
   CLAIM_STATUS_COPY,
   CLAIM_STATUS_IMAGE_KEYS,
   HOW_IT_WORKS,
+  MUSIC_TRACKS,
   OFFICE_IMAGES,
   PRELOAD_IMAGE_KEYS,
   SUPPORTED_LANGUAGES,
@@ -14,7 +15,10 @@ window.__uglyAppModuleLoaded = true;
 
 const STORAGE_KEYS = {
   clientId: "insquignito-client-id",
-  language: "insquignito-language"
+  language: "insquignito-language",
+  musicTrack: "insquignito-music-track",
+  musicVolume: "insquignito-music-volume",
+  musicMuted: "insquignito-music-muted"
 };
 
 const translationGlossary = window.UglyTranslationGlossary || {
@@ -54,7 +58,15 @@ const els = {
   scanDialog: document.getElementById("scanDialog"),
   scanDetails: document.getElementById("scanDetails"),
   leaveDialog: document.getElementById("leaveDialog"),
-  disconnectDialog: document.getElementById("disconnectDialog")
+  disconnectDialog: document.getElementById("disconnectDialog"),
+  musicPlayer: document.getElementById("musicPlayer"),
+  musicToggle: document.getElementById("musicToggle"),
+  musicPanel: document.getElementById("musicPanel"),
+  musicAudio: document.getElementById("musicAudio"),
+  musicTrackName: document.getElementById("musicTrackName"),
+  musicPlayToggle: document.getElementById("musicPlayToggle"),
+  musicMuteToggle: document.getElementById("musicMuteToggle"),
+  musicVolume: document.getElementById("musicVolume")
 };
 
 els.languageSelect = document.getElementById("languageSelect");
@@ -80,7 +92,16 @@ const state = {
   eventsWired: false,
   bootError: "",
   language: "en",
-  translationCache: new Map()
+  translationCache: new Map(),
+  music: {
+    tracks: MUSIC_TRACKS.filter((track) => track?.url),
+    trackIndex: 0,
+    volume: 0.45,
+    muted: false,
+    playing: false,
+    needsPlay: false,
+    initialized: false
+  }
 };
 
 class ApiError extends Error {
@@ -99,6 +120,170 @@ function getOrCreateClientId() {
     localStorage.setItem(STORAGE_KEYS.clientId, clientId);
   }
   return clientId;
+}
+
+function clampNumber(value, min, max, fallback) {
+  if (value === null || value === "") return fallback;
+  const number = Number(value);
+  if (!Number.isFinite(number)) return fallback;
+  return Math.min(max, Math.max(min, number));
+}
+
+function getMusicTrack(index = state.music.trackIndex) {
+  if (!state.music.tracks.length) return null;
+  const safeIndex = ((index % state.music.tracks.length) + state.music.tracks.length) % state.music.tracks.length;
+  return state.music.tracks[safeIndex];
+}
+
+function loadMusicSettings() {
+  state.music.trackIndex = clampNumber(localStorage.getItem(STORAGE_KEYS.musicTrack), 0, Math.max(state.music.tracks.length - 1, 0), 0);
+  state.music.volume = clampNumber(localStorage.getItem(STORAGE_KEYS.musicVolume), 0, 1, 0.45);
+  state.music.muted = localStorage.getItem(STORAGE_KEYS.musicMuted) === "true";
+}
+
+function persistMusicSettings() {
+  localStorage.setItem(STORAGE_KEYS.musicTrack, String(state.music.trackIndex));
+  localStorage.setItem(STORAGE_KEYS.musicVolume, String(state.music.volume));
+  localStorage.setItem(STORAGE_KEYS.musicMuted, String(state.music.muted));
+}
+
+function setMusicPanelOpen(open) {
+  if (!els.musicPanel || !els.musicToggle) return;
+  els.musicPanel.hidden = !open;
+  els.musicToggle.setAttribute("aria-expanded", open ? "true" : "false");
+}
+
+function syncMusicUi() {
+  const track = getMusicTrack();
+  if (els.musicTrackName) {
+    els.musicTrackName.textContent = track ? track.title : "No music";
+  }
+  if (els.musicPlayToggle) {
+    els.musicPlayToggle.textContent = state.music.playing ? "PAUSE" : "PLAY";
+    els.musicPlayToggle.setAttribute("aria-label", state.music.playing ? "Pause music" : "Play music");
+    els.musicPlayToggle.title = state.music.playing ? "Pause music" : "Play music";
+  }
+  if (els.musicMuteToggle) {
+    els.musicMuteToggle.textContent = state.music.muted ? "UNMUTE" : "MUTE";
+    els.musicMuteToggle.setAttribute("aria-label", state.music.muted ? "Unmute music" : "Mute music");
+    els.musicMuteToggle.title = state.music.muted ? "Unmute music" : "Mute music";
+  }
+  if (els.musicVolume) {
+    els.musicVolume.value = String(Math.round(state.music.volume * 100));
+  }
+  if (els.musicAudio) {
+    els.musicAudio.volume = state.music.volume;
+    els.musicAudio.muted = state.music.muted;
+  }
+  els.musicPlayer?.classList.toggle("is-playing", state.music.playing);
+  els.musicPlayer?.classList.toggle("is-muted", state.music.muted);
+  els.musicPlayer?.classList.toggle("needs-play", state.music.needsPlay && !state.music.playing);
+}
+
+function loadMusicTrack(index = state.music.trackIndex) {
+  const track = getMusicTrack(index);
+  if (!track || !els.musicAudio) return;
+  state.music.trackIndex = ((index % state.music.tracks.length) + state.music.tracks.length) % state.music.tracks.length;
+  const nextSrc = new URL(track.url, window.location.origin).href;
+  if (els.musicAudio.src !== nextSrc) {
+    els.musicAudio.src = track.url;
+    els.musicAudio.load();
+  }
+  persistMusicSettings();
+  syncMusicUi();
+}
+
+async function playMusic() {
+  if (!els.musicAudio || !state.music.tracks.length) return;
+  if (!els.musicAudio.src) loadMusicTrack(state.music.trackIndex);
+  try {
+    await els.musicAudio.play();
+    state.music.playing = true;
+    state.music.needsPlay = false;
+  } catch (error) {
+    state.music.playing = false;
+    state.music.needsPlay = true;
+  }
+  syncMusicUi();
+}
+
+function pauseMusic() {
+  els.musicAudio?.pause();
+  state.music.playing = false;
+  state.music.needsPlay = false;
+  syncMusicUi();
+}
+
+async function selectMusicTrack(offset) {
+  const shouldPlay = state.music.playing || state.music.needsPlay;
+  pauseMusic();
+  loadMusicTrack(state.music.trackIndex + offset);
+  if (shouldPlay) await playMusic();
+}
+
+async function handleAudioAction(action) {
+  if (!state.music.tracks.length) return;
+  if (action === "toggle-panel") {
+    setMusicPanelOpen(els.musicPanel?.hidden !== false);
+    return;
+  }
+  if (action === "play-toggle") {
+    if (state.music.playing) pauseMusic();
+    else await playMusic();
+    return;
+  }
+  if (action === "previous") {
+    await selectMusicTrack(-1);
+    return;
+  }
+  if (action === "next") {
+    await selectMusicTrack(1);
+    return;
+  }
+  if (action === "mute-toggle") {
+    state.music.muted = !state.music.muted;
+    persistMusicSettings();
+    syncMusicUi();
+    if (!state.music.playing) await playMusic();
+  }
+}
+
+function initMusicPlayer() {
+  if (state.music.initialized || !els.musicPlayer || !els.musicAudio) return;
+  state.music.initialized = true;
+  loadMusicSettings();
+  loadMusicTrack(state.music.trackIndex);
+  syncMusicUi();
+
+  els.musicAudio.addEventListener("ended", () => {
+    selectMusicTrack(1).catch(() => {});
+  });
+  els.musicAudio.addEventListener("pause", () => {
+    if (!els.musicAudio.ended) {
+      state.music.playing = false;
+      syncMusicUi();
+    }
+  });
+  els.musicAudio.addEventListener("play", () => {
+    state.music.playing = true;
+    state.music.needsPlay = false;
+    syncMusicUi();
+  });
+  els.musicVolume?.addEventListener("input", (event) => {
+    state.music.volume = clampNumber(Number(event.target.value) / 100, 0, 1, 0.45);
+    if (state.music.volume > 0 && state.music.muted) state.music.muted = false;
+    persistMusicSettings();
+    syncMusicUi();
+  });
+
+  const startAfterGesture = () => {
+    if (!state.music.playing) playMusic().catch(() => {});
+  };
+  document.addEventListener("pointerdown", startAfterGesture, { once: true, capture: true });
+  document.addEventListener("keydown", startAfterGesture, { once: true, capture: true });
+  window.setTimeout(() => {
+    playMusic().catch(() => {});
+  }, 250);
 }
 
 async function apiFetch(url, options = {}) {
@@ -1284,6 +1469,17 @@ function wireEvents() {
   state.eventsWired = true;
   window.__uglyAppReady = true;
   document.addEventListener("click", async (event) => {
+    const audioButton = event.target.closest("[data-audio-action]");
+    if (audioButton) {
+      event.preventDefault();
+      await handleAudioAction(audioButton.dataset.audioAction);
+      return;
+    }
+
+    if (!event.target.closest("#musicPlayer")) {
+      setMusicPanelOpen(false);
+    }
+
     const navLink = event.target.closest("[data-nav='squigs']");
     if (navLink) {
       event.preventDefault();
@@ -1430,6 +1626,7 @@ async function init() {
     state.clientId = getOrCreateClientId();
     wireEvents();
     setLanguage(getSavedLanguage(), { rerender: false });
+    initMusicPlayer();
     preloadImages();
     renderMenuScene();
 

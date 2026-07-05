@@ -48,7 +48,11 @@ const MIME_TYPES = {
   ".gif": "image/gif",
   ".svg": "image/svg+xml",
   ".ico": "image/x-icon",
-  ".webp": "image/webp"
+  ".webp": "image/webp",
+  ".mp3": "audio/mpeg",
+  ".m4a": "audio/mp4",
+  ".ogg": "audio/ogg",
+  ".wav": "audio/wav"
 };
 
 validateQuestions(QUESTIONS);
