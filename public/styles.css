@@ -1251,16 +1251,16 @@ input {
   }
 
   .brand-logo {
-    width: clamp(108px, 30vw, 140px);
-    max-height: 58px;
+    width: clamp(100px, 28vw, 132px);
+    max-height: 54px;
   }
 
   .brand-row {
-    gap: 6px;
+    gap: 4px;
   }
 
   .nav-image-button {
-    --nav-image-height: clamp(28px, 5vw, 42px);
+    --nav-image-height: clamp(24px, 4.4vw, 36px);
   }
 
   .nav-image-button img {
@@ -1570,18 +1570,18 @@ input {
 
 @media (max-width: 520px) {
   .brand-logo {
-    width: clamp(78px, 25vw, 108px);
-    max-height: 44px;
+    width: clamp(72px, 23vw, 98px);
+    max-height: 40px;
   }
 
   .brand-row {
     flex-wrap: nowrap;
-    justify-content: center;
-    gap: 5px;
+    justify-content: flex-start;
+    gap: 3px;
   }
 
   .nav-image-button {
-    --nav-image-height: clamp(19px, 6.2vw, 29px);
+    --nav-image-height: clamp(16px, 5.5vw, 25px);
   }
 
   .nav-image-button img {
