@@ -57,11 +57,34 @@ async function main() {
   assert(terms.indexOf("Squigs Reloaded") < terms.indexOf("Squigs"), "Squigs Reloaded must match before Squigs");
 
   [
+    "The InSquigniation",
+    "Squigchain",
+    "OpenSea",
+    "Coinbase",
+    "LooksRare",
+    "Seaport",
+    "Wyvern",
+    "Blur",
+    "ENS",
+    "WETH",
+    "USDC",
+    "DAI",
+    "ETH",
+    "ERC1155",
+    "ERC721",
+    "ERC20",
+    "ERC165",
+    "SetApprovalForAll",
+    "TokenID"
+  ].forEach((term) => assert(terms.includes(term), `Missing protected brand or protocol term: ${term}`));
+
+  [
     "Discord, Revive Pill, and $CHARM.",
     "Scan Squigs Reloaded for Revive Pill Tokens!",
     "InSquignito’s Ugly Interview uses DRIP.",
     "Connect Discord and scan your wallet for Revive Pill Tokens before claiming $CHARM through DRIP.",
-    "Your Squigs Reloaded scan found a Revive Pill."
+    "Your Squigs Reloaded scan found a Revive Pill.",
+    "The InSquigniation teaches Squigchain onboarding with OpenSea, Coinbase, Seaport, ENS, ETH, and ERC721."
   ].forEach((sample) => {
     const protectedInput = glossary.protectTermsForTranslation(sample);
     const restored = glossary.restoreProtectedTerms(protectedInput.text, protectedInput.replacements);
